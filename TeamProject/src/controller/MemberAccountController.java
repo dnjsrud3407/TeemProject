@@ -10,16 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.action.QDeleteProAction;
-import board.action.QModifyFormAction;
-import board.action.QModifyProAction;
-import board.action.QWriteFormProAction;
-import member.book.action.QWriteListAction;
-import member.book.action.QdetailAction;
+import member.account.action.DeleteProAction;
+import member.account.action.FindIdProAction;
+import member.account.action.FindPassProAction;
+import member.account.action.JoinProAction;
+import member.account.action.LoginProAction;
+import member.account.action.LogoutProAction;
+import member.account.action.ModifyAction;
+import member.account.action.OffInfoAction;
 import vo.ActionForward;
 
-@WebServlet("*.bo")
-public class BoardController extends HttpServlet {
+@WebServlet("*.me")
+public class MemberAccountController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		
@@ -34,58 +36,88 @@ public class BoardController extends HttpServlet {
 		Action action = null;
 	ActionForward forward = null;
 	
-	if (command.equals("/QWriteForm.bo")) {//
+	if (command.equals("/Login.me")) {//
 		forward = new ActionForward();
-		forward.setPath("/QWriteForm.jsp");
-	}else if(command.equals("/WriteFormPro.bo")) {//
-		action = new QWriteFormProAction();
-		try {
-			forward=action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}else if(command.equals("/QModify.bo")) {//1:1문의 수정폼
+		forward.setPath("/member/login.jsp");
 		
-		action = new QModifyFormAction();
-		try {
-			forward=action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}else if(command.equals("/QModifyPro.bo")) {//1:1문의 수정
+	}else if(command.equals("/LoginPro.me")) {//�α��ι�ư����
 		
-		action = new QModifyProAction();
-		try {
-			forward=action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}else if(command.equals("/QDeletePro.bo")) {//1:1문의 삭제
+		action = new LoginProAction();
 		
-		action = new QDeleteProAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/QWriteList.bo")) {//1:1 문의내역보기
+	}else if(command.equals("/LogoutPro.me")) {//�α׾ƿ�
 		
-		action = new QWriteListAction();
-		try {
-			forward=action.execute(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}else if(command.equals("/Qdetail.bo")) {//1:1 문의내역보기
+		action = new LogoutProAction();
 		
-		action = new QdetailAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}else if(command.equals("/FindId.me")) {//���̵�ã�� ��
+		forward = new ActionForward();
+		forward.setPath("/member/findId.jsp");
+		
+	}else if(command.equals("/FindIdPro.me")) {//���̵�ã�� �׼�
+		action = new FindIdProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/FindPass.me")) {//
+		forward = new ActionForward();
+		forward.setPath("/member/findPass.jsp");
+		
+	}else if(command.equals("/FindPassPro.me")) {//
+		action = new FindPassProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/JoinForm.me")) {//회원가입
+		forward = new ActionForward();
+		forward.setPath("/member/join.jsp");
+		
+	}else if(command.equals("/JoinPro.me")) {//
+		forward = new ActionForward();
+		action = new JoinProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/OffInfo.me")) {//
+		action = new OffInfoAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/DeleteForm.me")) {//
+		forward = new ActionForward();
+		forward.setPath("/member/delete.jsp"); //
+		
+	}else if(command.equals("/DeletePro.me")) {
+		action = new DeleteProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/Modify.me")) {//
+		action = new ModifyAction();
+		forward = new ActionForward();
+		forward.setPath("/member/modify.jsp"); //
+		
 	}
-	
+		
+		 
 		
 		
 		
@@ -101,7 +133,7 @@ public class BoardController extends HttpServlet {
 			}
 			
 		}else {
-			System.out.println("ActionFoward�� null �̴�");
+			System.out.println("ActionFoward객체 널");
 		}
 	}
 	
