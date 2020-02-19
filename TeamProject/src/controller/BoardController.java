@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import board.action.FAQ_ListAction;
 import board.action.QDeleteProAction;
 import board.action.QModifyFormAction;
 import board.action.QModifyProAction;
 import board.action.QWriteFormProAction;
+import board.action.Q_DeleteProAction;
 import board.action.Q_DetailAction;
 import board.action.Q_ListAction;
 import board.action.Q_ModifyFormAction;
@@ -112,9 +114,24 @@ public class BoardController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if(command.equals("/Q_ModifyPro.bo")) {
-			System.out.println("hi");
 			// 1:1 글 수정하기 작업 
 			action = new Q_ModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/Q_DeleteForm.bo")) {
+			// 1:1 글 삭제하기 폼
+			action = new Q_DeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/FAQ_List.bo")) {
+			// FAQ List 보기 FAQ_ListAction()
+			action = new FAQ_ListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
