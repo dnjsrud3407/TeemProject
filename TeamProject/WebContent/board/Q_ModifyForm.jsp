@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="Q_ModifyPro.bo">
+	<form action="Q_ModifyPro.bo" method="post">
 		 
 		 사용자가 질문한 내용<br>
 		 

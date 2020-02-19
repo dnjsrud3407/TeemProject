@@ -11,6 +11,7 @@ public class Q_ModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("hi");
 		ActionForward forward = null;
 		Q_ModifyProService q_ModifyProService = new Q_ModifyProService();
 		q_ModifyProService.modifyArticle();
