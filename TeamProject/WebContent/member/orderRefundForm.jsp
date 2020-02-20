@@ -9,7 +9,7 @@
 <body>
 반품 신청 하는 폼
 
-<form action="OrderRefundPro.mb" method="post">
+<form action="OrderRefundPro.mo" method="post">
 <input type="submit" value="반품신청">
 
 </form>

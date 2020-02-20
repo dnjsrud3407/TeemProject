@@ -4,22 +4,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.svc.QDetailService;
+import board.svc.FAQDetailService;
 import vo.ActionForward;
 
-public class QModifyFormAction implements Action {
+public class FAQModifyFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		System.out.println("FAQ_ModifyFormAction");
 		
-		// 사용자가 1:1 작성한 것을 불러옴
-		// and 관리자가 작성한 것도 불러옴
-		QDetailService q_DetailService = new QDetailService();
-		q_DetailService.getArticle();
+		// 사용자가 FAQ 작성한 것을 불러옴
+		FAQDetailService faq_DetailService = new FAQDetailService();
+		faq_DetailService.getArticle();
 		
 		forward = new ActionForward();
-		forward.setPath("./board/QModifyForm.jsp");
+		forward.setPath("./board/FAQModifyForm.jsp");
 		
 		return forward;
 	}

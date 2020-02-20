@@ -14,7 +14,7 @@ public class ExchangeProAction implements Action {
 		ActionForward forward = null;
 		System.out.println("ExchangeProAction");
 		
-		ExchangeProService ExchangeProService = new ExchangeProService();
+		ExchangeProService exchangeProService = new ExchangeProService();
 		
 		
 		

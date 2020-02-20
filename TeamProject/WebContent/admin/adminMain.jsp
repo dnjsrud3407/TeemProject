@@ -22,7 +22,7 @@
         </li>
 		<li>게시판관리
             <ul>
-                <li><a href="../Q_List.bo">1:1답변목록(답변/수정/삭제)</a></li>
+                <li><a href="../QList.bo">1:1답변목록(답변/수정/삭제)</a></li>
                 <li><a href="../FAQ_List.bo">FAQ목록(답변/수정/삭제)</a></li>
                 <li><a href="../Notice_List.bo">배너 - 공지사항/이벤트목록(작성/수정/삭제)</a></li>
             </ul>

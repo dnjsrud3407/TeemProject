@@ -15,7 +15,7 @@ public class OrderDetailAction implements Action {
 		System.out.println("OrderDetailAction");
 		
 		
-		OrderDetailService OrderDetailService = new OrderDetailService();
+		OrderDetailService orderDetailService = new OrderDetailService();
 		
 
 		forward = new ActionForward();

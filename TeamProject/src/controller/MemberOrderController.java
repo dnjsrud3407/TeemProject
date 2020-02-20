@@ -38,7 +38,7 @@ public class MemberOrderController extends HttpServlet {
 		Action action = null;
 	ActionForward forward = null;
 	
-	if (command.equals("/OrderList.mb")) {//상품구매리스트
+	if (command.equals("/OrderList.mo")) {//상품구매리스트
 		action = new OrderListAction();
 		
 		try {
@@ -47,63 +47,64 @@ public class MemberOrderController extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderDetail.mb")) {//
+	}else if(command.equals("/OrderDetail.mo")) {//
 		action = new OrderDetailAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderDelivery.mb")) {// 배송조회
+	}else if(command.equals("/OrderDelivery.mo")) {// 배송조회
 		action = new OrderDeliveryAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderCancel.mb")) {// 주문취소
+	}else if(command.equals("/OrderCancel.mo")) {// 주문취소
 		action = new OrderCancelFormAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderCancelPro.mb")) {// 주문취소 누름
+	}else if(command.equals("/OrderCancelPro.mo")) {// 주문취소 누름
 		action = new OrderCancelProAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderExchange.mb")) {// 주문교환신청
+	}else if(command.equals("/OrderExchange.mo")) {// 주문교환신청
 		action = new ExchangeFormAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderExchangePro.mb")) {// 주문교환신청 누름
+	}else if(command.equals("/OrderExchangePro.mo")) {// 주문교환신청 누름
 		action = new ExchangeProAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderQList.mb")) {
+	}else if(command.equals("/OrderQList.mo")) {
+		System.out.println("ddd");
 		action = new OrderQListAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderRefund.mb")) {
+	}else if(command.equals("/OrderRefund.mo")) {
 		action = new OrderRefundFormAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/OrderRefundPro.mb")) {
+	}else if(command.equals("/OrderRefundPro.mo")) {
 		action = new OrderRefundFormActionPro();
 		try {
 			forward=action.execute(request, response);

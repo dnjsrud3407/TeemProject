@@ -16,7 +16,7 @@ public class ExchangeFormAction implements Action {
 		System.out.println("ExchangeFormAction");
 		
 		
-		ExchangeFormService memberBoardExchangeFormService = new ExchangeFormService();
+		ExchangeFormService exchangeFormService = new ExchangeFormService();
 		
 		
 		

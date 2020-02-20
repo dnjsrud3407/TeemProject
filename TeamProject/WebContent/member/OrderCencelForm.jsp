@@ -14,7 +14,7 @@
 *주문취소 사유 적는 폼 <br>
 
 
-<form action="OrderList.mb" method="post">
+<form action="OrderList.mo" method="post">
 <input type="submit" value="주문취소완료">
 </form>
 

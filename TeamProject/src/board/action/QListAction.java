@@ -1,25 +1,26 @@
 package board.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.svc.QDetailService;
+import board.svc.QListService;
 import vo.ActionForward;
 
-public class QModifyFormAction implements Action {
+public class QListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+//		System.out.println("1:1 문의 내역 보기");
 		
-		// 사용자가 1:1 작성한 것을 불러옴
-		// and 관리자가 작성한 것도 불러옴
-		QDetailService q_DetailService = new QDetailService();
-		q_DetailService.getArticle();
+		QListService q_ListService = new QListService();
+		ArrayList list = q_ListService.getList();
 		
 		forward = new ActionForward();
-		forward.setPath("./board/QModifyForm.jsp");
+		forward.setPath("./board/QList.jsp");
 		
 		return forward;
 	}

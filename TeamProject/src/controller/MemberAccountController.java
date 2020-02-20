@@ -40,7 +40,7 @@ public class MemberAccountController extends HttpServlet {
 		forward = new ActionForward();
 		forward.setPath("/member/login.jsp");
 		
-	}else if(command.equals("/LoginPro.me")) {//�α��ι�ư����
+	}else if(command.equals("/LoginPro.me")) {//
 		
 		action = new LoginProAction();
 		

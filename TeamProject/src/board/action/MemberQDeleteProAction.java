@@ -4,23 +4,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.svc.QDetailService;
+import board.svc.MemberQDeleteProService;
 import vo.ActionForward;
 
-public class QModifyFormAction implements Action {
+public class MemberQDeleteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		System.out.println("BoardQDeleteAction");
+	
 		
-		// 사용자가 1:1 작성한 것을 불러옴
-		// and 관리자가 작성한 것도 불러옴
-		QDetailService q_DetailService = new QDetailService();
-		q_DetailService.getArticle();
+		
+		MemberQDeleteProService boardQDeleteService = new MemberQDeleteProService();
+		
 		
 		forward = new ActionForward();
-		forward.setPath("./board/QModifyForm.jsp");
-		
+		forward.setPath("/member/QList.jsp");
 		return forward;
 	}
 

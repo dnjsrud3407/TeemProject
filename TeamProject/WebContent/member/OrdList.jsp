@@ -9,23 +9,23 @@
 <body>
 주문목록조회
 
-<form action="OrderDetail.mb" method="post">
+<form action="OrderDetail.mo" method="post">
 <input type="submit" value="주문한거">
 
 </form>
-<form action="OrderCancel.mb" method="post">
+<form action="OrderCancel.mo" method="post">
 <input type="submit" value="주문취소">
 
 </form>
-<form action="OrderDelivery.mb" method="post">
+<form action="OrderDelivery.mo" method="post">
 <input type="submit" value="배송조회">
 
 </form>
-<form action="OrderExchange.mb" method="post">
+<form action="OrderExchange.mo" method="post">
 <input type="submit" value="교환신청">
 
 </form>
-<form action="OrderRefund.mb" method="post">
+<form action="OrderRefund.mo" method="post">
 <input type="submit" value="반품신청">
 
 </form>

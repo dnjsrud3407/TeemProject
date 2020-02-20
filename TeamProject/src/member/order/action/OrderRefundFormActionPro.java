@@ -14,7 +14,7 @@ public class OrderRefundFormActionPro implements Action {
 		System.out.println("OrderRefundFormAction");
 		
 		forward = new ActionForward();
-		forward.setPath("OrderList.mb");
+		forward.setPath("OrderList.mo");
 		return forward;
 	}
 

@@ -12,15 +12,13 @@ public class QDeleteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("BoardQDeleteAction");
-	
 		
-		
-		QDeleteProService boardQDeleteService = new QDeleteProService();
-		
+		QDeleteProService q_DeleteProService = new QDeleteProService();
+		q_DeleteProService.deleteArticle();
 		
 		forward = new ActionForward();
-		forward.setPath("/member/QList.jsp");
+		forward.setPath("QList.bo");
+		forward.setRedirect(true);
 		return forward;
 	}
 

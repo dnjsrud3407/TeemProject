@@ -13,7 +13,7 @@
 *주문했던 상품 정보
 *주문교환 사유 
 
-<form action="OrderList.mb" method="post">
+<form action="OrderList.mo" method="post">
 <input type="submit" value="주문교환완료">
 </form>
 
