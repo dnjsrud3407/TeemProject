@@ -41,7 +41,7 @@
 
 				<li><a href="BookList.book">새로나온책</a></li>
 
-				<li><a href="">베스트셀러</a></li>
+				<li><a href="BookList.book">베스트셀러</a></li>
 
 				<li>단계별
 
@@ -63,13 +63,13 @@
 
 					<ul>
 
-						<li><a href="">JAVA</a></li>
+						<li><a href="BookList.book?stage=1">JAVA</a></li>
 
-						<li><a href="">JSP</a></li>
+						<li><a href="BookList.book?stage=1">JSP</a></li>
 
-						<li><a href="">HTML/CSS</a></li>
+						<li><a href="BookList.book?stage=1">HTML/CSS</a></li>
 
-						<li><a href="">DATABASE</a></li>
+						<li><a href="BookList.book?stage=1">DATABASE</a></li>
 
 					</ul>
 
