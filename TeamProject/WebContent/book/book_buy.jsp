@@ -1,100 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String sid = null;
-// 로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
-	if(session.getAttribute("sid") == null) {
-		out.println("<script>");
-		out.println("alert('This service requires a login')");
-		out.println("location.href='LoginForm.me'");
-		out.println("</script>");
-	} else {// 로그인 된 상태일 경우 세션 ID 가져오기
-		sid = (String)session.getAttribute("sid");
-	}
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>MVC Board</title>
-<style type="text/css">
-	#registForm {
-		width: 500px;
-		height: 610px;
-		border: 1px solid red;
-		margin: auto;
-	}
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript">
+function requestPay() {
+	var IMP = window.IMP; // 생략가능
+	IMP.init('imp39182007');
 	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 450px;
-		border: 1px solid darkgray;
-	}
-	
-	.td_left {
-		width: 150px;
-		background: orange;
-	}
-	
-	.td_right {
-		width: 300px;
-		background: skyblue;
-	}
-	
-	#commandCell {
-		text-align: center;
-	}
-	header {
-	text-align: right;
+	IMP.request_pay({
+	    pg : 'inicis', // version 1.1.0부터 지원.
+	    pay_method : 'card',
+	    merchant_uid : 'merchant_' + new Date().getTime(),
+	    name : '주문명:결제테스트',
+	    amount : 100,
+	    buyer_email : 'iamport@siot.do',
+	    buyer_name : '구매자이름',
+	    buyer_tel : '010-1234-5678',
+	    buyer_addr : '서울특별시 강남구 삼성동',
+	    buyer_postcode : '123-456',
+	}, function(rsp) {
+	    if ( rsp.success ) {
+	        var msg = '결제가 완료되었습니다.';
+	        msg += '고유ID : ' + rsp.imp_uid;
+	        msg += '상점 거래ID : ' + rsp.merchant_uid;
+	        msg += '결제 금액 : ' + rsp.paid_amount;
+	        msg += '카드 승인번호 : ' + rsp.apply_num;
+	    } else {
+	        var msg = '결제에 실패하였습니다.';
+	        msg += '에러내용 : ' + rsp.error_msg;
+	    }
+	    alert(msg);
+	});
 }
-</style>
+
+</script>
 </head>
 <body>
-	<header>
-		<!-- 세션ID(sId) 가 없을 경우 로그인(LoginForm.me), 회원가입(JoinForm.me) 링크 표시 -->
-		<!-- 세션ID(sId) 가 있을 경우 회원ID, 로그아웃(Logout.me)링크 표시 -->
-		<%if(sid == null) {%>
-			<a href="LoginForm.me">Login</a> | <a href="JoinForm.me">Join</a>
-		<%} else { %>
-			Welcome <%=sid %> :D | <a href="Logout.me">Logout</a>
-		<%} %>
-	</header>
-	<!-- 게시판 글 등록 -->
-	<section id="writeForm">
-		<h2>Posts Board</h2>
-		<form action="BoardWritePro.bo" method="post" enctype="multipart/form-data" name="boardform">
-			<table>
-				<tr>
-					<!-- label 태그를 사용하여 해당 레이블 클릭 시 for 속성에 지정된 이름과 같은 id 속성을 갖는 텍스트필드로 커서 요청 -->
-					<td class="td_left"><label for="board_name">Username</label></td>
-					<td class="td_right"><input type="text" name="board_name" id="board_name" required="required" /></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_pass">Password</label></td>
-					<td class="td_right"><input type="password" name="board_pass" id="board_pass" required="required" /></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_subject">Subject</label></td>
-					<td class="td_right"><input type="text" name="board_subject" id="board_subject" required="required" /></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_content">Content</label></td>
-					<td class="td_right"><textarea name="board_content" id="board_content" cols="40" rows="15" required="required" ></textarea></td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_file">Attached File</label></td>
-					<td class="td_right"><input type="file" name="board_file" id="board_file" required="required" /></td>
-				</tr>
-			</table>
-			<section id="commandCell">
-				<input type="submit" value="confirm" />&nbsp;&nbsp;
-				<input type="reset" value="Cencel" />
-			</section>
-		</form>	
-	</section>
+	
+    <p>아임 서포트 결제 모듈 테스트 해보기</p>
+    <input type="button" id="check_module" value="결제하기1" onclick="requestPay()">
 </body>
 </html>
