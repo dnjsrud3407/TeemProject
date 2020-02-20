@@ -7,6 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h2>book_like.jsp</h2>
+		<a href="#">찜목록입니다</a>
 
 </body>
 </html>

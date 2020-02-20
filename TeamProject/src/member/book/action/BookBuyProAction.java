@@ -18,8 +18,7 @@ public class BookBuyProAction implements Action {
 
 		
 		forward = new ActionForward();
-		forward.setPath("Book.book");
-		forward.setRedirect(true);
+		forward.setPath("/book/book_buy.jsp");
 				
 		
 		return forward;

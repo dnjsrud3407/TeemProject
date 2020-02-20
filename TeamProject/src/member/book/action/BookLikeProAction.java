@@ -19,8 +19,7 @@ public class BookLikeProAction implements Action {
 
 		
 		forward = new ActionForward();
-		forward.setPath("Book.book");
-		forward.setRedirect(true);
+		forward.setPath("/book/book_like.jsp");
 				
 		
 		return forward;
