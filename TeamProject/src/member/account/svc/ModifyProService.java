@@ -1,5 +1,5 @@
 package member.account.svc;
 
-public class ModifyService {
+public class ModifyProService {
 
 }

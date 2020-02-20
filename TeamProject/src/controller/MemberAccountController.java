@@ -16,7 +16,8 @@ import member.account.action.FindPassProAction;
 import member.account.action.JoinProAction;
 import member.account.action.LoginProAction;
 import member.account.action.LogoutProAction;
-import member.account.action.ModifyAction;
+import member.account.action.ModifyFormAction;
+import member.account.action.ModifyProAction;
 import member.account.action.OffInfoAction;
 import vo.ActionForward;
 
@@ -49,7 +50,7 @@ public class MemberAccountController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/LogoutPro.me")) {//�α׾ƿ�
+	}else if(command.equals("/LogoutPro.me")) {//占싸그아울옙
 		
 		action = new LogoutProAction();
 		
@@ -58,11 +59,11 @@ public class MemberAccountController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/FindId.me")) {//���̵�ã�� ��
+	}else if(command.equals("/FindId.me")) {//占쏙옙占싱듸옙찾占쏙옙 占쏙옙
 		forward = new ActionForward();
 		forward.setPath("/member/findId.jsp");
 		
-	}else if(command.equals("/FindIdPro.me")) {//���̵�ã�� �׼�
+	}else if(command.equals("/FindIdPro.me")) {//占쏙옙占싱듸옙찾占쏙옙 占쌓쇽옙
 		action = new FindIdProAction();
 		try {
 			forward=action.execute(request, response);
@@ -80,7 +81,7 @@ public class MemberAccountController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}else if(command.equals("/JoinForm.me")) {//회원가입
+	}else if(command.equals("/JoinForm.me")) {//�쉶�썝媛��엯
 		forward = new ActionForward();
 		forward.setPath("/member/join.jsp");
 		
@@ -111,9 +112,20 @@ public class MemberAccountController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}else if(command.equals("/Modify.me")) {//
-		action = new ModifyAction();
-		forward = new ActionForward();
-		forward.setPath("/member/modify.jsp"); //
+		action = new ModifyFormAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/ModifyProAction.me")) {//
+		action = new ModifyProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 		
@@ -133,7 +145,7 @@ public class MemberAccountController extends HttpServlet {
 			}
 			
 		}else {
-			System.out.println("ActionFoward객체 널");
+			System.out.println("ActionFoward媛앹껜 �꼸");
 		}
 	}
 	
