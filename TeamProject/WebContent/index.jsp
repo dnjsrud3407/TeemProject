@@ -17,6 +17,8 @@
 <body>
 
 	<ul>
+		<li><a href="AdminMain.adm">관리자</a></li>
+	
 		<li><a href="JoinForm.me">회원가입</a></li>
 
 		<li><a href="Login.me">로그인</a></li>
@@ -33,7 +35,7 @@
 		
 		</li>
 
-		<li>교재구매
+		<li><a href="BookList.book">교재구매</a>
 
 			<ul>
 

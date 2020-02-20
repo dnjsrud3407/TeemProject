@@ -26,6 +26,7 @@ import board.action.QDeleteProAction;
 import board.action.QModifyFormAction;
 import board.action.QModifyProAction;
 import board.action.QWriteFormProAction;
+import board.action.QWriteListAction;
 import board.action.Q_DeleteProAction;
 import board.action.Q_DetailAction;
 import board.action.Q_ListAction;
@@ -33,8 +34,7 @@ import board.action.Q_ModifyFormAction;
 import board.action.Q_ModifyProAction;
 import board.action.Q_WriteFormAction;
 import board.action.Q_WriteProAction;
-import member.book.action.QWriteListAction;
-import member.book.action.QdetailAction;
+import board.action.QdetailAction;
 import vo.ActionForward;
 
 @WebServlet("*.bo")

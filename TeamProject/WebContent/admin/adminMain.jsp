@@ -8,8 +8,8 @@
 </head>
 <body>
 	<ul>
-		<li><a href="">회원관리</a></li>
-		<li><a href="">주문 / 매출 조회</a></li>
+		<li><a href="MemberList.adm">회원관리</a></li>
+		<li><a href="Order.adm">주문 / 매출 조회</a></li>
 		<li>제품관리
             <ul>
                 <li><a href="../List.abook">제품목록(수정/삭제/검색)</a></li>
