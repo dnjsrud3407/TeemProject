@@ -182,7 +182,7 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="mobile">Mobile Phone </label>
+			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
 			<div class="controls">
 			  <input type="text"  name="mobile" id="mobile" placeholder="Mobile Phone" name="phone_num"/> 
 			</div>
@@ -224,7 +224,7 @@
 		
 		
 		
-	<p><sup>*</sup>Required field	</p>
+	<p><sup>*</sup>Required field</p>
 	
 	<div class="control-group">
 			<div class="controls">
