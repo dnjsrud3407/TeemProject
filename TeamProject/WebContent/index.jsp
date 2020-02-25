@@ -38,7 +38,7 @@
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
-    <div class="span6"></strong></div>
+    <div class="span6"></div>
     <div class="span6">
     <div class="pull-right">
     <a href="AdminMain.adm">관리자</a> | 
