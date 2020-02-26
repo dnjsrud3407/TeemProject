@@ -10,12 +10,20 @@ import static db.JdbcUtil.*;
 
 public class JoinProService {
 
-	Connection con = getConnection();
 	
-	MemberDAO mDAO = MemberDAO.getInstance();
+	public boolean joinMember() {
+		boolean isJoinSucess = false;
+		
+		Connection con = getConnection();
+		
+		MemberDAO mDAO = MemberDAO.getInstance();
+		
+		mDAO.setConnection(con);
+		
+		return isJoinSucess;
+	}
+}	
 	
 	
 	
-	
-	
-}
+
