@@ -102,7 +102,7 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-	 <div id="sidebar" class="span3" style="width: 120px;">
+	 <div id="sidebar" class="span3">
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <li class="subMenu open"><a> 단계별</a>
                 <ul>
