@@ -32,6 +32,7 @@ public class JoinProAction implements Action {
 		
 		// MemberJoinProService 클래스의 joinMember() 메서드 호출하여 추가 작업 요청
 				// => 파라미터 : MemberBean      리턴타입 : boolean
+		
 		forward = new ActionForward();
 		forward.setPath("/member/login.jsp");
 		return forward;
