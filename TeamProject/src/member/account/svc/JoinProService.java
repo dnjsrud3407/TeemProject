@@ -4,6 +4,7 @@ package member.account.svc;
 import java.sql.Connection;
 
 import dao.MemberDAO;
+import vo.MemberBean;
 
 import static db.JdbcUtil.*;
 
@@ -11,8 +12,8 @@ import static db.JdbcUtil.*;
 public class JoinProService {
 
 	
-	public boolean joinMember() {
-		boolean isJoinSucess = false;
+	public boolean joinMember(MemberBean member) {
+		boolean isJoinSuccess = false;
 		
 		Connection con = getConnection();
 		
@@ -20,7 +21,16 @@ public class JoinProService {
 		
 		mDAO.setConnection(con);
 		
-		return isJoinSucess;
+		int insertCount = mDAO.insertMember(member);
+		
+		if(insertCount > 0) {
+			commit(con);
+			isJoinSuccess = true;
+		} else {
+			rollback(con);
+		}
+		
+		return isJoinSuccess;
 	}
 }	
 	
