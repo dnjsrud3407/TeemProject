@@ -8,7 +8,7 @@
 		password="1234"
 		driverClassName="com.mysql.jdbc.Driver"
 		factory="org.apache.commons.dbcp2.BasicDataSourceFactory"
-		url="jdbc:mysql://localhost:3306/jsp_model2"
+		url="jdbc:mysql://localhost:3306/bookshop"
 		maxActive="500"
 	/>
 </Context>
