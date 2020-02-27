@@ -54,8 +54,8 @@ public MemberDAO() {}
 			pstmt.setString(6, member.getEmail());
 			pstmt.setString(7, member.getTell_num());
 			pstmt.setString(8, member.getAddress2());
-			pstmt.setInt(9, 0);
-			pstmt.setInt(10, 0);
+			pstmt.setInt(9, member.getPoint());
+			pstmt.setInt(10,member.getGrade());
 			
 			insertCount = pstmt.executeUpdate();
 			System.out.println(insertCount);
