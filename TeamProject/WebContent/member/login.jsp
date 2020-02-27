@@ -49,10 +49,10 @@ member/account
 		  <div class="modal-body">
 			<form class="form-horizontal loginFrm" action="LoginPro.me" method="post">
 			  <div class="control-group">								
-				<input type="text" id="inputEmail" placeholder="Email">
+				<input type="text" id="inputEmail" placeholder="Id" name="uID">
 			  </div>
 			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
+				<input type="password" id="inputPassword" placeholder="Password" name="pw">
 			  </div>
 			  <div class="control-group">
 				<label class="checkbox">

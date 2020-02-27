@@ -15,6 +15,8 @@ public class LoginProService {
 		
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
+		mDAO.setConnection(con);
+		
 		loginResult = mDAO.selectMember(member);
 				
 		close(con);

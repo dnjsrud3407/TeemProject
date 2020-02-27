@@ -78,7 +78,7 @@ public MemberDAO() {}
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select * from member where id=?";
+			String sql = "select * from user where uID=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getuID());
 			rs = pstmt.executeQuery();

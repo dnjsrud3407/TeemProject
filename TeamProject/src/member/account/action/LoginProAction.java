@@ -20,6 +20,7 @@ public class LoginProAction implements Action {
 		
 		String uID = request.getParameter("uID");
 		String pw = request.getParameter("pw");
+//		System.out.println(uID + " , " + pw);
 		
 		MemberBean member = new MemberBean(uID, pw);
 		
@@ -53,12 +54,12 @@ public class LoginProAction implements Action {
 			HttpSession session = request.getSession();
 			// HttpSession 객체의 setAttiribute() 메서드를 호출하여 세션 정보 저장
 			session.setAttribute("uID", uID);
+			forward = new ActionForward();
+			forward.setPath("");
+			forward.setRedirect(true);
 			
 		}
 		
-		forward = new ActionForward();
-		forward.setPath("");
-		forward.setRedirect(true);
 		return forward;
 	}
 
