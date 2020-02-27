@@ -26,8 +26,8 @@ public class JoinProAction implements Action {
 		String email = request.getParameter("email");
 		String tell_num = request.getParameter("tell_num");
 		String address2 = request.getParameter("address2");
-		int point = Integer.parseInt(request.getParameter("point"));
-		int grade = Integer.parseInt(request.getParameter("grade"));
+		int point = 0;
+		int grade = 0;
 		
 		// 파라미터 -> MemberBean 객체에 저장
 		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, 
