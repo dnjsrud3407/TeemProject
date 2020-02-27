@@ -50,6 +50,7 @@ public class JoinProAction implements Action {
 		} else {			
 			forward = new ActionForward();
 			forward.setPath("/member/login.jsp");
+			forward.setRedirect(true);
 		}
 		return forward;
 	}
