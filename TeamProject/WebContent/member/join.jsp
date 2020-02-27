@@ -184,7 +184,7 @@
 		<div class="control-group">
 			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text"  name="mobile" id="mobile" placeholder="Mobile Phone" name="phone_num"/> 
+			  <input type="text" id="mobile" placeholder="Mobile Phone" name="phone_num"/> 
 			</div>
 		</div>	
 		<div class="control-group">
@@ -218,7 +218,7 @@
 		<div class="control-group">
 			<label class="control-label" for="phone">Home phone</label>
 			<div class="controls">
-			  <input type="text"  name="phone" id="phone" placeholder="phone" name="tell_num"/> <span>You must register at least one phone number</span>
+			  <input type="text" id="phone" placeholder="phone" name="tell_num"/> <span>You must register at least one phone number</span>
 			</div>
 		</div>
 		
