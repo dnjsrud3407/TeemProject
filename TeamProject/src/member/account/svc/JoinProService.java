@@ -30,6 +30,8 @@ public class JoinProService {
 			rollback(con);
 		}
 		
+		close(con);
+		
 		return isJoinSuccess;
 	}
 }	

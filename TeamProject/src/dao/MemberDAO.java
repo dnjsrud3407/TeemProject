@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import static db.JdbcUtil.*;
 
@@ -68,6 +69,35 @@ public MemberDAO() {}
 		
 		
 		return insertCount;
+	}
+
+	public int selectMember(MemberBean member) {
+		int loginResult = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from member where id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getuID());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString("pw").equals(member.getPw())) {
+					loginResult = 1;
+				} else {
+					loginResult = -1;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return loginResult;
 	}
 
 }

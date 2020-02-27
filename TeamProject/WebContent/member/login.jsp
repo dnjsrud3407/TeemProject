@@ -59,8 +59,10 @@ member/account
 				<input type="checkbox"> Remember me
 				</label>
 			  </div>
+			  <div>
+				<button type="submit" class="btn btn-success">Sign in</button>
+			  </div>
 			</form>		
-			<button type="submit" class="btn btn-success">Sign in</button>
 		  </div>
 		 <div>
 		 <a id="" href="FindId.me">아이디 찾기</a><a id="" href="FindPass.me">비밀번호 찾기</a><a id="" href="JoinForm.me">회원가입</a>

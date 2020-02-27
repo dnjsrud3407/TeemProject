@@ -16,6 +16,12 @@ public class MemberBean {
 	
 	public MemberBean() {}
 	
+	public MemberBean(String uID, String pw) {
+		super();
+		this.uID = uID;
+		this.pw = pw;
+	}
+
 	public MemberBean(String uID, String pw, String u_name, String address, String phone_num, String email,
 			String tell_num, String address2, int point, int grade) {
 		super();
