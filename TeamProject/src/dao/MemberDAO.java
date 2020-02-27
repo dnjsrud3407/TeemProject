@@ -86,6 +86,7 @@ public MemberDAO() {}
 			if(rs.next()) {
 				if(rs.getString("pw").equals(member.getPw())) {
 					loginResult = 1;
+					
 				} else {
 					loginResult = -1;
 				}
