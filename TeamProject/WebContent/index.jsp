@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -38,16 +39,25 @@
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
-    <div class="span6"></div>
-    <div class="span6">
-    <div class="pull-right">
-    <a href="AdminMain.adm">관리자</a> | 
-        <a href="Login.me">로그인</a> |
-        <a href="JoinForm.me">회원가입</a> |
-        <a href="member.jsp">마이페이지</a> |
-        <a href="helpCenter.jsp">고객센터</a>
-        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
-    </div>
+    <!-- <div class="span6"></div> -->
+    <div class="">
+	    <span style="padding-left: 30px;font-size: 15px;">
+	    	<c:if test="${sessionScope.uID ne null}"> 
+		        welcome ${sessionScope.uID}님
+		    </c:if></span>
+	    <div class="pull-right">
+		    <a href="AdminMain.adm">관리자</a> |
+		    <c:if test="${sessionScope.uID ne null}"> 
+		        <a href="LogoutPro.me">로그아웃</a> |
+		    </c:if>
+		    <c:if test="${sessionScope.uID eq null}">
+		        <a href="Login.me">로그인</a> |
+		    </c:if>
+	        <a href="JoinForm.me">회원가입</a> |
+	        <a href="member.jsp">마이페이지</a> |
+	        <a href="helpCenter.jsp">고객센터</a>
+	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	    </div>
     </div>
 </div>
 <!-- Navbar ================================================== -->

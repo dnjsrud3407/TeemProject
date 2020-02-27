@@ -33,6 +33,61 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
+
+<script type="text/javascript">
+	function checkId(id) {
+		// 4 ~ 12자리 아이디 영문,숫자 조합 유효성 검사
+		// => 영문자로 시작하고 영문자 또는 숫자의 조합으로 4 ~ 12 자리
+		// 1. 정규표현식 지정
+		var regex = /^[A-Za-z][A-Za-z0-9]{3,11}$/;
+		
+		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
+		var element = document.getElementById('checkIdResult'); // checkIdResult 값을 ID 로 갖는 태그 찾기
+		
+		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
+		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
+		if(regex.exec(id.value)) { // 유효성 검사를 통과했을 경우
+// 			alert('유효성 검사 통과');	
+			// 지정된 태그 내에 메세지 표시
+			element.innerHTML = "사용 가능한 아이디";
+		} else { // 유효성 검사를 통과하지 못했을 경우
+// 			alert('유효성 검사 탈락');
+			element.innerHTML = "사용 불가능한 아이디";
+		}
+	}
+	
+	function checkPasswd(passwd) {
+		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합 유효성 검사
+		// 1. 정규표현식 지정
+		// 1) 길이 체크 : 8 ~ 16자리. 영문 대문자&소문자&숫자&특수문자(!@#$%^_)
+		var lengthRegex = /^[A-Za-z0-9!@#$%^_]{8,16}$/;
+		// 2) 대문자 체크
+		var upperCaseRegex = /[A-Z]/;
+		// 3) 소문자 체크
+		var lowerCaseRegex = /[a-z]/;
+		// 4) 숫자 체크
+		var digitRegex = /[0-9]/;
+		// 5) 특수문자 체크
+		var specCharRegex = /[!@#$%^_]/;
+		
+// 		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
+		var element = document.getElementById('checkPasswdResult'); // checkPasswdResult 값을 ID 로 갖는 태그 찾기
+		
+// 		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
+// 		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
+		// 길이, 대문자, 소문자, 숫자, 특수문자 체크를 모두 통과했을 경우
+		if(lengthRegex.exec(passwd.value) && upperCaseRegex.exec(passwd.value) &&
+				lowerCaseRegex.exec(passwd.value) && digitRegex.exec(passwd.value) &&
+					specCharRegex.exec(passwd.value)) {
+// 			alert('유효성 검사 통과');	
+			// 지정된 태그 내에 메세지 표시
+			element.innerHTML = "적합한 패스워드";
+		} else { // 유효성 검사를 통과하지 못했을 경우
+// 			alert('유효성 검사 탈락');
+			element.innerHTML = "적합하지 않은 패스워드";
+		}
+	}
+</script>	
   </head>
 <body>
 <div id="header">
@@ -160,37 +215,39 @@
 		<div class="control-group">
 			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputId" placeholder="아이디" name="uID">
+			  <input type="text" id="inputId" placeholder="아이디" name="uID" onkeyup="checkId(this)" required="required">
+			  <span id="checkIdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<label class="control-label" for="inputPassword">비밀번호 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="password" id="inputPassword" placeholder="비밀번호" name="pw">
+			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)" required="required">
+			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<label class="control-label" for="inputName">이름 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputName" placeholder="이름" name="u_name">
+			  <input type="text" id="inputName" placeholder="이름" name="u_name" required="required">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="address">Address<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="address" placeholder="Adress" name="address"/> <span>Street address, P.O. box, company name, c/o</span>
+			  <input type="text" id="address" placeholder="Adress" name="address" required="required"/> <span>Street address, P.O. box, company name, c/o</span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="mobile" placeholder="Mobile Phone" name="phone_num"/> 
+			  <input type="text" id="mobile" placeholder="Mobile Phone" name="phone_num" required="required"/> 
 			</div>
 		</div>	
 		<div class="control-group">
 		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
 		<div class="controls">
-		  <input type="text" id="input_Email" placeholder="Email" name="email">
+		  <input type="text" id="input_Email" placeholder="Email" name="email" required="required">
 		</div>
 	  </div>	  
 	

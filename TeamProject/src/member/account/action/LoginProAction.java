@@ -23,7 +23,7 @@ public class LoginProAction implements Action {
 //		System.out.println(uID + " , " + pw);
 		
 		MemberBean member = new MemberBean(uID, pw);
-		
+			
 		LoginProService LoginService= new LoginProService();
 //		memberLoginProService.Login(id,pass);
 		
