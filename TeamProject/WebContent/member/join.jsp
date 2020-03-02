@@ -113,7 +113,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.ㅓ네"><img src="themes/images/logo.png" alt="Bookshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bookshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
