@@ -46,8 +46,14 @@
 		        welcome ${sessionScope.uID}님
 		    </c:if></span>
 	    <div class="pull-right">
+	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
+	    	<c:forEach var = "i" items="${strAdmin }">
+	    		<c:if test="${sessionScope.uID.equals(i)}">
+	    		 	<a href="AdminMain.adm">관리자</a> |
+	    		</c:if>
+	    	</c:forEach>
 	    	<c:if test="${sessionScope.uID.equals('admin')}">
-		    <a href="AdminMain.adm">관리자</a> |
+<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
 		    </c:if>
 		    <c:if test="${sessionScope.uID ne null}"> 
 		        <a href="LogoutPro.me">로그아웃</a> |
