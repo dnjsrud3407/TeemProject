@@ -46,7 +46,9 @@
 		        welcome ${sessionScope.uID}님
 		    </c:if></span>
 	    <div class="pull-right">
+	    	<c:if test="${sessionScope.uID.equals('admin')}">
 		    <a href="AdminMain.adm">관리자</a> |
+		    </c:if>
 		    <c:if test="${sessionScope.uID ne null}"> 
 		        <a href="LogoutPro.me">로그아웃</a> |
 		    </c:if>
