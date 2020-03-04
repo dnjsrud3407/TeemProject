@@ -1,99 +1,257 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<style type="text/css">
-img{
-width: 100px;
-height: 80px;
-}
-</style>
-</head>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootshop online Shopping cart - book_list.jsp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--Less styles -->
+   <!-- Other Less css file //different less files has different color scheam
+	<link rel="stylesheet/less" type="text/css" href="themes/less/simplex.less">
+	<link rel="stylesheet/less" type="text/css" href="themes/less/classified.less">
+	<link rel="stylesheet/less" type="text/css" href="themes/less/amelia.less">  MOVE DOWN TO activate
+	-->
+	<!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
+	<script src="themes/js/less.js" type="text/javascript"></script> -->
+	
+<!-- Bootstrap style --> 
+    <link id="callCss" rel="stylesheet" href="../themes/bootshop/bootstrap.min.css" media="screen"/>
+    <link href="../themes/css/base.css" rel="stylesheet" media="screen"/>
+<!-- Bootstrap style responsive -->	
+	<link href="../themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
+	<link href="../themes/css/font-awesome.css" rel="stylesheet" type="text/css">
+<!-- Google-code-prettify -->	
+	<link href="../themes/js/google-code-prettify/prettify.css" rel="stylesheet"/>
+<!-- fav and touch icons -->
+    <link rel="shortcut icon" href="../themes/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../themes/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../themes/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../themes/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../themes/images/ico/apple-touch-icon-57-precomposed.png">
+	<style type="text/css" id="enject"></style>
+  </head>
 <body>
-	<section>
-		<h2>book_list.jsp</h2>
-		<table>
-<%-- 		<%if(articleList != null & listCount > 0) {%> --%>
-<!-- 			<tr id="tr_top"> -->
-<!-- 				<td width="100">Number</td> -->
-<!-- 				<td width="400">Subject</td> -->
-<!-- 				<td width="150">Name</td> -->
-<!-- 				<td width="150">Date</td> -->
-<!-- 				<td width="100">Read Count</td> -->
-<!-- 			</tr> -->
-<%-- 		<%for(int i = 0; i < articleList.size(); i++) {%> --%>
-<!-- 				<tr> -->
-<%-- 					<td align="center"><%=articleList.get(i).getBoard_num() %></td> --%>
-<!-- 					<td> -->
-<%-- 					<%if(articleList.get(i).getBoard_re_lev() != 0) {%> --%>
-<%-- 							<%for(int j = 0; j <= articleList.get(i).getBoard_re_lev() * 2; j++) {%> --%>
-<!-- 									&nbsp; -->
-<%-- 							<%} %>▶ --%>
-<%-- 					<%} else {%> --%>
-<!-- 							▶ -->
-<%-- 					<%} %> --%>
-						<a href="BookDetail.book">
-<%-- 												<a href="BoardDetail.bo?board_num=<%=articleList.get(i).getBoard_num()%>&page=<%=nowPage%>"> --%>
-						
-<%-- 							<%=articleList.get(i).getBoard_subject() %> --%>
-<!-- 						</a> -->
-<!-- 					</td> -->
-<%-- 					<td align="center"><%=articleList.get(i).getBoard_name() %></td> --%>
-<%-- 					<td align="center"><%=articleList.get(i).getBoard_date() %></td> --%>
-<%-- 					<td align="center"><%=articleList.get(i).getBoard_readcount() %></td> --%>
-<!-- 				</tr> -->
-<%-- 			<%} %> --%>
-		</table>
-	</section>
-	<section id = "writeButton">
-<!-- 		<a href="ReviewList.book"><input type="button" value="리뷰리스트"></a> -->
-		<a href="Book.book"><img src="./img/abstract.jpg"></a>
-		
-		
-	</section>
-	
-	<!-- 페이지 목록 버튼 표시 -->
-	<!-- 이전 페이지 또는 다음 페이지가 존재할 경우에만 해당 하이퍼링크 활성화 -->
-	<!-- 존재하는 페이지 번호만 표시(현재 페이지는 번호만 표시하고, 나머지 페이지는 하이퍼링크 활성화) -->
-<!-- 	<section id="pageList"> -->
-<%-- 	<%if(nowPage <= 1) {%> --%>
-<!-- 			[BEFORE]&nbsp; -->
-<%-- 	<%} else {%> --%>
-<%-- 			<a href="BoardList.bo?page=<%=nowPage - 1%>">[BEFORE]</a>&nbsp; --%>
-<!-- 						<a href="BoardList.book?page=?">[BEFORE]</a>&nbsp; -->
-<!-- 												<a href="BookList.book">[BEFORE]</a>&nbsp; -->
-						
+<div id="header">
+<div class="container">
+<div id="welcomeLine" class="row">
+  <!-- <div class="span6"></div> -->
+ <div class="">
+	    <span style="padding-left: 30px;font-size: 15px;">
+	    	<c:if test="${sessionScope.uID ne null}"> 
+		        welcome ${sessionScope.uID}님
+		    </c:if></span>
+	    <div class="pull-right">
+	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
+	    	<c:forEach var = "i" items="${strAdmin }">
+	    		<c:if test="${sessionScope.uID.equals(i)}">
+	    		 	<a href="AdminMain.adm">관리자</a> |
+	    		</c:if>
+	    	</c:forEach>
+	    	<c:if test="${sessionScope.uID.equals('admin')}">
+<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
+		    </c:if>
+		    <c:if test="${sessionScope.uID ne null}"> 
+		        <a href="../LogoutPro.me">로그아웃</a> |
+		    </c:if>
+		    <c:if test="${sessionScope.uID eq null}">
+		        <a href="../Login.me">로그인</a> |
+		    </c:if>
+		    <c:if test="${sessionScope.uID ne null}">
+	        </c:if>
+	        <c:if test="${sessionScope.uID eq null}">
+	        <a href="../JoinForm.me">회원가입</a> |
+	        </c:if>
+	        <a href="../member.jsp">마이페이지</a> |
+	        <a href="../helpCenter.jsp">고객센터</a>
+	        <a href="../BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	    </div>
+    </div>
+</div>
+<!-- Navbar ================================================== -->
+<div id="logoArea" class="navbar">
+<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</a>
+  <div class="navbar-inner">
+    <a class="brand" href="index.jsp"><img src="../themes/images/logo.png" alt="Bootsshop"/></a>
+<!--    검색하는 창 -->
+    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
+        <input id="srchFld" class="srchTxt" type="text" />
+        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
+    </form>
+    <ul id="topMenu" class="nav">
+     <li><a href="">로드맵</a></li>
+     <li><a href="BookList.book">교재구매</a></li>
+     <li><a href="NoticeList.bo">이벤트</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</div><!-- Header End====================================================================== -->
+<div id="mainBody">
+	<div class="container">
+	<div class="row">
+<!-- Sidebar ================================================== -->
+    <div id="sidebar" class="span3" style="width: 120px;">
+        <ul id="sideManu" class="nav nav-tabs nav-stacked">
+            <li class="subMenu open"><a> 단계별</a>
+                <ul>
+                <li><a class="active" href="BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>4단계</a></li>
+                </ul>
+            </li>
+            <li class="subMenu"><a> 분야별 </a>
+            <ul style="display:none">
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
+            </ul>
+            </li>
+        </ul>
+        <br/>
+    </div>
+<!-- Sidebar end=============================================== -->
+	<div class="span9">
+    <ul class="breadcrumb">
+		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li class="active">Products Name</li>
+    </ul>
+	<h3> Products Name <small class="pull-right"> 40 products are available </small></h3>	
+	<hr class="soft"/>
+	<p>
+		Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
+	</p>
+	<hr class="soft"/>
+	<form class="form-horizontal span6">
+		<div class="control-group">
+		  <label class="control-label alignL">Sort By </label>
+			<select>
+              <option>Priduct name A - Z</option>
+              <option>Priduct name Z - A</option>
+              <option>Priduct Stoke</option>
+              <option>Price Lowest first</option>
+            </select>
+		</div>
+	  </form>
+	  
+<div id="myTab" class="pull-right">
+ <a href="#listView" data-toggle="tab"><span class="btn btn-large"><i class="icon-list"></i></span></a>
+ <a href="#blockView" data-toggle="tab"><span class="btn btn-large btn-primary"><i class="icon-th-large"></i></span></a>
+</div>
+<br class="clr"/>
+<div class="tab-content">
+	<div class="tab-pane" id="listView">
+		<div class="row">	  
+			<div class="span2">
+				<img src="./themes/images/products/3.jpg" alt=""/>
+			</div>
+			<div class="span4">
+				<h3>New | Available</h3>				
+				<hr class="soft"/>
+				<h5>Product Name </h5>
+				<p>
+				Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
+				that is why our goods are so popular..
+				</p>
+				<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+				<br class="clr"/>
+			</div>
+			<div class="span3 alignR">
+			<form class="form-horizontal qtyFrm">
+			<h3> $140.00</h3>
+			<label class="checkbox">
+				<input type="checkbox">  Adds product to compair
+			</label><br/>
 			
-<%-- 	<%} %> --%>
-	
-<%-- 	<%for(int i = startPage; i <= endPage; i++) { --%>
-<%-- 			if(i == nowPage) {%> --%>
-<%-- 					[<%=i %>] --%>
-<%-- 		<%} else { %> --%>
-<%-- 				<a href="BoardList.bo?page=<%=i %>">[<%=i %>]</a>&nbsp; --%>
-<!-- 								<a href="BoardList.book?page=?"></a>&nbsp; -->
-<!-- 																<a href="BookList.book"></a>&nbsp; -->
-								
-				
-<%-- 		<%} %> --%>
-<%-- 	<%} %> --%>
-	
-<%-- 	<%if(nowPage >= maxPage) {%> --%>
-<!-- 			&nbsp;[NEXT] -->
-<%-- 	<%} else {%> --%>
-<%-- 			<a href="BoardList.bo?page=<%=nowPage + 1%>">&nbsp;[NEXT]</a> --%>
-<!-- 						<a href="BoardList.book?page=?">&nbsp;[NEXT]</a> -->
-<!-- 												<a href="BookList.book">&nbsp;[NEXT]</a> -->
-						
+			  <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 			
-<%-- 	<%} %> --%>
-	</section>
-<%-- <%} else {%> --%>
-<!-- 	<section id="emptyArea">There's no registered post yet.</section> -->
-<%-- <%} %> --%>
+				</form>
+			</div>
+		</div>
+		<hr class="soft"/>
+	</div>
+
+	<div class="tab-pane  active" id="blockView">
+		<ul class="thumbnails">
+			<li class="span3">
+			  <div class="thumbnail">
+				<a href="../Book.book"><img src="../themes/images/products/jsp.jpg" alt=""/></a>
+				<div class="caption">
+				  <h5>Manicure &amp; Pedicure</h5>
+				  <p> 
+					I'm a paragraph. Click here 
+				  </p>
+				    <h4 style="text-align:center"><a class="btn" href="../BookCart.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+				</div>
+			  </div>
+			</li>
+		  </ul>
+	<hr class="soft"/>
+	</div>
+</div>
+
+	<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+	<div class="pagination">
+			<ul>
+			<li><a href="#">&lsaquo;</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#">2</a></li>
+			<li><a href="#">3</a></li>
+			<li><a href="#">4</a></li>
+			<li><a href="#">...</a></li>
+			<li><a href="#">&rsaquo;</a></li>
+			</ul>
+			</div>
+			<br class="clr"/>
+</div>
+</div>
+</div>
+</div>
+<!-- MainBody End ============================= -->
+<!-- Footer ================================================================== -->
+    <div  id="footerSection">
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <h5><a href="NoticeList.bo">공지사항/이벤트</a></h5>
+             </div>
+            <div class="span3">
+                <h5><a href="FAQList.bo">고객센터</a></h5>
+             </div>
+            <div class="span3">
+                <h5>회사이름</h5>
+                FAX: 02-0000-0000 <br>
+                E-mail: xxx@xxx.xxx<br>  
+                부산시 OO구 OO로 00 <a href="#">약도</a>  
+             </div>
+            <div id="socialMedia" class="span3 pull-right">
+                <h5>SOCIAL MEDIA </h5>
+                <a href="#"><img width="60" height="60" src="../themes/images/facebook.png" title="facebook" alt="facebook"/></a>
+                <a href="#"><img width="60" height="60" src="../themes/images/twitter.png" title="twitter" alt="twitter"/></a>
+                <a href="#"><img width="60" height="60" src="../themes/images/youtube.png" title="youtube" alt="youtube"/></a>
+             </div> 
+         </div>
+        <p class="pull-right">&copy; BookShop</p>
+    </div><!-- Container End -->
+    </div>
+<!-- Placed at the end of the document so the pages load faster ============================================= -->
+    <script src="../themes/js/jquery.js" type="text/javascript"></script>
+    <script src="../themes/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../themes/js/google-code-prettify/prettify.js"></script>
+    
+    <script src="../themes/js/bootshop.js"></script>
+    <script src="../themes/js/jquery.lightbox-0.5.js"></script>
+    
 
 </body>
 </html>
