@@ -20,13 +20,13 @@
     <script src="themes/js/less.js" type="text/javascript"></script> -->
     
 <!-- Bootstrap style --> 
-    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
-    <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
+    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
+    <link href="themes/css/base.css?ver=1" rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive --> 
-    <link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
-    <link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
+    <link href="themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
 <!-- Google-code-prettify -->   
-    <link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet"/>
+    <link href="themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
 <!-- fav and touch icons -->
     <link rel="shortcut icon" href="themes/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="themes/images/ico/apple-touch-icon-144-precomposed.png">
