@@ -8,6 +8,8 @@
 </head>
 <body>
 	<ul>
+		<li><a href="index.jsp">관리자메인페이지</a></li>
+		
 		<li><a href="MemberList.adm">회원관리</a></li>
 		<li><a href="Order.adm">주문 / 매출 조회</a></li>
 		<li>제품관리

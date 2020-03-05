@@ -19,19 +19,19 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
-    <link id="callCss" rel="stylesheet" href="../themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
-    <link href="../themes/css/base.css?ver=1" rel="stylesheet" media="screen"/>
+    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
+    <link href="themes/css/base.css?ver=1" rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive -->	
-	<link href="../themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
-	<link href="../themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
+	<link href="themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
+	<link href="themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
 <!-- Google-code-prettify -->	
-	<link href="../themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
+	<link href="themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
 <!-- fav and touch icons -->
     <link rel="shortcut icon" href="../themes/images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../themes/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../themes/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../themes/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../themes/images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="themes/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
   </head>
 <body>
@@ -79,7 +79,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="../index.jsp"><img src="../themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -102,18 +102,18 @@
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <li class="subMenu open"><a> 단계별</a>
                 <ul>
-                <li><a class="active" href="../BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>4단계</a></li>
+                <li><a class="active" href="BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>4단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
             <ul style="display:none">
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
-                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
+                <li><a href="BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
             </ul>
             </li>
         </ul>
@@ -152,7 +152,7 @@
 	<div class="tab-pane" id="listView">
 		<div class="row">	  
 			<div class="span2">
-				<img src="../themes/images/products/3.jpg" alt=""/>
+				<img src="themes/images/products/3.jpg" alt=""/>
 			</div>
 			<div class="span4">
 				<h3>New | Available</h3>				
@@ -185,7 +185,7 @@
 		<ul class="thumbnails">
 			<li class="span3">
 			  <div class="thumbnail">
-				<a href="../Book.book"><img src="../themes/images/products/3.jpg" alt=""/></a>
+				<a href="../Book.book"><img src="themes/images/products/3.jpg" alt=""/></a>
 				<div class="caption">
 				  <h5>Manicure &amp; Pedicure</h5>
 				  <p> 
@@ -236,21 +236,21 @@
              </div>
             <div id="socialMedia" class="span3 pull-right">
                 <h5>SOCIAL MEDIA </h5>
-                <a href="#"><img width="60" height="60" src="../themes/images/facebook.png" title="facebook" alt="facebook"/></a>
-                <a href="#"><img width="60" height="60" src="../themes/images/twitter.png" title="twitter" alt="twitter"/></a>
-                <a href="#"><img width="60" height="60" src="../themes/images/youtube.png" title="youtube" alt="youtube"/></a>
+                <a href="#"><img width="60" height="60" src="themes/images/facebook.png" title="facebook" alt="facebook"/></a>
+                <a href="#"><img width="60" height="60" src="themes/images/twitter.png" title="twitter" alt="twitter"/></a>
+                <a href="#"><img width="60" height="60" src="themes/images/youtube.png" title="youtube" alt="youtube"/></a>
              </div> 
          </div>
         <p class="pull-right">&copy; BookShop</p>
     </div><!-- Container End -->
     </div>
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
-    <script src="../themes/js/jquery.js" type="text/javascript"></script>
-    <script src="../themes/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../themes/js/google-code-prettify/prettify.js"></script>
+    <script src="themes/js/jquery.js" type="text/javascript"></script>
+    <script src="themes/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="themes/js/google-code-prettify/prettify.js"></script>
     
-    <script src="../themes/js/bootshop.js"></script>
-    <script src="../themes/js/jquery.lightbox-0.5.js"></script>
+    <script src="themes/js/bootshop.js"></script>
+    <script src="themes/js/jquery.lightbox-0.5.js"></script>
     
 
 </body>
