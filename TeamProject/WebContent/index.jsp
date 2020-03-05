@@ -80,7 +80,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo7.png" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />

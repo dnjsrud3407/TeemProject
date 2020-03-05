@@ -151,16 +151,16 @@
 			  -->
               </div>
 			  
-			 <div class="btn-toolbar">
-			  <div class="btn-group">
-				<span class="btn"><i class="icon-envelope"></i></span>
-				<span class="btn" ><i class="icon-print"></i></span>
-				<span class="btn" ><i class="icon-zoom-in"></i></span>
-				<span class="btn" ><i class="icon-star"></i></span>
-				<span class="btn" ><i class=" icon-thumbs-up"></i></span>
-				<span class="btn" ><i class="icon-thumbs-down"></i></span>
-			  </div>
-			</div>
+<!-- 			 <div class="btn-toolbar"> -->
+<!-- 			  <div class="btn-group"> -->
+<!-- 				<span class="btn"><i class="icon-envelope"></i></span> -->
+<!-- 				<span class="btn" ><i class="icon-print"></i></span> -->
+<!-- 				<span class="btn" ><i class="icon-zoom-in"></i></span> -->
+<!-- 				<span class="btn" ><i class="icon-star"></i></span> -->
+<!-- 				<span class="btn" ><i class=" icon-thumbs-up"></i></span> -->
+<!-- 				<span class="btn" ><i class="icon-thumbs-down"></i></span> -->
+<!-- 			  </div> -->
+<!-- 			</div> -->
 			</div>
 			<div class="span6">
 				<h3>Fujifilm FinePix S2950 Digital Camera  </h3>
@@ -171,12 +171,9 @@
 					<label class="control-label"><span>$222.00</span></label>
 					<div class="controls">
 					<input type="number" class="span1" placeholder="Qty."/>
-					  <button type="submit" class="btn btn-large btn-primary pull-right"> Add to cart <i class=" icon-shopping-cart"></i></button>
-						
-						<a href="../BookBuy.book"><input type="button" value="구매하기"></a>
-						<a href="../BookCart.book"><input type="button" value="장바구니"></a>
-						<a href="../BookLike.book"><input type="button" value="♡"></a><br>
-	
+				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookBuy.book'"> 구매하기</button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookCart.book'"> 장바구니 <i class=" icon-shopping-cart"></i></button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookLike.book'"> ♡ </button>	
 					</div>
 				  </div>
 				</form>

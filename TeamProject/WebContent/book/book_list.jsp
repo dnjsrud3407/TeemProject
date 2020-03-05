@@ -79,7 +79,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="../themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="../index.jsp"><img src="../themes/images/logo.png" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -102,18 +102,18 @@
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <li class="subMenu open"><a> 단계별</a>
                 <ul>
-                <li><a class="active" href="BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>4단계</a></li>
+                <li><a class="active" href="../BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>4단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
             <ul style="display:none">
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
+                <li><a href="../BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
             </ul>
             </li>
         </ul>

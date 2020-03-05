@@ -64,6 +64,13 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		} else if(command.equals("../BookList.book")) {
+			action = new BookListAcion();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		} else if(command.equals("/Book.book")) {
 			forward = new ActionForward();
 			forward.setPath("./book/book.jsp");
