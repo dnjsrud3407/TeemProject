@@ -80,7 +80,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -346,12 +346,12 @@
               <a class="right carousel-control" href="#featured" data-slide="next">›</a>
               </div>
               <div style="margin-left: 145px;">
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="">새로나온 책</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="">베스트셀러</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="">1단계</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="">2단계</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="">3단계</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="">4단계</a></h4>
+                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">새로나온 책</a></h4>
+                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">베스트셀러</a></h4>
+                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">1단계</a></h4>
+                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">2단계</a></h4>
+                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">3단계</a></h4>
+                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">4단계</a></h4>
               </div>
               </div>
         </div>
@@ -366,7 +366,7 @@
                         간단한 소개 
                       </p>
                      
-                      <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
+                      <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
                 </li>
@@ -378,7 +378,7 @@
                       <p> 
                         Lorem Ipsum is simply dummy text. 
                       </p>
-                     <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
+                     <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
                 </li>
@@ -390,7 +390,7 @@
                       <p> 
                         Lorem Ipsum is simply dummy text. 
                       </p>
-                       <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
+                       <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
                 </li>
@@ -402,7 +402,7 @@
                       <p> 
                         Lorem Ipsum is simply dummy text. 
                       </p>
-                      <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
+                      <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
                 </li>
@@ -414,7 +414,7 @@
                       <p> 
                         Lorem Ipsum is simply dummy text. 
                       </p>
-                      <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
+                      <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
                 </li>
@@ -426,7 +426,7 @@
                       <p> 
                         Lorem Ipsum is simply dummy text. 
                       </p>
-                       <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
+                       <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
                 </li>

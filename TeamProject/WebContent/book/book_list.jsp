@@ -27,7 +27,7 @@
 <!-- Google-code-prettify -->	
 	<link href="themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
 <!-- fav and touch icons -->
-    <link rel="shortcut icon" href="../themes/images/ico/favicon.ico">
+    <link rel="shortcut icon" href="themes/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="themes/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
@@ -55,19 +55,19 @@
 <!-- 		    <a href="AdminMain.adm">관리자</a> | -->
 		    </c:if>
 		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="../LogoutPro.me">로그아웃</a> |
+		        <a href="LogoutPro.me">로그아웃</a> |
 		    </c:if>
 		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="../Login.me">로그인</a> |
+		        <a href="Login.me">로그인</a> |
 		    </c:if>
 		    <c:if test="${sessionScope.uID ne null}">
 	        </c:if>
 	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="../JoinForm.me">회원가입</a> |
+	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
-	        <a href="../member.jsp">마이페이지</a> |
-	        <a href="../helpCenter.jsp">고객센터</a>
-	        <a href="../BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="member.jsp">마이페이지</a> |
+	        <a href="helpCenter.jsp">고객센터</a>
+	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
 	    </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -185,13 +185,13 @@
 		<ul class="thumbnails">
 			<li class="span3">
 			  <div class="thumbnail">
-				<a href="../Book.book"><img src="themes/images/products/3.jpg" alt=""/></a>
+				<a href="Book.book"><img src="themes/images/products/3.jpg" alt=""/></a>
 				<div class="caption">
 				  <h5>Manicure &amp; Pedicure</h5>
 				  <p> 
 					I'm a paragraph. Click here 
 				  </p>
-				    <h4 style="text-align:center"><a class="btn" href="../BookCart.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="BookCart.book">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
 				</div>
 			  </div>
 			</li>

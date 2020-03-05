@@ -19,19 +19,19 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
-    <link id="callCss" rel="stylesheet" href="../themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
-    <link href="../themes/css/base.css?ver=1" rel="stylesheet" media="screen"/>
+    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
+    <link href=themes/css/base.css?ver=1 rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive -->	
-	<link href="../themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
-	<link href="../themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
+	<link href="themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
+	<link href="themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
 <!-- Google-code-prettify -->	
-	<link href="../themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
+	<link href="themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
 <!-- fav and touch icons -->
-    <link rel="shortcut icon" href="../themes/images/ico/favicon.ico">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../themes/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../themes/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../themes/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../themes/images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="themes/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="themes/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
   </head>
 <body>
@@ -48,26 +48,26 @@
 	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
 	    	<c:forEach var = "i" items="${strAdmin }">
 	    		<c:if test="${sessionScope.uID.equals(i)}">
-	    		 	<a href="../AdminMain.adm">관리자</a> |
+	    		 	<a href="AdminMain.adm">관리자</a> |
 	    		</c:if>
 	    	</c:forEach>
 	    	<c:if test="${sessionScope.uID.equals('admin')}">
 <!-- 		    <a href="AdminMain.adm">관리자</a> | -->
 		    </c:if>
 		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="../LogoutPro.me">로그아웃</a> |
+		        <a href="LogoutPro.me">로그아웃</a> |
 		    </c:if>
 		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="../Login.me">로그인</a> |
+		        <a href="Login.me">로그인</a> |
 		    </c:if>
 		    <c:if test="${sessionScope.uID ne null}">
 	        </c:if>
 	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="../JoinForm.me">회원가입</a> |
+	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
-	        <a href="../member.jsp">마이페이지</a> |
-	        <a href="../helpCenter.jsp">고객센터</a>
-	        <a href="../BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="member.jsp">마이페이지</a> |
+	        <a href="helpCenter.jsp">고객센터</a>
+	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
 	    </div>
     </div>
 </div>
@@ -79,7 +79,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="../index.jsp"><img src="../themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -87,8 +87,8 @@
     </form>
     <ul id="topMenu" class="nav">
      <li><a href="">로드맵</a></li>
-     <li><a href="../BookList.book">교재구매</a></li>
-     <li><a href="../NoticeList.bo">이벤트</a></li>
+     <li><a href="BookList.book">교재구매</a></li>
+     <li><a href="NoticeList.bo">이벤트</a></li>
     </ul>
   </div>
 </div>
@@ -129,20 +129,20 @@
     </ul>	
 	<div class="row">	  
 			<div id="gallery" class="span3">
-            <a href="../themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
-				<img src="../themes/images/products/large/3.jpg" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera"/>
+            <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
+				<img src="themes/images/products/large/3.jpg" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera"/>
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
                   <div class="item active">
-                   <a href="../themes/images/products/large/f1.jpg"> <img style="width:29%" src="../themes/images/products/large/f1.jpg" alt=""/></a>
-                   <a href="../themes/images/products/large/f2.jpg"> <img style="width:29%" src="../themes/images/products/large/f2.jpg" alt=""/></a>
-                   <a href="../themes/images/products/large/f3.jpg" > <img style="width:29%" src="../themes/images/products/large/f3.jpg" alt=""/></a>
+                   <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a>
+                   <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a>
+                   <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpg" alt=""/></a>
                   </div>
                   <div class="item">
-                   <a href="../themes/images/products/large/f3.jpg" > <img style="width:29%" src="../themes/images/products/large/f3.jpgg" alt=""/></a>
-                   <a href="../themes/images/products/large/f1.jpg"> <img style="width:29%" src="../themes/images/products/large/f1.jpg" alt=""/></a>
-                   <a href="../themes/images/products/large/f2.jpg"> <img style="width:29%" src="../themes/images/products/large/f2.jpg" alt=""/></a>
+                   <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpgg" alt=""/></a>
+                   <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a>
+                   <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a>
                   </div>
                 </div>
               <!--  
@@ -271,7 +271,7 @@
 			<div class="tab-pane" id="listView">
 				<div class="row">	  
 					<div class="span2">
-						<img src="../themes/images/products/4.jpg" alt=""/>
+						<img src="themes/images/products/4.jpg" alt=""/>
 					</div>
 					<div class="span4">
 						<h3>New | Available</h3>				
@@ -300,7 +300,7 @@
 			<hr class="soft"/>
 			<div class="row">	  
 					<div class="span2">
-						<img src="../themes/images/products/5.jpg" alt=""/>
+						<img src="themes/images/products/5.jpg" alt=""/>
 					</div>
 					<div class="span4">
 						<h3>New | Available</h3>				
@@ -329,7 +329,7 @@
 			<hr class="soft"/>
 			<div class="row">	  
 					<div class="span2">
-					<img src="../themes/images/products/6.jpg" alt=""/>
+					<img src="themes/images/products/6.jpg" alt=""/>
 					</div>
 					<div class="span4">
 						<h3>New | Available</h3>				
@@ -358,7 +358,7 @@
 			<hr class="soft"/>
 			<div class="row">	  
 					<div class="span2">
-					<img src="../themes/images/products/7.jpg" alt=""/>
+					<img src="themes/images/products/7.jpg" alt=""/>
 					</div>
 					<div class="span4">
 						<h3>New | Available</h3>				
@@ -388,7 +388,7 @@
 			<hr class="soft"/>
 			<div class="row">	  
 					<div class="span2">
-					<img src="../themes/images/products/8.jpg" alt=""/>
+					<img src="themes/images/products/8.jpg" alt=""/>
 					</div>
 					<div class="span4">
 						<h3>New | Available</h3>				
@@ -417,7 +417,7 @@
 			<hr class="soft"/>
 				<div class="row">	  
 					<div class="span2">
-					<img src="../themes/images/products/9.jpg" alt=""/>
+					<img src="themes/images/products/9.jpg" alt=""/>
 					</div>
 					<div class="span4">
 						<h3>New | Available</h3>				
@@ -449,7 +449,7 @@
 				<ul class="thumbnails">
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="../themes/images/products/10.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="themes/images/products/10.jpg" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -461,7 +461,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="../themes/images/products/11.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="themes/images/products/11.jpg" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -473,7 +473,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="../themes/images/products/12.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="themes/images/products/12.jpg" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -485,7 +485,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="../themes/images/products/13.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="themes/images/products/13.jpg" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -497,7 +497,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="../themes/images/products/1.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="themes/images/products/1.jpg" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -509,7 +509,7 @@
 					</li>
 					<li class="span3">
 					  <div class="thumbnail">
-						<a href="product_details.html"><img src="../themes/images/products/2.jpg" alt=""/></a>
+						<a href="product_details.html"><img src="themes/images/products/2.jpg" alt=""/></a>
 						<div class="caption">
 						  <h5>Manicure &amp; Pedicure</h5>
 						  <p> 
@@ -551,21 +551,21 @@
              </div>
             <div id="socialMedia" class="span3 pull-right">
                 <h5>SOCIAL MEDIA </h5>
-                <a href="#"><img width="60" height="60" src="../themes/images/facebook.png" title="facebook" alt="facebook"/></a>
-                <a href="#"><img width="60" height="60" src="../themes/images/twitter.png" title="twitter" alt="twitter"/></a>
-                <a href="#"><img width="60" height="60" src="../themes/images/youtube.png" title="youtube" alt="youtube"/></a>
+                <a href="#"><img width="60" height="60" src="themes/images/facebook.png" title="facebook" alt="facebook"/></a>
+                <a href="#"><img width="60" height="60" src="themes/images/twitter.png" title="twitter" alt="twitter"/></a>
+                <a href="#"><img width="60" height="60" src="themes/images/youtube.png" title="youtube" alt="youtube"/></a>
              </div> 
          </div>
         <p class="pull-right">&copy; BookShop</p>
     </div><!-- Container End -->
     </div>
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
-    <script src="../themes/js/jquery.js" type="text/javascript"></script>
-    <script src="../themes/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="../themes/js/google-code-prettify/prettify.js"></script>
+    <script src="themes/js/jquery.js" type="text/javascript"></script>
+    <script src="themes/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="themes/js/google-code-prettify/prettify.js"></script>
     
-    <script src="../themes/js/bootshop.js"></script>
-    <script src="../themes/js/jquery.lightbox-0.5.js"></script>
+    <script src="themes/js/bootshop.js"></script>
+    <script src="themes/js/jquery.lightbox-0.5.js"></script>
     
 
 </body>
