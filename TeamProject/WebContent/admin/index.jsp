@@ -31,7 +31,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.jsp?ver=1">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -43,7 +43,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.jsp?ver=1">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -59,7 +59,7 @@
       <!-- Nav Item - Tables -->
       <li class="nav-item">
 <!--         <a class="nav-link" href="tables.html"> -->
-        <a class="nav-link" href="MemberList.adm">
+        <a class="nav-link" href="member/MemberList.adm?ver=1">
           <i class="fas fa-fw fa-table"></i>
           <span>회원관리</span></a>
       </li>
@@ -715,7 +715,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="LogoutPro.me">Logout</a>
         </div>
       </div>
     </div>
