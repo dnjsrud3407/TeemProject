@@ -291,7 +291,7 @@
                       <td>2012/03/29</td>
                       <td>$433,060</td>
                     </tr>
-                    <tr onclick="location.href='MemberDetail.adm'">
+                    <tr onclick="location.href='OrderRefundDetail.adm'">
                       <td>Airi Satou</td>
                       <td>Accountant</td>
                       <td>Tokyo</td>
