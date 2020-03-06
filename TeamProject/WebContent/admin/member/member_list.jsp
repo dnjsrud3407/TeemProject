@@ -14,14 +14,14 @@
   <title>SB Admin 2 - member_list.jsp</title>
 
   <!-- Custom fonts for this template -->
-  <link href="../vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
+  <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../css/sb-admin-2.min.css?ver=1" rel="stylesheet">
+  <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
+  <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
 
 </head>
 
@@ -252,13 +252,13 @@
                     </tr>
                   </thead>
                   <tfoot>
-                    <tr><a href="MemberDetail.adm">
+                    <tr>
                       <th>Name</th>
                       <th>level</th>
                       <th>address</th>
                       <th>Age</th>
                       <th>Join date</th>
-                      <th>Profit</th></a>
+                      <th>Profit</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -294,7 +294,7 @@
                       <td>2012/03/29</td>
                       <td>$433,060</td>
                     </tr>
-                    <tr>
+                    <tr onclick="location.href='MemberDetail.adm'">
                       <td>Airi Satou</td>
                       <td>Accountant</td>
                       <td>Tokyo</td>
@@ -771,21 +771,21 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js?ver=1"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js?ver=1"></script>
+  <script src="admin/vendor/jquery/jquery.min.js?ver=1"></script>
+  <script src="admin/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=1"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js?ver=1"></script>
+  <script src="admin/vendor/jquery-easing/jquery.easing.min.js?ver=1"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js?ver=1"></script>
+  <script src="admin/js/sb-admin-2.min.js?ver=1"></script>
 
   <!-- Page level plugins -->
-  <script src="../vendor/datatables/jquery.dataTables.min.js?ver=1"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js?ver=1"></script>
+  <script src="admin/vendor/datatables/jquery.dataTables.min.js?ver=1"></script>
+  <script src="admin/vendor/datatables/dataTables.bootstrap4.min.js?ver=1"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../js/demo/datatables-demo.js?ver=1"></script>
+  <script src="admin/js/demo/datatables-demo.js?ver=1"></script>
 
 </body>
 

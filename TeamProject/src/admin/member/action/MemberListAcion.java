@@ -1,5 +1,7 @@
 package admin.member.action;
 
+import java.lang.ProcessBuilder.Redirect;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,7 +23,7 @@ public class MemberListAcion implements Action {
 		
 		ActionForward action = new ActionForward();
 		action.setPath("/admin/member/member_list.jsp");
-
+		
 		return action;
 	}
 

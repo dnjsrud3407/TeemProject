@@ -58,10 +58,10 @@
             <a class="collapse-item" href="Sales.adm">매출관리</a>
           
             <h6 class="collapse-header">Custom Components 참고:</h6>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="cards.html">Cards</a>
+            <a class="collapse-item" href="admin/buttons.html">Buttons</a>
+            <a class="collapse-item" href="admin/cards.html">Cards</a>
+            <a class="collapse-item" href="admin/buttons.html">Buttons</a>
+            <a class="collapse-item" href="admin/cards.html">Cards</a>
           </div>
         </div>
       </li>
@@ -90,10 +90,10 @@
             <a class="collapse-item" href="BuyList.abook">물량추가(엑셀)</a>
           
             <h6 class="collapse-header">Custom Utilities-참고:</h6>
-            <a class="collapse-item" href="utilities-color.html">Colors</a>
-            <a class="collapse-item" href="utilities-border.html">Borders</a>
-            <a class="collapse-item" href="utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="utilities-other.html">Other</a>
+            <a class="collapse-item" href=".admin/utilities-color.html">Colors</a>
+            <a class="collapse-item" href="admin/utilities-border.html">Borders</a>
+            <a class="collapse-item" href="admin/utilities-animation.html">Animations</a>
+            <a class="collapse-item" href="admin/utilities-other.html">Other</a>
           </div>
         </div>
       </li>
@@ -124,8 +124,8 @@
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages-참고:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <a class="collapse-item" href="admin/404.html">404 Page</a>
+            <a class="collapse-item" href="admin/blank.html">Blank Page</a>
           </div>
         </div>
       </li>
@@ -139,14 +139,14 @@
       </div>
       <!-- Nav Item - Charts -->
       <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="admin/charts.html">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>Charts</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="tables.html">
+        <a class="nav-link" href="admin/tables.html">
           <i class="fas fa-fw fa-table"></i>
           <span>table</span></a>
       </li>
