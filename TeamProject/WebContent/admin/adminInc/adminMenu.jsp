@@ -9,27 +9,12 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">BookShop</div>
       </a>
 
       <!-- Divider -->
       <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item active">
-        <a class="nav-link" href="AdminMain.adm">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        회원관리
-      </div>
-      
       <!-- Nav Item - Tables -->
       <li class="nav-item">
 <!--         <a class="nav-link" href="tables.html"> -->
@@ -103,7 +88,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        게시판관리
+        	게시판관리
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
