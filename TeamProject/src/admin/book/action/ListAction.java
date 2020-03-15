@@ -8,17 +8,22 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import admin.book.svc.ListService;
 import vo.ActionForward;
+import vo.BookBean;
 
 public class ListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-//		System.out.println("상품 문의 내역 보기");
 		
 		ListService listService = new ListService();
-		ArrayList list = listService.getList();
+		ArrayList<BookBean> bookList = listService.getBookList();
 		
+		request.setAttribute("bookList", bookList);
+		
+		if(bookList == null) {
+			System.out.println("리스트가 비었음");
+		}
 		forward = new ActionForward();
 		forward.setPath("./admin/book/list.jsp");
 		

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import vo.BookBean;
 
@@ -192,7 +193,41 @@ public class BookDAO {
 	    
 	    return updateCount;
 	}
-
+	
+	// 책 목록 가져오기 
+	public ArrayList<BookBean> selectBookList() {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book";
+        BookBean book = null;
+        
+        try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio")
+                        );
+				bookList.add(book);
+				
+			}
+        } catch (SQLException e) {
+			e.printStackTrace();
+		}
+        
+		return bookList;
+	}
 	public void updateBoard_re_ref(BookBean bookBean) {
 		
 	}
@@ -224,5 +259,7 @@ public class BookDAO {
 	public int updateQuestion(BookBean question) {
 		return 0;
 	}
+
+
 
 }
