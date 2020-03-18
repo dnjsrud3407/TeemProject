@@ -12,6 +12,19 @@ import vo.BookBean;
 
 public class WriteProService {
 
+	// bookKategorie_BKID 구하기 (미완성...)
+	public int getBKLev(String BKLev) {
+		int bookKategorie_BKID = 0;
+		BookDAO bookDAO = new BookDAO();
+        Connection con = getConnection();
+        bookDAO.setConnection(con);
+        
+        bookKategorie_BKID = bookDAO.getBKLev(BKLev);
+        close(con);
+		
+		return bookKategorie_BKID;
+	}
+
 	// bookID 생성
     public int getBookID() {
         int bookID = 0;
@@ -44,5 +57,6 @@ public class WriteProService {
 	    close(con);
 	    return iswriteArticleSuccess;
 	}
+
 
 }

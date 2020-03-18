@@ -25,7 +25,11 @@ BookBean book = (BookBean)request.getAttribute("book");
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
-  
+<style type="text/css">
+img{
+height: 300px;
+}
+</style>  
 </head>
 <body id="page-top">
 
@@ -239,13 +243,17 @@ BookBean book = (BookBean)request.getAttribute("book");
                 <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=<%=book.getBookID()%>'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
+                      <th style="width:15%">책 카테고리</th>
+                      <td><%=book.getBookKategorie_BKID() %></td>
+                    </tr>
+                    <tr>
                       <th style="width:15%">책 제목</th>
                       <td><%=book.getBookTitle() %></td>
                     </tr>
                     <tr>
                       <th>상품 이미지</th>
                       <td>
-                        <img src="./upload/<%=book.getBookImage()%>" width="800px"><br>
+                        <img src="./upload/<%=book.getBookImage()%>"><br>
                         <%=book.getBookOriginImage() %>
                       </td>
                     </tr>

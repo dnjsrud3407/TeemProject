@@ -264,6 +264,17 @@ BookBean book = (BookBean)request.getAttribute("book");
               <form action="ModifyPro.abook?bookID=<%=book.getBookID() %>" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
+                      <th>책 카테고리</th>
+                      <td>
+                        <select name="BKLev" required="required">
+                            <option value="1단계" <%if(book.getBookKategorie_BKID()==1){ %>selected="selected"<%} %>>1단계</option>
+                            <option value="2단계" <%if(book.getBookKategorie_BKID()==2){ %>selected="selected"<%} %>>2단계</option>
+                            <option value="3단계" <%if(book.getBookKategorie_BKID()==3){ %>selected="selected"<%} %>>3단계</option>
+                            <option value="4단계" <%if(book.getBookKategorie_BKID()==4){ %>selected="selected"<%} %>>4단계</option>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
                       <th style="width:15%">책 제목</th>
                       <td><input type="text" name="bookTitle" required="required" size="120" value="<%=book.getBookTitle()%>"></td>
                     </tr>
@@ -303,7 +314,8 @@ BookBean book = (BookBean)request.getAttribute("book");
                         <select name="bookisView">
                             <option value="true" <%if(book.isBookisView()){ %>selected="selected"<%} %>>공개</option>
                             <option value="false" <%if(!book.isBookisView()){ %>selected="selected"<%} %>>비공개</option>
-                        </select></td>
+                        </select>
+                      </td>
                     </tr>
                     <tr>
                       <th>상품별 포인트 적립률</th>
@@ -363,7 +375,7 @@ BookBean book = (BookBean)request.getAttribute("book");
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
+<!--   <script src="vendor/jquery/jquery.min.js"></script> -->
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
