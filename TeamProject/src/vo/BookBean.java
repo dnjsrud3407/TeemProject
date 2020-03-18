@@ -14,11 +14,16 @@ public class BookBean {
     private String bookIntroduce;   // 상품 소개
     private boolean bookisView; // 상품의 공개여부
     private float saveRatio;    // 상품별 포인트 적립률
+    private int bookKategorie_BKID;
     
-    
+    public BookBean() {
+		super();
+	}
+
+	// 책 등록할 때 사용
     public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher,
             Date bookPublishedDate, int bookPrice, int bookEA, String bookIntroduce, boolean bookisView,
-            float saveRatio) {
+            float saveRatio, int bookKategorie_BKID) {
         super();
         this.bookID = bookID;
         this.bookTitle = bookTitle;
@@ -31,6 +36,7 @@ public class BookBean {
         this.bookIntroduce = bookIntroduce;
         this.bookisView = bookisView;
         this.saveRatio = saveRatio;
+        this.bookKategorie_BKID = bookKategorie_BKID;
     }
     
     public int getBookID() {
@@ -99,4 +105,11 @@ public class BookBean {
     public void setSaveRatio(float saveRatio) {
         this.saveRatio = saveRatio;
     }
+	public int getBookKategorie_BKID() {
+		return bookKategorie_BKID;
+	}
+	public void setBookKategorie_BKID(int bookKategorie_BKID) {
+		this.bookKategorie_BKID = bookKategorie_BKID;
+	}
+    
 }

@@ -32,6 +32,29 @@ public class BookDAO {
 		return books;
 	}
 	
+	// 책 등록 시 카테고리 구하기(아직 미완성...)
+	public int getBKLev(String BKLev) {
+		int bookKategorie_BKID = 0;
+		PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT BKID FROM bookkategorie WHERE BKLev=?";
+	    try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, BKLev);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				bookKategorie_BKID = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(rs != null) {close(rs);}
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return bookKategorie_BKID;
+	}
+	
 	// 책 등록 시 책 번호 구하기(책 번호 중 최대값 구하기)
 	public int getMaxNum() {
 	    int maxNum = 0;
@@ -60,7 +83,7 @@ public class BookDAO {
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO book(bookID,bookTitle,bookOriginImage,bookImage,bookPublisher,bookPublishedDate,"
 		        + "bookPrice,bookEA,bookIntroduce,bookisView,saveRatio,bookKategorie_BKID)"
-		        + " VALUES(?,?,?,?,?,?,?,?,?,?,?,1)";
+		        + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, book.getBookID());
@@ -75,6 +98,7 @@ public class BookDAO {
             pstmt.setString(9, book.getBookIntroduce());
             pstmt.setBoolean(10, book.isBookisView());
             pstmt.setFloat(11, book.getSaveRatio());
+            pstmt.setInt(12, book.getBookKategorie_BKID());
             insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
@@ -107,7 +131,8 @@ public class BookDAO {
                         rs.getInt("bookEA"), 
                         rs.getString("bookIntroduce"), 
                         rs.getBoolean("bookisView"), 
-                        rs.getFloat("saveRatio")
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID")
                         );
             }
 	    } catch (SQLException e) {
@@ -168,7 +193,7 @@ public class BookDAO {
 	    PreparedStatement pstmt = null;
         String sql = "UPDATE book SET bookTitle=?,bookOriginImage=?,bookImage=?,"
                 + "bookPublisher=?,bookPublishedDate=?,bookPrice=?,bookEA=?,"
-                + "bookIntroduce=?,bookisView=?,saveRatio=? "
+                + "bookIntroduce=?,bookisView=?,saveRatio=?,bookKategorie_BKID=? "
                 + "WHERE bookID=?";
 	    try {
             pstmt = con.prepareStatement(sql);
@@ -183,7 +208,8 @@ public class BookDAO {
             pstmt.setString(8, book.getBookIntroduce());
             pstmt.setBoolean(9, book.isBookisView());
             pstmt.setFloat(10, book.getSaveRatio());
-            pstmt.setInt(11, book.getBookID());
+            pstmt.setInt(11, book.getBookKategorie_BKID());
+            pstmt.setInt(12, book.getBookID());
             updateCount = pstmt.executeUpdate();
 	    } catch (SQLException e) {
             e.printStackTrace();
@@ -217,7 +243,8 @@ public class BookDAO {
                         rs.getInt("bookEA"), 
                         rs.getString("bookIntroduce"), 
                         rs.getBoolean("bookisView"), 
-                        rs.getFloat("saveRatio")
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID")
                         );
 				bookList.add(book);
 				
@@ -259,6 +286,9 @@ public class BookDAO {
 	public int updateQuestion(BookBean question) {
 		return 0;
 	}
+
+
+	
 
 
 

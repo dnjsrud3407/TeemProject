@@ -231,6 +231,28 @@ height: 300px;
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
+		  <!-- 상세 설정 -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <tr>
+                  	<th style="width: 15%;">카테고리</th>
+                  	<td>
+                  		<select name="BKLev">
+                            <option value="1단계">1단계</option>
+                            <option value="2단계">2단계</option>
+                            <option value="3단계">3단계</option>
+                            <option value="4단계">4단계</option>
+                        </select>
+                  	</td>
+                  </tr>
+                </table>
+                <input type="button" value="검색">
+              </div>
+            </div>
+          </div>
+
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -242,33 +264,23 @@ height: 300px;
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th><input type="checkbox"></th>
                       <th>제품 번호</th>
                       <th>제품 이름</th>
                       <th>출판사</th>
                       <th>출판일</th>
                       <th>가격</th>
-                      <th>상품 재고</th>
-                      <th>공개여부</th>
+                      <th>재고 수량</th>
+                      <th>전시상태</th>
                       <th>포인트 적립률</th>
                     </tr>
                   </thead>
-                  <tfoot>
-                    <tr>
-                      <th>제품 번호</th>
-                      <th>제품 이름</th>
-                      <th>출판사</th>
-                      <th>출판일</th>
-                      <th>가격</th>
-                      <th>상품 재고</th>
-                      <th>공개여부</th>
-                      <th>포인트 적립률</th>
-                    </tr>
-                  </tfoot>
                   <tbody>
                     <c:forEach var="book" items="${bookList }" varStatus="status">
                     <tr>
+                      <td><input type="checkbox"></td>
                       <td>${book.bookID }</td>
-                      <td>${book.bookTitle }</td>
+                      <td><a href="Detail.abook?bookID=${book.bookID }">${book.bookTitle }</a></td>
                       <td>${book.bookPublisher }</td>
                       <td>${book.bookPublishedDate }</td>
                       <td>${book.bookPrice }</td>
@@ -341,7 +353,7 @@ height: 300px;
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<!--   <script src="vendor/datatables/jquery.dataTables.min.js"></script> -->
   <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->

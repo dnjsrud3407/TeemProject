@@ -40,6 +40,12 @@ public class WriteProAction implements Action {
         // 상품 이미지
         String bookOriginImage = multi.getOriginalFileName((String)multi.getFileNames().nextElement());
         
+        WriteProService writeProService = new WriteProService();
+
+        // ===== 책 카테고리 찾기
+        String BKLev = multi.getParameter("BKLev");
+        int bookKategorie_BKID = writeProService.getBKLev(BKLev);
+        
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   // 날짜 형식
@@ -53,7 +59,6 @@ public class WriteProAction implements Action {
         }
 
         // bookID 구하기
-        WriteProService writeProService = new WriteProService();
         int bookID = writeProService.getBookID();
         
         // form 태그에서 책 정보 가져오기 (북 카테고리는 아직 미완성)
@@ -68,7 +73,8 @@ public class WriteProAction implements Action {
                 Integer.parseInt(multi.getParameter("bookEA")), 
                 multi.getParameter("bookIntroduce"), 
                 bookisView,
-                Float.parseFloat(multi.getParameter("saveRatio"))
+                Float.parseFloat(multi.getParameter("saveRatio")),
+                bookKategorie_BKID
                 );
         // 책 등록하는 클래스
 		boolean iswriteArticleSuccess = writeProService.writeArticle(book);
