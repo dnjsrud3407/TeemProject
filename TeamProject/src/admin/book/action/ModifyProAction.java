@@ -21,7 +21,7 @@ public class ModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-ActionForward forward = null;
+		ActionForward forward = null;
 		
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		
@@ -56,8 +56,10 @@ ActionForward forward = null;
         
         // ===== 책 카테고리 찾기
         WriteProService writeProService = new WriteProService();
-        String BKLev = multi.getParameter("BKLev");
-        int bookKategorie_BKID = writeProService.getBKLev(BKLev);
+        String BK1 = multi.getParameter("BK1Category");
+        String BK2 = multi.getParameter("BK2Category");
+        String BKLev = multi.getParameter("BKLevCategory");
+        int BKID = writeProService.getBKID(BK1, BK2, BKLev);
         
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
@@ -84,7 +86,7 @@ ActionForward forward = null;
                 multi.getParameter("bookIntroduce"), 
                 bookisView,
                 Float.parseFloat(multi.getParameter("saveRatio")),
-                bookKategorie_BKID
+                BKID
                 );
         
         // 책 수정하기
@@ -100,7 +102,7 @@ ActionForward forward = null;
             out.println("</script>");
         } else {
             forward = new ActionForward();
-            forward.setPath("Detail.abook?bookID=" + book.getBookID());
+            forward.setPath("Detail.abook?bookID=" + book.getBookID() + "&BKID=" + BKID);
         }
 		
 		return forward;

@@ -280,7 +280,7 @@ height: 300px;
                     <tr>
                       <td><input type="checkbox"></td>
                       <td>${book.bookID }</td>
-                      <td><a href="Detail.abook?bookID=${book.bookID }">${book.bookTitle }</a></td>
+                      <td><a href="Detail.abook?bookID=${book.bookID }&BKID=${book.bookKategorie_BKID}">${book.bookTitle }</a></td>
                       <td>${book.bookPublisher }</td>
                       <td>${book.bookPublishedDate }</td>
                       <td>${book.bookPrice }</td>

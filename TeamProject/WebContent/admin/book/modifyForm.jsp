@@ -1,6 +1,7 @@
 <%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 BookBean book = (BookBean)request.getAttribute("book");
 %>
@@ -30,6 +31,97 @@ BookBean book = (BookBean)request.getAttribute("book");
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
 
 <script> 
+	//책 카테고리 선택
+	$(document).ready(function() {
+		<c:forEach items="${BKCategorie }" var="BK">
+		
+		// 처음 카테고리 셋팅 (수정하기 전 값 불러옴)
+	    $.getJSON('admin/book/jsonBK1.jsp', function (d) {
+			$.each(d, function (index, item) {
+				if(item.BK1=="${BK.BK1}"){	// 대분류 selected (BK.BK1와 같을때)
+					$("select[name='BK1Category']").append("<option selected value='" + item.BK1 + "'>" + item.BK1 + "</option>");
+					// 대분류에 따른 소분류 고르기
+					$.getJSON('admin/book/jsonBK2.jsp', function (d) {
+		        		$.each(d, function (index, item) {
+		        			if(item.BK1 == "${BK.BK1}"){
+		        				if(item.BK2 == "${BK.BK2}"){	// 소분류 selected (BK.BK2와 같을때)
+		        					$("select[name='BK2Category']").append("<option selected value='" + item.BK2 + "'>" + item.BK2 + "</option>");
+		        					// 소분류에 따른 레벨 고르기
+		        					$.getJSON('admin/book/jsonBKLev.jsp', function (da) {
+		        		        		$.each(da, function (index, item) {
+		        		        			if(item.BK1 == $("select[name='BK1Category']").val() && item.BK2 == "${BK.BK2}"){
+		        		        				if(item.BKLev == "${BK.BKLev}"){	// 레벨 selected (BK.BKLev과 같을때)
+		        		        					$("select[name='BKLevCategory']").append("<option selected value='" + item.BKLev + "'>" + item.BKLev + "</option>");
+		        		        				} else {
+		        		        					$("select[name='BKLevCategory']").append("<option value='" + item.BKLev + "'>" + item.BKLev + "</option>");
+		        		        				}
+		        		        			}
+		        		        		});
+		        		        	});
+		        				} else {
+		        					$("select[name='BK2Category']").append("<option value='" + item.BK2 + "'>" + item.BK2 + "</option>");
+		        				}
+		        			}
+		        		});
+		        	});
+				} else {
+					$("select[name='BK1Category']").append("<option value='" + item.BK1 + "'>" + item.BK1 + "</option>");
+				}
+			});
+		});
+	    
+	    </c:forEach>
+	    
+		//*********** 1depth카테고리 선택 후 2depth 생성 START ***********
+	    $(document).on("change","select[name='BK1Category']",function(){
+	        
+	        //두번째 셀렉트 박스를 삭제 시킨다.
+	        var BK2CategorySelectBox = $("select[name='BK2Category']");
+	        BK2CategorySelectBox.children().remove(); //기존 리스트 삭제
+	        //세번째 셀렉트 박스를 삭제 시킨다.
+	        var BKLevCategorySelectBox = $("select[name='BKLevCategory']");
+	        BKLevCategorySelectBox.children().remove(); //기존 리스트 삭제
+	        BKLevCategorySelectBox.append("<option value=''>전체</option>");
+	        
+	        //선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
+	        $("option:selected", this).each(function(){
+	            var selectValue = $(this).val(); //main category 에서 선택한 값
+	            BK2CategorySelectBox.append("<option value=''>전체</option>");
+	            $.getJSON('admin/book/jsonBK2.jsp', function (d) {
+	        		$.each(d, function (index, item) {
+	        			if(item.BK1 == selectValue){
+	        				$("select[name='BK2Category']").append("<option value='" + item.BK2 + "'>" + item.BK2 + "</option>");
+	        			}
+	        		});
+	        	});
+	        });
+	        
+	    });
+	
+		
+	  //*********** 2depth카테고리 선택 후 3depth 생성 START ***********
+	    $(document).on("change","select[name='BK2Category']",function(){
+	        
+	        //세번째 셀렉트 박스를 삭제 시킨다.
+	        var BKLevCategorySelectBox = $("select[name='BKLevCategory']");
+	        BKLevCategorySelectBox.children().remove(); //기존 리스트 삭제
+	        var BKSelectedValue = $("select[name='BK1Category']").val();
+	        
+	        //선택한 첫번째 박스의 값, 두번째 박스의 값을 가져와 일치하는 값을 세번째 셀렉트 박스에 넣는다.
+	        $("option:selected", this).each(function(){
+	            var selectValue = $(this).val(); //main category 에서 선택한 값
+	            BKLevCategorySelectBox.append("<option value=''>전체</option>");
+	            $.getJSON('admin/book/jsonBKLev.jsp', function (d) {
+	        		$.each(d, function (index, item) {
+	        			if(item.BK1 == $("select[name='BK1Category']").val() && item.BK2 == selectValue){
+	        				$("select[name='BKLevCategory']").append("<option value='" + item.BKLev + "'>" + item.BKLev + "</option>");
+	        			}
+	        		});
+	        	});
+	        });
+	        
+	    });
+	});
   $( function() { 
       $.datepicker.setDefaults({
           dateFormat: 'yy-mm-dd' //Input Display Format 변경
@@ -264,14 +356,17 @@ BookBean book = (BookBean)request.getAttribute("book");
               <form action="ModifyPro.abook?bookID=<%=book.getBookID() %>" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th>책 카테고리</th>
+                      <th style="width:15%">책 카테고리</th>
                       <td>
-                        <select name="BKLev" required="required">
-                            <option value="1단계" <%if(book.getBookKategorie_BKID()==1){ %>selected="selected"<%} %>>1단계</option>
-                            <option value="2단계" <%if(book.getBookKategorie_BKID()==2){ %>selected="selected"<%} %>>2단계</option>
-                            <option value="3단계" <%if(book.getBookKategorie_BKID()==3){ %>selected="selected"<%} %>>3단계</option>
-                            <option value="4단계" <%if(book.getBookKategorie_BKID()==4){ %>selected="selected"<%} %>>4단계</option>
-                        </select>
+			                          대분류 : <select name="BK1Category" style="width:200px">
+				        <option value="">전체</option>
+					    </select>
+					        소분류 : <select name="BK2Category" style="width:200px">
+					        <option value="">전체</option>
+					    </select>
+					        레벨 : <select name="BKLevCategory" style="width:200px">
+					        <option value="">전체</option>
+					    </select>
                       </td>
                     </tr>
                     <tr>

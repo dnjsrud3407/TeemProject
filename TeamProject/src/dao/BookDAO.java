@@ -8,6 +8,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import vo.BookBean;
 
 public class BookDAO {
@@ -32,18 +35,36 @@ public class BookDAO {
 		return books;
 	}
 	
-	// 책 등록 시 카테고리 구하기(아직 미완성...)
-	public int getBKLev(String BKLev) {
-		int bookKategorie_BKID = 0;
+	// 책 등록 시 다중 카테고리 생성
+	public JSONArray selectBookList(String col, String type) {
+		JSONArray BKList = new JSONArray();
 		PreparedStatement pstmt = null;
 	    ResultSet rs = null;
-	    String sql = "SELECT BKID FROM bookkategorie WHERE BKLev=?";
-	    try {
+		String sql = "select distinct " + col + " from bookkategorie";
+		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, BKLev);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				bookKategorie_BKID = rs.getInt(1);
+			if(type.equals("BK1")) {
+				while(rs.next()){
+					JSONObject jbb = new JSONObject();
+					jbb.put("BK1", rs.getString("BK1"));
+					BKList.add(jbb);
+				}
+			} else if(type.equals("BK2")) {
+				while(rs.next()){
+					JSONObject jbb = new JSONObject();
+					jbb.put("BK1", rs.getString("BK1"));
+					jbb.put("BK2", rs.getString("BK2"));
+					BKList.add(jbb);
+				}
+			} else if(type.equals("BKLev")) {
+				while(rs.next()){
+					JSONObject jbb = new JSONObject();
+					jbb.put("BK1", rs.getString("BK1"));
+					jbb.put("BK2", rs.getString("BK2"));
+					jbb.put("BKLev", rs.getString("BKLev"));
+					BKList.add(jbb);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -51,12 +72,36 @@ public class BookDAO {
 	        if(rs != null) {close(rs);}
 	        if(pstmt != null) {close(pstmt);}
 	    }
-		
-		return bookKategorie_BKID;
+		return BKList;
+	}
+	
+	// 책 등록 시 카테고리 번호 구하기
+	public int selectBKID(String BK1, String BK2, String BKLev) {
+		int BKID = 0;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT BKID FROM bookkategorie WHERE BK1=? AND BK2=? AND BKLev=?";
+	    try {
+	        pstmt = con.prepareStatement(sql);
+	        pstmt.setString(1, BK1);
+	        pstmt.setString(2, BK2);
+	        pstmt.setString(3, BKLev);
+	        rs = pstmt.executeQuery();
+	        if(rs.next()) {
+	        	BKID = rs.getInt(1);  // 책 번호 최대값 + 1
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        if(rs != null) {close(rs);}
+	        if(pstmt != null) {close(pstmt);}
+	    }
+	    
+	    return BKID;
 	}
 	
 	// 책 등록 시 책 번호 구하기(책 번호 중 최대값 구하기)
-	public int getMaxNum() {
+	public int selectMaxNum() {
 	    int maxNum = 0;
 	    PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -109,7 +154,7 @@ public class BookDAO {
 		return insertCount;
 	}
 	
-	// 책 상세보기에서 사용하는 getArticle
+	// 책 상세보기에서 사용하는 selectBook
 	public BookBean selectBook(int bookID) {
 	    BookBean book = null;
 	    PreparedStatement pstmt = null;
@@ -143,6 +188,33 @@ public class BookDAO {
         }
 	    
 	    return book;
+	}
+	
+	// 책 상세보기에서 사용하는 카테고리 보기
+	public JSONArray selectBKCategorie(int BKID) {
+		JSONArray BKCategorie = new JSONArray();
+		PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT * FROM bookkategorie WHERE BKID=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, BKID);
+			rs = pstmt.executeQuery();
+			while(rs.next()){
+				JSONObject jbb = new JSONObject();
+				jbb.put("BKID", rs.getString("BKID"));
+				jbb.put("BK1", rs.getString("BK1"));
+				jbb.put("BK2", rs.getString("BK2"));
+				jbb.put("BKLev", rs.getString("BKLev"));
+				BKCategorie.add(jbb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(rs != null) {close(rs);}
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		return BKCategorie;
 	}
 	
 	// 책 삭제 시 비밀번호 확인
@@ -286,6 +358,15 @@ public class BookDAO {
 	public int updateQuestion(BookBean question) {
 		return 0;
 	}
+
+
+	
+
+
+	
+
+
+	
 
 
 	

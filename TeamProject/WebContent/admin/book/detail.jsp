@@ -1,9 +1,12 @@
+<%@page import="org.json.simple.JSONArray"%>
 <%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 BookBean book = (BookBean)request.getAttribute("book");
 %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -239,12 +242,16 @@ height: 300px;
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>'">
+               <c:forEach items="${BKCategorie }" var="BK">
+                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>&BKID=${BK.BKID }'">
                 <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=<%=book.getBookID()%>'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th style="width:15%">책 카테고리</th>
-                      <td><%=book.getBookKategorie_BKID() %></td>
+                      <td>
+                      		${BK.BK1} > ${BK.BK2 } > ${BK.BKLev }
+                </c:forEach>
+                      </td>
                     </tr>
                     <tr>
                       <th style="width:15%">책 제목</th>

@@ -26,18 +26,19 @@
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
 
 <!-- 책 카테고리 시 사용하는 js -->
-<script src="admin/js/jquery-3.4.1.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
+<!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 <script> 
 	// 책 카테고리 선택
 	$(document).ready(function() {
-	    //Main 카테고리 셋팅 (DB에서 값을 가져와 셋팅 하세요.)
-	
+	    
+		//Main 카테고리 셋팅
 	    $.getJSON('admin/book/jsonBK1.jsp', function (d) {
 			$.each(d, function (index, item) {
 				$("select[name='BK1Category']").append("<option value='" + item.BK1 + "'>" + item.BK1 + "</option>");
 			});
 		});
+	    
 	    
 		//*********** 1depth카테고리 선택 후 2depth 생성 START ***********
 	    $(document).on("change","select[name='BK1Category']",function(){
@@ -64,6 +65,7 @@
 	        });
 	        
 	    });
+
 		
 	  //*********** 2depth카테고리 선택 후 3depth 생성 START ***********
 	    $(document).on("change","select[name='BK2Category']",function(){
@@ -71,14 +73,15 @@
 	        //세번째 셀렉트 박스를 삭제 시킨다.
 	        var BKLevCategorySelectBox = $("select[name='BKLevCategory']");
 	        BKLevCategorySelectBox.children().remove(); //기존 리스트 삭제
+	        var BKSelectedValue = $("select[name='BK1Category']").val();
 	        
-	        //선택한 두번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
+	        //선택한 첫번째 박스의 값, 두번째 박스의 값을 가져와 일치하는 값을 세번째 셀렉트 박스에 넣는다.
 	        $("option:selected", this).each(function(){
 	            var selectValue = $(this).val(); //main category 에서 선택한 값
 	            BKLevCategorySelectBox.append("<option value=''>전체</option>");
 	            $.getJSON('admin/book/jsonBKLev.jsp', function (d) {
 	        		$.each(d, function (index, item) {
-	        			if(item.BK2 == selectValue){
+	        			if(item.BK1 == $("select[name='BK1Category']").val() && item.BK2 == selectValue){
 	        				$("select[name='BKLevCategory']").append("<option value='" + item.BKLev + "'>" + item.BKLev + "</option>");
 	        			}
 	        		});
@@ -87,6 +90,8 @@
 	        
 	    });
 	});
+	
+  // 달력 api	
   $( function() { 
       $.datepicker.setDefaults({
           dateFormat: 'yy-mm-dd' //Input Display Format 변경
@@ -320,7 +325,7 @@
                     <tr>
                       <th style="width:15%">책 카테고리</th>
                       <td>
-			                        대분류 : <select name="BK1Category" style="width:200px">
+			                          대분류 : <select name="BK1Category" style="width:200px">
 				        <option value="">전체</option>
 					    </select>
 					        소분류 : <select name="BK2Category" style="width:200px">

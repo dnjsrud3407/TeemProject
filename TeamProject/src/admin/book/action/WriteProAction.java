@@ -43,8 +43,10 @@ public class WriteProAction implements Action {
         WriteProService writeProService = new WriteProService();
 
         // ===== 책 카테고리 찾기
-        String BKLev = multi.getParameter("BKLev");
-        int bookKategorie_BKID = writeProService.getBKLev(BKLev);
+        String BK1 = multi.getParameter("BK1Category");
+        String BK2 = multi.getParameter("BK2Category");
+        String BKLev = multi.getParameter("BKLevCategory");
+        int BKID = writeProService.getBKID(BK1, BK2, BKLev);
         
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
@@ -74,7 +76,7 @@ public class WriteProAction implements Action {
                 multi.getParameter("bookIntroduce"), 
                 bookisView,
                 Float.parseFloat(multi.getParameter("saveRatio")),
-                bookKategorie_BKID
+                BKID
                 );
         // 책 등록하는 클래스
 		boolean iswriteArticleSuccess = writeProService.writeArticle(book);
@@ -82,7 +84,7 @@ public class WriteProAction implements Action {
 		if(iswriteArticleSuccess) {   // 등록 성공 시
 		    forward = new ActionForward();
 		    // 책 등록한거 상세보기
-		    forward.setPath("Detail.abook?bookID=" + book.getBookID());
+		    forward.setPath("Detail.abook?bookID=" + book.getBookID() + "&BKID=" + BKID);
 		    forward.setRedirect(true);
 		} else {
 		 // 실패시
