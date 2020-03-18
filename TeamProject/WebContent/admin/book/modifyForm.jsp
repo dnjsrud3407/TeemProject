@@ -52,19 +52,19 @@ BookBean book = (BookBean)request.getAttribute("book");
 		        		        			if(item.BK1 == $("select[name='BK1Category']").val() && item.BK2 == "${BK.BK2}"){
 		        		        				if(item.BKLev == "${BK.BKLev}"){	// 레벨 selected (BK.BKLev과 같을때)
 		        		        					$("select[name='BKLevCategory']").append("<option selected value='" + item.BKLev + "'>" + item.BKLev + "</option>");
-		        		        				} else {
+		        		        				} else {	// 레벨이 BK.BKLev 과 같지 않을 때
 		        		        					$("select[name='BKLevCategory']").append("<option value='" + item.BKLev + "'>" + item.BKLev + "</option>");
 		        		        				}
 		        		        			}
 		        		        		});
 		        		        	});
-		        				} else {
+		        				} else {	// 소분류가 BK.BK2 와 같지 않을 때
 		        					$("select[name='BK2Category']").append("<option value='" + item.BK2 + "'>" + item.BK2 + "</option>");
 		        				}
 		        			}
 		        		});
 		        	});
-				} else {
+				} else {	// 대분류가 BK.BK1 와 같지 않을 때
 					$("select[name='BK1Category']").append("<option value='" + item.BK1 + "'>" + item.BK1 + "</option>");
 				}
 			});
