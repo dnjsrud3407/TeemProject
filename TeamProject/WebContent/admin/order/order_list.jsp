@@ -371,7 +371,7 @@ height: 300px;
                     </tr>
                   </tfoot>
                   <tbody>
-                    <tr>
+                    <tr onclick="location.href='OrderDeliveryList.adm'">
                       <td>Tiger Nixon</td>
                       <td>System Architect</td>
                       <td>Edinburgh</td>
