@@ -379,7 +379,7 @@ height: 300px;
                       <td>2011/04/25</td>
                       <td>$320,800</td>
                     </tr>
-                    <tr>
+                    <tr onclick="location.href='OrderDeliveryList.adm'">
                       <td>Garrett Winters</td>
                       <td>Accountant</td>
                       <td>Tokyo</td>

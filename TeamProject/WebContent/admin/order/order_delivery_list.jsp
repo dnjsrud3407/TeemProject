@@ -283,7 +283,7 @@
                       <td>2009/01/12</td>
                       <td>$86,000</td>
                     </tr>
-                    <tr>
+                    <tr onclick="location.href='OrderDeliveryDetail.adm'">
                       <td>Cedric Kelly</td>
                       <td>Senior Javascript Developer</td>
                       <td>Edinburgh</td>

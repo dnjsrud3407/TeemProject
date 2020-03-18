@@ -179,7 +179,7 @@
 				</form>
 				
 				<hr class="soft"/>
-				<h4>100 items in stock</h4>
+				<h4>100 items in stock - </h4>
 				<form class="form-horizontal qtyFrm pull-right">
 				  <div class="control-group">
 					<label class="control-label"><span>Color</span></label>
