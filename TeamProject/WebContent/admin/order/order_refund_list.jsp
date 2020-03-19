@@ -22,7 +22,6 @@
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
 </head>
 <body id="page-top">
-			<a href="OrderRefundDetail.adm">환불 리스트입니다</a>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
