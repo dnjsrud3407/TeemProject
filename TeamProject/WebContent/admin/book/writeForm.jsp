@@ -29,7 +29,7 @@
 <!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 <script> 
-	// 책 카테고리 선택
+	// 책 카테고리 선택 수정
 	$(document).ready(function() {
 	    
 		// ================== 대분류 카테고리 지정

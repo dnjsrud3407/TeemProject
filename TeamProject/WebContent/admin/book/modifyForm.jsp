@@ -34,7 +34,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 	//책 카테고리 선택
 	$(document).ready(function() {
 		<c:forEach items="${BKCategorie }" var="BeforeBK">
-			// ==================  수정하기 전 카테고리 불러오기
+			// ==================  수정하기 전 카테고리 불러오기 수정
 			$.ajax({	// 대분류
 				type:"POST",
 				url:"admin/book/jsonBK1_1.jsp",

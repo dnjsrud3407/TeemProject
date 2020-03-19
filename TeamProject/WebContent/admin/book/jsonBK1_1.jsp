@@ -11,7 +11,7 @@ JSONArray BKList = null;
 BKateService bKateService = new BKateService(); 
 BKList = bKateService.getBKList("BK1", "BK1");
 
-// 수정하는 경우
+// 수정하는 경우 수정
 if(BeforeBK1 != null){
 	for(int i=0;i<BKList.size();i++){
 		JSONObject jbb = (JSONObject)BKList.get(i);

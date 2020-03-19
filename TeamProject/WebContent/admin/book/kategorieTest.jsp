@@ -9,7 +9,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript">
 $(document).ready(function () {
-	// ================== 대분류 카테고리 지정
+	// ================== 대분류 카테고리 지정 수정
 	$.getJSON('jsonBK1.jsp', function (d) {
 		$.each(d, function (index, item) {
 			$("select[name='BK1Category']").append("<option value='" + item.BK1 + "'>" + item.BK1 + "</option>");

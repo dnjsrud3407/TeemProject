@@ -27,7 +27,7 @@ if(BeforeBK1 == null && BeforeBK2 == null){		// 글 등록 시
 			} 
 		}
 	}
-} else {	// 글 수정 시
+} else {	// 글 수정 시 수정
 	for(int i=0;i<BKList.size();i++){
 		JSONObject jbb = (JSONObject)BKList.get(i);
 		// 수정하기 전 카테고리 가져와서 selected 상태로
