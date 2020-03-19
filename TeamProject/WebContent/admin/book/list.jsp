@@ -22,7 +22,57 @@
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
-
+<script src="admin/js/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script> 
+	// 책 카테고리 선택 수정
+	$(document).ready(function() {
+	    
+		// ================== 대분류 카테고리 지정
+		$.ajax({
+			type:"POST",
+			url:"admin/book/jsonBK1.jsp",
+			success: function(msg1){	// 대분류 innerHTML
+				$("select[name='BK1Category']").html(msg1);
+			}
+		});
+		
+		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
+		$("#BK1Category").on("change", function () {
+			// 대분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			// 소분류 데이터 가져오기
+			$.ajax({
+				type:"POST",
+				url:"admin/book/jsonBK2.jsp",
+				data:"BK1="+BK1,
+				success: function(msg2){	// 소분류 innerHTML
+					$("select[name='BK2Category']").html(msg2);
+				}
+			});
+//	 		alert($("#BK2Category option:selected").val());
+			// 레벨 셀렉트 박스 지우기
+			$("select[name='BKLevCategory']").html("<option value='선택하세요'>선택하세요</option>");
+		});
+		
+		
+		// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
+		$("#BK2Category").on("change", function () {
+//	 		// 대분류, 소분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			var BK2 = $("#BK2Category option:selected").val();
+//	 		// 소분류 데이터 가져오기
+			$.ajax({
+				type:"POST",
+				url:"admin/book/jsonBKLev.jsp",
+				data:"BK1="+BK1+"&BK2="+BK2,
+				success: function (msg3) {	// 레벨 innerHTML
+					$("select[name='BKLevCategory']").html(msg3);
+				}
+			});
+		});
+	});
+</script>
 <style type="text/css">
 img{
 width: 400px;
@@ -235,20 +285,25 @@ height: 300px;
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
+              <form action="Search.abook?" method="post">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
                   	<th style="width: 15%;">카테고리</th>
                   	<td>
-                  		<select name="BKLev">
-                            <option value="1단계">1단계</option>
-                            <option value="2단계">2단계</option>
-                            <option value="3단계">3단계</option>
-                            <option value="4단계">4단계</option>
-                        </select>
+						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
+						     		<option value="선택하세요">선택하세요</option>
+						  		</select>
+						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
+						      		<option value="선택하세요">선택하세요</option>
+						  	   </select>
+						레벨 : <select name="BKLevCategory" style="width:200px">
+						     		<option value="선택하세요">선택하세요</option>
+						  	  </select>
                   	</td>
                   </tr>
                 </table>
-                <input type="button" value="검색">
+                <input type="submit" value="검색">
+              </form>
               </div>
             </div>
           </div>
