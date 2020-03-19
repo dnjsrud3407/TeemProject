@@ -37,7 +37,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 			// ==================  수정하기 전 카테고리 불러오기 수정
 			$.ajax({	// 대분류
 				type:"POST",
-				url:"admin/book/jsonBK1_1.jsp",
+				url:"admin/book/jsonBK1.jsp",
 				data:"BeforeBK1=${BeforeBK.BK1}",
 				success: function(msg){	// 대분류 innerHTML
 					$("select[name='BK1Category']").html(msg);
@@ -45,7 +45,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 			});
 			$.ajax({	// 소분류
 				type:"POST",
-				url:"admin/book/jsonBK2_1.jsp",
+				url:"admin/book/jsonBK2.jsp",
 				data:"BeforeBK1=${BeforeBK.BK1}&BeforeBK2=${BeforeBK.BK2}",
 				success: function(msg2){	// 소분류 innerHTML
 					$("select[name='BK2Category']").html(msg2);
@@ -53,7 +53,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 			});
 			$.ajax({	// 레벨
 				type:"POST",
-				url:"admin/book/jsonBKLev_2.jsp",
+				url:"admin/book/jsonBKLev.jsp",
 				data:"BeforeBK1=${BeforeBK.BK1}&BeforeBK2=${BeforeBK.BK2}&BeforeBKLev=${BeforeBK.BKLev}",
 				success: function(msg3){	// 소분류 innerHTML
 					$("select[name='BKLevCategory']").html(msg3);
@@ -67,7 +67,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 				// 소분류 데이터 가져오기
 				$.ajax({
 					type:"POST",
-					url:"admin/book/jsonBK2_1.jsp",
+					url:"admin/book/jsonBK2.jsp",
 					data:"BK1="+BK1,
 					success: function(msg){	// 소분류 innerHTML
 						$("select[name='BK2Category']").html(msg);
@@ -87,7 +87,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 	//	 		// 소분류 데이터 가져오기
 				$.ajax({
 					type:"POST",
-					url:"admin/book/jsonBKLev_2.jsp",
+					url:"admin/book/jsonBKLev.jsp",
 					data:"BK1="+BK1+"&BK2="+BK2,
 					success: function (msg2) {	// 레벨 innerHTML
 						$("select[name='BKLevCategory']").html(msg2);

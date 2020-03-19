@@ -33,10 +33,12 @@
 	$(document).ready(function() {
 	    
 		// ================== 대분류 카테고리 지정
-		$.getJSON('admin/book/jsonBK1_1.jsp', function (d) {
-			$.each(d, function (index, item) {
-				$("select[name='BK1Category']").append("<option value='" + item.BK1 + "'>" + item.BK1 + "</option>");
-			});
+		$.ajax({
+			type:"POST",
+			url:"admin/book/jsonBK1.jsp",
+			success: function(msg1){	// 대분류 innerHTML
+				$("select[name='BK1Category']").html(msg1);
+			}
 		});
 		
 		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
@@ -46,10 +48,10 @@
 			// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBK2_1.jsp",
+				url:"admin/book/jsonBK2.jsp",
 				data:"BK1="+BK1,
-				success: function(msg){	// 소분류 innerHTML
-					$("select[name='BK2Category']").html(msg);
+				success: function(msg2){	// 소분류 innerHTML
+					$("select[name='BK2Category']").html(msg2);
 				}
 			});
 //	 		alert($("#BK2Category option:selected").val());
@@ -66,10 +68,10 @@
 //	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBKLev_2.jsp",
+				url:"admin/book/jsonBKLev.jsp",
 				data:"BK1="+BK1+"&BK2="+BK2,
-				success: function (msg2) {	// 레벨 innerHTML
-					$("select[name='BKLevCategory']").html(msg2);
+				success: function (msg3) {	// 레벨 innerHTML
+					$("select[name='BKLevCategory']").html(msg3);
 				}
 			});
 		});
