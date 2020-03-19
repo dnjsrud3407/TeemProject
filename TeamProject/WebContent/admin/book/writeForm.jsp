@@ -32,63 +32,47 @@
 	// 책 카테고리 선택
 	$(document).ready(function() {
 	    
-		//Main 카테고리 셋팅
-	    $.getJSON('admin/book/jsonBK1.jsp', function (d) {
+		// ================== 대분류 카테고리 지정
+		$.getJSON('admin/book/jsonBK1_1.jsp', function (d) {
 			$.each(d, function (index, item) {
 				$("select[name='BK1Category']").append("<option value='" + item.BK1 + "'>" + item.BK1 + "</option>");
 			});
 		});
-	    
-	    
-		//*********** 1depth카테고리 선택 후 2depth 생성 START ***********
-	    $(document).on("change","select[name='BK1Category']",function(){
-	        
-	        //두번째 셀렉트 박스를 삭제 시킨다.
-	        var BK2CategorySelectBox = $("select[name='BK2Category']");
-	        BK2CategorySelectBox.children().remove(); //기존 리스트 삭제
-	        //세번째 셀렉트 박스를 삭제 시킨다.
-	        var BKLevCategorySelectBox = $("select[name='BKLevCategory']");
-	        BKLevCategorySelectBox.children().remove(); //기존 리스트 삭제
-	        BKLevCategorySelectBox.append("<option value=''>전체</option>");
-	        
-	        //선택한 첫번째 박스의 값을 가져와 일치하는 값을 두번째 셀렉트 박스에 넣는다.
-	        $("option:selected", this).each(function(){
-	            var selectValue = $(this).val(); //main category 에서 선택한 값
-	            BK2CategorySelectBox.append("<option value=''>전체</option>");
-	            $.getJSON('admin/book/jsonBK2.jsp', function (d) {
-	        		$.each(d, function (index, item) {
-	        			if(item.BK1 == selectValue){
-	        				$("select[name='BK2Category']").append("<option value='" + item.BK2 + "'>" + item.BK2 + "</option>");
-	        			}
-	        		});
-	        	});
-	        });
-	        
-	    });
-
 		
-	  //*********** 2depth카테고리 선택 후 3depth 생성 START ***********
-	    $(document).on("change","select[name='BK2Category']",function(){
-	        
-	        //세번째 셀렉트 박스를 삭제 시킨다.
-	        var BKLevCategorySelectBox = $("select[name='BKLevCategory']");
-	        BKLevCategorySelectBox.children().remove(); //기존 리스트 삭제
-	        var BKSelectedValue = $("select[name='BK1Category']").val();
-	        
-	        //선택한 첫번째 박스의 값, 두번째 박스의 값을 가져와 일치하는 값을 세번째 셀렉트 박스에 넣는다.
-	        $("option:selected", this).each(function(){
-	            var selectValue = $(this).val(); //main category 에서 선택한 값
-	            BKLevCategorySelectBox.append("<option value=''>전체</option>");
-	            $.getJSON('admin/book/jsonBKLev.jsp', function (d) {
-	        		$.each(d, function (index, item) {
-	        			if(item.BK1 == $("select[name='BK1Category']").val() && item.BK2 == selectValue){
-	        				$("select[name='BKLevCategory']").append("<option value='" + item.BKLev + "'>" + item.BKLev + "</option>");
-	        			}
-	        		});
-	        	});
-	        });
-	        
-	    });
+		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
+		$("#BK1Category").on("change", function () {
+			// 대분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			// 소분류 데이터 가져오기
+			$.ajax({
+				type:"POST",
+				url:"admin/book/jsonBK2_1.jsp",
+				data:"BK1="+BK1,
+				success: function(msg){	// 소분류 innerHTML
+					$("select[name='BK2Category']").html(msg);
+				}
+			});
+//	 		alert($("#BK2Category option:selected").val());
+			// 레벨 셀렉트 박스 지우기
+			$("select[name='BKLevCategory']").html("<option value='선택하세요'>선택하세요</option>");
+		});
+		
+		
+		// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
+		$("#BK2Category").on("change", function () {
+//	 		// 대분류, 소분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			var BK2 = $("#BK2Category option:selected").val();
+//	 		// 소분류 데이터 가져오기
+			$.ajax({
+				type:"POST",
+				url:"admin/book/jsonBKLev_2.jsp",
+				data:"BK1="+BK1+"&BK2="+BK2,
+				success: function (msg2) {	// 레벨 innerHTML
+					$("select[name='BKLevCategory']").html(msg2);
+				}
+			});
+		});
 	});
 	
   // 달력 api	
@@ -325,15 +309,15 @@
                     <tr>
                       <th style="width:15%">책 카테고리</th>
                       <td>
-			                          대분류 : <select name="BK1Category" style="width:200px">
-				        <option value="">전체</option>
-					    </select>
-					        소분류 : <select name="BK2Category" style="width:200px">
-					        <option value="">전체</option>
-					    </select>
-					        레벨 : <select name="BKLevCategory" style="width:200px">
-					        <option value="">전체</option>
-					    </select>
+						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
+						     		<option value="선택하세요">선택하세요</option>
+						  		</select>
+						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
+						      		<option value="선택하세요">선택하세요</option>
+						  	   </select>
+						레벨 : <select name="BKLevCategory" style="width:200px">
+						     		<option value="선택하세요">선택하세요</option>
+						  	  </select>
                       </td>
                     </tr>
                     <tr>
