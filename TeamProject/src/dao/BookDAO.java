@@ -36,7 +36,7 @@ public class BookDAO {
 	}
 	
 	// 책 등록 시 다중 카테고리 생성
-	public JSONArray selectBookList(String col, String type) {
+	public JSONArray selectBKList(String col, String type) {
 		JSONArray BKList = new JSONArray();
 		PreparedStatement pstmt = null;
 	    ResultSet rs = null;
@@ -202,7 +202,7 @@ public class BookDAO {
 			rs = pstmt.executeQuery();
 			while(rs.next()){
 				JSONObject jbb = new JSONObject();
-				jbb.put("BKID", rs.getString("BKID"));
+				jbb.put("BKID", BKID);
 				jbb.put("BK1", rs.getString("BK1"));
 				jbb.put("BK2", rs.getString("BK2"));
 				jbb.put("BKLev", rs.getString("BKLev"));
@@ -292,16 +292,43 @@ public class BookDAO {
 	    return updateCount;
 	}
 	
+	// 책 목록 개수
+	public int selectListCount() {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT COUNT(*) FROM book";
+        try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+        } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return listCount;
+	}
+	
 	// 책 목록 가져오기 
-	public ArrayList<BookBean> selectBookList() {
+	public ArrayList<BookBean> selectBookList(int page, int limit) {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM book";
+        String sql = "SELECT * FROM book ORDER BY bookID DESC LIMIT ?,?";
         BookBean book = null;
+        
+        int startRow = (page - 1) * limit;
+        int endRow = startRow + limit;
         
         try {
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				book = new BookBean(
@@ -323,7 +350,10 @@ public class BookDAO {
 			}
         } catch (SQLException e) {
 			e.printStackTrace();
-		}
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
         
 		return bookList;
 	}
@@ -358,6 +388,9 @@ public class BookDAO {
 	public int updateQuestion(BookBean question) {
 		return 0;
 	}
+
+
+	
 
 
 	

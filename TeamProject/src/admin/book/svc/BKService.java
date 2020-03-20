@@ -9,14 +9,14 @@ import dao.BookDAO;
 import static db.JdbcUtil.*;
 
 
-public class BKateService {
+public class BKService {
 
 	public JSONArray getBKList(String col, String type) {
 		Connection con = getConnection();
 		BookDAO bookDAO = BookDAO.getInstance();
 		bookDAO.setConnection(con);
 		
-		JSONArray BKList = bookDAO.selectBookList(col, type);
+		JSONArray BKList = bookDAO.selectBKList(col, type);
 		
 		close(con);
 		

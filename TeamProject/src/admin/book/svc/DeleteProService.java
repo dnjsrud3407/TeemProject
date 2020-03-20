@@ -22,13 +22,23 @@ public class DeleteProService {
     }
 
     // 책 삭제
-    public boolean removeArticle(int bookID) {
+    public boolean removeArticle(String[] bookIDList) {
         boolean isremoveArticleSuccess = false;
         Connection con = getConnection();
         BookDAO bookDAO = BookDAO.getInstance();
         bookDAO.setConnection(con);
+        int deleteCount = 0;
+        int bookID = 0;
         
-        int deleteCount = bookDAO.deleteBook(bookID);
+        if(bookIDList.length > 1) {	// 여러개 삭제하는 경우
+        	for(int i = 0; i < bookIDList.length; i++) {
+        		bookID = Integer.parseInt(bookIDList[i]);
+        		deleteCount = bookDAO.deleteBook(bookID);
+        	}
+        } else {
+        	bookID = Integer.parseInt(bookIDList[0]);
+        	deleteCount = bookDAO.deleteBook(bookID);
+        }
         
         if (deleteCount > 0) {
             isremoveArticleSuccess = true;

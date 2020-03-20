@@ -23,6 +23,7 @@ public class DetailAction implements Action {
 		// 제품 상세보기
 		DetailService detailService = new DetailService();
 		BookBean book = detailService.getArticle(bookID);
+		// 카테고리 정보 가져오기
 		JSONArray BKCategorie = detailService.getBKCategorie(BKID);
 
 		// 가져온 book, BKCategorie request 객체에 넣기

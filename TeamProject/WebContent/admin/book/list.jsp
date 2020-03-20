@@ -75,8 +75,14 @@
 </script>
 <style type="text/css">
 img{
-width: 400px;
-height: 300px;
+	width: 400px;
+	height: 300px;
+}
+#pageList {
+	margin: auto;
+	width: 500px;
+	text-align: center;
+	font-size: 1.2em;
 }
 </style>
 </head>
@@ -315,7 +321,11 @@ height: 300px;
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <c:if test="${bookList != null }">
+              
+              <form action="DeleteForm.abook" method="post">
+              <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
+              <input type="button" value="제품삭제" onsubmit="">
+              <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
@@ -328,25 +338,45 @@ height: 300px;
                       <th>재고 수량</th>
                       <th>전시상태</th>
                       <th>포인트 적립률</th>
+                      <th>대분류</th>
+                      <th>단계</th>
+                      <th>소분류</th>
+                      <th>판매량</th>
                     </tr>
                   </thead>
                   <tbody>
                     <c:forEach var="book" items="${bookList }" varStatus="status">
                     <tr>
-                      <td><input type="checkbox"></td>
+                      <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
                       <td>${book.bookID }</td>
-                      <td><a href="Detail.abook?bookID=${book.bookID }&BKID=${book.bookKategorie_BKID}">${book.bookTitle }</a></td>
+                      <td><a href="Detail.abook?bookID=${book.bookID }&BKID=${book.bookKategorie_BKID}&page=${pageInfo.page}">${book.bookTitle }</a></td>
                       <td>${book.bookPublisher }</td>
                       <td>${book.bookPublishedDate }</td>
                       <td>${book.bookPrice }</td>
                       <td>${book.bookEA }</td>
                       <td>${book.bookisView }</td>
                       <td>${book.saveRatio }</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
                     </tr>
                     </c:forEach>
                   </tbody>
                 </table>
+                <section id="pageList">
+                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+                		<a href="List.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                	</c:if>
+                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                		<a href="List.abook?page=${i }">${i }</a>&nbsp;
+                	</c:forEach>
+                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+                		<a href="List.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                	</c:if>
+                </section>
                 </c:if>
+                </form>
               </div>
             </div>
           </div>
