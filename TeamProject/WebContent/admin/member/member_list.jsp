@@ -14,7 +14,7 @@ PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 
 // PageInfo 객체로부터 페이징 정보 가져오기
 int listCount = pageInfo.getListCount();
-int nowPage = pageInfo.getPage();
+int nowPage = pageInfo.getPage(); 
 int startPage = pageInfo.getStartPage();
 int endPage = pageInfo.getEndPage();
 int maxPage = pageInfo.getMaxPage();

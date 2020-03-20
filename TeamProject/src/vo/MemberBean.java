@@ -9,7 +9,7 @@ public class MemberBean {
 	private String address;
 	private String phone_num;
 	private String email;
-	private String tell_num;
+	private String tell_num; 
 	private String address2;
 	private int point;
 	private int grade;

@@ -13,7 +13,7 @@ import vo.ActionForward;
 import vo.MemberBean;
 
 
-
+ 
 public class MemberListAcion implements Action {
 
 	@Override

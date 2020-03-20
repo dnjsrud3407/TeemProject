@@ -90,7 +90,7 @@ public MemberDAO() {}
 				if(rs.getString("pw").equals(member.getPw())) {
 					loginResult = 1;
 					
-				} else {
+				} else { 
 					loginResult = -1;
 				}
 			}

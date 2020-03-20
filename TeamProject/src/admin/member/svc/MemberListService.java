@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 import dao.MemberDAO;
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.*; 
 import vo.MemberBean;
 
 public class MemberListService {
