@@ -1,20 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
+
+  <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - order_refund_list.jsp</title>
+  <title>SB Admin 2 - member_detail.jsp</title>
+
+  <!-- Custom fonts for this template -->
+  <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
 
 
-<!-- Bootstrap style --> 
-    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
-    <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
+<!-- 회원수정관련 --> 
+
 <!-- Bootstrap style responsive -->	
 
 	<link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
@@ -29,17 +40,62 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
 
-
-  <!-- Custom fonts for this template -->
-  <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
-  <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
-
-  <!-- Custom styles for this page -->
-  <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
+<script type="text/javascript">
+	function checkId(id) {
+		// 4 ~ 12자리 아이디 영문,숫자 조합 유효성 검사
+		// => 영문자로 시작하고 영문자 또는 숫자의 조합으로 4 ~ 12 자리
+		// 1. 정규표현식 지정
+		var regex = /^[A-Za-z][A-Za-z0-9]{3,11}$/;
+		
+		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
+		var element = document.getElementById('checkIdResult'); // checkIdResult 값을 ID 로 갖는 태그 찾기
+		
+		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
+		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
+		if(regex.exec(id.value)) { // 유효성 검사를 통과했을 경우
+// 			alert('유효성 검사 통과');	
+			// 지정된 태그 내에 메세지 표시
+			element.innerHTML = "사용 가능한 아이디";
+		} else { // 유효성 검사를 통과하지 못했을 경우
+// 			alert('유효성 검사 탈락');
+			element.innerHTML = "사용 불가능한 아이디";
+		}
+	}
+	
+	function checkPasswd(passwd) {
+		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합 유효성 검사
+		// 1. 정규표현식 지정
+		// 1) 길이 체크 : 8 ~ 16자리. 영문 대문자&소문자&숫자&특수문자(!@#$%^_)
+		var lengthRegex = /^[A-Za-z0-9!@#$%^_]{8,16}$/;
+		// 2) 대문자 체크
+		var upperCaseRegex = /[A-Z]/;
+		// 3) 소문자 체크
+		var lowerCaseRegex = /[a-z]/;
+		// 4) 숫자 체크
+		var digitRegex = /[0-9]/;
+		// 5) 특수문자 체크
+		var specCharRegex = /[!@#$%^_]/;
+		
+// 		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
+		var element = document.getElementById('checkPasswdResult'); // checkPasswdResult 값을 ID 로 갖는 태그 찾기
+		
+// 		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
+// 		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
+		// 길이, 대문자, 소문자, 숫자, 특수문자 체크를 모두 통과했을 경우
+		if(lengthRegex.exec(passwd.value) && upperCaseRegex.exec(passwd.value) &&
+				lowerCaseRegex.exec(passwd.value) && digitRegex.exec(passwd.value) &&
+					specCharRegex.exec(passwd.value)) {
+// 			alert('유효성 검사 통과');	
+			// 지정된 태그 내에 메세지 표시
+			element.innerHTML = "적합한 패스워드";
+		} else { // 유효성 검사를 통과하지 못했을 경우
+// 			alert('유효성 검사 탈락');
+			element.innerHTML = "적합하지 않은 패스워드";
+		}
+	}
+</script>	
 </head>
+
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -242,11 +298,13 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Member Detail</h1>
+          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
           <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
 
           <!-- DataTales Example -->
-          <div class="card shadow mb-4">
+                     <!-- DataTales Example -->
+     
+  <div class="card shadow mb-4">
 
             <div class="card-body">
               <div class="table-responsive">
@@ -369,17 +427,6 @@
 </div>
 </div>
 </div>
-<!-- MainBody End ============================= -->
-
-
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <!-- /.container-fluid -->
-
-      </div>
       <!-- End of Main Content -->
 
       <!-- Footer -->
@@ -437,7 +484,9 @@
   <script src="admin/vendor/datatables/dataTables.bootstrap4.min.js?ver=1"></script>
 
   <!-- Page level custom scripts -->
-  <script src="admin/js/demo/datatables-demo.js?ver=1"></script>	
+  <script src="admin/js/demo/datatables-demo.js?ver=1"></script>
 
 </body>
+
 </html>
+    

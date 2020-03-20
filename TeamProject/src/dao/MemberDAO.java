@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import static db.JdbcUtil.*;
 
 import vo.MemberBean;
@@ -99,6 +102,12 @@ public MemberDAO() {}
 		}
 		
 		return loginResult;
+	}
+	
+	public List memberList() {
+
+		
+		return null;
 	}
 
 }
