@@ -238,12 +238,12 @@ height: 300px;
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">제품보기</h6>
+              <h6 class="m-0 font-weight-bold text-primary"><a href="List.abook">목록으로</a> > 제품보기</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                <c:forEach items="${BKCategorie }" var="BK">
-                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>&BKID=${BK.BKID }'">
+                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>'">
                 <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=<%=book.getBookID()%>'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
