@@ -48,7 +48,7 @@ public MemberDAO() {}
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql="insert into user values(?,?,?,?,?,?,?,?,?,?)";
+			String sql="insert into user values(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getuID());
 			pstmt.setString(2, member.getPw());
@@ -60,6 +60,7 @@ public MemberDAO() {}
 			pstmt.setString(8, member.getAddress2());
 			pstmt.setInt(9, member.getPoint());
 			pstmt.setInt(10,member.getGrade());
+			pstmt.setDate(11, member.getJoinDate());
 			
 			insertCount = pstmt.executeUpdate();
 			System.out.println(insertCount);

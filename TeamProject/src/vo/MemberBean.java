@@ -1,5 +1,7 @@
 package vo;
 
+import java.sql.Date;
+
 public class MemberBean {
 	
 	
@@ -13,7 +15,9 @@ public class MemberBean {
 	private String address2;
 	private int point;
 	private int grade;
+	private Date joinDate;
 	
+
 	public MemberBean() {}
 	
 	public MemberBean(String uID, String pw) {
@@ -22,8 +26,9 @@ public class MemberBean {
 		this.pw = pw;
 	}
 
+
 	public MemberBean(String uID, String pw, String u_name, String address, String phone_num, String email,
-			String tell_num, String address2, int point, int grade) {
+			String tell_num, String address2, int point, int grade, Date joinDate) {
 		super();
 		this.uID = uID;
 		this.pw = pw;
@@ -35,7 +40,9 @@ public class MemberBean {
 		this.address2 = address2;
 		this.point = point;
 		this.grade = grade;
+		this.joinDate = joinDate;
 	}
+
 	public String getuID() {
 		return uID;
 	}
@@ -95,6 +102,12 @@ public class MemberBean {
 	}
 	public void setGrade(int grade) {
 		this.grade = grade;
+	}
+	public Date getJoinDate() {
+		return joinDate;
+	}
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 	
 	
