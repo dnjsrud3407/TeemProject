@@ -1,6 +1,7 @@
 package admin.book.svc;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 
@@ -11,12 +12,12 @@ import static db.JdbcUtil.*;
 
 public class BKService {
 
-	public JSONArray getBKList(String col, String type) {
+	public ArrayList<String> getBKList(String col, String type) {
 		Connection con = getConnection();
 		BookDAO bookDAO = BookDAO.getInstance();
 		bookDAO.setConnection(con);
 		
-		JSONArray BKList = bookDAO.selectBKList(col, type);
+		ArrayList<String> BKList = bookDAO.selectBKList(col, type);
 		
 		close(con);
 		

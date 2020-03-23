@@ -15,6 +15,9 @@ public class BookBean {
     private boolean bookisView; // 상품의 공개여부
     private float saveRatio;    // 상품별 포인트 적립률
     private int bookKategorie_BKID;
+    private String BK1;
+    private String BK2;
+    private String BK3;
     
     public BookBean() {
 		super();
@@ -39,7 +42,29 @@ public class BookBean {
         this.bookKategorie_BKID = bookKategorie_BKID;
     }
     
-    public int getBookID() {
+    // 책 상세보기, 수정할 때 사용
+    public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher,
+			Date bookPublishedDate, int bookPrice, int bookEA, String bookIntroduce, boolean bookisView,
+			float saveRatio, int bookKategorie_BKID, String bK1, String bK2, String bK3) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.bookOriginImage = bookOriginImage;
+		this.bookImage = bookImage;
+		this.bookPublisher = bookPublisher;
+		this.bookPublishedDate = bookPublishedDate;
+		this.bookPrice = bookPrice;
+		this.bookEA = bookEA;
+		this.bookIntroduce = bookIntroduce;
+		this.bookisView = bookisView;
+		this.saveRatio = saveRatio;
+		this.bookKategorie_BKID = bookKategorie_BKID;
+		this.BK1 = bK1;
+		this.BK2 = bK2;
+		this.BK3 = bK3;
+	}
+
+	public int getBookID() {
         return bookID;
     }
     public void setBookID(int bookID) {
@@ -111,5 +136,30 @@ public class BookBean {
 	public void setBookKategorie_BKID(int bookKategorie_BKID) {
 		this.bookKategorie_BKID = bookKategorie_BKID;
 	}
+
+	public String getBK1() {
+		return BK1;
+	}
+
+	public void setBK1(String bK1) {
+		BK1 = bK1;
+	}
+
+	public String getBK2() {
+		return BK2;
+	}
+
+	public void setBK2(String bK2) {
+		BK2 = bK2;
+	}
+
+	public String getBK3() {
+		return BK3;
+	}
+
+	public void setBK3(String bK3) {
+		BK3 = bK3;
+	}
+	
     
 }

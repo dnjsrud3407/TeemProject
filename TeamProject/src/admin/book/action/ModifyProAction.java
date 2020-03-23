@@ -58,8 +58,8 @@ public class ModifyProAction implements Action {
         WriteProService writeProService = new WriteProService();
         String BK1 = multi.getParameter("BK1Category");
         String BK2 = multi.getParameter("BK2Category");
-        String BKLev = multi.getParameter("BKLevCategory");
-        int BKID = writeProService.getBKID(BK1, BK2, BKLev);
+        String BK3 = multi.getParameter("BK3Category");
+        int BKID = writeProService.getBKID(BK1, BK2, BK3);
         
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값

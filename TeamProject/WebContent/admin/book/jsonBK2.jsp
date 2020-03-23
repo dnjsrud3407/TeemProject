@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="admin.book.svc.BKService"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="org.json.simple.JSONArray"%>
@@ -13,30 +14,27 @@ out.print("<option value='선택하세요'>선택하세요</option>");
 String BeforeBK1 = request.getParameter("BeforeBK1");
 String BeforeBK2 = request.getParameter("BeforeBK2");
 
-JSONArray BKList = null;
+ArrayList<String> BKList = null;
 BKService bKateService = new BKService(); 
 BKList = bKateService.getBKList("BK1, BK2", "BK2");
 if(BeforeBK1 == null && BeforeBK2 == null){		// 글 등록 시
 	// 대분류 선택할 경우
 	if(!BK1.equals("선택하세요")){
-		
 		for(int i=0;i<BKList.size();i++){
-	JSONObject jbb = (JSONObject)BKList.get(i);
-	if(BK1.equals((String)jbb.get("BK1"))){
-		out.print("<option value='"+ (String)jbb.get("BK2") +"'>"+ (String)jbb.get("BK2") +"</option>");
-	} 
+			if(BK1.equals(BKList.get(i))){
+				out.print("<option value='"+ BKList.get(i+1) +"'>"+ BKList.get(i+1) +"</option>");
+			} 
 		}
 	}
 } else {	// 글 수정 시 수정
 	for(int i=0;i<BKList.size();i++){
-		JSONObject jbb = (JSONObject)BKList.get(i);
 		// 수정하기 전 카테고리 가져와서 selected 상태로
-		if(BeforeBK1.equals((String)jbb.get("BK1"))){
-	if(BeforeBK2.equals((String)jbb.get("BK2"))){
-		out.print("<option selected value='"+ (String)jbb.get("BK2") +"'>"+ (String)jbb.get("BK2") +"</option>");
-	} else {
-		out.print("<option value='"+ (String)jbb.get("BK2") +"'>"+ (String)jbb.get("BK2") +"</option>");
-	}
+		if(BeforeBK1.equals(BKList.get(i))){
+			if(BeforeBK2.equals(BKList.get(i+1))){
+				out.print("<option selected value='"+ BKList.get(i+1) +"'>"+ BKList.get(i+1) +"</option>");
+			} else {
+				out.print("<option value='"+ BKList.get(i+1) +"'>"+ BKList.get(i+1) +"</option>");
+			}
 		} 
 	}
 }

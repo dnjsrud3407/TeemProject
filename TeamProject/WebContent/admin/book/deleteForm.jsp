@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
-String[] bookIDList = request.getParameterValues("bookID");
+	String bookID = request.getParameter("bookID");
 %>
 <!DOCTYPE html>
 <html>
@@ -236,6 +237,7 @@ String[] bookIDList = request.getParameterValues("bookID");
               <div class="card mb-4 py-3 border-left-primary" style="width: 80%; margin: 35% 0 0 55%;">
                 <div class="card-body">
                   <form action="DeletePro.abook" method="post">
+                  	  <input type="hidden" name="bookID" value="<%=bookID%>">
 				            관리자 비밀번호 &nbsp;&nbsp;&nbsp; <input type="text" name="pw">
 				     <input type="submit" value="삭제하기">
 				  </form>

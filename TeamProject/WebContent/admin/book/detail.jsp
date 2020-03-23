@@ -5,6 +5,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 BookBean book = (BookBean)request.getAttribute("book");
+String nowPage = request.getParameter("page");
 %>
 
 <!DOCTYPE html>
@@ -238,19 +239,19 @@ height: 300px;
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><a href="List.abook">목록으로</a> > 제품보기</h6>
+              <h6 class="m-0 font-weight-bold text-primary"><a href="List.abook?page=<%=nowPage%>">목록으로</a> > 제품보기</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-               <c:forEach items="${BKCategorie }" var="BK">
+<%--                <c:forEach items="${BKCategorie }" var="BK"> --%>
                 <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>'">
                 <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=<%=book.getBookID()%>'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th style="width:15%">책 카테고리</th>
                       <td>
-                      		${BK.BK1} > ${BK.BK2 } > ${BK.BKLev }
-                </c:forEach>
+                      		<%=book.getBK1() %> > <%=book.getBK2() %> > <%=book.getBK3() %>
+<%--                 </c:forEach> --%>
                       </td>
                     </tr>
                     <tr>

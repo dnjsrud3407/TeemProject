@@ -18,6 +18,7 @@ public class DeleteProAction implements Action {
 		// ============ 파라미터로 책 아이디, 입력받은 비밀번호 가져오기
 		String[] bookIDList = request.getParameterValues("bookID");
 		String pw = request.getParameter("pw");
+		System.out.println(pw);
 
 		// session 에서 관리자 아이디 가져오기
 		HttpSession session = request.getSession();

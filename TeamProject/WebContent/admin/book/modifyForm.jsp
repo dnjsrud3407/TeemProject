@@ -33,68 +33,67 @@ BookBean book = (BookBean)request.getAttribute("book");
 <script> 
 	//책 카테고리 선택
 	$(document).ready(function() {
-		<c:forEach items="${BKCategorie }" var="BeforeBK">
-			// ==================  수정하기 전 카테고리 불러오기 수정
-			$.ajax({	// 대분류
-				type:"POST",
-				url:"admin/book/jsonBK1.jsp",
-				data:"BeforeBK1=${BeforeBK.BK1}",
-				success: function(msg){	// 대분류 innerHTML
-					$("select[name='BK1Category']").html(msg);
-				}
-			});
-			$.ajax({	// 소분류
+		// ==================  수정하기 전 카테고리 불러오기 수정
+		$.ajax({	// 대분류
+			type:"POST",
+			url:"admin/book/jsonBK1.jsp",
+			data:"BeforeBK1=${book.BK1}",
+			success: function(msg){	// 대분류 innerHTML
+				$("select[name='BK1Category']").html(msg);
+			}
+		});
+		$.ajax({	// 소분류
+			type:"POST",
+			url:"admin/book/jsonBK2.jsp",
+			data:"BeforeBK1=${book.BK1}&BeforeBK2=${book.BK2}",
+			success: function(msg2){	// 소분류 innerHTML
+				$("select[name='BK2Category']").html(msg2);
+			}
+		});
+		$.ajax({	// 레벨
+			type:"POST",
+			url:"admin/book/jsonBK3.jsp",
+			data:"BeforeBK1=${book.BK1}&BeforeBK2=${book.BK2}&BeforeBK3=${book.BK3}",
+			success: function(msg3){	// 소분류 innerHTML
+				$("select[name='BK3Category']").html(msg3);
+			}
+		});
+					
+		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
+		$("#BK1Category").on("change", function () {
+			// 대분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			// 소분류 데이터 가져오기
+			$.ajax({
 				type:"POST",
 				url:"admin/book/jsonBK2.jsp",
-				data:"BeforeBK1=${BeforeBK.BK1}&BeforeBK2=${BeforeBK.BK2}",
-				success: function(msg2){	// 소분류 innerHTML
-					$("select[name='BK2Category']").html(msg2);
+				data:"BK1="+BK1,
+				success: function(msg){	// 소분류 innerHTML
+					$("select[name='BK2Category']").html(msg);
 				}
 			});
-			$.ajax({	// 레벨
+//	 		alert($("#BK2Category option:selected").val());
+			// 레벨 셀렉트 박스 지우기
+			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
+		});
+		
+		
+		// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
+		$("#BK2Category").on("change", function () {
+//	 		// 대분류, 소분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			var BK2 = $("#BK2Category option:selected").val();
+//	 		// 소분류 데이터 가져오기
+			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBKLev.jsp",
-				data:"BeforeBK1=${BeforeBK.BK1}&BeforeBK2=${BeforeBK.BK2}&BeforeBKLev=${BeforeBK.BKLev}",
-				success: function(msg3){	// 소분류 innerHTML
-					$("select[name='BKLevCategory']").html(msg3);
+				url:"admin/book/jsonBK3.jsp",
+				data:"BK1="+BK1+"&BK2="+BK2,
+				success: function (msg2) {	// 레벨 innerHTML
+					$("select[name='BK3Category']").html(msg2);
 				}
 			});
-						
-			// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
-			$("#BK1Category").on("change", function () {
-				// 대분류 값 가져오기
-				var BK1 = $("#BK1Category option:selected").val();
-				// 소분류 데이터 가져오기
-				$.ajax({
-					type:"POST",
-					url:"admin/book/jsonBK2.jsp",
-					data:"BK1="+BK1,
-					success: function(msg){	// 소분류 innerHTML
-						$("select[name='BK2Category']").html(msg);
-					}
-				});
-	//	 		alert($("#BK2Category option:selected").val());
-				// 레벨 셀렉트 박스 지우기
-				$("select[name='BKLevCategory']").html("<option value='선택하세요'>선택하세요</option>");
-			});
-			
-			
-			// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
-			$("#BK2Category").on("change", function () {
-	//	 		// 대분류, 소분류 값 가져오기
-				var BK1 = $("#BK1Category option:selected").val();
-				var BK2 = $("#BK2Category option:selected").val();
-	//	 		// 소분류 데이터 가져오기
-				$.ajax({
-					type:"POST",
-					url:"admin/book/jsonBKLev.jsp",
-					data:"BK1="+BK1+"&BK2="+BK2,
-					success: function (msg2) {	// 레벨 innerHTML
-						$("select[name='BKLevCategory']").html(msg2);
-					}
-				});
-			});
-		</c:forEach>
+		});
+
 	});
   $( function() { 
       $.datepicker.setDefaults({
@@ -330,7 +329,7 @@ BookBean book = (BookBean)request.getAttribute("book");
               <form action="ModifyPro.abook?bookID=<%=book.getBookID() %>" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th style="width:15%">책 카테고리</th>
+                      <th style="width:15%">* 책 카테고리</th>
                       <td>
 						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
@@ -338,14 +337,14 @@ BookBean book = (BookBean)request.getAttribute("book");
 						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						레벨 : <select name="BKLevCategory" style="width:200px">
+						레벨 : <select name="BK3Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
                       </td>
                     </tr>
                     <tr>
-                      <th style="width:15%">책 제목</th>
-                      <td><input type="text" name="bookTitle" required="required" size="120" value="<%=book.getBookTitle()%>"></td>
+                      <th style="width:15%">* 책 제목</th>
+                      <td><input type="text" name="bookTitle" required="required" size="120" value="${book.getBookTitle() }"></td>
                     </tr>
                     <tr>
                       <th>상품 이미지</th>
@@ -366,19 +365,19 @@ BookBean book = (BookBean)request.getAttribute("book");
                       <td><input type="text" id="datepicker" name="bookPublishedDate" placeholder="<%=book.getBookPublishedDate() %>" value="<%=book.getBookPublishedDate() %>" readonly="readonly" size="100"></td>
                     </tr>
                     <tr>
-                      <th>가격</th>
+                      <th>* 가격</th>
                       <td><input type="text" name="bookPrice" required="required" size="120" value="<%=book.getBookPrice()%>"></td>
                     </tr>
                     <tr>
-                      <th>상품 재고</th>
+                      <th>* 상품 재고</th>
                       <td><input type="text" name="bookEA" required="required" size="120" value="<%=book.getBookEA()%>"></td>
                     </tr>
                     <tr>
-                      <th>상품 소개</th>
+                      <th>* 상품 소개</th>
                       <td><textarea rows="10" cols="120" name="bookIntroduce" required="required"><%=book.getBookIntroduce()%></textarea></td>
                     </tr>
                     <tr>
-                      <th>상품의 공개여부</th>
+                      <th>* 상품의 공개여부</th>
                       <td>
                         <select name="bookisView">
                             <option value="true" <%if(book.isBookisView()){ %>selected="selected"<%} %>>공개</option>

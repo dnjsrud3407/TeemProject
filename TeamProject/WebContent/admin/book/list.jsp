@@ -52,7 +52,7 @@
 			});
 //	 		alert($("#BK2Category option:selected").val());
 			// 레벨 셀렉트 박스 지우기
-			$("select[name='BKLevCategory']").html("<option value='선택하세요'>선택하세요</option>");
+			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
 		});
 		
 		
@@ -64,10 +64,10 @@
 //	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBKLev.jsp",
+				url:"admin/book/jsonBK3.jsp",
 				data:"BK1="+BK1+"&BK2="+BK2,
 				success: function (msg3) {	// 레벨 innerHTML
-					$("select[name='BKLevCategory']").html(msg3);
+					$("select[name='BK3Category']").html(msg3);
 				}
 			});
 		});
@@ -302,7 +302,7 @@ img{
 						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						레벨 : <select name="BKLevCategory" style="width:200px">
+						레벨 : <select name="BK3Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
                   	</td>
@@ -349,16 +349,16 @@ img{
                     <tr>
                       <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
                       <td>${book.bookID }</td>
-                      <td><a href="Detail.abook?bookID=${book.bookID }&BKID=${book.bookKategorie_BKID}&page=${pageInfo.page}">${book.bookTitle }</a></td>
+                      <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
                       <td>${book.bookPublisher }</td>
                       <td>${book.bookPublishedDate }</td>
                       <td>${book.bookPrice }</td>
                       <td>${book.bookEA }</td>
                       <td>${book.bookisView }</td>
                       <td>${book.saveRatio }</td>
-                      <td></td>
-                      <td></td>
-                      <td></td>
+                      <td>${book.BK1 }</td>
+                      <td>${book.BK2 }</td>
+                      <td>${book.BK3 }</td>
                       <td></td>
                     </tr>
                     </c:forEach>

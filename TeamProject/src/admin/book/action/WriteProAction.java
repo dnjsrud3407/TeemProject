@@ -45,19 +45,30 @@ public class WriteProAction implements Action {
         // ===== 책 카테고리 찾기
         String BK1 = multi.getParameter("BK1Category");
         String BK2 = multi.getParameter("BK2Category");
-        String BKLev = multi.getParameter("BKLevCategory");
-        int BKID = writeProService.getBKID(BK1, BK2, BKLev);
+        String BK3 = multi.getParameter("BK3Category");
+        int BKID = writeProService.getBKID(BK1, BK2, BK3);
         
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   // 날짜 형식
-        Date bookPublishedDate = format.parse(publishedDate);
+        Date bookPublishedDate = null;
+        // 날짜 입력했을 경우 변환
+        if(!publishedDate.equals("")) {		
+        	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   // 날짜 형식
+        	bookPublishedDate = format.parse(publishedDate);
+        }
         
         // ==== 공개 / 비공개 여부 설정
         boolean bookisView = false;
         String bookisViewStr = multi.getParameter("bookisView");
         if (bookisViewStr.equals("true")) { // 공개로 설정 시
             bookisView = true;
+        }
+        
+        float saveRatio = (float) 0.05;
+        String stringSaveRatio = request.getParameter("saveRatio");
+        // 적립율 입력했을 때 변환
+        if (stringSaveRatio != null) {
+        	saveRatio = Float.parseFloat(stringSaveRatio);
         }
 
         // bookID 구하기
@@ -75,7 +86,7 @@ public class WriteProAction implements Action {
                 Integer.parseInt(multi.getParameter("bookEA")), 
                 multi.getParameter("bookIntroduce"), 
                 bookisView,
-                Float.parseFloat(multi.getParameter("saveRatio")),
+                saveRatio,
                 BKID
                 );
         // 책 등록하는 클래스
@@ -84,7 +95,7 @@ public class WriteProAction implements Action {
 		if(iswriteArticleSuccess) {   // 등록 성공 시
 		    forward = new ActionForward();
 		    // 책 등록한거 상세보기
-		    forward.setPath("Detail.abook?bookID=" + book.getBookID() + "&BKID=" + BKID);
+		    forward.setPath("Detail.abook?bookID=" + book.getBookID());
 		    forward.setRedirect(true);
 		} else {
 		 // 실패시

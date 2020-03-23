@@ -56,7 +56,7 @@
 			});
 //	 		alert($("#BK2Category option:selected").val());
 			// 레벨 셀렉트 박스 지우기
-			$("select[name='BKLevCategory']").html("<option value='선택하세요'>선택하세요</option>");
+			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
 		});
 		
 		
@@ -68,10 +68,10 @@
 //	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBKLev.jsp",
+				url:"admin/book/jsonBK3.jsp",
 				data:"BK1="+BK1+"&BK2="+BK2,
 				success: function (msg3) {	// 레벨 innerHTML
-					$("select[name='BKLevCategory']").html(msg3);
+					$("select[name='BK3Category']").html(msg3);
 				}
 			});
 		});
@@ -309,7 +309,7 @@
               <form action="WritePro.abook" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th style="width:15%">책 카테고리</th>
+                      <th style="width:15%">* 책 카테고리</th>
                       <td>
 						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
@@ -317,13 +317,13 @@
 						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						레벨 : <select name="BKLevCategory" style="width:200px">
+						레벨 : <select name="BK3Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
                       </td>
                     </tr>
                     <tr>
-                      <th style="width:15%">책 제목</th>
+                      <th style="width:15%">* 책 제목</th>
                       <td><input type="text" name="bookTitle" required="required" size="120"></td>
                     </tr>
                     <tr>
@@ -340,19 +340,19 @@
                       <td><input type="text" id="datepicker" name="bookPublishedDate" placeholder="" readonly="readonly" size="100"></td>
                     </tr>
                     <tr>
-                      <th>가격</th>
+                      <th>* 가격</th>
                       <td><input type="text" name="bookPrice" required="required" size="120"></td>
                     </tr>
                     <tr>
-                      <th>상품 재고</th>
+                      <th>* 상품 재고</th>
                       <td><input type="text" name="bookEA" required="required" size="120"></td>
                     </tr>
                     <tr>
-                      <th>상품 소개</th>
+                      <th>* 상품 소개</th>
                       <td><textarea rows="10" cols="120" name="bookIntroduce" required="required"></textarea></td>
                     </tr>
                     <tr>
-                      <th>상품의 공개여부</th>
+                      <th>* 상품의 공개여부</th>
                       <td>
                         <select name="bookisView">
                             <option value="true">공개</option>

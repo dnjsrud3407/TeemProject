@@ -13,13 +13,13 @@ import vo.BookBean;
 public class WriteProService {
 
 	// BKID 찾기
-	public int getBKID(String BK1, String BK2, String BKLev) {
+	public int getBKID(String BK1, String BK2, String BK3) {
 		int BKID = 0;
 		BookDAO bookDAO = new BookDAO();
         Connection con = getConnection();
         bookDAO.setConnection(con);
         
-        BKID = bookDAO.selectBKID(BK1, BK2, BKLev);
+        BKID = bookDAO.selectBKID(BK1, BK2, BK3);
         close(con);
         
 		return BKID;

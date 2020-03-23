@@ -25,15 +25,15 @@ public class DetailService {
 	}
 
 	// 카테고리 가져오기
-	public JSONArray getBKCategorie(int BKID) {
-		Connection con = getConnection();
-	    BookDAO bookDAO = BookDAO.getInstance();
-	    bookDAO.setConnection(con);
-	    JSONArray BKCategorie = bookDAO.selectBKCategorie(BKID);
-	    
-	    close(con);
-		
-	    return BKCategorie;
-	}
+//	public JSONArray getBKCategorie(int BKID) {
+//		Connection con = getConnection();
+//	    BookDAO bookDAO = BookDAO.getInstance();
+//	    bookDAO.setConnection(con);
+//	    JSONArray BKCategorie = bookDAO.selectBKCategorie(BKID);
+//	    
+//	    close(con);
+//		
+//	    return BKCategorie;
+//	}
 
 }
