@@ -24,10 +24,14 @@ public class ListAction implements Action {
 		int page = 1;
 		int limit = 10;
 		
-		// 파라미터에 page값이 있는 경우
-		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		} 
+		String stringPage = request.getParameter("page");
+		
+		// 파라미터에 page값이 없는 경우
+		if(stringPage == null || stringPage.trim().equals("null")) {
+			page = 1;
+		} else {
+			page = Integer.parseInt(stringPage);
+		}
 		
 		ListService listService = new ListService();
 		// 게시글 개수

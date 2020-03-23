@@ -314,10 +314,10 @@
 						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  		</select>
-						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
+						단계 : <select name="BK2Category" id="BK2Category" style="width:200px">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						레벨 : <select name="BK3Category" style="width:200px">
+						소분류 : <select name="BK3Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
                       </td>

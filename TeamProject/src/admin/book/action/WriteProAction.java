@@ -84,6 +84,7 @@ public class WriteProAction implements Action {
                 bookPublishedDate,
                 Integer.parseInt(multi.getParameter("bookPrice")), 
                 Integer.parseInt(multi.getParameter("bookEA")), 
+                0,	// 판매량
                 multi.getParameter("bookIntroduce"), 
                 bookisView,
                 saveRatio,

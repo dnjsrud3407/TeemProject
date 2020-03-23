@@ -336,12 +336,12 @@ img{
                       <th>출판일</th>
                       <th>가격</th>
                       <th>재고 수량</th>
+                      <th>판매량</th>
                       <th>전시상태</th>
                       <th>포인트 적립률</th>
                       <th>대분류</th>
                       <th>단계</th>
                       <th>소분류</th>
-                      <th>판매량</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -354,12 +354,12 @@ img{
                       <td>${book.bookPublishedDate }</td>
                       <td>${book.bookPrice }</td>
                       <td>${book.bookEA }</td>
+                      <td>${book.salesVolume }</td>
                       <td>${book.bookisView }</td>
                       <td>${book.saveRatio }</td>
                       <td>${book.BK1 }</td>
                       <td>${book.BK2 }</td>
                       <td>${book.BK3 }</td>
-                      <td></td>
                     </tr>
                     </c:forEach>
                   </tbody>

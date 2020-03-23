@@ -158,8 +158,8 @@ public class BookDAO {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;
 		String sql = "INSERT INTO book(bookID,bookTitle,bookOriginImage,bookImage,bookPublisher,bookPublishedDate,"
-		        + "bookPrice,bookEA,bookIntroduce,bookisView,saveRatio,bookKategorie_BKID)"
-		        + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+		        + "bookPrice,bookEA,salesVolume,bookIntroduce,bookisView,saveRatio,bookKategorie_BKID)"
+		        + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try {
             pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, book.getBookID());
@@ -175,10 +175,11 @@ public class BookDAO {
             }
             pstmt.setInt(7, book.getBookPrice());
             pstmt.setInt(8, book.getBookEA());
-            pstmt.setString(9, book.getBookIntroduce());
-            pstmt.setBoolean(10, book.isBookisView());
-            pstmt.setFloat(11, book.getSaveRatio());
-            pstmt.setInt(12, book.getBookKategorie_BKID());
+            pstmt.setInt(9, book.getSalesVolume());
+            pstmt.setString(10, book.getBookIntroduce());
+            pstmt.setBoolean(11, book.isBookisView());
+            pstmt.setFloat(12, book.getSaveRatio());
+            pstmt.setInt(13, book.getBookKategorie_BKID());
             insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
             e.printStackTrace();
@@ -209,6 +210,7 @@ public class BookDAO {
                         rs.getDate("bookPublishedDate"), 
                         rs.getInt("bookPrice"), 
                         rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"), 
                         rs.getString("bookIntroduce"), 
                         rs.getBoolean("bookisView"), 
                         rs.getFloat("saveRatio"),
@@ -379,6 +381,7 @@ public class BookDAO {
                         rs.getDate("bookPublishedDate"), 
                         rs.getInt("bookPrice"), 
                         rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"),
                         rs.getString("bookIntroduce"), 
                         rs.getBoolean("bookisView"), 
                         rs.getFloat("saveRatio"),

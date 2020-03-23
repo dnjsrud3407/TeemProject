@@ -11,6 +11,7 @@ public class BookBean {
     private Date bookPublishedDate; // 출판일
     private int bookPrice;  // 가격
     private int bookEA; // 상품 재고
+    private int salesVolume;
     private String bookIntroduce;   // 상품 소개
     private boolean bookisView; // 상품의 공개여부
     private float saveRatio;    // 상품별 포인트 적립률
@@ -25,7 +26,7 @@ public class BookBean {
 
 	// 책 등록할 때 사용
     public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher,
-            Date bookPublishedDate, int bookPrice, int bookEA, String bookIntroduce, boolean bookisView,
+            Date bookPublishedDate, int bookPrice, int bookEA, int salesVolume, String bookIntroduce, boolean bookisView,
             float saveRatio, int bookKategorie_BKID) {
         super();
         this.bookID = bookID;
@@ -36,13 +37,37 @@ public class BookBean {
         this.bookPublishedDate = bookPublishedDate;
         this.bookPrice = bookPrice;
         this.bookEA = bookEA;
+        this.salesVolume = salesVolume;
         this.bookIntroduce = bookIntroduce;
         this.bookisView = bookisView;
         this.saveRatio = saveRatio;
         this.bookKategorie_BKID = bookKategorie_BKID;
     }
     
-    // 책 상세보기, 수정할 때 사용
+    // 책 상세보기 (모든 컬럼 포함)
+    public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher,
+			Date bookPublishedDate, int bookPrice, int bookEA, int salesVolume, String bookIntroduce, boolean bookisView,
+			float saveRatio, int bookKategorie_BKID, String bK1, String bK2, String bK3) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.bookOriginImage = bookOriginImage;
+		this.bookImage = bookImage;
+		this.bookPublisher = bookPublisher;
+		this.bookPublishedDate = bookPublishedDate;
+		this.bookPrice = bookPrice;
+		this.bookEA = bookEA;
+		this.salesVolume = salesVolume;
+		this.bookIntroduce = bookIntroduce;
+		this.bookisView = bookisView;
+		this.saveRatio = saveRatio;
+		this.bookKategorie_BKID = bookKategorie_BKID;
+		this.BK1 = bK1;
+		this.BK2 = bK2;
+		this.BK3 = bK3;
+	}
+    
+    // 수정할 때 사용 (salseVolum 이 없음)
     public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher,
 			Date bookPublishedDate, int bookPrice, int bookEA, String bookIntroduce, boolean bookisView,
 			float saveRatio, int bookKategorie_BKID, String bK1, String bK2, String bK3) {
@@ -112,7 +137,16 @@ public class BookBean {
     public void setBookEA(int bookEA) {
         this.bookEA = bookEA;
     }
-    public String getBookIntroduce() {
+    
+    public int getSalesVolume() {
+		return salesVolume;
+	}
+
+	public void setSalesVolume(int salesVolume) {
+		this.salesVolume = salesVolume;
+	}
+
+	public String getBookIntroduce() {
         return bookIntroduce;
     }
     public void setBookIntroduce(String bookIntroduce) {

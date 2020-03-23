@@ -280,6 +280,10 @@ height: 300px;
                       <td><%=book.getBookEA() %></td>
                     </tr>
                     <tr>
+                      <th>판매량</th>
+                      <td><%=book.getSalesVolume() %></td>
+                    </tr>
+                    <tr>
                       <th>상품 소개</th>
                       <td><%=book.getBookIntroduce() %></td>
                     </tr>

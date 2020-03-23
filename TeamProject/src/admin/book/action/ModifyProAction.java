@@ -63,8 +63,14 @@ public class ModifyProAction implements Action {
         
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   // 날짜 형식
-        Date bookPublishedDate = format.parse(publishedDate);
+        Date bookPublishedDate = null;
+        // 날짜 입력했을 경우 변환
+        if(publishedDate.equals("") && publishedDate.trim().equals("null") && publishedDate == null && publishedDate.isEmpty()) {		
+        	bookPublishedDate = null;
+        } else {
+        	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   // 날짜 형식
+        	bookPublishedDate = format.parse(publishedDate);
+        }
         
         // ==== 공개 / 비공개 여부 설정
         boolean bookisView = false;
@@ -73,7 +79,14 @@ public class ModifyProAction implements Action {
             bookisView = true;
         }
         
-        // form 태그에서 책 정보 가져오기 (북 카테고리는 아직 미완성)
+        float saveRatio = (float) 0.05;
+        String stringSaveRatio = request.getParameter("saveRatio");
+        // 적립율 입력했을 때 변환
+        if (stringSaveRatio != null) {
+        	saveRatio = Float.parseFloat(stringSaveRatio);
+        }
+        
+        // form 태그에서 책 정보 가져오기
         BookBean book = new BookBean(
                 bookID,
                 multi.getParameter("bookTitle"), 
@@ -85,8 +98,8 @@ public class ModifyProAction implements Action {
                 Integer.parseInt(multi.getParameter("bookEA")), 
                 multi.getParameter("bookIntroduce"), 
                 bookisView,
-                Float.parseFloat(multi.getParameter("saveRatio")),
-                BKID
+                saveRatio,
+                BKID, BK1, BK2, BK3
                 );
         
         // 책 수정하기
