@@ -4,6 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import static db.JdbcUtil.*;
 
 import vo.MemberBean;
@@ -45,7 +48,7 @@ public MemberDAO() {}
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql="insert into user values(?,?,?,?,?,?,?,?,?,?)";
+			String sql="insert into user values(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getuID());
 			pstmt.setString(2, member.getPw());
@@ -57,6 +60,7 @@ public MemberDAO() {}
 			pstmt.setString(8, member.getAddress2());
 			pstmt.setInt(9, member.getPoint());
 			pstmt.setInt(10,member.getGrade());
+			pstmt.setDate(11, member.getJoinDate());
 			
 			insertCount = pstmt.executeUpdate();
 			System.out.println(insertCount);
@@ -87,7 +91,7 @@ public MemberDAO() {}
 				if(rs.getString("pw").equals(member.getPw())) {
 					loginResult = 1;
 					
-				} else {
+				} else { 
 					loginResult = -1;
 				}
 			}
@@ -99,6 +103,12 @@ public MemberDAO() {}
 		}
 		
 		return loginResult;
+	}
+	
+	public List memberList() {
+
+		
+		return null;
 	}
 
 }

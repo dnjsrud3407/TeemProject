@@ -1,6 +1,7 @@
 package member.account.action;
 
 import java.io.PrintWriter;
+import java.sql.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,10 +29,10 @@ public class JoinProAction implements Action {
 		String address2 = request.getParameter("address2");
 		int point = 0;
 		int grade = 0;
+		Date joinDate = new Date(System.currentTimeMillis());
 		
 		// 파라미터 -> MemberBean 객체에 저장
-		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, 
-				tell_num, address2, point, grade);
+		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, tell_num, address2, point, grade, joinDate);
 		
 		// MemberJoinProService 클래스의 joinMember() 메서드 호출하여 추가 작업 요청
 				// => 파라미터 : MemberBean      리턴타입 : boolean

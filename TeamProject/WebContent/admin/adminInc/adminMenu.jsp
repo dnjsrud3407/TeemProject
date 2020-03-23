@@ -13,7 +13,7 @@
       </a>
 
       <!-- Divider -->
-      <hr class="sidebar-divider my-0">
+      <hr class="sidebar-divider my-0"> 
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">

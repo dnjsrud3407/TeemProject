@@ -1,20 +1,28 @@
 package admin.member.svc;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import dao.MemberDAO;
+import static db.JdbcUtil.*; 
 import vo.MemberBean;
 
 public class MemberListService {
 
-	public MemberBean getMember(int num) {
+	public List getMemberList() {
 		System.out.println("MemberListService - getMember");
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
 		
-//		MemberDAO memberDAO = MemberDAO.getInstance();
+		List memberList = memberDAO.memberList();
 		
-		MemberBean member = null;
-//		member = MemberDAO.selectreviews(num);
+		close(con);
 		
-		
-		return member;
+		return memberList;
 	}
+
 
 }
