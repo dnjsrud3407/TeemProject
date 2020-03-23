@@ -15,7 +15,7 @@ public class DeleteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		// ============ 파라미터로 책 아이디, 입력받은 비밀번호 가져오기
+		// ============ 파라미터로 책 아이디, 입력받은 비밀번호 가져오기//
 		String[] bookIDList = request.getParameterValues("bookID");
 		String pw = request.getParameter("pw");
 		System.out.println(pw);

@@ -25,7 +25,7 @@ public class WriteProService {
 		return BKID;
 	}
 	
-	// bookID 생성
+	// bookID 생성//
     public int getBookID() {
         int bookID = 0;
         BookDAO bookDAO = new BookDAO();

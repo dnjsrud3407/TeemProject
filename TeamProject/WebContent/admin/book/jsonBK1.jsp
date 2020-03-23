@@ -8,7 +8,7 @@
 String BeforeBK1 = request.getParameter("BeforeBK1");
 //소분류 기본값
 out.print("<option value='선택하세요'>선택하세요</option>");
-// JSONArray BKList = null;
+// JSONArray BKList = null;//
 ArrayList<String> BKList = null;
 BKService bKService = new BKService(); 
 BKList = bKService.getBKList("BK1", "BK1");

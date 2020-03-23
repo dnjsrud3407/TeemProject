@@ -7,7 +7,7 @@ import dao.BookDAO;
 
 public class DeleteProService {
 
-	// 관리자 비밀번호 일치 여부
+	// 관리자 비밀번호 일치 여부//
     public boolean isRightUser(String uID, String pw) {
         boolean isRightUser = false;
         Connection con = getConnection();

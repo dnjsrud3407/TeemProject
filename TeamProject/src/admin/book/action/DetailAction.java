@@ -20,7 +20,7 @@ public class DetailAction implements Action {
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		// int BKID = Integer.parseInt(request.getParameter("BKID"));
 		
-		// 제품 상세보기
+		// 제품 상세보기//
 		DetailService detailService = new DetailService();
 		BookBean book = detailService.getArticle(bookID);
 		// 카테고리 정보 가져오기

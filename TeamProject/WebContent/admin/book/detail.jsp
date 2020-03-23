@@ -243,7 +243,6 @@ height: 300px;
             </div>
             <div class="card-body">
               <div class="table-responsive">
-<%--                <c:forEach items="${BKCategorie }" var="BK"> --%>
                 <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>'">
                 <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=<%=book.getBookID()%>'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -251,7 +250,6 @@ height: 300px;
                       <th style="width:15%">책 카테고리</th>
                       <td>
                       		<%=book.getBK1() %> > <%=book.getBK2() %> > <%=book.getBK3() %>
-<%--                 </c:forEach> --%>
                       </td>
                     </tr>
                     <tr>

@@ -21,7 +21,7 @@ ArrayList<String> BKList = null;
 BKService bKateService = new BKService(); 
 BKList = bKateService.getBKList("BK1, BK2, BK3", "BK3");
 
-if(BeforeBK1 == null && BeforeBK2 == null){		// 글 등록 시 수정
+if(BeforeBK1 == null && BeforeBK2 == null){		// 글 등록 시 수정//
 	if(!BK1.equals("선택하세요") && !BK2.equals("선택하세요")){
 		// 대분류, 소분류 선택할 경우
 		for(int i=0;i<BKList.size();i++){

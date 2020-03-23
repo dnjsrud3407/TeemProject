@@ -16,7 +16,7 @@ public class ModifyFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		// bookID, BKID 파라미터로 가져오기
+		// bookID, BKID 파라미터로 가져오기//
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		//int BKID = Integer.parseInt(request.getParameter("BKID"));
         

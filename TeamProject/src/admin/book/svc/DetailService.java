@@ -24,7 +24,7 @@ public class DetailService {
 	    return book;
 	}
 
-	// 카테고리 가져오기
+	// 카테고리 가져오기//
 //	public JSONArray getBKCategorie(int BKID) {
 //		Connection con = getConnection();
 //	    BookDAO bookDAO = BookDAO.getInstance();

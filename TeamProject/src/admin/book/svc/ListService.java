@@ -11,7 +11,7 @@ import vo.BookBean;
 
 public class ListService {
 
-	// 책 목록 개수
+	// 책 목록 개수//
 	public int getListCount() {
 		int listCount = 0;
 		Connection con = getConnection();

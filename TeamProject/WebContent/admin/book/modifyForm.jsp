@@ -315,7 +315,7 @@ BookBean book = (BookBean)request.getAttribute("book");
         </nav>
         <!-- End of Topbar -->
 		
-		<!-- Begin Page Content -->
+		<!-- Begin Page Content// -->
         <div class="container-fluid">
 
             <h6 class="m-0 font-weight-bold text-primary"><a href="Detail.abook?bookID=<%=book.getBookID()%>">&lt; 뒤로가기</a></h6><br>

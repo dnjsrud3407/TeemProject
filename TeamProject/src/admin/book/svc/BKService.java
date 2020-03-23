@@ -3,7 +3,6 @@ package admin.book.svc;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
 
 import dao.BookDAO;
 

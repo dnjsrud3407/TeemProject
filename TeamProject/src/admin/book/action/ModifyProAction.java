@@ -25,7 +25,7 @@ public class ModifyProAction implements Action {
 		
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		
-		// 파일 업로드 설정
+		// 파일 업로드 설정//
         String saveFolder = "/upload";
         ServletContext context = request.getServletContext(); 
         String realFolder = context.getRealPath(saveFolder);
