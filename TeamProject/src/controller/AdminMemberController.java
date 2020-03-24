@@ -44,7 +44,7 @@ public class AdminMemberController extends HttpServlet {
 		
 		if(command.equals("/AdminMain.adm")) {
 			forward = new ActionForward();
-			forward.setPath("./admin/adminMain.jsp");
+			forward.setPath("/admin/adminMain.jsp");
 			
 		} else if(command.equals("/MemberList.adm")) {
 			action = new MemberListAcion();

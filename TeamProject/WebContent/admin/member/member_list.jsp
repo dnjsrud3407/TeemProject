@@ -9,15 +9,15 @@ if(session.getAttribute("sid") != null){
 //로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
 
 // Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-ArrayList<BoardBean> articleList = (ArrayList<BoardBean>)request.getAttribute("articleList"); 
-PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+/* ArrayList<BoardBean> articleList = (ArrayList<BoardBean>)request.getAttribute("articleList"); 
+PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo"); */
 
 // PageInfo 객체로부터 페이징 정보 가져오기
-int listCount = pageInfo.getListCount();
+/* int listCount = pageInfo.getListCount();
 int nowPage = pageInfo.getPage(); 
 int startPage = pageInfo.getStartPage();
 int endPage = pageInfo.getEndPage();
-int maxPage = pageInfo.getMaxPage();
+int maxPage = pageInfo.getMaxPage(); */
 //	out.println(articleList.size());
 //	out.println(listCount); 
 
@@ -269,49 +269,50 @@ int maxPage = pageInfo.getMaxPage();
                       <th>Mobile Phone</th>
                       <th>Email</th>
                     </tr>
-                    <%for(int i = 0; i < memberList.size(); i++) {%>
+<%--                     <%for(int i = 0; i < memberList.size(); i++) { --%>
+<%--                     	MemberBean%> --%>
                   </thead>
                   <tbody>
                     <tr onclick="location.href='MemberDetail.adm'">
-                      <td><%=memberList.get(i).getUID() %> </td>
-                      <td><%=memberList.get(i).getUID() %>${memberBean.pw }System Architect</td>
-                      <td><%=memberList.get(i).getUID() %>${memberBean.u_name }Edinburgh</td>
-                      <td><%=memberList.get(i).getUID() %>${memberBean.address }61</td>
-                      <td><%=memberList.get(i).getUID() %>${memberBean.phone_num }2011/04/25</td>
-                      <td><%=memberList.get(i).getUID() %>${memberBean.email }$320,800</td>
+<%--                       <td><%=memberList.get(i).getUID() %> </td> --%>
+<%--                       <td><%=memberList.get(i).getUID() %>${memberBean.pw }System Architect</td> --%>
+<%--                       <td><%=memberList.get(i).getUID() %>${memberBean.u_name }Edinburgh</td> --%>
+<%--                       <td><%=memberList.get(i).getUID() %>${memberBean.address }61</td> --%>
+<%--                       <td><%=memberList.get(i).getUID() %>${memberBean.phone_num }2011/04/25</td> --%>
+<%--                       <td><%=memberList.get(i).getUID() %>${memberBean.email }$320,800</td> --%>
                     </tr>
-<!--                     <tr> -->
-<!--                       <td>Garrett Winters</td> -->
-<!--                       <td>Accountant</td> -->
-<!--                       <td>Tokyo</td> -->
-<!--                       <td>63</td> -->
-<!--                       <td>2011/07/25</td> -->
-<!--                       <td>$170,750</td> -->
-<!--                     </tr> -->
-<!--                     <tr> -->
-<!--                       <td>Ashton Cox</td> -->
-<!--                       <td>Junior Technical Author</td> -->
-<!--                       <td>San Francisco</td> -->
-<!--                       <td>66</td> -->
-<!--                       <td>2009/01/12</td> -->
-<!--                       <td>$86,000</td> -->
-<!--                     </tr> -->
-<!--                     <tr> -->
-<!--                       <td>Cedric Kelly</td> -->
-<!--                       <td>Senior Javascript Developer</td> -->
-<!--                       <td>Edinburgh</td> -->
-<!--                       <td>22</td> -->
-<!--                       <td>2012/03/29</td> -->
-<!--                       <td>$433,060</td> -->
-<!--                     </tr> -->
-<!--                     <tr onclick="location.href='MemberDetail.adm'"> -->
-<!--                       <td>Airi Satou</td> -->
-<!--                       <td>Accountant</td> -->
-<!--                       <td>Tokyo</td> -->
-<!--                       <td>33</td> -->
-<!--                       <td>2008/11/28</td> -->
-<!--                       <td>$162,700</td> -->
-<!--                     </tr> -->
+                    <tr>
+                      <td>Garrett Winters</td>
+                      <td>Accountant</td>
+                      <td>Tokyo</td>
+                      <td>63</td>
+                      <td>2011/07/25</td>
+                      <td>$170,750</td>
+                    </tr>
+                    <tr>
+                      <td>Ashton Cox</td>
+                      <td>Junior Technical Author</td>
+                      <td>San Francisco</td>
+                      <td>66</td>
+                      <td>2009/01/12</td>
+                      <td>$86,000</td>
+                    </tr>
+                    <tr>
+                      <td>Cedric Kelly</td>
+                      <td>Senior Javascript Developer</td>
+                      <td>Edinburgh</td>
+                      <td>22</td>
+                      <td>2012/03/29</td>
+                      <td>$433,060</td>
+                    </tr>
+                    <tr onclick="location.href='MemberDetail.adm'">
+                      <td>Airi Satou</td>
+                      <td>Accountant</td>
+                      <td>Tokyo</td>
+                      <td>33</td>
+                      <td>2008/11/28</td>
+                      <td>$162,700</td>
+                    </tr>
 <!--                     <tr> -->
 <!--                       <td>Brielle Williamson</td> -->
 <!--                       <td>Integration Specialist</td> -->

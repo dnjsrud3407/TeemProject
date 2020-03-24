@@ -21,13 +21,33 @@ public class MemberListAcion implements Action {
 		System.out.println("MemberListAcion");
 		ActionForward action = null;
 		
+		int page = 1;
+		int limit = 10;
+		
+		if(request.getParameter("page") != null) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
+		
 		String uId = request.getParameter("uId");
 //		int num = Integer.parseInt(request.getParameter("num"));
 
 		MemberListService memberListService = new MemberListService();
-		List memberList = memberListService.getMemberList();
+		int memListCount = memberListService.getListCount();
 		
-		request.setAttribute("memberList", memberList);
+		ArrayList<MemberBean> memberList = null;
+		memberList = memberListService.getMemberList(page, limit);
+		
+		int maxPage = (int)((double)memListCount / limit + 0.95);
+		int startPage = (((int)((double)page / 10 + 0.9)) -1 ) * 10 + 1;
+		int endPage = startPage + 10 - 1;
+		
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		
+		
+		request.setAttribute("memListCount", memListCount);
 		action.setPath("/admin/member/member_list.jsp");
 		
 		return action;

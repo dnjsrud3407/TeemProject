@@ -105,10 +105,10 @@ public MemberDAO() {}
 		return loginResult;
 	}
 	
-	public List memberList() {
+	public int memberList() {
 
 		
-		return null;
+		return 0;
 	}
 
 }

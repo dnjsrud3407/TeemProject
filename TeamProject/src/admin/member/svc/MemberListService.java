@@ -11,17 +11,22 @@ import vo.MemberBean;
 
 public class MemberListService {
 
-	public List getMemberList() {
+	public int getListCount() {
 		System.out.println("MemberListService - getMember");
 		Connection con = getConnection();
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		memberDAO.setConnection(con);
 		
-		List memberList = memberDAO.memberList();
+		int memberList = memberDAO.memberList();
 		
 		close(con);
 		
 		return memberList;
+	}
+
+	public ArrayList<MemberBean> getMemberList(int page, int limit) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 
