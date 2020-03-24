@@ -12,16 +12,29 @@ import vo.BookBean;
 
 public class SearchService {
 
-	public ArrayList<BookBean> getSearchBookList(Map<Object, Object> searchList, int page, int limit) {
+	public int getSearchListCount(String searchSql) {
 		Connection con = getConnection();
 		BookDAO bookDAO = BookDAO.getInstance();
 		bookDAO.setConnection(con);
 		
-		ArrayList<BookBean> bookList = bookDAO.selectSearchBookList(searchList, page, limit);
+		int listCount = bookDAO.selectSearchListCount(searchSql);
+		
+		close(con);
+		
+		return listCount;
+	}
+	
+	public ArrayList<BookBean> getSearchBookList(String searchSql, int page, int limit) {
+		Connection con = getConnection();
+		BookDAO bookDAO = BookDAO.getInstance();
+		bookDAO.setConnection(con);
+		
+		ArrayList<BookBean> bookList = bookDAO.selectSearchBookList(searchSql, page, limit);
 		
 		close(con);
 		
 		return bookList;
 	}
+	
 
 }

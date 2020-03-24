@@ -1,10 +1,6 @@
-<%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-BookBean book = (BookBean)request.getAttribute("book");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,9 +13,6 @@ BookBean book = (BookBean)request.getAttribute("book");
 
   <title>SB Admin 2 - member_list.jsp</title>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <!-- Custom fonts for this template -->
   <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -29,31 +22,33 @@ BookBean book = (BookBean)request.getAttribute("book");
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
-
+<script src="admin/js/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script> 
-	//책 카테고리 선택
+	// 책 카테고리 선택 수정
 	$(document).ready(function() {
+	    
 		// ==================  수정하기 전 카테고리 불러오기 수정
 		$.ajax({	// 대분류
 			type:"POST",
 			url:"admin/book/jsonBK1.jsp",
-			data:"BeforeBK1=${book.BK1}",
+			data:"BeforeBK1=${searchBook.BK1}",
 			success: function(msg){	// 대분류 innerHTML
 				$("select[name='BK1Category']").html(msg);
 			}
 		});
-		$.ajax({	// 소분류
+		$.ajax({	// 레벨
 			type:"POST",
 			url:"admin/book/jsonBK2.jsp",
-			data:"BeforeBK1=${book.BK1}&BeforeBK2=${book.BK2}",
+			data:"BeforeBK1=${searchBook.BK1}&BeforeBK2=${searchBook.BK2}",
 			success: function(msg2){	// 소분류 innerHTML
 				$("select[name='BK2Category']").html(msg2);
 			}
 		});
-		$.ajax({	// 레벨
+		$.ajax({	// 소분류
 			type:"POST",
 			url:"admin/book/jsonBK3.jsp",
-			data:"BeforeBK1=${book.BK1}&BeforeBK2=${book.BK2}&BeforeBK3=${book.BK3}",
+			data:"BeforeBK1=${searchBook.BK1}&BeforeBK2=${searchBook.BK2}&BeforeBK3=${searchBook.BK3}",
 			success: function(msg3){	// 소분류 innerHTML
 				$("select[name='BK3Category']").html(msg3);
 			}
@@ -93,29 +88,34 @@ BookBean book = (BookBean)request.getAttribute("book");
 				}
 			});
 		});
-
+		
+		// 검색 초기화
+		$("#btnReset").click(function () {
+			$("#searchForm").each(function(){
+			    this.reset();
+			});
+		});
 	});
-  $( function() { 
-      $.datepicker.setDefaults({
-          dateFormat: 'yy-mm-dd' //Input Display Format 변경
-          ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-          ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-          ,changeYear: true //콤보박스에서 년 선택 가능
-          ,changeMonth: true //콤보박스에서 월 선택 가능                
-          ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시
-          ,buttonImage: "./img/calendar.png" //버튼 이미지 경로
-          ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-          ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
-          ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-          ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-          ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-          ,minDate: "-40Y" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전) 0 으로 설정했을때는 오늘 날짜 이후로 만 선택 가능함.
-          ,maxDate: "0" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)
-      });
-      $("#datepicker").datepicker(); 
-  } ); 
-  </script>
-  
+</script>
+<style type="text/css">
+img{
+	width: 400px;
+	height: 300px;
+}
+#pageList {
+	margin: auto;
+	width: 500px;
+	text-align: center;
+	font-size: 1.2em;
+}
+.red {
+	color: #ff0000;
+}
+.checkbox_padding {
+	margin-right: 2.5%;
+	width:200px
+}
+</style>
 </head>
 <body id="page-top">
 
@@ -123,7 +123,7 @@ BookBean book = (BookBean)request.getAttribute("book");
   <div id="wrapper">
 
     <!-- Sidebar -->
-	<jsp:include page="../adminInc/adminMenu.jsp"></jsp:include>
+	<jsp:include page="../adminInc/adminMenu.jsp" />
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -314,83 +314,129 @@ BookBean book = (BookBean)request.getAttribute("book");
 
         </nav>
         <!-- End of Topbar -->
-		
-		<!-- Begin Page Content// -->
+
+        <!-- Begin Page Content -->
         <div class="container-fluid">
 
-            <h6 class="m-0 font-weight-bold text-primary"><a href="Detail.abook?bookID=<%=book.getBookID()%>">&lt; 뒤로가기</a></h6><br>
-          <!-- DataTales Example -->
+		  <!-- 상세 설정 -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+              <form action="Search.abook" method="post" id="searchForm">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <tr>
+                  	<th style="width: 15%;">검색어</th>
+                  	<td>
+                  		제품 번호 <input type="text" name="bookID" style="width:200px" value="${searchBook.bookID}">
+                  	</td>
+                  	<td>
+                  		제품 이름 <input type="text" name="bookTitle" style="width:200px" value="${searchBook.bookTitle }">
+                  	</td>
+                  	<td>
+                  		출판사 <input type="text" name="bookPublisher" style="width:200px" value="${searchBook.bookPublisher }">
+                  	</td>
+                  </tr>
+                  <tr>
+                  	<th style="width: 15%;">카테고리</th>
+                  	<td colspan="3">
+						대분류  <select name="BK1Category" id="BK1Category" class="checkbox_padding">
+						     		<option value="선택하세요">선택하세요</option>
+						  		</select>
+						레벨  <select name="BK2Category" id="BK2Category" class="checkbox_padding">
+						      		<option value="선택하세요">선택하세요</option>
+						  	   </select>
+						소분류  <select name="BK3Category" style="width:200px">
+						     		<option value="선택하세요">선택하세요</option>
+						  	  </select>
+                  	</td>
+                  </tr>
+                  <tr>
+                  	<th>기타 여부</th>
+                  	<td colspan="3">
+                  		<span class="checkbox_padding" style="width: 15%;">
+                  			<input type="checkbox" name="bookEA" value="shortage"/>&nbsp;재고 부족
+                  		</span>
+                  		<span class="checkbox_padding">
+                  			<input type="checkbox" name="bookisView" value="false"/>&nbsp;미전시 
+                  		</span>
+                  	</td>
+                  </tr>
+                </table>
+                <input type="submit" value="검색">
+                <input type="button" id="btnReset" value="초기화">
+                <input type="button" value="목록으로" onclick="location.href='List.abook'">
+              </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- DataTales Example// -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">제품등록</h6>
+              <h6 class="m-0 font-weight-bold text-primary">제품 목록</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="ModifyPro.abook?bookID=<%=book.getBookID() %>" method="post" enctype="multipart/form-data">
+              
+              <form action="DeleteForm.abook" method="post">
+              <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
+              <input type="button" value="제품삭제" onsubmit="">
+              <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
                     <tr>
-                      <th style="width:15%">* 책 카테고리</th>
-                      <td>
-						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
-						     		<option value="선택하세요">선택하세요</option>
-						  		</select>
-						단계 : <select name="BK2Category" id="BK2Category" style="width:200px">
-						      		<option value="선택하세요">선택하세요</option>
-						  	   </select>
-						소분류 : <select name="BK3Category" style="width:200px">
-						     		<option value="선택하세요">선택하세요</option>
-						  	  </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th style="width:15%">* 책 제목</th>
-                      <td><input type="text" name="bookTitle" required="required" size="120" value="${book.getBookTitle() }"></td>
-                    </tr>
-                    <tr>
-                      <th>상품 이미지</th>
-                      <input type="hidden" name="beforeImage" value="<%=book.getBookImage()%>">
-                      <input type="hidden" name="beforeOriginImage" value="<%=book.getBookOriginImage()%>">
-                      <td>
-                        <%=book.getBookOriginImage()%>
-                        <input type="file" name="bookImage" >
-                       </td>
-                    </tr>
-                    <tr>
+                      <th><input type="checkbox"></th>
+                      <th>제품 번호</th>
+                      <th>제품 이름</th>
                       <th>출판사</th>
-                      <td><input type="text" name="bookPublisher" size="120" value="<%=book.getBookPublisher()%>"></td>
-                    </tr>
-                    <tr>
-                    <!-- 달력창 띄우기 -->
                       <th>출판일</th>
-                      <td><input type="text" id="datepicker" name="bookPublishedDate" placeholder="<%=book.getBookPublishedDate() %>" value="<%=book.getBookPublishedDate() %>" readonly="readonly" size="100"></td>
+                      <th>가격</th>
+                      <th>재고 수량</th>
+                      <th>판매량</th>
+                      <th>전시상태</th>
+                      <th>포인트 적립률</th>
+                      <th>대분류</th>
+                      <th>단계</th>
+                      <th>소분류</th>
                     </tr>
+                  </thead>
+                  <tbody>
+                    <c:forEach var="book" items="${bookList }" varStatus="status">
                     <tr>
-                      <th>* 가격</th>
-                      <td><input type="text" name="bookPrice" required="required" size="120" value="<%=book.getBookPrice()%>"></td>
+                      <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
+                      <td>${book.bookID }</td>
+                      <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
+                      <td>${book.bookPublisher }</td>
+                      <td>${book.bookPublishedDate }</td>
+                      <td>${book.bookPrice }</td>
+                      <c:if test="${book.bookEA < 10}">
+                      	<td class="red">${book.bookEA }</td>
+                      </c:if>
+                      <c:if test="${book.bookEA >= 10}">
+                      	<td>${book.bookEA }</td>
+                      </c:if>
+                      <td>${book.salesVolume }</td>
+                      <td>${book.bookisView }</td>
+                      <td>${book.saveRatio }</td>
+                      <td>${book.BK1 }</td>
+                      <td>${book.BK2 }</td>
+                      <td>${book.BK3 }</td>
                     </tr>
-                    <tr>
-                      <th>* 상품 재고</th>
-                      <td><input type="text" name="bookEA" required="required" size="120" value="<%=book.getBookEA()%>"></td>
-                    </tr>
-                    <tr>
-                      <th>* 상품 소개</th>
-                      <td><textarea rows="10" cols="120" name="bookIntroduce" required="required"><%=book.getBookIntroduce()%></textarea></td>
-                    </tr>
-                    <tr>
-                      <th>* 상품의 공개여부</th>
-                      <td>
-                        <select name="bookisView">
-                            <option value="true" <%if(book.isBookisView()){ %>selected="selected"<%} %>>공개</option>
-                            <option value="false" <%if(!book.isBookisView()){ %>selected="selected"<%} %>>비공개</option>
-                        </select>
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>상품별 포인트 적립률</th>
-                      <td><input type="text" name="saveRatio" size="120" value="<%=book.getSaveRatio()%>"></td>
-                    </tr>
+                    </c:forEach>
+                  </tbody>
                 </table>
-                <input type="submit" value="수정하기">
+                <section id="pageList">
+                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+                		<a href="Search.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                	</c:if>
+                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                		<a href="Search.abook?page=${i }">${i }</a>&nbsp;
+                	</c:forEach>
+                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+                		<a href="Search.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                	</c:if>
+                </section>
+                </c:if>
                 </form>
               </div>
             </div>
@@ -443,7 +489,7 @@ BookBean book = (BookBean)request.getAttribute("book");
   </div>
 
   <!-- Bootstrap core JavaScript-->
-<!--   <script src="vendor/jquery/jquery.min.js"></script> -->
+  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -453,11 +499,12 @@ BookBean book = (BookBean)request.getAttribute("book");
   <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="vendor/chart.js/Chart.min.js"></script>
+<!--   <script src="vendor/datatables/jquery.dataTables.min.js"></script> -->
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="js/demo/chart-area-demo.js"></script>
-  <script src="js/demo/chart-pie-demo.js"></script>
+  <script src="js/demo/datatables-demo.js"></script>
+
 
 </body>
 </html>

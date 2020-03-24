@@ -33,46 +33,6 @@ public class BookDAO {
 		return books;
 	}
 	
-	// 책 등록 시 다중 카테고리 생성
-//	public JSONArray selectBKList(String col, String type) {
-//		JSONArray BKList = new JSONArray();
-//		PreparedStatement pstmt = null;
-//	    ResultSet rs = null;
-//		String sql = "select distinct " + col + " from bookkategorie";
-//		try {
-//			pstmt = con.prepareStatement(sql);
-//			rs = pstmt.executeQuery();
-//			if(type.equals("BK1")) {
-//				while(rs.next()){
-//					JSONObject jbb = new JSONObject();
-//					jbb.put("BK1", rs.getString("BK1"));
-//					BKList.add(jbb);
-//				}
-//			} else if(type.equals("BK2")) {
-//				while(rs.next()){
-//					JSONObject jbb = new JSONObject();
-//					jbb.put("BK1", rs.getString("BK1"));
-//					jbb.put("BK2", rs.getString("BK2"));
-//					BKList.add(jbb);
-//				}
-//			} else if(type.equals("BK3")) {
-//				while(rs.next()){
-//					JSONObject jbb = new JSONObject();
-//					jbb.put("BK1", rs.getString("BK1"));
-//					jbb.put("BK2", rs.getString("BK2"));
-//					jbb.put("BK3", rs.getString("BK3"));
-//					BKList.add(jbb);
-//				}
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//	        if(rs != null) {close(rs);}
-//	        if(pstmt != null) {close(pstmt);}
-//	    }
-//		return BKList;
-//	}
-	
 	public ArrayList<String> selectBKList(String col, String type) {
 		ArrayList<String> BKList = new ArrayList<String>();
 		PreparedStatement pstmt = null;
@@ -230,33 +190,6 @@ public class BookDAO {
 	    return book;
 	}
 	
-	// 책 상세보기에서 사용하는 카테고리 보기
-//	public JSONArray selectBKCategorie(int BKID) {
-//		JSONArray BKCategorie = new JSONArray();
-//		PreparedStatement pstmt = null;
-//	    ResultSet rs = null;
-//	    String sql = "SELECT * FROM bookkategorie WHERE BKID=?";
-//		try {
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.setInt(1, BKID);
-//			rs = pstmt.executeQuery();
-//			while(rs.next()){
-//				JSONObject jbb = new JSONObject();
-//				jbb.put("BKID", BKID);
-//				jbb.put("BK1", rs.getString("BK1"));
-//				jbb.put("BK2", rs.getString("BK2"));
-//				jbb.put("BK3", rs.getString("BK3"));
-//				BKCategorie.add(jbb);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//	        if(rs != null) {close(rs);}
-//	        if(pstmt != null) {close(pstmt);}
-//	    }
-//		return BKCategorie;
-//	}
-	
 	// 책 삭제 시 비밀번호 확인
 	public boolean isRightUser(String uID, String pw) {
 	    boolean isRightUser = false;
@@ -407,37 +340,20 @@ public class BookDAO {
 		return bookList;
 	}
 	
-	// 검색한 결과 들고오기
-	public ArrayList<BookBean> selectSearchBookList(Map<Object, Object> searchList, int page, int limit) {
+	// 검색한 결과 들고오기 (책 정보 and 책 리스트 사이즈)
+	public ArrayList<BookBean> selectSearchBookList(String searchSql, int page, int limit) {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM book JOIN bookkategorie "
-        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE 1=1";
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE 1=1"+ searchSql 
+        		+ " ORDER BY bookID DESC LIMIT ?,?";
         BookBean book = null;
         int startRow = (page - 1) * limit;
         int endRow = startRow + limit;
 
-        // map 객체 key값 들고오기
-        ArrayList keyList = new ArrayList(searchList.keySet());
-
-        for(int i = 0; i < searchList.size(); i++) {
-    		if(keyList.get(i).equals("bookID")) {
-    			// 만약 bookID 값이 체크 되었다면
-    			sql += " and " + keyList.get(i) + "=" + searchList.get(keyList.get(i));
-    		} else if(keyList.get(i).equals("bookEA")) {
-    			// 만약 bookEA 값이 체크 되었다면
-    			sql += " and " + keyList.get(i) + "<" + 10;
-    		} else if(keyList.get(i).equals("bookisView")) {
-    			// 만약 bookisView 값이 체크 되었다면
-    			sql += " and " + keyList.get(i) + "=false";
-    		} else {	// 그 밖의 컬럼 : 전부 문자열
-    			sql += " and " + keyList.get(i) + "='" + searchList.get(keyList.get(i)) + "'";
-    		}
-        }
-        // 페이징 처리
-        sql += " ORDER BY bookID DESC LIMIT ?,?";
         try {
+        	// 페이징 처리
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
@@ -472,6 +388,30 @@ public class BookDAO {
         
 		return bookList;
 	}
+	
+	// 검색한 결과 사이즈 구하기
+	public int selectSearchListCount(String searchSql) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int listCount = 0;
+        String sql = "SELECT COUNT(*) FROM book JOIN bookkategorie "
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE 1=1" + searchSql;
+        try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return listCount;
+	}
 	public void updateBoard_re_ref(BookBean bookBean) {
 		
 	}
@@ -503,6 +443,9 @@ public class BookDAO {
 	public int updateQuestion(BookBean question) {
 		return 0;
 	}
+
+
+	
 
 
 	
