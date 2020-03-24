@@ -65,9 +65,7 @@ public class ModifyProAction implements Action {
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
         Date bookPublishedDate = null;
         // 날짜 입력했을 경우 변환
-        if(publishedDate.equals("") && publishedDate.trim().equals("null") && publishedDate == null && publishedDate.isEmpty()) {		
-        	bookPublishedDate = null;
-        } else {
+        if(!publishedDate.equals("") && !publishedDate.trim().equals("null")) {		
         	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");   // 날짜 형식
         	bookPublishedDate = format.parse(publishedDate);
         }

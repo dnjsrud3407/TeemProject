@@ -71,6 +71,13 @@
 				}
 			});
 		});
+		
+		// 검색 초기화
+		$("#btnReset").click(function () {
+			$("#searchForm").each(function(){
+			    this.reset();
+			});
+		});
 	});
 </script>
 <style type="text/css">
@@ -83,6 +90,13 @@ img{
 	width: 500px;
 	text-align: center;
 	font-size: 1.2em;
+}
+.red {
+	color: #ff0000;
+}
+.checkbox_padding {
+	margin-right: 2.5%;
+	width:200px
 }
 </style>
 </head>
@@ -291,24 +305,48 @@ img{
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-              <form action="Search.abook?" method="post">
+              <form action="Search.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
-                  	<th style="width: 15%;">카테고리</th>
+                  	<th style="width: 15%;">검색어</th>
                   	<td>
-						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
+                  		제품 번호 <input type="text" name="bookID" style="width:200px">
+                  	</td>
+                  	<td>
+                  		제품 이름 <input type="text" name="bookTitle" style="width:200px">
+                  	</td>
+                  	<td>
+                  		출판사 <input type="text" name="bookPublisher" style="width:200px">
+                  	</td>
+                  </tr>
+                  <tr>
+                  	<th style="width: 15%;">카테고리</th>
+                  	<td colspan="3">
+						대분류  <select name="BK1Category" id="BK1Category" class="checkbox_padding">
 						     		<option value="선택하세요">선택하세요</option>
 						  		</select>
-						소분류 : <select name="BK2Category" id="BK2Category" style="width:200px">
+						레벨  <select name="BK2Category" id="BK2Category" class="checkbox_padding">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						레벨 : <select name="BK3Category" style="width:200px">
+						소분류  <select name="BK3Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
                   	</td>
                   </tr>
+                  <tr>
+                  	<th>기타 여부</th>
+                  	<td colspan="3">
+                  		<span class="checkbox_padding" style="width: 15%;">
+                  			<input type="checkbox" name="bookEA" value="shortage"/>&nbsp;재고 부족
+                  		</span>
+                  		<span class="checkbox_padding">
+                  			<input type="checkbox" name="bookisView" value="false"/>&nbsp;미전시 
+                  		</span>
+                  	</td>
+                  </tr>
                 </table>
                 <input type="submit" value="검색">
+                <input type="button" id="btnReset" value="초기화">
               </form>
               </div>
             </div>
@@ -353,7 +391,12 @@ img{
                       <td>${book.bookPublisher }</td>
                       <td>${book.bookPublishedDate }</td>
                       <td>${book.bookPrice }</td>
-                      <td>${book.bookEA }</td>
+                      <c:if test="${book.bookEA < 10}">
+                      	<td class="red">${book.bookEA }</td>
+                      </c:if>
+                      <c:if test="${book.bookEA >= 10}">
+                      	<td>${book.bookEA }</td>
+                      </c:if>
                       <td>${book.salesVolume }</td>
                       <td>${book.bookisView }</td>
                       <td>${book.saveRatio }</td>

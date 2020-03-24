@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import java.util.Map;
 
 import vo.BookBean;
 
@@ -314,7 +314,11 @@ public class BookDAO {
             pstmt.setString(3, book.getBookImage());
             pstmt.setString(4, book.getBookPublisher());
             // 자바의 Date 를 Mysql 의 Date 형으로 바로 넣을 수 없기 때문에 변환 필요
-            pstmt.setDate(5, new java.sql.Date(book.getBookPublishedDate().getTime()));
+            if(book.getBookPublishedDate() == null) {	// 날짜 입력 못 받았을 경우
+            	pstmt.setDate(5, null);
+            } else {
+            	pstmt.setDate(5, new java.sql.Date(book.getBookPublishedDate().getTime()));
+            }
             pstmt.setInt(6, book.getBookPrice());
             pstmt.setInt(7, book.getBookEA());
             pstmt.setString(8, book.getBookIntroduce());
@@ -402,6 +406,72 @@ public class BookDAO {
         
 		return bookList;
 	}
+	
+	// 검색한 결과 들고오기
+	public ArrayList<BookBean> selectSearchBookList(Map<Object, Object> searchList, int page, int limit) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book JOIN bookkategorie "
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE 1=1";
+        BookBean book = null;
+        int startRow = (page - 1) * limit;
+        int endRow = startRow + limit;
+
+        // map 객체 key값 들고오기
+        ArrayList keyList = new ArrayList(searchList.keySet());
+
+        for(int i = 0; i < searchList.size(); i++) {
+    		if(keyList.get(i).equals("bookID")) {
+    			// 만약 bookID 값이 체크 되었다면
+    			sql += " and " + keyList.get(i) + "=" + searchList.get(keyList.get(i));
+    		} else if(keyList.get(i).equals("bookEA")) {
+    			// 만약 bookEA 값이 체크 되었다면
+    			sql += " and " + keyList.get(i) + "<" + 10;
+    		} else if(keyList.get(i).equals("bookisView")) {
+    			// 만약 bookisView 값이 체크 되었다면
+    			sql += " and " + keyList.get(i) + "=false";
+    		} else {	// 그 밖의 컬럼 : 전부 문자열
+    			sql += " and " + keyList.get(i) + "='" + searchList.get(keyList.get(i)) + "'";
+    		}
+        }
+        // 페이징 처리
+        sql += " ORDER BY bookID DESC LIMIT ?,?";
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"),
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID"),
+                        rs.getString("BK1"),
+                        rs.getString("BK2"),
+                        rs.getString("BK3")
+                        );
+				bookList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return bookList;
+	}
 	public void updateBoard_re_ref(BookBean bookBean) {
 		
 	}
@@ -433,6 +503,9 @@ public class BookDAO {
 	public int updateQuestion(BookBean question) {
 		return 0;
 	}
+
+
+	
 
 
 	
