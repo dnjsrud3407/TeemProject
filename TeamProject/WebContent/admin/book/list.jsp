@@ -28,7 +28,7 @@
 	// 책 카테고리 선택 수정
 	$(document).ready(function() {
 	    
-		// ================== 대분류 카테고리 지정
+		// ================== 대분류 카테고리 지정//
 		$.ajax({
 			type:"POST",
 			url:"admin/book/jsonBK1.jsp",

@@ -28,33 +28,16 @@
 	// 책 카테고리 선택 수정
 	$(document).ready(function() {
 	    
-		// ==================  수정하기 전 카테고리 불러오기 수정
-		$.ajax({	// 대분류
+		// ================== 대분류 카테고리 지정
+		$.ajax({
 			type:"POST",
 			url:"admin/book/jsonBK1.jsp",
-			data:"BeforeBK1=${searchBook.BK1}",
-			success: function(msg){	// 대분류 innerHTML
-				$("select[name='BK1Category']").html(msg);
+			success: function(msg1){	// 대분류 innerHTML
+				$("select[name='BK1Category']").html(msg1);
 			}
 		});
-		$.ajax({	// 레벨
-			type:"POST",
-			url:"admin/book/jsonBK2.jsp",
-			data:"BeforeBK1=${searchBook.BK1}&BeforeBK2=${searchBook.BK2}",
-			success: function(msg2){	// 소분류 innerHTML
-				$("select[name='BK2Category']").html(msg2);
-			}
-		});
-		$.ajax({	// 소분류
-			type:"POST",
-			url:"admin/book/jsonBK3.jsp",
-			data:"BeforeBK1=${searchBook.BK1}&BeforeBK2=${searchBook.BK2}&BeforeBK3=${searchBook.BK3}",
-			success: function(msg3){	// 소분류 innerHTML
-				$("select[name='BK3Category']").html(msg3);
-			}
-		});
-					
-		// ================== 대분류 카테고리 바꼈을 때 레벨 변경함수
+		
+		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
 		$("#BK1Category").on("change", function () {
 			// 대분류 값 가져오기
 			var BK1 = $("#BK1Category option:selected").val();
@@ -63,12 +46,12 @@
 				type:"POST",
 				url:"admin/book/jsonBK2.jsp",
 				data:"BK1="+BK1,
-				success: function(msg){	// 소분류 innerHTML
-					$("select[name='BK2Category']").html(msg);
+				success: function(msg2){	// 소분류 innerHTML
+					$("select[name='BK2Category']").html(msg2);
 				}
 			});
 //	 		alert($("#BK2Category option:selected").val());
-			// 소분류 셀렉트 박스 지우기
+			// 레벨 셀렉트 박스 지우기
 			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
 		});
 		
@@ -83,8 +66,8 @@
 				type:"POST",
 				url:"admin/book/jsonBK3.jsp",
 				data:"BK1="+BK1+"&BK2="+BK2,
-				success: function (msg2) {	// 레벨 innerHTML
-					$("select[name='BK3Category']").html(msg2);
+				success: function (msg3) {	// 레벨 innerHTML
+					$("select[name='BK3Category']").html(msg3);
 				}
 			});
 		});
@@ -370,7 +353,7 @@ img{
             </div>
           </div>
 
-          <!-- DataTales Example// -->
+          <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">제품 목록</h6>

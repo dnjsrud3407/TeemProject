@@ -17,7 +17,7 @@ public class SearchService {
 		BookDAO bookDAO = BookDAO.getInstance();
 		bookDAO.setConnection(con);
 		
-		int listCount = bookDAO.selectSearchListCount(searchSql);
+		int listCount = bookDAO.selectSearchListCount(searchSql);//
 		
 		close(con);
 		

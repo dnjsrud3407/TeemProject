@@ -353,7 +353,7 @@ public class BookDAO {
         int endRow = startRow + limit;
 
         try {
-        	// 페이징 처리
+        	// 페이징 처리////
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);

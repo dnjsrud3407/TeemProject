@@ -50,7 +50,7 @@ public class SearchProAction implements Action {
         for(int i = 0; i < keyList.size(); i++) {
         	// map객체(key값으로 서치)이 null 이 아니면
 	        if(!(searchList.get(keyList.get(i)) == null || searchList.get(keyList.get(i)).equals("") || searchList.get(keyList.get(i)).equals("선택하세요"))) {
-	        	// map객체로 부터 sql 구문 만들기
+	        	// map객체로 부터 sql 구문 만들기//
 	        	// key값에 따라 sql 구문 다르게
 	        	if(keyList.get(i).equals("bookID")) {
 	        		// 만약 bookID 값이 체크 되었다면
