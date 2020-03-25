@@ -1,35 +1,8 @@
-<%@page import="java.util.List"%>
-<%@page import="vo.MemberBean"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
- 
-/* String sid = null;
-if(session.getAttribute("sid") != null){
-	sid = (String)session.getAttribute("sid");
-} */
-//로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
-
-// Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-/* ArrayList<MemberBean> memberList = (ArrayList<MemberBean>)request.getAttribute("memberList"); 
-PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
- */
-
- List<MemberBean> memberList = (List<MemberBean>) request.getAttribute("memberList");
-
-// PageInfo 객체로부터 페이징 정보 가져오기
-/* int memListCount = pageInfo.getListCount();
-int nowPage = pageInfo.getPage(); 
-int startPage = pageInfo.getStartPage();
-int endPage = pageInfo.getEndPage();
-int maxPage = pageInfo.getMaxPage();  */
-//	out.println(articleList.size());
-//	out.println(listCount); 
-
- %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
 
   <meta charset="utf-8">
@@ -49,9 +22,84 @@ int maxPage = pageInfo.getMaxPage();  */
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
-
+<script src="admin/js/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script> 
+	// 책 카테고리 선택 수정
+	$(document).ready(function() {
+	    
+		// ================== 대분류 카테고리 지정
+		$.ajax({
+			type:"POST",
+			url:"admin/book/jsonBK1.jsp",
+			success: function(msg1){	// 대분류 innerHTML
+				$("select[name='BK1Category']").html(msg1);
+			}
+		});
+		
+		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
+		$("#BK1Category").on("change", function () {
+			// 대분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			// 소분류 데이터 가져오기
+			$.ajax({
+				type:"POST",
+				url:"admin/book/jsonBK2.jsp",
+				data:"BK1="+BK1,
+				success: function(msg2){	// 소분류 innerHTML
+					$("select[name='BK2Category']").html(msg2);
+				}
+			});
+//	 		alert($("#BK2Category option:selected").val());
+			// 레벨 셀렉트 박스 지우기
+			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
+		});
+		
+		
+		// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
+		$("#BK2Category").on("change", function () {
+//	 		// 대분류, 소분류 값 가져오기
+			var BK1 = $("#BK1Category option:selected").val();
+			var BK2 = $("#BK2Category option:selected").val();
+//	 		// 소분류 데이터 가져오기
+			$.ajax({
+				type:"POST",
+				url:"admin/book/jsonBK3.jsp",
+				data:"BK1="+BK1+"&BK2="+BK2,
+				success: function (msg3) {	// 레벨 innerHTML
+					$("select[name='BK3Category']").html(msg3);
+				}
+			});
+		});
+		
+		// 검색 초기화
+		$("#btnReset").click(function () {
+			$("#searchForm").each(function(){
+			    this.reset();
+			});
+		});
+	});
+</script>
+<style type="text/css">
+img{
+	width: 400px;
+	height: 300px;
+}
+#pageList {
+	margin: auto;
+	width: 500px;
+	text-align: center;
+	font-size: 1.2em;
+}
+.red {
+	color: #ff0000;
+}
+.checkbox_padding {
+	margin-right: 2.5%;
+	width:200px
+}
+</style>
 </head>
-
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -253,77 +301,125 @@ int maxPage = pageInfo.getMaxPage();  */
         <!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+		  <!-- 상세 설정 -->
+          <div class="card shadow mb-4">
+            <div class="card-body">
+              <div class="table-responsive">
+              <form action="Search.abook" method="post" id="searchForm">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <tr>
+                  	<th style="width: 15%;">검색어</th>
+                  	<td>
+                  		제품 번호 <input type="text" name="bookID" style="width:200px" value="${searchBook.bookID}">
+                  	</td>
+                  	<td>
+                  		제품 이름 <input type="text" name="bookTitle" style="width:200px" value="${searchBook.bookTitle }">
+                  	</td>
+                  	<td>
+                  		출판사 <input type="text" name="bookPublisher" style="width:200px" value="${searchBook.bookPublisher }">
+                  	</td>
+                  </tr>
+                  <tr>
+                  	<th style="width: 15%;">카테고리</th>
+                  	<td colspan="3">
+						대분류  <select name="BK1Category" id="BK1Category" class="checkbox_padding">
+						     		<option value="선택하세요">선택하세요</option>
+						  		</select>
+						레벨  <select name="BK2Category" id="BK2Category" class="checkbox_padding">
+						      		<option value="선택하세요">선택하세요</option>
+						  	   </select>
+						소분류  <select name="BK3Category" style="width:200px">
+						     		<option value="선택하세요">선택하세요</option>
+						  	  </select>
+                  	</td>
+                  </tr>
+                  <tr>
+                  	<th>기타 여부</th>
+                  	<td colspan="3">
+                  		<span class="checkbox_padding" style="width: 15%;">
+                  			<input type="checkbox" name="bookEA" value="shortage"/>&nbsp;재고 부족
+                  		</span>
+                  		<span class="checkbox_padding">
+                  			<input type="checkbox" name="bookisView" value="false"/>&nbsp;미전시 
+                  		</span>
+                  	</td>
+                  </tr>
+                </table>
+                <input type="submit" value="검색">
+                <input type="button" id="btnReset" value="초기화">
+                <input type="button" value="목록으로" onclick="location.href='List.abook'">
+              </form>
+              </div>
+            </div>
+          </div>
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>              
+              <h6 class="m-0 font-weight-bold text-primary">제품 목록</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
+              <form action="DeleteForm.abook" method="post">
+              <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
+              <input type="button" value="제품삭제" onsubmit="">
+              <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>아이디</th>
-                      <th>이름</th>
-                      <th>adress</th>
-                      <th>address2</th>
-                      <th>point</th>
-                      <th>grade</th>
+                      <th><input type="checkbox"></th>
+                      <th>제품 번호</th>
+                      <th>제품 이름</th>
+                      <th>출판사</th>
+                      <th>출판일</th>
+                      <th>가격</th>
+                      <th>재고 수량</th>
+                      <th>판매량</th>
+                      <th>전시상태</th>
+                      <th>포인트 적립률</th>
+                      <th>대분류</th>
+                      <th>단계</th>
+                      <th>소분류</th>
                     </tr>
                   </thead>
-						<%for(int i = 0; i < memberList.size(); i++){
-						MemberBean mb = (MemberBean)memberList.get(i); //e다운캐스팅 %>
-<%--                     <%if(memberList != null & memListCount > 0) {%> --%>
-<%--                     	<% for(int i = 0; i < memberList.size(); i++) {%> --%>
                   <tbody>
-                    <tr onclick="location.href='MemberDetail.adm'">
-                      <td><%=mb.getuID() %></td>
-                      <td><%=mb.getU_name() %></td>
-                      <td><%=mb.getAddress() %></td>
-                      <td><%=mb.getAddress2() %></td>
-                      <td><%=mb.getPoint() %></td>
-                      <td><%=mb.getGrade() %></td>
-                    </tr>
-                   		<%}%>
-<%--                    <% }%> --%>
+                    <c:forEach var="book" items="${bookList }" varStatus="status">
                     <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>63</td>
-                      <td>2011/07/25</td>
-                      <td>$170,750</td>
+                      <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
+                      <td>${book.bookID }</td>
+                      <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
+                      <td>${book.bookPublisher }</td>
+                      <td>${book.bookPublishedDate }</td>
+                      <td>${book.bookPrice }</td>
+                      <c:if test="${book.bookEA < 10}">
+                      	<td class="red">${book.bookEA }</td>
+                      </c:if>
+                      <c:if test="${book.bookEA >= 10}">
+                      	<td>${book.bookEA }</td>
+                      </c:if>
+                      <td>${book.salesVolume }</td>
+                      <td>${book.bookisView }</td>
+                      <td>${book.saveRatio }</td>
+                      <td>${book.BK1 }</td>
+                      <td>${book.BK2 }</td>
+                      <td>${book.BK3 }</td>
                     </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>66</td>
-                      <td>2009/01/12</td>
-                      <td>$86,000</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                      <td>Edinburgh</td>
-                      <td>22</td>
-                      <td>2012/03/29</td>
-                      <td>$433,060</td>
-                    </tr>
-                    <tr onclick="location.href='MemberDetail.adm'">
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>33</td>
-                      <td>2008/11/28</td>
-                      <td>$162,700</td>
-                    </tr>
-                   </tbody>
+                    </c:forEach>
+                  </tbody>
                 </table>
+                <section id="pageList">
+                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+                		<a href="Search.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                	</c:if>
+                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                		<a href="Search.abook?page=${i }">${i }</a>&nbsp;
+                	</c:forEach>
+                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+                		<a href="Search.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                	</c:if>
+                </section>
+                </c:if>
+                </form>
               </div>
             </div>
           </div>
@@ -368,30 +464,29 @@ int maxPage = pageInfo.getMaxPage();  */
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
+          <a class="btn btn-primary" href="LogoutPro.me">Logout</a>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="admin/vendor/jquery/jquery.min.js?ver=1"></script>
-  <script src="admin/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=1"></script>
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="admin/vendor/jquery-easing/jquery.easing.min.js?ver=1"></script>
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="admin/js/sb-admin-2.min.js?ver=1"></script>
+  <script src="js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="admin/vendor/datatables/jquery.dataTables.min.js?ver=1"></script>
-  <script src="admin/vendor/datatables/dataTables.bootstrap4.min.js?ver=1"></script>
+<!--   <script src="vendor/datatables/jquery.dataTables.min.js"></script> -->
+  <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="admin/js/demo/datatables-demo.js?ver=1"></script>
+  <script src="js/demo/datatables-demo.js"></script>
+
 
 </body>
-
 </html>
-    

@@ -572,10 +572,10 @@ height: 300px;
                       <th>Age</th>
                       <th>Join date</th>
                       <th>Profit</th>
-                    </tr>
+                    </tr> 
                   </tfoot>
                   <tbody>
-                    <tr>
+                    <tr> 
                       <td>Tiger Nixon</td>
                       <td>System Architect</td>
                       <td>Edinburgh</td>

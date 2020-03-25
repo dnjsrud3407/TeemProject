@@ -96,7 +96,7 @@ public class WriteProAction implements Action {
 		if(iswriteArticleSuccess) {   // 등록 성공 시
 		    forward = new ActionForward();
 		    // 책 등록한거 상세보기
-		    forward.setPath("Detail.abook?bookID=" + book.getBookID());
+		    forward.setPath("Detail.abook?bookID=" + book.getBookID() + "&page=1");
 		    forward.setRedirect(true);
 		} else {
 		 // 실패시

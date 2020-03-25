@@ -20,7 +20,7 @@ public class ListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		// 현재 페이지 번호 및 한 페이지당 게시글 수//
+		// 현재 페이지 번호 및 한 페이지당 게시글 수
 		int page = 1;
 		int limit = 10;
 		

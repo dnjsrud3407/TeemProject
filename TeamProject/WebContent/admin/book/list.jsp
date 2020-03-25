@@ -28,7 +28,7 @@
 	// 책 카테고리 선택 수정
 	$(document).ready(function() {
 	    
-		// ================== 대분류 카테고리 지정
+		// ================== 대분류 카테고리 지정//
 		$.ajax({
 			type:"POST",
 			url:"admin/book/jsonBK1.jsp",
@@ -78,7 +78,30 @@
 			    this.reset();
 			});
 		});
+		// 검색 ajax
+		$('#search').click(function () {
+			var bookID = $("#bookID").val();
+			var bookTitle = $("#bookTitle").val();
+			var bookPublisher = $("#bookPublisher").val();
+			var BK1 = $("#BK1Category option:selected").val();
+			var BK2 = $("#BK2Category option:selected").val();
+			var BK3 = $("#BK3Category option:selected").val();
+			var bookEA = $("#bookEA").val();
+			var bookisView = $("#bookisView").val();
+			
+			$.ajax({
+				type:"POST",
+				url:"admin/book/search.jsp",
+				data:"bookID="+bookID+"&bookTitle="+bookTitle+"&bookPublisher="+bookPublisher
+				+"&BK1="+BK1+"&BK2="+BK2+"&BK3="+BK3
+				+"&bookEA="+bookEA+"&bookisView="+bookisView,
+				success: function (bookList) {	// 책 리스트 innerHTML
+					alert(bookList[0].bookID);
+				}
+			});
+		});
 	});
+	
 </script>
 <style type="text/css">
 img{
@@ -310,13 +333,13 @@ img{
                   <tr>
                   	<th style="width: 15%;">검색어</th>
                   	<td>
-                  		제품 번호 <input type="text" name="bookID" style="width:200px">
+                  		제품 번호 <input type="text" name="bookID" id="bookID" style="width:200px">
                   	</td>
                   	<td>
-                  		제품 이름 <input type="text" name="bookTitle" style="width:200px">
+                  		제품 이름 <input type="text" name="bookTitle" id="bookTitle" style="width:200px">
                   	</td>
                   	<td>
-                  		출판사 <input type="text" name="bookPublisher" style="width:200px">
+                  		출판사 <input type="text" name="bookPublisher" id="bookPublisher" style="width:200px">
                   	</td>
                   </tr>
                   <tr>
@@ -328,7 +351,7 @@ img{
 						레벨  <select name="BK2Category" id="BK2Category" class="checkbox_padding">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						소분류  <select name="BK3Category" style="width:200px">
+						소분류  <select name="BK3Category" id="BK3Category" style="width:200px">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
                   	</td>
@@ -337,15 +360,15 @@ img{
                   	<th>기타 여부</th>
                   	<td colspan="3">
                   		<span class="checkbox_padding" style="width: 15%;">
-                  			<input type="checkbox" name="bookEA" value="shortage"/>&nbsp;재고 부족
+                  			<input type="checkbox" name="bookEA" id="bookEA" value="shortage"/>&nbsp;재고 부족
                   		</span>
                   		<span class="checkbox_padding">
-                  			<input type="checkbox" name="bookisView" value="false"/>&nbsp;미전시 
+                  			<input type="checkbox" name="bookisView" id="bookisView" value="false"/>&nbsp;미전시 
                   		</span>
                   	</td>
                   </tr>
                 </table>
-                <input type="submit" value="검색">
+                <input type="button" value="검색" id="search">
                 <input type="button" id="btnReset" value="초기화">
               </form>
               </div>

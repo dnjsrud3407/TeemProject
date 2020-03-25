@@ -34,7 +34,7 @@ import vo.ActionForward;
 public class AdminMemberController extends HttpServlet {       
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+		 
 		String command = request.getServletPath();
 		System.out.println("BFC - command : " + command);
 		

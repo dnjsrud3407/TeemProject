@@ -59,7 +59,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 			}
 		});
 					
-		// ================== 대분류 카테고리 바꼈을 때 소분류 변경함수
+		// ================== 대분류 카테고리 바꼈을 때 레벨 변경함수
 		$("#BK1Category").on("change", function () {
 			// 대분류 값 가져오기
 			var BK1 = $("#BK1Category option:selected").val();
@@ -73,7 +73,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 				}
 			});
 //	 		alert($("#BK2Category option:selected").val());
-			// 레벨 셀렉트 박스 지우기
+			// 소분류 셀렉트 박스 지우기
 			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
 		});
 		
