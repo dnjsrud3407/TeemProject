@@ -34,10 +34,10 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
     <script type="text/javascript">
     
-    var qnaGoodsCode = "";
+    var bookID = "";
     var isLogin = true;
 	function openQna() {
-		var qnaUrl = "http://localhost:8082/TeamProject" + "/QWriteForm.book?goodsCode=" + qnaGoodsCode;
+		var qnaUrl = "http://localhost:8082/TeamProject" + "/QWriteForm.book?bookID=" + bookID;
 		var loginUrl = "http://localhost:8082/TeamProject" + "/Login.me?url=" + location.href;
 		if (isLogin) {
 			window.open(qnaUrl,'_blank','toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=0,width=700,height=808');
