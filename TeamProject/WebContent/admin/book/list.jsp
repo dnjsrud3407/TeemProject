@@ -86,22 +86,44 @@
 			var BK1 = $("#BK1Category option:selected").val();
 			var BK2 = $("#BK2Category option:selected").val();
 			var BK3 = $("#BK3Category option:selected").val();
-			var bookEA = $("#bookEA").val();
-			var bookisView = $("#bookisView").val();
+			var bookEA = null;
+			var bookisView = null;
+			if($("input:checkbox[id=bookEA]").is(":checked")) {
+				bookEA = $("#bookEA").val();
+			}
+			if($("input:checkbox[id=bookisView]").is(":checked")) {
+				bookisView = $("#bookisView").val();
+			}
 			
+			// bookList 배열
 			$.ajax({
 				type:"POST",
+// 				dataType:"json",
 				url:"admin/book/search.jsp",
-				data:"bookID="+bookID+"&bookTitle="+bookTitle+"&bookPublisher="+bookPublisher
-				+"&BK1="+BK1+"&BK2="+BK2+"&BK3="+BK3
-				+"&bookEA="+bookEA+"&bookisView="+bookisView,
-				success: function (bookList) {	// 책 리스트 innerHTML
-					alert(bookList[0].bookID);
+				data:{"bookID":bookID,
+					  "bookTitle":bookTitle,
+					  "bookPublisher":bookPublisher,
+					  "BK1":BK1,
+					  "BK2":BK2,
+					  "BK3":BK3,
+					  "bookEA":bookEA,
+					  "bookisView":bookisView},
+			  	success: function (datas) {
+			  		$.each(datas, function (index,data) {
+						alert(data.bookID);
+					});
 				}
 			});
+			
 		});
 	});
-	
+	function searchList(bookList) {
+		$('#dataSearchTable').html("");
+  		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
+  				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
+  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
+  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
+	}
 </script>
 <style type="text/css">
 img{
@@ -383,12 +405,11 @@ img{
             <div class="card-body">
               <div class="table-responsive">
               
-              <form action="DeleteForm.abook" method="post">
+              <form action="DeleteForm.abook" id="searchBoard" method="post">
               <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
               <input type="button" value="제품삭제" onsubmit="">
               <c:if test="${bookList != null && pageInfo.listCount > 0}">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
+                <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
                       <th><input type="checkbox"></th>
                       <th>제품 번호</th>
@@ -404,10 +425,8 @@ img{
                       <th>단계</th>
                       <th>소분류</th>
                     </tr>
-                  </thead>
-                  <tbody>
                     <c:forEach var="book" items="${bookList }" varStatus="status">
-                    <tr>
+                    <tr id="dlfeks">
                       <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
                       <td>${book.bookID }</td>
                       <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
@@ -428,7 +447,6 @@ img{
                       <td>${book.BK3 }</td>
                     </tr>
                     </c:forEach>
-                  </tbody>
                 </table>
                 <section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
