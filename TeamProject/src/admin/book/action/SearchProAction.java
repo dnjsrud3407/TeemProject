@@ -7,9 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import action.Action;
 import admin.book.svc.SearchService;
-import admin.book.svc.WriteProService;
 import vo.ActionForward;
 import vo.BookBean;
 import vo.PageInfo;
@@ -19,7 +21,6 @@ public class SearchProAction implements Action {
     @Override
     public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         ActionForward forward = null;
-        WriteProService writeProService = new WriteProService();
         
         // 제품번호, 제품이름, 출판사, 카테고리(대, 레벨, 소) 파라미터
         String bookID = request.getParameter("bookID");
@@ -104,12 +105,12 @@ public class SearchProAction implements Action {
 		}
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, pageBlock, listCount);
-		
-		request.setAttribute("pageInfo", pageInfo);
+        
+        request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("bookList", bookList);
         
         forward = new ActionForward();
-        forward.setPath("./admin/book/searchList.jsp");
+        forward.setPath("./admin/book/list.jsp");
         
         return forward;
     }
