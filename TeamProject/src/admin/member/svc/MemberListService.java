@@ -17,7 +17,7 @@ public class MemberListService {
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		memberDAO.setConnection(con);
 		
-		int memberList = memberDAO.memberList();
+		int memberList = memberDAO.selectListCount();
 		
 		close(con);
 		
@@ -25,8 +25,15 @@ public class MemberListService {
 	}
 
 	public ArrayList<MemberBean> getMemberList(int page, int limit) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<MemberBean> memberList = null;
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+		memberDAO.setConnection(con);
+		
+		memberList = memberDAO.selectMemberList(page, limit);
+		
+		close(con);
+		return memberList;
 	}
 
 

@@ -5,21 +5,18 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
-
 import action.Action;
 import admin.member.svc.MemberListService;
 import vo.ActionForward;
 import vo.MemberBean;
-
-
+import vo.PageInfo;
  
 public class MemberListAcion implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("MemberListAcion");
-		ActionForward action = null;
+		ActionForward forward = null;
 		
 		int page = 1;
 		int limit = 10;
@@ -45,12 +42,15 @@ public class MemberListAcion implements Action {
 			endPage = maxPage;
 		}
 		
+		PageInfo pageInfo = new PageInfo(endPage, maxPage, startPage, endPage, memListCount);
 		
+		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("memberList", memberList);
 		
-		request.setAttribute("memListCount", memListCount);
-		action.setPath("/admin/member/member_list.jsp");
+		forward = new ActionForward();
+		forward.setPath("/admin/member/member_list.jsp");
 		
-		return action;
+		return forward;
 	}
 
 }
