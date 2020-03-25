@@ -360,7 +360,6 @@ img{
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              
               <form action="DeleteForm.abook" method="post">
               <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
               <input type="button" value="제품삭제" onsubmit="">
