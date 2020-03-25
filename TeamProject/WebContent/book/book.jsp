@@ -32,7 +32,28 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
-	<style type="text/css" id="enject"></style>
+    <script type="text/javascript">
+    
+    var qnaGoodsCode = "";
+    var isLogin = true;
+	function openQna() {
+		var qnaUrl = "http://localhost:8082/TeamProject" + "/QWriteForm.book?goodsCode=" + qnaGoodsCode;
+		var loginUrl = "http://localhost:8082/TeamProject" + "/Login.me?url=" + location.href;
+		if (isLogin) {
+			window.open(qnaUrl,'_blank','toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=0,width=700,height=808');
+		} else {
+			window.location.href = loginUrl;
+		}
+	}
+    
+    </script>
+	<style type="text/css" id="enject">
+	.qBtn {
+    display: inline-block;
+    float: right;
+}
+	
+	</style>
   </head>
 <body>
 <div id="header">
@@ -527,178 +548,23 @@
 		</div>
 				<br class="clr">
 					 </div>
-					 <div class="tab-pane fade" id="review">
-									 <div id="vip-tab_comment" class="vip-tabcontent vip-tabcontent_lt on" style="display: block;">
-												<div id="review-wrapper"><h3 class="tit_detailarea">프리미엄 상품평<span class="num">0</span></h3>
-							
-							<div id="premium-wrapper" class="board_comment">
-								<div class="board_selectboxwrap">
-									<div class="board_selectbox uxeselectbox" style="width:140px">
-										<button class="uxeselect_btn">
-											<span class="txt">인기순</span>
-											<span class="arr blind">열기</span>
-										</button>
-										<ul class="select-commont-list uxeselect_dropdown" id="premium-sort-list">
-											<li><a href="#" data-montelena-acode="200000564" data-sort="0">인기순</a></li>
-											<li><a href="#" data-montelena-acode="200000564" data-sort="1">신규 등록순</a></li>
-											<li><a href="#" data-montelena-acode="200000564" data-sort="2">포토 상품평만</a></li>
-										</ul>
-									</div>
-								</div>
-							
-							<table class="tb_comment tb_premium">
-								<caption>상품평이미지, 상품평, 작성자, 등록일, 조회수에 관한 테이블</caption>
-							<colgroup>
-							<col style="width:120px">
-							<col>
-							<col style="width:140px">
-							</colgroup>
-								<tbody>
-										<tr class="board_empty">
-											<td colspan="3">등록된 상품평이 없습니다.</td>
-										</tr>
-								</tbody>
-							</table>
-							
-								<div class="board_pagenationwrap" id="premium-pagenation-wrap" data-goodscode="1689173523" data-page-no="1" data-total-page="0" data-sort="0">
-								</div>
-							</div>
-							
-							<div class="board_comment">
-								<h3 class="tit_detailarea">일반 상품평<span class="num">0</span></h3>
-								<div class="txt_info">
-									상품평은 구매완료 후 <a target="_blank" href="http://myg.gmarket.co.kr/ContractList/ContractList">수취확인</a>에서 작성하실 수 있습니다.
-								</div>
-								<div id="text-wrapper">
-							<table class="tb_comment tb_comment_common">
-								<caption>상품평 등급, 상품평내용 , 작성자, 등록일, 조회수에 관한 테이블</caption>
-							<colgroup>
-							<col style="width:120px">
-							<col>
-							<col style="width:140px">
-							</colgroup>
-								<tbody>
-											<tr class="board_empty">
-												<td colspan="3">등록된 상품평이 없습니다.</td>
-											</tr>
-								</tbody>
-							</table>
-							
-								<div class="board_pagenationwrap" id="text-pagenation-wrap" data-goodscode="1689173523" data-page-no="1" data-total-page="0">
-								</div>
-							
-							
-								</div>
-							</div>
-							
-							</div>
-											</div>
-					 </div>
+					 <div class="tab-pane fade" id="review">review</div>
 					 <div class="tab-pane fade" id="bookqna">
-					 <div id="vip-tab_qna" class="vip-tabcontent vip-tabcontent_lt on" style="display: block;">
-						<h3 class="tit_detailarea">
-							상품 문의하기
-							<span id="txtQnaCount" class="num">0</span>
-						</h3>
-	<div class="board_selectbox pos uxeselectbox" style="width:100px">
-		<button class="uxeselect_btn">
-			<span class="txt">제목</span>
-			<span class="arr blind">열기</span>
-		</button>
-		<ul class="select-commont-list uxeselect_dropdown" style="display: none;" id="searchKindUl">
-			<li>
-				<a href="javascript:;" data-search-kind="S">제목</a>
-			</li>
-			<li>
-				<a href="javascript:;" data-search-kind="C">제목+내용</a>
-			</li>
-		</ul>
-	</div>
-	<form id="inputSearchForm" action="">
-		<fieldset>
-			<legend>상품 문의하기 검색 폼</legend>
-			<div class="board_schbox">
-				<input type="text" class="ip_board-sch" id="inputSearch" title="검색어 입력">
-				<input type="hidden" id="inputSearchKind" value="S">
-				<button type="submit" class="btn_sch">
-					<span class="blind">검색</span>
-				</button>
-				<span class="txt_result">
-					총 검색 결과 
-				<strong id="txtSearchCount">0건</strong></span>
-			</div>
-		</fieldset>
-	</form>
-
-	<div class="board_qna">
-		<div class="board_btnswrap">
-			<ul>
-				<li class="bt_question">
-					<a href="javascript:;" onclick="javascript:pdsClickLog('200000573', 'utility', {});openQnaWrite();" data-montelena-acode="200000573">문의하기</a>
-				</li>
-				<li class="tab_rt"><a href="javascript:pdsClickLog('200000575', 'utility', {});searchQna('my');" data-montelena-acode="200000575" class="my">내 문의보기</a></li>
-				<li class="tab_rt"><a href="javascript:pdsClickLog('200000576', 'utility', {});searchQna('all');" data-montelena-acode="200000576" class="tl">전체 문의보기</a></li>
-			</ul>
-		</div>
-		<div id="qnaList-wrapper">
-
-
-
-
-<table class="tb_board tb_qna">
-	<caption>번호, 문의종류, 답변상태, 제목, 문의자, 등록일 에 관한 테이블</caption>
-	<colgroup>
-		<col style="width:59px">
-		<col style="width:92px">
-		<col style="width:92px">
-		<col>
-		<col style="width:122px">
-		<col style="width:104px">
-	</colgroup>
-	<thead>
-		<tr>
-			<th class="hnum"><a href="javascript:;">번호</a></th>
-			<th class="htype">
-				<a href="#board_qt_type" class="dropctrl uxeDropdown">
-					문의종류<span class="blind arr">열기</span>
-				</a>
-				<ul id="board_qt_type" class="board_dropbox">
-					<li><a href="javascript:;" data-search-qna="">전체</a></li>
-					<li><a href="javascript:;" data-search-qna="K2">상품</a></li>
-					<li><a href="javascript:;" data-search-qna="K4">배송</a></li>
-					<li><a href="javascript:;" data-search-qna="K18">취소</a></li>
-					<li><a href="javascript:;" data-search-qna="K17">반품/취소</a></li>
-					<li><a href="javascript:;" data-search-qna="K19">교환</a></li>
-					<li><a href="javascript:;" data-search-qna="K7">기타</a></li>
-				</ul>
-			</th>
-			<th class="htit">
-				<a href="#board_as_status" class="dropctrl uxeDropdown">
-					답변상태<span class="blind arr">열기</span>
-				</a>
-				<ul id="board_as_status" class="board_dropbox">
-					<li><a href="javascript:;" data-ans-kind="">전체</a></li>
-					<li><a href="javascript:;" data-ans-kind="NA">검토중</a></li>
-					<li><a href="javascript:;" data-ans-kind="CA">답변완료</a></li>
-				</ul>
-			</th>
-			<th>제목</th>
-			<th>문의자</th>
-			<th>등록일</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr class="board_empty">
-			<td colspan="6">작성된 문의가 없습니다.</td>
-		</tr>
-	</tbody>
-</table>
-
-
-
-</div>
-	</div><!--//board_qa-->
-</div>
+					 	<div>
+						    <h3>상품 문의하기</h3>    
+						    <form class="well form-search">
+						        <select id="select11" style="width:100px">
+						                <option>제목</option>
+						                <option>답변상태</option>
+						                <option>문의자</option>
+						              </select>
+								<input type="text" class="input-medium search-query" style="">
+								  <button type="submit" class="btn">Search</button>
+						        <div class="qBtn">
+									<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" onclick="openQna()">문의하기 </button>
+								</div>
+								</form>
+						 </div>
 					 	<table class="table table-striped">
 					       <thead>
 					         <tr>
