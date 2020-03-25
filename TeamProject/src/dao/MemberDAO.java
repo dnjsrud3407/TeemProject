@@ -106,19 +106,17 @@ public MemberDAO() {}
 		return loginResult;
 	}
 
-	public int selectListCount() {
+	public int selectMemberList() {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT COUNT(*) FROM member";
+			String sql = "SELECT * FROM user";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				listCount = rs.getInt(1);
-			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -128,37 +126,39 @@ public MemberDAO() {}
 		return listCount;
 	}
 
-	public ArrayList<MemberBean> selectMemberList(int page, int limit) {
-		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		int startRow = (page - 1) * 10;
-		 
-		try { 
-			String sql = "SELECT * FROM user ORDER BY uID DESC lIMIT ?,?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, limit);
-			
-			while(rs.next()) {
-				MemberBean memberBean = new MemberBean();
-				memberBean.setuID(rs.getString("uID"));
-				memberBean.setU_name(rs.getString("u_name"));
-				memberBean.setAddress(rs.getString("address"));
-				memberBean.setAddress2(rs.getString("address2"));
-				memberBean.setPoint(rs.getInt("point"));
-				memberBean.setGrade(rs.getInt("grade"));
-				
-				memberList.add(memberBean);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return memberList;
-	}
+//	public ArrayList<MemberBean> selectMemberList(int page, int limit) {
+//		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		
+//		int startRow = (page - 1) * 10;
+//		 
+//		try { 
+//			String sql = "SELECT * FROM user ORDER BY uID DESC lIMIT ?,?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, startRow);
+//			pstmt.setInt(2, limit);
+//			
+//			while(rs.next()) {
+//				MemberBean memberBean = new MemberBean();
+//				memberBean.setuID(rs.getString("uID"));
+//				memberBean.setU_name(rs.getString("u_name"));
+//				memberBean.setAddress(rs.getString("address"));
+//				memberBean.setAddress2(rs.getString("address2"));
+//				memberBean.setPoint(rs.getInt("point"));
+//				memberBean.setGrade(rs.getInt("grade"));
+//				
+//				memberList.add(memberBean);
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return memberList;
+//	}
+	
+	
 
 }

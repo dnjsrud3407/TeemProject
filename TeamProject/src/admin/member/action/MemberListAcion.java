@@ -29,23 +29,23 @@ public class MemberListAcion implements Action {
 //		int num = Integer.parseInt(request.getParameter("num"));
 
 		MemberListService memberListService = new MemberListService();
-		int memListCount = memberListService.getListCount();
+		int memList = memberListService.getMemberList();
 		
-		ArrayList<MemberBean> memberList = null; 
-		memberList = memberListService.getMemberList(page, limit);
-		
-		int maxPage = (int)((double)memListCount / limit + 0.95);
-		int startPage = (((int)((double)page / 10 + 0.9)) -1 ) * 10 + 1;
-		int endPage = startPage + 10 - 1;
-		
-		if(endPage > maxPage) {
-			endPage = maxPage;
-		}
-		
-		PageInfo pageInfo = new PageInfo(endPage, maxPage, startPage, endPage, memListCount);
-		
-		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("memberList", memberList);
+//		ArrayList<MemberBean> memberList = null; 
+//		memberList = memberListService.getMemberList(page, limit);
+//		
+//		int maxPage = (int)((double)memListCount / limit + 0.95);
+//		int startPage = (((int)((double)page / 10 + 0.9)) -1 ) * 10 + 1;
+//		int endPage = startPage + 10 - 1;
+//		
+//		if(endPage > maxPage) {
+//			endPage = maxPage;
+//		}
+//		
+//		PageInfo pageInfo = new PageInfo(endPage, maxPage, startPage, endPage, memListCount);
+//		
+//		request.setAttribute("pageInfo", pageInfo);
+		request.setAttribute("memList", memList);
 		
 		forward = new ActionForward();
 		forward.setPath("/admin/member/member_list.jsp");

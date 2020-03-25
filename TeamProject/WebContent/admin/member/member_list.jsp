@@ -1,6 +1,5 @@
+<%@page import="java.util.List"%>
 <%@page import="vo.MemberBean"%>
-<%@page import="vo.PageInfo"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <%
@@ -12,15 +11,18 @@ if(session.getAttribute("sid") != null){
 //로그인이 되지 않은 상태일 경우 로그인 페이지로 강제 이동 처리
 
 // Action 클래스에서 request 객체의 setAttibute() 메서드로 저장되어 전달된 객체 가져오기(Object 타입이므로 형변환 필요)
-ArrayList<MemberBean> memberList = (ArrayList<MemberBean>)request.getAttribute("memberList"); 
+/* ArrayList<MemberBean> memberList = (ArrayList<MemberBean>)request.getAttribute("memberList"); 
 PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
+ */
+
+ List<MemberBean> memberList = (List<MemberBean>) request.getAttribute("memberList");
 
 // PageInfo 객체로부터 페이징 정보 가져오기
-int memListCount = pageInfo.getListCount();
+/* int memListCount = pageInfo.getListCount();
 int nowPage = pageInfo.getPage(); 
 int startPage = pageInfo.getStartPage();
 int endPage = pageInfo.getEndPage();
-int maxPage = pageInfo.getMaxPage(); 
+int maxPage = pageInfo.getMaxPage();  */
 //	out.println(articleList.size());
 //	out.println(listCount); 
 
@@ -273,20 +275,21 @@ int maxPage = pageInfo.getMaxPage();
                       <th>grade</th>
                     </tr>
                   </thead>
-
-                    <%if(memberList != null & memListCount > 0) {%>
-                    	<% for(int i = 0; i < memberList.size(); i++) {%>
+						<%for(int i = 0; i < memberList.size(); i++){
+						MemberBean mb = (MemberBean)memberList.get(i); //e다운캐스팅 %>
+<%--                     <%if(memberList != null & memListCount > 0) {%> --%>
+<%--                     	<% for(int i = 0; i < memberList.size(); i++) {%> --%>
                   <tbody>
                     <tr onclick="location.href='MemberDetail.adm'">
-                      <td><%=memberList.get(i).getuID() %></td>
-                      <td><%=memberList.get(i).getU_name() %></td>
-                      <td><%=memberList.get(i).getAddress() %></td>
-                      <td><%=memberList.get(i).getAddress2() %></td>
-                      <td><%=memberList.get(i).getPoint() %></td>
-                      <td><%=memberList.get(i).getGrade() %></td>
+                      <td><%=mb.getuID() %></td>
+                      <td><%=mb.getU_name() %></td>
+                      <td><%=mb.getAddress() %></td>
+                      <td><%=mb.getAddress2() %></td>
+                      <td><%=mb.getPoint() %></td>
+                      <td><%=mb.getGrade() %></td>
                     </tr>
                    		<%}%>
-                   <% }%>
+<%--                    <% }%> --%>
                     <tr>
                       <td>Garrett Winters</td>
                       <td>Accountant</td>
