@@ -596,12 +596,22 @@
 					 </div>
 					 <div class="tab-pane fade" id="bookqna">
 					 <div id="vip-tab_qna" class="vip-tabcontent vip-tabcontent_lt on" style="display: block;">
-	<h3 class="tit_detailarea">상품 문의하기<span id="txtQnaCount" class="num">0</span></h3>
+						<h3 class="tit_detailarea">
+							상품 문의하기
+							<span id="txtQnaCount" class="num">0</span>
+						</h3>
 	<div class="board_selectbox pos uxeselectbox" style="width:100px">
-		<button class="uxeselect_btn"><span class="txt">제목</span><span class="arr blind">열기</span></button>
+		<button class="uxeselect_btn">
+			<span class="txt">제목</span>
+			<span class="arr blind">열기</span>
+		</button>
 		<ul class="select-commont-list uxeselect_dropdown" style="display: none;" id="searchKindUl">
-			<li><a href="javascript:;" data-search-kind="S">제목</a></li>
-			<li><a href="javascript:;" data-search-kind="C">제목+내용</a></li>
+			<li>
+				<a href="javascript:;" data-search-kind="S">제목</a>
+			</li>
+			<li>
+				<a href="javascript:;" data-search-kind="C">제목+내용</a>
+			</li>
 		</ul>
 	</div>
 	<form id="inputSearchForm" action="">
@@ -610,8 +620,12 @@
 			<div class="board_schbox">
 				<input type="text" class="ip_board-sch" id="inputSearch" title="검색어 입력">
 				<input type="hidden" id="inputSearchKind" value="S">
-				<button type="submit" class="btn_sch"><span class="blind">검색</span></button>
-				<span class="txt_result">총 검색 결과 <strong id="txtSearchCount">0건</strong></span>
+				<button type="submit" class="btn_sch">
+					<span class="blind">검색</span>
+				</button>
+				<span class="txt_result">
+					총 검색 결과 
+				<strong id="txtSearchCount">0건</strong></span>
 			</div>
 		</fieldset>
 	</form>
