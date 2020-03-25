@@ -135,7 +135,7 @@ public MemberDAO() {}
 		
 		int startRow = (page - 1) * 10;
 		
-		try {
+		try { 
 			String sql = "SELECT * FROM user ORDER BY uID DESC lIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);

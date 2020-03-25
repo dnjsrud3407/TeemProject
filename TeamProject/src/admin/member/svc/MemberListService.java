@@ -10,7 +10,7 @@ import static db.JdbcUtil.*;
 import vo.MemberBean;
 
 public class MemberListService {
-
+ 
 	public int getListCount() {
 		System.out.println("MemberListService - getMember");
 		Connection con = getConnection();

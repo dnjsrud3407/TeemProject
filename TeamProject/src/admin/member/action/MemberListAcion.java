@@ -24,7 +24,7 @@ public class MemberListAcion implements Action {
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
-		
+		 
 		String uId = request.getParameter("uId");
 //		int num = Integer.parseInt(request.getParameter("num"));
 

@@ -572,7 +572,7 @@ height: 300px;
                       <th>Age</th>
                       <th>Join date</th>
                       <th>Profit</th>
-                    </tr>
+                    </tr> 
                   </tfoot>
                   <tbody>
                     <tr>

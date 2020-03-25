@@ -16,7 +16,7 @@ public class PageInfo {
 		super();
 		this.page = page;
 		this.maxPage = maxPage;
-		this.startPage = startPage;
+		this.startPage = startPage; 
 		this.endPage = endPage;
 		this.pageBlock = pageBlock;
 		this.listCount = listCount;

@@ -1,7 +1,7 @@
 <%@page import="vo.MemberBean"%>
 <%@page import="vo.PageInfo"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <%
 
