@@ -575,7 +575,7 @@ height: 300px;
                     </tr> 
                   </tfoot>
                   <tbody>
-                    <tr>
+                    <tr> 
                       <td>Tiger Nixon</td>
                       <td>System Architect</td>
                       <td>Edinburgh</td>

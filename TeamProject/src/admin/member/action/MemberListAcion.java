@@ -31,7 +31,7 @@ public class MemberListAcion implements Action {
 		MemberListService memberListService = new MemberListService();
 		int memListCount = memberListService.getListCount();
 		
-		ArrayList<MemberBean> memberList = null;
+		ArrayList<MemberBean> memberList = null; 
 		memberList = memberListService.getMemberList(page, limit);
 		
 		int maxPage = (int)((double)memListCount / limit + 0.95);

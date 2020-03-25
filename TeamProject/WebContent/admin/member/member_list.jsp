@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
     pageEncoding="UTF-8"%>
 <%
-
+ 
 /* String sid = null;
 if(session.getAttribute("sid") != null){
 	sid = (String)session.getAttribute("sid");
