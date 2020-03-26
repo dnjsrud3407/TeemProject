@@ -96,28 +96,81 @@
 			}
 			
 			// bookList 배열
-			$.ajax({
-				type:"POST",
-// 				dataType:"json",
-				url:"admin/book/search.jsp",
-				data:{"bookID":bookID,
+// 			$.ajax({
+// 				type:"POST",
+// 				url:"admin/book/search.jsp",
+// // 				dataType:'json',
+// // 				contentType : 'application/json',
+// 				data:{"bookID":bookID,
+// 					  "bookTitle":bookTitle,
+// 					  "bookPublisher":bookPublisher,
+// 					  "BK1":BK1,
+// 					  "BK2":BK2,
+// 					  "BK3":BK3,
+// 					  "bookEA":bookEA,
+// 					  "bookisView":bookisView},
+// 			  	success: function (bookList) {
+// 			  		alert(bookList);
+// // 			  		$.each(bookList, function (index, book) {
+// // 						alert(book.bookTitle);
+// // 					});
+// 				},
+// 				error:errorCall
+// 			});
+			var dataList = {"bookID":bookID,
 					  "bookTitle":bookTitle,
 					  "bookPublisher":bookPublisher,
 					  "BK1":BK1,
 					  "BK2":BK2,
 					  "BK3":BK3,
 					  "bookEA":bookEA,
-					  "bookisView":bookisView},
-			  	success: function (datas) {
-			  		$.each(datas, function (index,data) {
-						alert(data.bookID);
-					});
-				}
+					  "bookisView":bookisView};
+			
+			$.getJSON('admin/book/search.jsp', dataList, function (bookList) {
+				$('#dataSearchTable').html("");
+		  		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
+		  				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
+		  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
+		  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
+				$.each(bookList, function(index, book){
+			  		$('#dataSearchTable').append("<tr><td><input type='checkbox' name='bookIDList' value='"+ book.bookID +"'></td>"+
+			  				"<td>" + book.bookID 
+			  				+ "</td><td><a href='Detail.abook?bookID="+ book.bookID +"'>"+book.bookTitle+"</a></td>"
+			  				+"<td>"+ book.bookPublisher
+			  				+"</td><td>"+ book.bookPublishedDate 
+			  				+"</td><td>"+ book.bookPrice + "</td>"
+			  				+"<c:if test="${book.bookEA < 10}">"+
+			  					+"<td>"+ book.bookEA 
+			  				+"</td><td>"+ book.salesVolume 
+			  				+"</td><td>"+ book.bookisView
+			  				+"</td><td>"+ book.saveRatio 
+			  				+"</td><td>"+ book.BK1 
+			  				+"</td><td>"+ book.BK2
+			  				+"</td><td>"+ book.BK3 +"</td></tr>");
+				});
 			});
+			
+// 			$.getJSON({
+// 				url:"admin/book/search.jsp",
+// 				data:{"bookID":bookID,
+// 					  "bookTitle":bookTitle,
+// 					  "bookPublisher":bookPublisher,
+// 					  "BK1":BK1,
+// 					  "BK2":BK2,
+// 					  "BK3":BK3,
+// 					  "bookEA":bookEA,
+// 					  "bookisView":bookisView},
+// 			  success: function (bookList) {
+//  			  		alert(bookList);
+// // 			  		$.each(bookList, function (index, book) {
+// // 						alert(book.bookTitle);
+// // 					});
+//  				}
+// 			});
 			
 		});
 	});
-	function searchList(bookList) {
+	function searchList(json) {
 		$('#dataSearchTable').html("");
   		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
   				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
@@ -408,6 +461,7 @@ img{
               <form action="DeleteForm.abook" id="searchBoard" method="post">
               <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
               <input type="button" value="제품삭제" onsubmit="">
+              <div id="#cmmntList"></div>
               <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
@@ -426,7 +480,7 @@ img{
                       <th>소분류</th>
                     </tr>
                     <c:forEach var="book" items="${bookList }" varStatus="status">
-                    <tr id="dlfeks">
+                    <tr>
                       <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
                       <td>${book.bookID }</td>
                       <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>

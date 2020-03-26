@@ -50,7 +50,7 @@ public class SearchProAction implements Action {
         String searchSql = "";
         for(int i = 0; i < keyList.size(); i++) {
         	// map객체(key값으로 서치)이 null 이 아니면
-	        if(!(searchList.get(keyList.get(i)) == null || searchList.get(keyList.get(i)).equals("") || searchList.get(keyList.get(i)).equals("선택하세요"))) {
+	        if(!(searchList.get(keyList.get(i)) == null || searchList.get(keyList.get(i)).equals("") || searchList.get(keyList.get(i)).equals("null") || searchList.get(keyList.get(i)).equals("선택하세요"))) {
 	        	// map객체로 부터 sql 구문 만들기//
 	        	// key값에 따라 sql 구문 다르게
 	        	if(keyList.get(i).equals("bookID")) {
@@ -106,9 +106,12 @@ public class SearchProAction implements Action {
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, pageBlock, listCount);
         
-        request.setAttribute("pageInfo", pageInfo);
+//        request.setAttribute("pageInfo", pageInfo);
         request.setAttribute("bookList", bookList);
         
+        for(int i=0; i<bookList.size(); i++) {
+        	System.out.println(bookList.get(i).getBookTitle());
+        }
         forward = new ActionForward();
         forward.setPath("./admin/book/list.jsp");
         

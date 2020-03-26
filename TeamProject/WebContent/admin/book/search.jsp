@@ -81,21 +81,25 @@
 	JSONArray jbookList = new JSONArray();
 	for(int i=0; i<bookList.size(); i++){
 		JSONObject jbb = new JSONObject();
-		jbb.put("bookID", bookList.get(i).getBookID());
+		jbb.put("bookID", ""+bookList.get(i).getBookID()+"");
 		jbb.put("bookTitle", bookList.get(i).getBookTitle());
 		jbb.put("bookPublisher", bookList.get(i).getBookPublisher());
-		jbb.put("bookPublishedDate", bookList.get(i).getBookPublishedDate());
-		jbb.put("bookPrice", bookList.get(i).getBookPrice());
-		jbb.put("bookEA", bookList.get(i).getBookEA());
-		jbb.put("bookisView", bookList.get(i).isBookisView());
-		jbb.put("salesVolume", bookList.get(i).getSalesVolume());
-		jbb.put("saveRatio", bookList.get(i).getSaveRatio());
+		jbb.put("bookPublishedDate", ""+bookList.get(i).getBookPublishedDate()+"");
+		jbb.put("bookPrice", ""+bookList.get(i).getBookPrice()+"");
+		jbb.put("bookEA", ""+bookList.get(i).getBookEA()+"");
+		jbb.put("bookisView", ""+bookList.get(i).isBookisView()+"");
+		jbb.put("salesVolume", ""+bookList.get(i).getSalesVolume()+"");
+		jbb.put("saveRatio", ""+bookList.get(i).getSaveRatio()+"");
 		jbb.put("BK1", bookList.get(i).getBK1());
 		jbb.put("BK2", bookList.get(i).getBK2());
 		jbb.put("BK3", bookList.get(i).getBK3());
 		jbookList.add(jbb);
 	}
-	JSONObject json = new JSONObject();
-	json.put("jbookList", jbookList);
+	System.out.println(jbookList);
+	
+// 	JSONObject json = new JSONObject();
+// 	json.put("jbookList", jbookList);
 %>
-<%=bookList%>
+<%=jbookList%>
+
+
