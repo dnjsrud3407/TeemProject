@@ -1,6 +1,6 @@
 package admin.member.action;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,18 +18,18 @@ public class MemberListAcion implements Action {
 		System.out.println("MemberListAcion");
 		ActionForward forward = null;
 		
-		int page = 1;
-		int limit = 10;
+//		int page = 1;
+//		int limit = 10;
 		
-		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
+//		if(request.getParameter("page") != null) {
+//			page = Integer.parseInt(request.getParameter("page"));
+//		}
 		 
 		String uId = request.getParameter("uId");
 //		int num = Integer.parseInt(request.getParameter("num"));
 
 		MemberListService memberListService = new MemberListService();
-		int memList = memberListService.getMemberList();
+		List<MemberBean> memberList = memberListService.getMemberList();
 		
 //		ArrayList<MemberBean> memberList = null; 
 //		memberList = memberListService.getMemberList(page, limit);
@@ -45,7 +45,7 @@ public class MemberListAcion implements Action {
 //		PageInfo pageInfo = new PageInfo(endPage, maxPage, startPage, endPage, memListCount);
 //		
 //		request.setAttribute("pageInfo", pageInfo);
-		request.setAttribute("memList", memList);
+		request.setAttribute("memberList", memberList);
 		
 		forward = new ActionForward();
 		forward.setPath("/admin/member/member_list.jsp");

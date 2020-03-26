@@ -2,8 +2,7 @@ package admin.member.svc;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+import java.util.List;
 
 import dao.MemberDAO;
 import static db.JdbcUtil.*; 
@@ -11,13 +10,14 @@ import vo.MemberBean;
 
 public class MemberListService {
   
-	public int getMemberList() {
+	public List<MemberBean> getMemberList() {
 		System.out.println("MemberListService - getMember");
 		Connection con = getConnection();
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		memberDAO.setConnection(con);
 		
-		int memberList = memberDAO.selectMemberList();
+		List<MemberBean> memberList = memberDAO.getMemberList();
+//		memberDAO.selectMemberList();
 		
 		close(con);
 		

@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="vo.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" 
@@ -14,6 +15,7 @@ if(session.getAttribute("sid") != null){
 /* ArrayList<MemberBean> memberList = (ArrayList<MemberBean>)request.getAttribute("memberList"); 
 PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
  */
+//  ArrayList<MemberBean> memberList = (ArrayList<MemberBean>) request.getAttribute("memberList");
 
  List<MemberBean> memberList = (List<MemberBean>) request.getAttribute("memberList");
 
@@ -254,13 +256,15 @@ int maxPage = pageInfo.getMaxPage();  */
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">회원관리</h1>
+          <p class="mb-4"> 회원관리 페이지입니다. 
+          <!-- <a target="_blank" href="https://datatables.net">official DataTables documentation</a>. --></p>
+          
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>              
+              <h6 class="m-0 font-weight-bold text-primary">회원목록</h6>              
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -269,59 +273,30 @@ int maxPage = pageInfo.getMaxPage();  */
                     <tr>
                       <th>아이디</th>
                       <th>이름</th>
-                      <th>adress</th>
+                      <th>주소</th>
                       <th>address2</th>
                       <th>point</th>
                       <th>grade</th>
                     </tr>
                   </thead>
+                  <tbody>
 						<%for(int i = 0; i < memberList.size(); i++){
-						MemberBean mb = (MemberBean)memberList.get(i); //e다운캐스팅 %>
+						//MemberBean mb = (MemberBean)memberList.get(i); //e다운캐스팅 %>
 <%--                     <%if(memberList != null & memListCount > 0) {%> --%>
 <%--                     	<% for(int i = 0; i < memberList.size(); i++) {%> --%>
-                  <tbody>
-                    <tr onclick="location.href='MemberDetail.adm'">
-                      <td><%=mb.getuID() %></td>
-                      <td><%=mb.getU_name() %></td>
-                      <td><%=mb.getAddress() %></td>
-                      <td><%=mb.getAddress2() %></td>
-                      <td><%=mb.getPoint() %></td>
-                      <td><%=mb.getGrade() %></td>
+                    <tr onclick="location.href='MemberDetail.adm?=uID=<%=memberList.get(i).getuID()%>'">
+<%--     <a href="BoardDetail.bo?board_num=<%=articleList.get(i).getBoard_num()%>&page=<%=nowPage%>">
+ --%>                    
+                      <td><%=memberList.get(i).getuID() %></td>
+                      <td><%=memberList.get(i).getU_name() %></td>
+                      <td><%=memberList.get(i).getAddress() %></td>
+                      <td><%=memberList.get(i).getAddress2() %></td>
+                      <td><%=memberList.get(i).getPoint() %></td>
+                      <td><%=memberList.get(i).getGrade() %></td>
                     </tr>
                    		<%}%>
 <%--                    <% }%> --%>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>63</td>
-                      <td>2011/07/25</td>
-                      <td>$170,750</td>
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>San Francisco</td>
-                      <td>66</td>
-                      <td>2009/01/12</td>
-                      <td>$86,000</td>
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                      <td>Edinburgh</td>
-                      <td>22</td>
-                      <td>2012/03/29</td>
-                      <td>$433,060</td>
-                    </tr>
-                    <tr onclick="location.href='MemberDetail.adm'">
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                      <td>Tokyo</td>
-                      <td>33</td>
-                      <td>2008/11/28</td>
-                      <td>$162,700</td>
-                    </tr>
+                   
                    </tbody>
                 </table>
               </div>

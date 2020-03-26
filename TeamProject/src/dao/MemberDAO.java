@@ -5,8 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+import java.util.List;
 
 import static db.JdbcUtil.*;
 
@@ -124,6 +123,36 @@ public MemberDAO() {}
 			close(pstmt);
 		}
 		return listCount;
+	}
+
+	public List<MemberBean> getMemberList() {
+		List<MemberBean> memberList = new ArrayList();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			String sql = "select * from user";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				MemberBean mb = new MemberBean();
+				mb.setuID(rs.getString("uID"));
+				mb.setU_name(rs.getString("u_name"));
+				mb.setAddress(rs.getString("address"));
+				mb.setAddress2(rs.getString("address2"));
+				mb.setPoint(rs.getInt("point"));
+				mb.setGrade(rs.getInt("grade"));
+				memberList.add(mb);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);			
+		}
+		
+		return memberList;
 	}
 
 //	public ArrayList<MemberBean> selectMemberList(int page, int limit) {
