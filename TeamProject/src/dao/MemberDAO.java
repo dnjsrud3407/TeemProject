@@ -155,6 +155,43 @@ public MemberDAO() {}
 		return memberList;
 	}
 
+	public MemberBean selectMember(String members) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		MemberBean member = null;
+		
+		try {
+			String sql = "select * from user where uID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, members);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				member = new MemberBean();
+				member.setuID(rs.getString("uID"));
+				member.setPw(rs.getString("pw"));
+				member.setU_name(rs.getString("u_name"));
+				member.setAddress(rs.getString("address"));
+				member.setEmail(rs.getString("email"));
+				member.setTell_num(rs.getString("tell_num"));
+				member.setAddress2(rs.getString("address2"));
+				member.setPoint(rs.getInt("point"));
+				member.setGrade(rs.getInt("grade"));
+				member.setJoinDate(rs.getDate("joinDate"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return member;
+	}
+
 //	public ArrayList<MemberBean> selectMemberList(int page, int limit) {
 //		ArrayList<MemberBean> memberList = new ArrayList<MemberBean>();
 //		PreparedStatement pstmt = null;

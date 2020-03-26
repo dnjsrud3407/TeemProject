@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.member.svc.MemberDetailService;
 import vo.ActionForward;
+import vo.MemberBean;
 
 
 public class MemberDetailAcion implements Action {
@@ -24,8 +26,19 @@ public class MemberDetailAcion implements Action {
 		
 //		request.setAttribute("book", book);
 //		request.setAttribute("page", page);
-
+		
 		ActionForward forward = null;
+		String members = request.getParameter("user");
+
+//		String user = (String)session.getAttribute("user");
+		MemberDetailService memberDetailService = new MemberDetailService();
+		MemberBean member = memberDetailService.getMember(members);
+		
+//		if(member != null) {
+//			boardDetailService.plusReadcount(board_num);
+//		}
+		
+		request.setAttribute("member", member);
 		
 		forward = new ActionForward();
 		forward.setPath("./admin/member/member_detail.jsp");

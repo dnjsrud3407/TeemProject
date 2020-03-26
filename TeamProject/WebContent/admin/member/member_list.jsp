@@ -51,7 +51,7 @@ int maxPage = pageInfo.getMaxPage();  */
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
-
+	
 </head>
 
 <body id="page-top">

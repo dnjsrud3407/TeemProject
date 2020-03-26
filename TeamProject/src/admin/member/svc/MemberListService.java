@@ -11,7 +11,7 @@ import vo.MemberBean;
 public class MemberListService {
   
 	public List<MemberBean> getMemberList() {
-		System.out.println("MemberListService - getMember");
+		System.out.println("MemberListService - getMemberList");
 		Connection con = getConnection();
 		MemberDAO memberDAO = MemberDAO.getInstance();
 		memberDAO.setConnection(con);

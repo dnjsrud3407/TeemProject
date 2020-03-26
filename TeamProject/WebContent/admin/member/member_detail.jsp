@@ -1,5 +1,25 @@
+<%@page import="vo.MemberBean"%>
+<%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+
+// String user = null;
+// if(session.getAttribute("user") == null){
+// 	out.println("<script>");
+//     out.println("location.href='Login.me'");
+//     out.println("</script>");
+// } else { // 로그인 된 상태일 경우 세션 ID 가져오기
+// 	user = (String)session.getAttribute("user");
+// }
+
+// String user = (String)session.getAttribute("user");
+// MemberDAO mdao = new MemberDAO();
+// MemberBean mb = mdao.selectMember(mb);
+
+MemberBean member = (MemberBean)request.getAttribute("member");
+
+%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,28 +60,7 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
 
-<script type="text/javascript">
-	function checkId(id) {
-		// 4 ~ 12자리 아이디 영문,숫자 조합 유효성 검사
-		// => 영문자로 시작하고 영문자 또는 숫자의 조합으로 4 ~ 12 자리
-		// 1. 정규표현식 지정
-		var regex = /^[A-Za-z][A-Za-z0-9]{3,11}$/;
-		
-		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
-		var element = document.getElementById('checkIdResult'); // checkIdResult 값을 ID 로 갖는 태그 찾기
-		
-		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
-		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
-		if(regex.exec(id.value)) { // 유효성 검사를 통과했을 경우
-// 			alert('유효성 검사 통과');	
-			// 지정된 태그 내에 메세지 표시
-			element.innerHTML = "사용 가능한 아이디";
-		} else { // 유효성 검사를 통과하지 못했을 경우
-// 			alert('유효성 검사 탈락');
-			element.innerHTML = "사용 불가능한 아이디";
-		}
-	}
-	
+<script type="text/javascript">	
 	function checkPasswd(passwd) {
 		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합 유효성 검사
 		// 1. 정규표현식 지정
@@ -342,39 +341,39 @@
 		<div class="control-group">
 			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputId" placeholder="아이디" name="uID" required="required" onkeyup="checkId(this)">
+			  <input type="text" id="inputId" name="uID" value="<%=user %>" readonly>
 			  <span id="checkIdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<label class="control-label" for="inputPassword">비밀번호 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" required="required"><!-- onkeyup="checkPasswd(this)" --> 
+			  <input type="password" id="inputPassword" name="pw" value="<%=member.getPw() %>"><!-- onkeyup="checkPasswd(this)" --> 
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<label class="control-label" for="inputName">이름 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputName" placeholder="이름" name="u_name" required="required">
+			  <input type="text" id="inputName" name="u_name" value="<%=member.getU_name() %>">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="address">Address<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="address" placeholder="Adress" name="address" required="required"/> <span>Street address, P.O. box, company name, c/o</span>
+			  <input type="text" id="address" name="address" value="<%=member.getAddress() %>"/> <span>Street address, P.O. box, company name, c/o</span>
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="mobile" placeholder="Mobile Phone" name="phone_num" required="required"/> 
+			  <input type="text" id="mobile" name="phone_num" value="<%=member.getPhone_num() %>"/> 
 			</div>
 		</div>	
 		<div class="control-group">
 		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
 		<div class="controls">
-		  <input type="text" id="input_Email" placeholder="Email" name="email" required="required">
+		  <input type="text" id="input_Email" name="email" value="<%=member.getEmail() %>">
 		</div>
 	  </div>	  
 	
@@ -395,18 +394,44 @@
 		<div class="control-group">
 			<label class="control-label" for="address2">Address (Line 2)</label>
 			<div class="controls">
-			  <input type="text" id="address2" placeholder="Adress line 2" name="address2"/> <span>Apartment, suite, unit, building, floor, etc.</span>
+			  <input type="text" id="address2" name="address2" value="<%=member.getAddress2() %>"/>
 			</div>
 		</div>
 		
 		<div class="control-group">
 			<label class="control-label" for="phone">Home phone</label>
 			<div class="controls">
-			  <input type="text" id="phone" placeholder="phone" name="tell_num"/> <span>You must register at least one phone number</span>
+			  <input type="text" id="phone" name="tell_num" value="<%=member.getTell_num() %>"/> 
 			</div>
 		</div>
 		
+		<h4>Point and Grade</h4>
+		<div class="control-group">
+
+		<div class="controls">
+
+		</div>
+		</div>	
+		<div class="control-group">
+			<label class="control-label" for="point">Points</label>
+			<div class="controls">
+			  <input type="text" id=""point"" name="point" value="<%=member.getPoint() %>"/>
+			</div>
+		</div>
 		
+		<div class="control-group">
+			<label class="control-label" for="grade">Grade</label>
+			<div class="controls">
+			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/> 
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label class="control-label" for="joinDate">joinDate</label>
+			<div class="controls">
+			  <input type="text" id="joinDate" name="joinDate" value="<%=member.getJoinDate() %>"/> 
+			</div>
+		</div>
 		
 	<p><sup>*</sup>Required field</p>
 	
@@ -415,8 +440,8 @@
 				<input type="hidden" name="email_create" value="1">
 				<input type="hidden" name="is_new_customer" value="1">
 
-		<a href="MemberModifyForm.adm" ><input  class="btn btn-large btn-success" type="button" value="멤버수정"></a>
-		<a href="MemberDeleteForm.adm"><input  class="btn btn-large btn-success" type="button" value="멤버삭제"></a>
+		<a href="MemberModifyForm.adm?uID=<%=member.getuID() %>" ><input  class="btn btn-large btn-success" type="button" value="멤버수정"></a>
+		<a href="MemberDeleteForm.adm?uID=<%=member.getuID() %>"><input  class="btn btn-large btn-success" type="button" value="멤버삭제"></a>
 
 			</div>
 		</div>		
