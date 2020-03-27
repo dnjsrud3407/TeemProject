@@ -41,12 +41,6 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="OrderList.adm">주문관리</a>
             <a class="collapse-item" href="Sales.adm">매출관리</a>
-          
-            <h6 class="collapse-header">Custom Components 참고:</h6>
-            <a class="collapse-item" href="admin/buttons.html">Buttons</a>
-            <a class="collapse-item" href="admin/cards.html">Cards</a>
-            <a class="collapse-item" href="admin/buttons.html">Buttons</a>
-            <a class="collapse-item" href="admin/cards.html">Cards</a>
           </div>
         </div>
       </li>
@@ -73,12 +67,6 @@
             <a class="collapse-item" href="QList.abook">상품문의(답변작성/수정/삭제)</a>
             <a class="collapse-item" href="RefundList.abook">상품반품(엑셀)</a>
             <a class="collapse-item" href="BuyList.abook">물량추가(엑셀)</a>
-          
-            <h6 class="collapse-header">Custom Utilities-참고:</h6>
-            <a class="collapse-item" href=".admin/utilities-color.html">Colors</a>
-            <a class="collapse-item" href="admin/utilities-border.html">Borders</a>
-            <a class="collapse-item" href="admin/utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="admin/utilities-other.html">Other</a>
           </div>
         </div>
       </li>
@@ -102,40 +90,12 @@
             <a class="collapse-item" href="QList.bo">1:1답변목록(답변/수정/삭제)</a>
             <a class="collapse-item" href="FAQ_List.bo">FAQ목록(답변/수정/삭제)</a>
             <a class="collapse-item" href="Notice_List.bo">배너 - 공지사항/이벤트목록(작성/수정/삭제)</a>
-          
-            <h6 class="collapse-header">Login Screen-참고:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages-참고:</h6>
-            <a class="collapse-item" href="admin/404.html">404 Page</a>
-            <a class="collapse-item" href="admin/blank.html">Blank Page</a>
           </div>
         </div>
       </li>
  <!-- Divider -->
 
  	 <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        참고
-      </div>
-      <!-- Nav Item - Charts -->
-      <li class="nav-item">
-        <a class="nav-link" href="admin/charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span></a>
-      </li>
-
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="admin/tables.html">
-          <i class="fas fa-fw fa-table"></i>
-          <span>table</span></a>
-      </li>
-      
       
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block">

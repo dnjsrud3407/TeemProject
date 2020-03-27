@@ -1,10 +1,14 @@
 package admin.member.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.member.svc.MemberModifyProService;
 import vo.ActionForward;
+import vo.MemberBean;
 
 
 public class MemberModifyProAcion implements Action {
@@ -12,50 +16,47 @@ public class MemberModifyProAcion implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("MemberModifyProAcion");
-	ActionForward forward = null;
+		ActionForward forward = null;
 		
+		String uID = request.getParameter("uID");
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");
 
 //		boolean isRightUser = false;
-//		MemberModifyProService memberModifyProService = new MemberModifyProService();
-//		memberModifyProService.isAdminWriter(num, request.getParameter("num"));
 		
-//		if(!isRightUser) {
+		MemberModifyProService memberModifyProService = new MemberModifyProService();
+		boolean isRightAdmin = memberModifyProService.isAdminWriter(uID, request.getParameter("pw"));
+		
+//		if(!isRightAdmin) {
 //			response.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = response.getWriter(); 
-//			out.println("<script>"); // 인터넷 밖으로 내보내는 
-//			out.println("alert('수정 권한이 없습니다!')"); // 경고 dialog출력
-//			out.println("history.go(-1)"); //back은 한칸만가능 go는 히스토리안에서 단계로 넘어갈수있음
-//			out.println("</script>"); 
-//		}else {
-//			BookBean review = new BookBean();
+//			PrintWriter out = response.getWriter(); // HTML 태그 출력을 위한 Writer 객체 가져오기
+//			// out 객체의 println() 메서드를 호출하여 HTML 태그 작성
+//			out.println("<script>"); // 자바스크립트 실행을 위한 <script> 시작 태그
+//			out.println("alert('수정 권한이 없습니다!')"); // alert dialog 출력
+//			out.println("history.back()");// 이전 페이지로 돌아가기
+//			out.println("</script>"); // 자바스크립트 종료
+//		} else {
 			
-//			article.setBoard_num(board_num);
-//			article.setBoard_subject(request.getParameter("board_subject"));
-//			article.setBoard_content(request.getParameter("board_content"));
+			MemberBean member = new MemberBean();
+			member.setPoint(Integer.parseInt(request.getParameter("point")));
+			member.setGrade(Integer.parseInt(request.getParameter("grade")));
 			
-//			boolean isModifySuccess = bookModifyProService.modifyReview(review);
-//		
-//			if(!isModifySuccess) {
-//				response.setContentType("text/html; charset=UTF-8");
-//				PrintWriter out = response.getWriter();
-//				out.println("<script>");
-//				out.println("alert('글 수정 실패!')"); // 경고 dialog출력
-//				out.println("history.go(-1)"); //back은 한칸만가능 go는 히스토리안에서 단계로 넘어갈수있음
-//				out.println("</script>");
-//				
-//			}else{
-//				forward = new ActionForward();
-//				forward.setPath("BookDetail.book?board_num=" + board_num + "&page=" + page);
-//				forward.setPath("ReviewDetail.book");
-//				forward.setRedirect(true);
-//			}
+			boolean isModifySuccess = memberModifyProService.modifyMember(member);
+			
+			if(!isModifySuccess) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('수정 실패!')");
+				out.println("history.back()");
+				out.println("</script>");
+			} else {
+				forward = new ActionForward();
+				forward.setPath("MemberDetail.adm?uID=" + uID);
+				forward.setRedirect(true);
+			}
 //		}
-		forward = new ActionForward();
-		forward.setPath("MemberDetail.adm");
-		forward.setRedirect(true);
-
+		
 		return forward;
 
 	}

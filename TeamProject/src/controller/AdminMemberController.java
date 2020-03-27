@@ -53,13 +53,16 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/MemberModifyForm.adm")) {
-			action = new MemberModifyFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}		} else if(command.equals("/MemberModifyPro.adm")) {
+		} 
+//		else if(command.equals("/MemberModifyForm.adm")) {
+//			action = new MemberModifyFormAction();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}		
+//		} 
+	else if(command.equals("/MemberModifyPro.adm")) { //------------------
 			action = new MemberModifyProAcion();
 			try {
 				forward = action.execute(request, response);

@@ -24,7 +24,7 @@ public class MemberDetailService {
 		
 		close(con);
 		
-		return null;
+		return member;
 	}
 
 }
