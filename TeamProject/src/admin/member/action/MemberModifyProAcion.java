@@ -42,7 +42,7 @@ public class MemberModifyProAcion implements Action {
 			member.setGrade(Integer.parseInt(request.getParameter("grade")));
 			
 			boolean isModifySuccess = memberModifyProService.modifyMember(member);
-			
+		
 			if(!isModifySuccess) {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();

@@ -287,7 +287,7 @@ int maxPage = pageInfo.getMaxPage();  */
 <!--uID서버저장공간리퀘스트 화면딴에서 클릭하면 서버로가는데 서버에서 클릭한 정보들고가려면 서버에전달이되고 저장시켜야하는데 그게  -->
                     <tr onclick="location.href='MemberDetail.adm?uID=<%=memberList.get(i).getuID()%>'">
 <%--     <a href="BoardDetail.bo?board_num=<%=articleList.get(i).getBoard_num()%>&page=<%=nowPage%>">
- --%>                    
+ --%>                   
                       <td><%=memberList.get(i).getuID() %></td>
                       <td><%=memberList.get(i).getU_name() %></td>
                       <td><%=memberList.get(i).getAddress() %></td>

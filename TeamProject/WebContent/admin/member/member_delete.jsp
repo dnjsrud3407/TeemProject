@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <!-- <form name="deleteForm" action="ReviewDeletePro.book?board_num=?&page=?" method="post"> -->
 		<h2>member_delete.jsp</h2>
 		<form name="deleteForm" action="MemberDeletePro.adm" method="post">

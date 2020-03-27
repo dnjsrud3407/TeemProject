@@ -9,7 +9,7 @@ import static db.JdbcUtil.*;
 import vo.MemberBean;
 
 public class MemberListService {
-  
+ 
 	public List<MemberBean> getMemberList() {
 		System.out.println("MemberListService - getMemberList");
 		Connection con = getConnection();

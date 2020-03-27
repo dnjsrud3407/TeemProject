@@ -29,7 +29,7 @@ public class memberDeleteProService {
 		System.out.println("MemberModifyProService - removeMember");
 
 		boolean isRemoveSuccess = false;
-		
+	
 		Connection con = getConnection();
 		MemberDAO memberDAO = new MemberDAO();
 		memberDAO.setConnection(con);;

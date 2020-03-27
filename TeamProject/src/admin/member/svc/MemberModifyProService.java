@@ -22,7 +22,7 @@ public class MemberModifyProService {
 		isAdminWriter = memberDAO.isAdminWriter(uID, pw);
 		
 		close(con);
-		return isAdminWriter;	
+		return isAdminWriter;
 		
 	}
 	

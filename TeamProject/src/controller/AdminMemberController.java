@@ -76,7 +76,7 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			
+	
 		} else if(command.equals("/MemberDeleteForm.adm")){
 			forward = new ActionForward();
 			forward.setPath("./admin/member/member_delete.jsp");

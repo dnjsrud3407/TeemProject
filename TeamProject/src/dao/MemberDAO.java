@@ -217,7 +217,7 @@ public MemberDAO() {}
 		int updateCount = 0;
 		
 		PreparedStatement pstmt = null;
-		
+	
 		try {
 //			String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
 			String sql = "UPDATE user SET point=?, grade=? WHERE uID=admin";
