@@ -31,7 +31,7 @@
 		// ================== 대분류 카테고리 지정//
 		$.ajax({
 			type:"POST",
-			url:"admin/book/jsonBK1.jsp",
+			url:"BK1.abook",
 			success: function(msg1){	// 대분류 innerHTML
 				$("select[name='BK1Category']").html(msg1);
 			}
@@ -44,7 +44,7 @@
 			// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBK2.jsp",
+				url:"BK2.abook",
 				data:"BK1="+BK1,
 				success: function(msg2){	// 소분류 innerHTML
 					$("select[name='BK2Category']").html(msg2);
@@ -64,7 +64,7 @@
 //	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBK3.jsp",
+				url:"BK3.abook",
 				data:"BK1="+BK1+"&BK2="+BK2,
 				success: function (msg3) {	// 레벨 innerHTML
 					$("select[name='BK3Category']").html(msg3);
@@ -78,104 +78,79 @@
 			    this.reset();
 			});
 		});
-		// 검색 ajax
-		$('#search').click(function () {
-			var bookID = $("#bookID").val();
-			var bookTitle = $("#bookTitle").val();
-			var bookPublisher = $("#bookPublisher").val();
-			var BK1 = $("#BK1Category option:selected").val();
-			var BK2 = $("#BK2Category option:selected").val();
-			var BK3 = $("#BK3Category option:selected").val();
-			var bookEA = null;
-			var bookisView = null;
-			if($("input:checkbox[id=bookEA]").is(":checked")) {
-				bookEA = $("#bookEA").val();
-			}
-			if($("input:checkbox[id=bookisView]").is(":checked")) {
-				bookisView = $("#bookisView").val();
-			}
-			
-			// bookList 배열
-// 			$.ajax({
-// 				type:"POST",
-// 				url:"admin/book/search.jsp",
-// // 				dataType:'json',
-// // 				contentType : 'application/json',
-// 				data:{"bookID":bookID,
-// 					  "bookTitle":bookTitle,
-// 					  "bookPublisher":bookPublisher,
-// 					  "BK1":BK1,
-// 					  "BK2":BK2,
-// 					  "BK3":BK3,
-// 					  "bookEA":bookEA,
-// 					  "bookisView":bookisView},
-// 			  	success: function (bookList) {
-// 			  		alert(bookList);
-// // 			  		$.each(bookList, function (index, book) {
-// // 						alert(book.bookTitle);
-// // 					});
-// 				},
-// 				error:errorCall
-// 			});
-			var dataList = {"bookID":bookID,
-					  "bookTitle":bookTitle,
-					  "bookPublisher":bookPublisher,
-					  "BK1":BK1,
-					  "BK2":BK2,
-					  "BK3":BK3,
-					  "bookEA":bookEA,
-					  "bookisView":bookisView};
-			
-			$.getJSON('admin/book/search.jsp', dataList, function (bookList) {
-				$('#dataSearchTable').html("");
-		  		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
-		  				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
-		  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
-		  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
-				$.each(bookList, function(index, book){
-			  		$('#dataSearchTable').append("<tr><td><input type='checkbox' name='bookIDList' value='"+ book.bookID +"'></td>"+
-			  				"<td>" + book.bookID 
-			  				+ "</td><td><a href='Detail.abook?bookID="+ book.bookID +"'>"+book.bookTitle+"</a></td>"
-			  				+"<td>"+ book.bookPublisher
-			  				+"</td><td>"+ book.bookPublishedDate 
-			  				+"</td><td>"+ book.bookPrice + "</td>"
-			  				+"<c:if test="${book.bookEA < 10}">"+
-			  					+"<td>"+ book.bookEA 
-			  				+"</td><td>"+ book.salesVolume 
-			  				+"</td><td>"+ book.bookisView
-			  				+"</td><td>"+ book.saveRatio 
-			  				+"</td><td>"+ book.BK1 
-			  				+"</td><td>"+ book.BK2
-			  				+"</td><td>"+ book.BK3 +"</td></tr>");
-				});
-			});
-			
-// 			$.getJSON({
-// 				url:"admin/book/search.jsp",
-// 				data:{"bookID":bookID,
-// 					  "bookTitle":bookTitle,
-// 					  "bookPublisher":bookPublisher,
-// 					  "BK1":BK1,
-// 					  "BK2":BK2,
-// 					  "BK3":BK3,
-// 					  "bookEA":bookEA,
-// 					  "bookisView":bookisView},
-// 			  success: function (bookList) {
-//  			  		alert(bookList);
-// // 			  		$.each(bookList, function (index, book) {
-// // 						alert(book.bookTitle);
-// // 					});
-//  				}
-// 			});
-			
-		});
+		
 	});
-	function searchList(json) {
-		$('#dataSearchTable').html("");
-  		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
-  				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
-  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
-  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
+	
+	// =====================검색 json=========================== 
+	function search2(page) {
+		var bookID = $("#bookID").val();
+		var bookTitle = $("#bookTitle").val();
+		var bookPublisher = $("#bookPublisher").val();
+		var BK1 = $("#BK1Category option:selected").val();
+		var BK2 = $("#BK2Category option:selected").val();
+		var BK3 = $("#BK3Category option:selected").val();
+		var bookEA = null;
+		var bookisView = null;
+		if($("input:checkbox[id=bookEA]").is(":checked")) {
+			bookEA = $("#bookEA").val();
+		}
+		if($("input:checkbox[id=bookisView]").is(":checked")) {
+			bookisView = $("#bookisView").val();
+		}
+		
+		// 넘겨줄 파라미터 값
+		var dataList = {"bookID":bookID,
+				  "bookTitle":bookTitle,
+				  "bookPublisher":bookPublisher,
+				  "BK1":BK1,
+				  "BK2":BK2,
+				  "BK3":BK3,
+				  "bookEA":bookEA,
+				  "bookisView":bookisView,
+				  "page":page};
+		
+		$.getJSON('Search.abook', dataList, function (json) {
+			$('#dataSearchTable').html("");
+	  		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
+	  				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
+	  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
+	  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
+			$.each(json.bookList, function(index, book){
+		  		$('#dataSearchTable').append(
+		  				"<tr><td><input type='checkbox' name='bookIDList' value='"+ book.bookID +"'></td>"+
+		  				"<td>" + book.bookID 
+		  				+ "</td><td><a href='Detail.abook?bookID="+ book.bookID +"'>"+book.bookTitle+"</a></td>"
+		  				+"<td>"+ book.bookPublisher
+		  				+"</td><td>"+ book.bookPublishedDate 
+		  				+"</td><td>"+ book.bookPrice 
+	  					+"</td><td>"+ book.bookEA 
+		  				+"</td><td>"+ book.salesVolume 
+		  				+"</td><td>"+ book.bookisView
+		  				+"</td><td>"+ book.saveRatio 
+		  				+"</td><td>"+ book.BK1 
+		  				+"</td><td>"+ book.BK2
+		  				+"</td><td>"+ book.BK3 +"</td></tr>"
+		  				);
+							  		
+			});
+
+			$.each(json.pageInfo, function (index, pageInfo) {
+				// [이전] 에 들어갈 값
+				var pre=parseInt(pageInfo.startPage)-parseInt(pageInfo.pageBlock);
+				// [다음] 에 들어갈 값
+				var next=parseInt(pageInfo.startPage)+parseInt(pageInfo.pageBlock);
+				$("#pageList").html("");
+				if(parseInt(pageInfo.startPage) > parseInt(pageInfo.pageBlock)) {
+					$("#pageList").append("<a href='#' onclick='search2("+pre+")'>[이전]</a>&nbsp;");
+				}
+				for(var i = parseInt(pageInfo.startPage); i <= parseInt(pageInfo.endPage); i++) {
+					$("#pageList").append("<a href='#' onclick='search2("+ i +")'>"+i+"</a>&nbsp;");
+				}
+				if(parseInt(pageInfo.endPage) < parseInt(pageInfo.maxPage )) {
+					$("#pageList").append("<a href='#' onclick='search2("+next+")'>[다음]</a>&nbsp;");
+				}
+			});
+		});
 	}
 </script>
 <style type="text/css">
@@ -443,7 +418,7 @@ img{
                   	</td>
                   </tr>
                 </table>
-                <input type="button" value="검색" id="search">
+                <input type="button" value="검색" id="search" onclick="search2(1)">
                 <input type="button" id="btnReset" value="초기화">
               </form>
               </div>

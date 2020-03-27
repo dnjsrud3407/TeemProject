@@ -301,12 +301,11 @@ public class BookDAO {
         BookBean book = null;
         
         int startRow = (page - 1) * limit;
-        int endRow = startRow + limit;
         
         try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(2, limit);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				book = new BookBean(
@@ -350,13 +349,12 @@ public class BookDAO {
         		+ " ORDER BY bookID DESC LIMIT ?,?";
         BookBean book = null;
         int startRow = (page - 1) * limit;
-        int endRow = startRow + limit;
 
         try {
         	// 페이징 처리////
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(2, limit);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				book = new BookBean(
@@ -385,7 +383,7 @@ public class BookDAO {
             if(rs != null) {close(rs);}
             if(pstmt != null) {close(pstmt);}
         }
-        
+        System.out.print(bookList.size());
 		return bookList;
 	}
 	
