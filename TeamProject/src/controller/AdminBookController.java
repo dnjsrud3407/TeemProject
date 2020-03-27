@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.book.action.BK1Action;
+import admin.book.action.BK2Action;
+import admin.book.action.BK3Action;
 import admin.book.action.BuyListAction;
 import admin.book.action.BuyProAction;
 import admin.book.action.DeleteProAction;
@@ -53,6 +56,30 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
         if(command.equals("/List.abook")) { // --- 제품 목록(수정 / 삭제 / 검색 가능)
             // 제품 목록 ListAction()
             action = new ListAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/BK1.abook")) { 
+            // 제품 대분류 카테고리 ListAction()
+            action = new BK1Action();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/BK2.abook")) { 
+            // 제품 레벨 카테고리 ListAction()
+            action = new BK2Action();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/BK3.abook")) { 
+            // 제품 소분류 카테고리 ListAction()
+            action = new BK3Action();
             try {
                 forward = action.execute(request, response);
             } catch (Exception e) {

@@ -35,7 +35,7 @@
 		// ================== 대분류 카테고리 지정
 		$.ajax({
 			type:"POST",
-			url:"admin/book/jsonBK1.jsp",
+			url:"BK1.abook",
 			success: function(msg1){	// 대분류 innerHTML
 				$("select[name='BK1Category']").html(msg1);
 			}
@@ -48,7 +48,7 @@
 			// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBK2.jsp",
+				url:"BK2.abook",
 				data:"BK1="+BK1,
 				success: function(msg2){	// 소분류 innerHTML
 					$("select[name='BK2Category']").html(msg2);
@@ -68,7 +68,7 @@
 //	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
-				url:"admin/book/jsonBK3.jsp",
+				url:"BK3.abook",
 				data:"BK1="+BK1+"&BK2="+BK2,
 				success: function (msg3) {	// 레벨 innerHTML
 					$("select[name='BK3Category']").html(msg3);
