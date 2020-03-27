@@ -383,7 +383,6 @@ public class BookDAO {
             if(rs != null) {close(rs);}
             if(pstmt != null) {close(pstmt);}
         }
-        System.out.print(bookList.size());
 		return bookList;
 	}
 	

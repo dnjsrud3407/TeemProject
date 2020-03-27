@@ -30,7 +30,7 @@ public class SearchProAction implements Action {
     	String BK1 = request.getParameter("BK1");
     	String BK2 = request.getParameter("BK2");
     	String BK3 = request.getParameter("BK3");
-    	// 재고, 전시 체크여부
+    	// 재고, 전시, 전시안함 체크여부
     	String bookEA = request.getParameter("bookEA");
     	String bookisView = request.getParameter("bookisView");
     	
@@ -60,8 +60,14 @@ public class SearchProAction implements Action {
     				// 만약 bookEA 값이 체크 되었다면
     				searchSql += " and " + keyList.get(i) + "<" + 10;
     			} else if(keyList.get(i).equals("bookisView")) {
-    				// 만약 bookisView 값이 체크 되었다면
-    				searchSql += " and " + keyList.get(i) + "=false";
+    				// 만약 bookisView 값이 true 라면
+    				if(searchList.get(keyList.get(i)).equals("true")) {
+    					searchSql += " and " + keyList.get(i) + "=true";
+    				} else if(searchList.get(keyList.get(i)).equals("false")) {	// false 라면
+    					searchSql += " and " + keyList.get(i) + "=false";
+    				} else {	// all 이라면
+    					searchSql += " and (" + keyList.get(i) + "=false or " + keyList.get(i) + "=true)";
+    				}
     			} else {	// 그 밖의 컬럼 : 전부 문자열
     				searchSql += " and " + keyList.get(i) + "='" + searchList.get(keyList.get(i)) + "'";
     			}

@@ -90,12 +90,9 @@
 		var BK2 = $("#BK2Category option:selected").val();
 		var BK3 = $("#BK3Category option:selected").val();
 		var bookEA = null;
-		var bookisView = null;
+		var bookisView = $(":input:radio[name=bookisView]:checked").val();
 		if($("input:checkbox[id=bookEA]").is(":checked")) {
 			bookEA = $("#bookEA").val();
-		}
-		if($("input:checkbox[id=bookisView]").is(":checked")) {
-			bookisView = $("#bookisView").val();
 		}
 		
 		// 넘겨줄 파라미터 값
@@ -116,6 +113,14 @@
 	  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
 	  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
 			$.each(json.bookList, function(index, book){
+				var bookEA = parseInt(book.bookEA);
+				// 책 수량 10보다 작으면 빨간 색
+				var outBookEA = "";
+				if(bookEA < 10) {
+					outBookEA = "</td><td class='red'>"+ bookEA;
+				} else {
+					outBookEA = "</td><td>"+ bookEA;
+				}
 		  		$('#dataSearchTable').append(
 		  				"<tr><td><input type='checkbox' name='bookIDList' value='"+ book.bookID +"'></td>"+
 		  				"<td>" + book.bookID 
@@ -123,7 +128,7 @@
 		  				+"<td>"+ book.bookPublisher
 		  				+"</td><td>"+ book.bookPublishedDate 
 		  				+"</td><td>"+ book.bookPrice 
-	  					+"</td><td>"+ book.bookEA 
+	  					+ outBookEA
 		  				+"</td><td>"+ book.salesVolume 
 		  				+"</td><td>"+ book.bookisView
 		  				+"</td><td>"+ book.saveRatio 
@@ -412,8 +417,19 @@ img{
                   		<span class="checkbox_padding" style="width: 15%;">
                   			<input type="checkbox" name="bookEA" id="bookEA" value="shortage"/>&nbsp;재고 부족
                   		</span>
+                  	</td>
+                  </tr>
+                  <tr>
+                  	<th>전시 여부</th>
+                  	<td colspan="3">
                   		<span class="checkbox_padding">
-                  			<input type="checkbox" name="bookisView" id="bookisView" value="false"/>&nbsp;미전시 
+                  			<input type="radio" name="bookisView" value="all"/>&nbsp;전체
+                  		</span>
+                  		<span class="checkbox_padding">
+                  			<input type="radio" name="bookisView" value="true"/>&nbsp;전시중 
+                  		</span>
+                  		<span class="checkbox_padding">
+                  			<input type="radio" name="bookisView" value="false"/>&nbsp;미전시 
                   		</span>
                   	</td>
                   </tr>
