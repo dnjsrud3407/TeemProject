@@ -35,7 +35,7 @@ public class JoinProAction implements Action {
 		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, tell_num, address2, point, grade, joinDate);
 		
 		// MemberJoinProService 클래스의 joinMember() 메서드 호출하여 추가 작업 요청
-				// => 파라미터 : MemberBean      리턴타입 : boolean
+		// => 파라미터 : MemberBean      리턴타입 : boolean
 		JoinProService joinService = new JoinProService();
 		
 		boolean isJoinSuccess = joinService.joinMember(member);
@@ -44,10 +44,10 @@ public class JoinProAction implements Action {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter(); // HTML 태그 출력을 위한 Writer 객체 가져오기
 			// out 객체의 println() 메서드를 호출하여 HTML 태그 작성
-			out.println("<script>"); // 자바스크립트 실행을 위한 <script> 시작 태그
+			out.println("<script>"); // 자바스크립트 실행을 위한 <Script> 시작 태그
 			out.println("alert('회원 가입 실패!')"); // alert dialog 출력
-			out.println("history.back()"); // 또는 out.println("history.go(-1)");  // 이전 페이지로 돌아가기
-			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
+			out.println("history.back()"); // 또는 out.printLn("history.go(-1)"; // 이전 페이지로 돌아가기
+			out.println("</script>"); // 자바스크립트 종료 위한 </script> 끝
 		} else {		
 			forward = new ActionForward();
 			forward.setPath("");

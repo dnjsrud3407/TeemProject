@@ -19,6 +19,11 @@ public class QWriteProService {
 //		Connection con = getConnection();
 //		BookDAO bookDAO = BookDAO.getInstance();
 //		
+		Connection con = getConnection();
+		
+		BookDAO bookDAO = BookDAO.getInstance();
+		
+		bookDAO.insertQuestion(bookBean);
 //		int insertCount = bookDAO.insertQuestion(bookBean);
 //		
 //		if(insertCount > 0) {

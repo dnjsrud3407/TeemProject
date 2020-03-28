@@ -1,6 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
+<%
+	
+boolean isLogin = false; 
+	if(session.getAttribute("uID") == null) {
+		isLogin = false;
+     	String uID	= (String)session.getAttribute("uID");
+     	System.out.println(uID);
+	} else { 
+		isLogin = true;
+		String uID	= (String)session.getAttribute("uID");
+     	System.out.println(uID);
+		
+	}
+%> 
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -32,17 +48,22 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
+  
     <script type="text/javascript">
-    
+  	
+   
     var bookID = "";
-    var isLogin = true;
+	var isLogin = <%=isLogin%>;
 	function openQna() {
-		var qnaUrl = "http://localhost:8082/TeamProject" + "/QWriteForm.book?bookID=" + bookID;
-		var loginUrl = "http://localhost:8082/TeamProject" + "/Login.me?url=" + location.href;
+		alert(isLogin);
+		var qnaUrl = "http://localhost:8282/TeamProject" + "/QWriteForm.book?bookID=" + bookID;
+		var loginUrl = "http://localhost:8282/TeamProject" + "/Login.me?url=" + location.href;
 		if (isLogin) {
-			window.open(qnaUrl,'_blank','toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=0,width=700,height=808');
+			//alert('true');
+ 			window.open(qnaUrl,'_blank','toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=0,width=700,height=600');
 		} else {
-			window.location.href = loginUrl;
+			//alert('alse');
+ 			window.location.href = loginUrl;
 		}
 	}
     

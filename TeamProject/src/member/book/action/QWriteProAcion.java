@@ -35,6 +35,8 @@ public class QWriteProAcion implements Action {
 //				fileSize, 
 //				"UTF-8",  
 //				new DefaultFileRenamePolicy());
+		String boardTitle = request.getParameter("boardTitle");
+		String boardContent = request.getParameter("boardContent");
 
 		QWriteProService qWriteProService = new QWriteProService();
 		boolean isWriteSuccess = qWriteProService.registQuestions(bookBean);

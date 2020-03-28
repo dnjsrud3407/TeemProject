@@ -19,6 +19,7 @@ public class BookListAcion implements Action {
 		
 		int page = 1;
 		int limit = 10;
+		
 		//page 파라미터가 존재할 경우 파라미터에 전달된 데이터를 현재 페이지번호로 대체
 		
 //		if(request.getParameter("page") != null) {
@@ -27,7 +28,8 @@ public class BookListAcion implements Action {
 //		//svc에 만들기
 //		BookListService bookListService = new BookListService();
 //		
-//		int listCount = bookListService.getListCount();
+		// 전체 책 가져오기 
+//		int listCount = bookListService.getBookList();
 //		//서비스갔다가 돌아온것임
 //		System.out.println("총 게시물 수 : " + listCount);
 //		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>(); //null값줘도됨 어짜피 만들어서 리턴할거라서
