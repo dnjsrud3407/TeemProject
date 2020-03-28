@@ -7,17 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 <!-- <form name="deleteForm" action="ReviewDeletePro.book?board_num=?&page=?" method="post"> -->
 		<h2>member_delete.jsp</h2>
 		<form name="deleteForm" action="MemberDeletePro.adm" method="post">
-<%-- 			<input type="hidden" name="board_num" value="<%=board_num %>" /> --%>
+			<input type="hidden" name="uID" value="uID" />
 <%-- 			<input type="hidden" name="page" value="<%=nowPage %>" /> --%>
 			<table>
 				<tr>
 					<td>
-						<label>Post password</label><br>
-<!-- 						<input type="password" name="board_pass" required="required" /> -->
+						<label> password</label><br>
+						<input type="password" name="ps" required="required" />
 					</td>
 				</tr>
 				<tr>

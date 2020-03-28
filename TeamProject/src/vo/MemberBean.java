@@ -109,6 +109,6 @@ public class MemberBean {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-	
+
 	
 }

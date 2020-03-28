@@ -4,14 +4,14 @@
     pageEncoding="UTF-8"%>
 <%
 
-// String user = null;
-// if(session.getAttribute("user") == null){
-// 	out.println("<script>");
-//     out.println("location.href='Login.me'");
-//     out.println("</script>");
-// } else { // 로그인 된 상태일 경우 세션 ID 가져오기
-// 	user = (String)session.getAttribute("user");
-// }
+String user = null;
+if(session.getAttribute("uID") == null){
+	out.println("<script>");
+    out.println("location.href='MemberList.adm'");
+    out.println("</script>");
+} else { // 로그인 된 상태일 경우 세션 ID 가져오기
+	user = (String)session.getAttribute("uID");
+}
 
 // String user = (String)session.getAttribute("user");
 // MemberDAO mdao = new MemberDAO();
@@ -297,8 +297,8 @@ MemberBean member = (MemberBean)request.getAttribute("member");
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+          <h1 class="h3 mb-2 text-gray-800">회원상세보기</h1>
+          <p class="mb-4">회원 상세정보입니다.</p>
 
           <!-- DataTales Example -->
                      <!-- DataTales Example -->
@@ -326,7 +326,6 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
 	<form class="form-horizontal" action="JoinPro.me" method="post">
-		<h4>Your personal information</h4>
 		<div class="control-group">
 <!-- 		<label class="control-label">Title <sup>*</sup></label> -->
 		<div class="controls">
@@ -339,100 +338,101 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputId" name="uID" value="<%=user %>" readonly>
+			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
+			  <input type="text" id="inputId" name="uID" value="<%=member.getuID() %>" readonly>
 			  <span id="checkIdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
-			<label class="control-label" for="inputPassword">비밀번호 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="password" id="inputPassword" name="pw" value="<%=member.getPw() %>"><!-- onkeyup="checkPasswd(this)" --> 
+			<label class="control-label" for="inputPassword">비밀번호 <sup>*</sup></label>
+			  <input type="password" id="inputPassword" name="pw" value="<%=member.getPw() %>" readonly><!-- onkeyup="checkPasswd(this)" --> 
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
+			<div class="controls">
 			<label class="control-label" for="inputName">이름 <sup>*</sup></label>
-			<div class="controls">
-			  <input type="text" id="inputName" name="u_name" value="<%=member.getU_name() %>">
+			  <input type="text" id="inputName" name="u_name" value="<%=member.getU_name() %>" readonly>
 			</div>
 		</div>
 		<div class="control-group">
+			<div class="controls">
 			<label class="control-label" for="address">Address<sup>*</sup></label>
-			<div class="controls">
-			  <input type="text" id="address" name="address" value="<%=member.getAddress() %>"/> <span>Street address, P.O. box, company name, c/o</span>
+			  <input type="text" id="address" name="address" value="<%=member.getAddress() %>" readonly>
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="mobile" name="phone_num" value="<%=member.getPhone_num() %>"/> 
+			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
+			  <input type="text" id="mobile" name="phone_num" value="<%=member.getPhone_num() %>" readonly> 
 			</div>
 		</div>	
 		<div class="control-group">
-		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
 		<div class="controls">
-		  <input type="text" id="input_Email" name="email" value="<%=member.getEmail() %>">
+		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
+		  <input type="text" id="input_Email" name="email" value="<%=member.getEmail() %>" readonly>
 		</div>
 	  </div>	  
 	
+		<div class="control-group">
+			<div class="controls">
+			<label class="control-label" for="address2">Address (Line 2)</label>
+			  <input type="text" id="address2" name="address2" value="<%=member.getAddress2() %>" readonly>
+			</div>
+		</div>
 		
+		<div class="control-group">
+			<div class="controls">
+			<label class="control-label" for="phone">Home phone</label>
+			  <input type="text" id="phone" name="tell_num" value="<%=member.getTell_num() %>" readonly> 
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<div class="controls">
+			<label class="control-label" for="joinDate">joinDate</label>
+			  <input type="text" id="joinDate" name="joinDate" value="<%=member.getJoinDate() %>"/> 
+			</div>
+		</div>
 
 	<div class="alert alert-block alert-error fade in">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div>	
 
-		<h4>Additional information</h4>
-		<div class="control-group">
-
-		<div class="controls">
-
-		</div>
-		</div>	
-		<div class="control-group">
-			<label class="control-label" for="address2">Address (Line 2)</label>
-			<div class="controls">
-			  <input type="text" id="address2" name="address2" value="<%=member.getAddress2() %>"/>
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="phone">Home phone</label>
-			<div class="controls">
-			  <input type="text" id="phone" name="tell_num" value="<%=member.getTell_num() %>"/> 
-			</div>
-		</div>
-		
 		<h4>Point and Grade</h4>
 		<div class="control-group">
 
 		<div class="controls">
 
+		<div class="control-group">
+			<div class="controls">
+			<label class="control-label" for="point">Points</label>
+			  <input type="text" id="point" name="point" value="<%=member.getPoint() %>"/>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<div class="controls">
+			<label class="control-label" for="grade">Grade</label>
+<%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%>
+			  <select name="grade" id="grade">
+				<option value="">선택하세요.<%=member.getGrade() %></option>
+				<option value="1">admin</option>
+				<option value="2">admin1</option>
+				<option value="3">admin2</option>
+				<option value="4">admin3</option>
+				<option value="5">admin4</option>
+				
+			</select>
+			</div>
+		</div>
+		
 		</div>
 		</div>	
-		<div class="control-group">
-			<label class="control-label" for="point">Points</label>
-			<div class="controls">
-			  <input type="text" id=""point"" name="point" value="<%=member.getPoint() %>"/>
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="grade">Grade</label>
-			<div class="controls">
-			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/> 
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="joinDate">joinDate</label>
-			<div class="controls">
-			  <input type="text" id="joinDate" name="joinDate" value="<%=member.getJoinDate() %>"/> 
-			</div>
-		</div>
-		
+
 	<p><sup>*</sup>Required field</p>
 	
 	<div class="control-group">
@@ -440,7 +440,7 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 				<input type="hidden" name="email_create" value="1">
 				<input type="hidden" name="is_new_customer" value="1">
 
-		<a href="MemberModifyForm.adm?uID=<%=member.getuID() %>" ><input  class="btn btn-large btn-success" type="button" value="멤버수정"></a>
+		<a href="MemberModifyPro.adm?uID=<%=member.getuID() %>" ><input  class="btn btn-large btn-success" type="button" value="멤버수정"></a>
 		<a href="MemberDeleteForm.adm?uID=<%=member.getuID() %>"><input  class="btn btn-large btn-success" type="button" value="멤버삭제"></a>
 
 			</div>
