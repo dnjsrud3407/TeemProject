@@ -182,20 +182,22 @@
 	</div>
 
 	<div class="tab-pane  active" id="blockView">
+	  <c:forEach var="book" items="${bookList }" varStatus="status">
 		<ul class="thumbnails">
 			<li class="span3">
 			  <div class="thumbnail">
-				<a href="Book.book"><img src="themes/images/products/3.jpg" alt=""/></a>
+				<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage}" alt="책 이미지"/></a>
 				<div class="caption">
-				  <h5>Manicure &amp; Pedicure</h5>
-				  <p> 
-					I'm a paragraph. Click here 
+				  <h5>${book.bookTitle }</h5>
+				  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
+					${book.bookIntroduce }
 				  </p>
 				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="BookCart.book">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
 				</div>
 			  </div>
 			</li>
 		  </ul>
+		</c:forEach>
 	<hr class="soft"/>
 	</div>
 </div>

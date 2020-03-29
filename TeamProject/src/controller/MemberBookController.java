@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
+
 import action.Action;
 import member.book.action.BookBuyProAction;
 import member.book.action.BookCartProAction;
+import member.book.action.BookDetailAction;
 import member.book.action.BookLikeProAction;
 import member.book.action.BookListAcion;
 import member.book.action.QDeleteProAction;
@@ -72,9 +75,12 @@ public class MemberBookController extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if(command.equals("/Book.book")) {
-			forward = new ActionForward();
-			forward.setPath("./book/book.jsp");
-			
+			action = new BookDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 		} else if(command.equals("/ReviewWriteForm.book")) {
 			forward = new ActionForward();
 			forward.setPath("./book/review_write.jsp");

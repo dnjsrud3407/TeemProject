@@ -48,7 +48,7 @@ background-color: #b4b9c9;
 		<h1 class="tit_vippop">판매자에게 문의하기</h1>
 		<p class="subinfo"> 상품 문의를 남겨주시면 판매자가 직접 답변을 드립니다.
 		</p>
-		<form action="QWritePro.book" method="post" enctype="multipart/form-data" name="boardform">
+		<form action="./QWritePro.book" method="post" enctype="multipart/form-data" name="boardform">
 		   <fieldset>
 		   		<legend>판매자에게 문의하기 폼</legend>
 					<table class="tb_questionform">
@@ -58,11 +58,11 @@ background-color: #b4b9c9;
 						<tbody>
 						<tr>
 							<th>상품명</th>
-							<td class="pdtit"></td>
+							<td class="pdtit">${book.bookTitle}</td>
 						</tr>
 						<tr>
 							<th>아이디</th>
-							<td>강경준</td>
+							<td>${sessionScope.uID }</td>
 						</tr>
 						<tr>
 							<th>제목</th>
@@ -104,23 +104,25 @@ background-color: #b4b9c9;
 <!-- 					<td class="td_right"><input type="file" name="board_file" id="board_file" required="required" /></td> -->
 <!-- 				</tr> -->
 <!-- 			</table> -->
-			<section id="commandCell">
-				<input type="submit" value="confirm" />&nbsp;&nbsp;
+<!-- 			<section id="commandCell"> -->
+<!-- 				<input type="submit" value="confirm" />&nbsp;&nbsp; -->
 <!-- 				<input type="reset" value="Cencel" /> -->
-			</section>
-		</form>
+<!-- 			</section> -->
+		
 		<p class="bottom_btns">
 		<!-- "javascript:;insertQna('1766321978')" -->
-			<a href= ./QWritePro.book
-				class="bt_confirm bt_vipround100 hover"><span>확인</span></a> <a
-				href="javascript:window.close();" class="bt_cancel bt_vipround100 hover2"><span>취소</span></a>
+			
+			<input type="submit" class="bt_confirm bt_vipround100 hover" title="확인" value="확인">
+				
+			<a	href="javascript:window.close();" class="bt_cancel bt_vipround100 hover2"><span>취소</span></a>
 		</p>
 		<p class="bar_close">
 			<a href="#" class="bt_close" onclick="window.close();"> 닫기 <span
 				class="ic">X</span>
 			</a>
 		</p>
-	</div>
+	</form>	
+ </div>
 	 
 <!-- 	</section> -->
 </body>

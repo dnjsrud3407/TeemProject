@@ -7,12 +7,14 @@ import static db.JdbcUtil.rollback;
 
 import java.sql.Connection;
 
+import dao.BoardDAO;
 import dao.BookDAO;
+import vo.BoardBean;
 import vo.BookBean;
 
 public class QWriteProService {
 
-	public boolean registQuestions(BookBean bookBean) {
+	public boolean registQuestions(BoardBean boardBean) {
 		
 		System.out.println("QWriteProService - registQuestions");
 		boolean isWriteSuccess = false;
@@ -21,9 +23,11 @@ public class QWriteProService {
 //		
 		Connection con = getConnection();
 		
-		BookDAO bookDAO = BookDAO.getInstance();
+		BoardDAO boardDAO = BoardDAO.getInstance();
 		
-		bookDAO.insertQuestion(bookBean);
+		boardDAO.setConnection(con);
+		
+		boardDAO.insertQuestion(boardBean);
 //		int insertCount = bookDAO.insertQuestion(bookBean);
 //		
 //		if(insertCount > 0) {

@@ -80,6 +80,7 @@ public class BookDAO {
 	        rs = pstmt.executeQuery();
 	        if(rs.next()) {
 	        	BKID = rs.getInt(1);  // 책 번호 최대값 + 1
+	        	 System.out.println(BKID);
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
@@ -87,7 +88,7 @@ public class BookDAO {
 	        if(rs != null) {close(rs);}
 	        if(pstmt != null) {close(pstmt);}
 	    }
-	    
+	   
 	    return BKID;
 	}
 	
@@ -413,10 +414,7 @@ public class BookDAO {
 		
 	}
 
-	public int insertQuestion(BookBean bookBean) {
-		
-		return 0;
-	}
+	
 
 	public boolean isWriter(int num, String pass) {
 		
@@ -442,10 +440,7 @@ public class BookDAO {
 	}
 
 
-	public void getBookList() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 
 	

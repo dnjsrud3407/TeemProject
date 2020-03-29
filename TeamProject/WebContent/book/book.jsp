@@ -1,10 +1,15 @@
+<%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 
+
 <%
-	
+
+String nowPage = request.getParameter("page");
+
+
 boolean isLogin = false; 
 	if(session.getAttribute("uID") == null) {
 		isLogin = false;
@@ -53,11 +58,12 @@ boolean isLogin = false;
   	
    
     var bookID = "";
+    var bookTitle = "";
 	var isLogin = <%=isLogin%>;
 	function openQna() {
 		alert(isLogin);
-		var qnaUrl = "http://localhost:8282/TeamProject" + "/QWriteForm.book?bookID=" + bookID;
-		var loginUrl = "http://localhost:8282/TeamProject" + "/Login.me?url=" + location.href;
+		var qnaUrl = "http://localhost:8080/TeamProject" + "/QWriteForm.book?bookID=" + ${book.bookID};
+		var loginUrl = "http://localhost:8080/TeamProject" + "/Login.me?url=" + location.href;
 		if (isLogin) {
 			//alert('true');
  			window.open(qnaUrl,'_blank','toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=0,width=700,height=600');
@@ -165,14 +171,15 @@ boolean isLogin = false;
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-    <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-    <li><a href="products.html">Products</a> <span class="divider">/</span></li>
+    <li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
+    <li><a href="products.jsp">Products</a> <span class="divider">/</span></li>
     <li class="active">product Details</li>
-    </ul>	
+    </ul>
+    <c:set var="book" value="${requestScope.book}"/>
 	<div class="row">	  
 			<div id="gallery" class="span3">
-            <a href="themes/images/products/large/f1.jpg" title="Fujifilm FinePix S2950 Digital Camera">
-				<img src="themes/images/products/large/3.jpg" style="width:100%" alt="Fujifilm FinePix S2950 Digital Camera"/>
+            <a href="upload/${book.bookImage }" title="${book.bookTitle }">
+				<img src="upload/${book.bookImage }" style="width:100%" alt="상품 이미지"/>
             </a>
 			<div id="differentview" class="moreOptopm carousel slide">
                 <div class="carousel-inner">
@@ -205,12 +212,12 @@ boolean isLogin = false;
 <!-- 			</div> -->
 			</div>
 			<div class="span6">
-				<h3>Fujifilm FinePix S2950 Digital Camera  </h3>
+				<h3>${book.bookTitle } </h3>
 				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
 				<form class="form-horizontal qtyFrm">
 				  <div class="control-group">
-					<label class="control-label"><span>$222.00</span></label>
+					<label class="control-label"><span>${book.bookPrice }</span></label>
 					<div class="controls">
 					<input type="number" class="span1" placeholder="Qty."/>
 				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookBuy.book'"> 구매하기</button>

@@ -46,8 +46,10 @@ public class WriteProAction implements Action {
         String BK1 = multi.getParameter("BK1Category");
         String BK2 = multi.getParameter("BK2Category");
         String BK3 = multi.getParameter("BK3Category");
-        int BKID = writeProService.getBKID(BK1, BK2, BK3);
+        System.out.println(BK1 + "," + BK2 + "," + BK3);
         
+        int BKID = writeProService.getBKID(BK1, BK2, BK3);
+        System.out.println(BKID);
         // ===== 날짜 값 Date로 변환하기
         String publishedDate = multi.getParameter("bookPublishedDate"); // 날짜 값
         Date bookPublishedDate = null;
