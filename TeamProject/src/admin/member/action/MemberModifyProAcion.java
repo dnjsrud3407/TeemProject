@@ -25,8 +25,8 @@ public class MemberModifyProAcion implements Action {
 //		boolean isRightUser = false;
 		
 		MemberModifyProService memberModifyProService = new MemberModifyProService();
-		boolean isRightAdmin = memberModifyProService.isAdminWriter(uID, request.getParameter("pw"));
-		
+//		boolean isRightAdmin = memberModifyProService.isAdminWriter(uID, request.getParameter("pw"));
+//		
 //		if(!isRightAdmin) {
 //			response.setContentType("text/html; charset=UTF-8");
 //			PrintWriter out = response.getWriter(); // HTML 태그 출력을 위한 Writer 객체 가져오기
@@ -38,6 +38,7 @@ public class MemberModifyProAcion implements Action {
 //		} else {
 			
 			MemberBean member = new MemberBean();
+			member.setuID(uID);
 			member.setPoint(Integer.parseInt(request.getParameter("point")));
 			member.setGrade(Integer.parseInt(request.getParameter("grade")));
 			

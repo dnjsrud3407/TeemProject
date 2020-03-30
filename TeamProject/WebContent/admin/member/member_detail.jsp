@@ -325,7 +325,7 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-	<form class="form-horizontal" action="JoinPro.me" method="post">
+	<form class="form-horizontal" action="MemberModifyPro.adm" method="post">
 		<div class="control-group">
 <!-- 		<label class="control-label">Title <sup>*</sup></label> -->
 		<div class="controls">
@@ -425,7 +425,13 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 				<option value="3">admin2</option>
 				<option value="4">admin3</option>
 				<option value="5">admin4</option>
-				
+				<option value="6">member</option>
+				<option value="7">BRONZE</option>
+				<option value="8">SILVER</option>
+				<option value="9">GOLD</option>
+				<option value="10">VIP</option>
+				<option value="11">VVIP</option>
+			
 			</select>
 			</div>
 		</div>
@@ -440,7 +446,7 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 				<input type="hidden" name="email_create" value="1">
 				<input type="hidden" name="is_new_customer" value="1">
 
-		<a href="MemberModifyPro.adm?uID=<%=member.getuID() %>" ><input  class="btn btn-large btn-success" type="button" value="멤버수정"></a>
+		<input  class="btn btn-large btn-success" type="submit" value="멤버수정"></a>
 		<a href="MemberDeleteForm.adm?uID=<%=member.getuID() %>"><input  class="btn btn-large btn-success" type="button" value="멤버삭제"></a>
 
 			</div>
