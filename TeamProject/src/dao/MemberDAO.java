@@ -64,9 +64,6 @@ public MemberDAO() {}
 		} finally {
 			close(pstmt);
 		}
-		
-		
-		
 		return insertCount;
 	}
 
@@ -238,7 +235,6 @@ public MemberDAO() {}
 
 	public int deleteMember(String uID) {
 		int deleteCount = 0;
-		
 		PreparedStatement pstmt = null;
 		
 		try {

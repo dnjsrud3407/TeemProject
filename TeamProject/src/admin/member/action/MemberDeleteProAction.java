@@ -21,36 +21,42 @@ public class MemberDeleteProAction implements Action {
 //		String page = request.getParameter("page");
 ////		
 		memberDeleteProService memberDeleteProService = new memberDeleteProService();
-		boolean isAdminUser = memberDeleteProService.isAdminWriter(uID, request.getParameter("pw"));
+//		boolean isAdminUser = memberDeleteProService.isAdminWriter(uID, request.getParameter("pw"));
 
-		if(!isAdminUser) {
-			response.setContentType("text/html; charset=UTF-8");
-			PrintWriter out = response.getWriter();
-			out.println("<script>");
-	     	out.println("alert('삭제 권한이 없습니다!')");
-			out.println("history.back()");
-			out.println("</script>");
-		} else {
-			//삭제작업진행 
-////			System.out.println("삭제 완료!");
+//		String[] strAdmin = {"admin","admin1","admin2","admin3","admin4"};
+				
+//		if(uID.equals(strAdmin)) {
+//			response.setContentType("text/html; charset=UTF-8");
+//			PrintWriter out = response.getWriter();
+//			out.println("<script>");
+//	     	out.println("alert('삭제 권한이 없습니다!')");
+//			out.println("history.back()");
+//			out.println("</script>");
+//		} else {
+////			삭제작업진행 
+//			System.out.println("삭제 완료!");
 			boolean isDeleteSuccess = memberDeleteProService.removeMember(uID);
 //			
 			if(!isDeleteSuccess) {
 				response.setContentType("text/html; charset=UTF-8");
-
 				PrintWriter out = response.getWriter();
-
 				out.println("<script>");
 				out.println("alert('글 삭제 실패!!')");
 				out.println("histroy.back()");
 				out.println("</script>");
 
 			}else {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('정말 삭제하시겠습니까 ?')");
+				out.println("</script>");
+				
 				forward = new ActionForward();
 				forward.setPath("MemberList.adm");
 				forward.setRedirect(true);
 			}
-		}
+//		}
 		
 		forward = new ActionForward();
 		forward.setPath("MemberList.adm");
