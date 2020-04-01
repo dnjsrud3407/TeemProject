@@ -50,19 +50,19 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        제품관리
+        상품관리
       </div>
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>제품관리</span>
+          <span>상품관리</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="List.abook">제품목록(수정/삭제/검색)</a>
-            <a class="collapse-item" href="WriteForm.abook">제품등록</a>
+            <a class="collapse-item" href="List.abook">상품목록(수정/삭제/검색)</a>
+            <a class="collapse-item" href="WriteForm.abook">상품등록</a>
             <a class="collapse-item" href="ReviewList.abook">상품후기(답변/수정/삭제)</a>
             <a class="collapse-item" href="QList.abook">상품문의(답변작성/수정/삭제)</a>
             <a class="collapse-item" href="RefundList.abook">상품반품(엑셀)</a>

@@ -32,9 +32,9 @@ public class QListAction implements Action {
 		
 		int kID = 102;
 		QListService qListService = new QListService();
-		// 게시글 개수
-		int listCount = qListService.getListCount(k);
-		ArrayList<BoardBean> qList = qListService.getList(page, limit);
+		// 상품 문의 게시글 개수 가져오기
+		int listCount = qListService.getListCount(kID);
+		ArrayList<BoardBean> qList = qListService.getList(kID, page, limit);
 		
 		// 1. 총 페이지 수 계산
 		int maxPage = listCount / limit + (listCount % limit == 0 ? 0 : 1);

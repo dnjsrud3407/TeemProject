@@ -270,7 +270,7 @@
 		  <!-- 상세 설정 -->
           <div class="card shadow mb-4">
           	<div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">상품 문의</h6>
+              <h5 class="m-0 font-weight-bold text-primary">상품 문의</h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -313,47 +313,48 @@
 		  		* 문의제목을 클릭하시면 상세한 문의내역 작성이 가능합니다.
 		  	  </div>
               <form action="DeleteForm.abook" id="searchBoard" method="post">
+                <c:if test="${!empty qList && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
                       <th><input type="checkbox"></th>
                       <th>접수번호</th>
                       <th>접수일</th>
-                      <th>처리상태</th>
-                      <th>문의유형</th>
-                      <th>상품명</th>
                       <th>문의제목</th>
-                      <th>문의자</th>
-                      <th>처리일시</th>
+                      <th>처리상태</th>
+                      <th>처리일</th>
+                      <th>상품명</th>
+                      <th>고객ID</th>
                     </tr>
+                    <c:forEach var="board" items="${qList }" varStatus="status">
                     <tr>
-                      <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
-                      <td>${book.bookID }</td>
-                      <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
-                      <td>${book.bookPublisher }</td>
-                      <td>${book.bookPublishedDate }</td>
-                      <td>${book.bookPrice }</td>
-                      <c:if test="${book.bookEA < 10}">
-                      	<td class="red">${book.bookEA }</td>
-                      </c:if>
-                      <c:if test="${book.bookEA >= 10}">
-                      	<td>${book.bookEA }</td>
-                      </c:if>
-                      <td>${book.salesVolume }</td>
-                      <td>${book.bookisView }</td>
-                      <td>${book.bookisView }</td>
+                      <td><input type="checkbox" name="boardNumList" value="${board.boardNum }"></td>
+                      <td>${board.boardReRef }</td>
+                      	<td>${board.boardRegTime }</td>
+                      	<td><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
+                      	<c:if test="${board.boardReSeq == 0 }">
+                      		<td class="red">답변대기</td>
+                      	</c:if>
+                      	<c:if test="${board.boardReSeq > 0 }">
+                      		<td>답변완료</td>
+                      	</c:if>
+                      	<td>-</td>
+                      <td>${board.bookTitle }</td>
+                      <td>${board.boardWriter }</td>
                     </tr>
+                    </c:forEach>
                 </table>
                 <section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="List.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                		<a href="QList.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="List.abook?page=${i }">${i }</a>&nbsp;
+                		<a href="QList.abook?page=${i }">${i }</a>&nbsp;
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="List.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                		<a href="QList.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
                 	</c:if>
                 </section>
+                </c:if>
                 </form>
               </div>
             </div>

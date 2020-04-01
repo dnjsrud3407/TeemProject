@@ -10,24 +10,24 @@ public class BoardBean {
 	private String boardContent;
 	private Date boardRegTime;
 	private int boardReRef;
-	private int boardReLev;
-	private int boardReSeq;
+	private int boardReLev;		// 질문인지(0) or 답변인지(1) 판정
+	private int boardReSeq;		// 답변됐는지(1), 안됐는지(0) 판정
 	private int boardReadCount;
 	private int bookID;
 	private String k1;
 	private String k2;
 	private String k3;
+	private String bookTitle;
 	
 	public BoardBean() {
 		super();
 	}
 	
 	// 문의 내역 불러올때 사용
-	public BoardBean(int boardNum, int kID, String boardWriter, String boardTitle, String boardContent,
-			Date boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int bookID, String k2) {
+	public BoardBean(int boardNum, String boardWriter, String boardTitle, String boardContent,
+			Date boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int bookID, String bookTitle) {
 		super();
 		this.boardNum = boardNum;
-		this.kID = kID;
 		this.boardWriter = boardWriter;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
@@ -35,15 +35,29 @@ public class BoardBean {
 		this.boardReRef = boardReRef;
 		this.boardReLev = boardReLev;
 		this.boardReSeq = boardReSeq;
-		this.bookID = bookID;
-		this.k2 = k2;
+		this.bookID = bookID;			
+		this.bookTitle = bookTitle;
 	}
-
-
+	
+	// 게시글 답변 작성 시 사용
+	public BoardBean(int boardNum, int kID, String boardWriter, String boardTitle, String boardContent, int boardReRef,
+			int boardReLev, int bookID) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.bookID = bookID;
+	}
+	
 
 	public int getBoardNum() {
 		return boardNum;
 	}
+
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
@@ -125,6 +139,14 @@ public class BoardBean {
 	public void setK3(String k3) {
 		this.k3 = k3;
 	}
-	
+
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
+
 	
 }

@@ -109,7 +109,7 @@
 		$.getJSON('Search.abook', dataList, function (json) {
 			$('#dataSearchTable').html("");
 	  		$('#dataSearchTable').html("<tr><th><input type='checkbox'></th>"+
-	  				"<th>제품 번호</th><th>제품 이름</th><th>출판사</th><th>출판일</th>"+
+	  				"<th>상품 번호</th><th>상품 이름</th><th>출판사</th><th>출판일</th>"+
 	  				"<th>가격</th><th>재고 수량</th><th>판매량</th><th>전시상태</th>"+
 	  				"<th>포인트 적립률</th><th>대분류</th><th>단계</th><th>소분류</th></tr>");
 			$.each(json.bookList, function(index, book){
@@ -388,10 +388,10 @@ img{
                   <tr>
                   	<th style="width: 15%;">검색어</th>
                   	<td>
-                  		제품 번호 <input type="text" name="bookID" id="bookID" style="width:200px">
+                  		상품 번호 <input type="text" name="bookID" id="bookID" style="width:200px">
                   	</td>
                   	<td>
-                  		제품 이름 <input type="text" name="bookTitle" id="bookTitle" style="width:200px">
+                  		상품 이름 <input type="text" name="bookTitle" id="bookTitle" style="width:200px">
                   	</td>
                   	<td>
                   		출판사 <input type="text" name="bookPublisher" id="bookPublisher" style="width:200px">
@@ -444,21 +444,21 @@ img{
           <!-- DataTales Example// -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">제품 목록</h6>
+              <h5 class="m-0 font-weight-bold text-primary">상품 목록</h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
               
               <form action="DeleteForm.abook" id="searchBoard" method="post">
-              <input type="button" value="제품등록" onclick="location.href='WriteForm.abook'">
-              <input type="button" value="제품삭제" onsubmit="">
+              <input type="button" value="상품등록" onclick="location.href='WriteForm.abook'">
+              <input type="button" value="상품삭제" onsubmit="">
               <div id="#cmmntList"></div>
               <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
                       <th><input type="checkbox"></th>
-                      <th>제품 번호</th>
-                      <th>제품 이름</th>
+                      <th>상품 번호</th>
+                      <th>상품 이름</th>
                       <th>출판사</th>
                       <th>출판일</th>
                       <th>가격</th>
