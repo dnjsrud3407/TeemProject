@@ -64,9 +64,6 @@ public MemberDAO() {}
 		} finally {
 			close(pstmt);
 		}
-		
-		
-		
 		return insertCount;
 	}
 
@@ -188,30 +185,29 @@ public MemberDAO() {}
 	}
 
 	/* 관리자아이디체크 */
-	public boolean isAdminWriter(String uID, String pw) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-
-		boolean isAdminWriter = false;
-		
-		try {
-			String sql = "SELECT pw FROM user WHERE uID=? AND pw=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, uID);
-			pstmt.setString(2, pw);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) { // 조회 결과가 있을 경우 패스워드가 일치하는 게시물이므로 true 설정
-				isAdminWriter = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-		return isAdminWriter;
-	}
+//	public boolean isAdminWriter(String uID, String pw) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//
+//		boolean isAdminWriter = false;
+//		
+//		try {
+//			String sql = "SELECT pw FROM user WHERE uID=?";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setString(1, uID);
+//			rs = pstmt.executeQuery();
+//			
+//			if(rs.next()) { // 조회 결과가 있을 경우 패스워드가 일치하는 게시물이므로 true 설정
+//				isAdminWriter = true;
+//			}
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return isAdminWriter;
+//	}
 	/* 멤버수정 - 포인트와 그레이드 */
 	public int updateMember(MemberBean member) {
 		int updateCount = 0;
@@ -220,12 +216,13 @@ public MemberDAO() {}
 
 		try {
 //			String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
-			String sql = "UPDATE user SET point=?, grade=? WHERE uID=admin";
+			String sql = "UPDATE user SET point=?, grade=? WHERE uID=?";
 			pstmt = con.prepareStatement(sql);
 //			pstmt.setString(1, article.getBoard_name());
 			pstmt.setInt(1, member.getPoint());
 			pstmt.setInt(2, member.getGrade());
-						
+			pstmt.setString(3, member.getuID());
+
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -238,7 +235,6 @@ public MemberDAO() {}
 
 	public int deleteMember(String uID) {
 		int deleteCount = 0;
-		
 		PreparedStatement pstmt = null;
 		
 		try {

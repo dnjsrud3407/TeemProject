@@ -73,7 +73,7 @@ public class WriteProAction implements Action {
         	saveRatio = Float.parseFloat(stringSaveRatio);
         }
 
-        // bookID 구하기////
+        // bookID 구하기
         int bookID = writeProService.getBookID();
         
         // form 태그에서 책 정보 가져오기 (북 카테고리는 아직 미완성)

@@ -1,9 +1,6 @@
 package admin.book.svc;
 
-import static db.JdbcUtil.close;
-import static db.JdbcUtil.commit;
-import static db.JdbcUtil.getConnection;
-import static db.JdbcUtil.rollback;
+import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
@@ -25,7 +22,7 @@ public class WriteProService {
 		return BKID;
 	}
 	
-	// bookID 생성//
+	// bookID 생성
     public int getBookID() {
         int bookID = 0;
         BookDAO bookDAO = new BookDAO();

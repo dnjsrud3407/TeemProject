@@ -2,20 +2,19 @@
 <%@page import="dao.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 
 String user = null;
 if(session.getAttribute("uID") == null){
-	out.println("<script>");
-    out.println("location.href='MemberList.adm'");
-    out.println("</script>");
-} else { // 로그인 된 상태일 경우 세션 ID 가져오기
-	user = (String)session.getAttribute("uID");
+// 	out.println("<script>");
+//     out.println("location.href='Login.me'");
+//     out.println("</script>");
+	response.sendRedirect("index.jsp");
+// } else { // 로그인 된 상태일 경우 세션 ID 가져오기
+// 	user = (String)session.getAttribute("uID");
 }
 
-// String user = (String)session.getAttribute("user");
-// MemberDAO mdao = new MemberDAO();
-// MemberBean mb = mdao.selectMember(mb);
 
 MemberBean member = (MemberBean)request.getAttribute("member");
 
@@ -33,6 +32,7 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 
   <title>SB Admin 2 - member_detail.jsp</title>
 
+<!--   <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen">  -->
   <!-- Custom fonts for this template -->
   <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -91,6 +91,14 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 // 			alert('유효성 검사 탈락');
 			element.innerHTML = "적합하지 않은 패스워드";
 		}
+	}
+	function removeCheck() {
+		if(confirm("정말 삭제하시겠습니까 ??") == true) {
+			document.removefrm.remove();
+		}else{
+			return false;
+		}
+				
 	}
 </script>	
 </head>
@@ -325,77 +333,69 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-	<form class="form-horizontal" action="JoinPro.me" method="post">
+	<form class="form-horizontal" action="MemberModifyPro.adm" method="post" name="removefrm">
+			<h4>Your personal information</h4>
+	
 		<div class="control-group">
-<!-- 		<label class="control-label">Title <sup>*</sup></label> -->
-		<div class="controls">
-<!-- 		<select class="span1" name="days"> -->
-<!-- 			<option value="">-</option> -->
-<!-- 			<option value="1">Mr.</option> -->
-<!-- 			<option value="2">Mrs</option> -->
-<!-- 			<option value="3">Miss</option> -->
-<!-- 		</select> -->
-		</div>
-		</div>
-		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
-			  <input type="text" id="inputId" name="uID" value="<%=member.getuID() %>" readonly>
+			<div class="">
+			<label class="control-label" for="inputId">아이디 <sup>* &nbsp;</sup></label>
+			  <input type="text" id="" name="uID" value="<%=member.getuID() %>" readonly>
 			  <span id="checkIdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="inputPassword">비밀번호 <sup>*</sup></label>
-			  <input type="password" id="inputPassword" name="pw" value="<%=member.getPw() %>" readonly><!-- onkeyup="checkPasswd(this)" --> 
+			<div class="">
+			<label class="control-label" for="inputPassword">비밀번호 <sup>* &nbsp;</sup></label>
+			  <input type="password" id="" name="pw" value="<%=member.getPw() %>" readonly><!-- onkeyup="checkPasswd(this)" --> 
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="inputName">이름 <sup>*</sup></label>
-			  <input type="text" id="inputName" name="u_name" value="<%=member.getU_name() %>" readonly>
+			<div class="">
+			<label class="control-label" for="inputName">이름 <sup>* &nbsp;</sup></label>
+			  <input type="text" id="" name="u_name" value="<%=member.getU_name() %>" readonly>
 			</div>
 		</div>
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="address">Address<sup>*</sup></label>
-			  <input type="text" id="address" name="address" value="<%=member.getAddress() %>" readonly>
+			<div class="">
+			<label class="control-label" for="address">Address <sup>* &nbsp;</sup></label>
+			  <input type="text" id="" name="address" value="<%=member.getAddress() %>" readonly>
 			</div>
 		</div>
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
-			  <input type="text" id="mobile" name="phone_num" value="<%=member.getPhone_num() %>" readonly> 
+			<div class="">
+			<label class="control-label" for="mobile">Mobile Phone <sup>* &nbsp;</sup></label>
+			  <input type="text" id="" name="phone_num" value="<%=member.getPhone_num() %>" readonly> 
 			</div>
 		</div>	
 		<div class="control-group">
-		<div class="controls">
-		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
-		  <input type="text" id="input_Email" name="email" value="<%=member.getEmail() %>" readonly>
+		<div class="">
+		<label class="control-label" for="input_Email">Email <sup>* &nbsp;</sup></label>
+		  <input type="text" id="" name="email" value="<%=member.getEmail() %>" readonly>
 		</div>
 	  </div>	  
 	
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="address2">Address (Line 2)</label>
-			  <input type="text" id="address2" name="address2" value="<%=member.getAddress2() %>" readonly>
+			<div class="">
+			<label class="control-label" for="address2">Address (Line 2) &nbsp;</label>
+			  <input type="text" id="" name="address2" value="<%=member.getAddress2() %>" readonly>
 			</div>
 		</div>
 		
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="phone">Home phone</label>
-			  <input type="text" id="phone" name="tell_num" value="<%=member.getTell_num() %>" readonly> 
+			<div class="">
+			<label class="control-label" for="phone">Home phone &nbsp;</label>
+			  <input type="text" id="" name="tell_num" value="<%=member.getTell_num() %>" readonly> 
 			</div>
 		</div>
 		
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="joinDate">joinDate</label>
-			  <input type="text" id="joinDate" name="joinDate" value="<%=member.getJoinDate() %>"/> 
+			<div class="">
+			<label class="control-label" for="joinDate">joinDate &nbsp;</label>
+			  <input type="text" id="" name="joinDate" value="<%=member.getJoinDate() %>" readonly/> 
 			</div>
 		</div>
+	<p><sup>*</sup>Required field</p>
 
 	<div class="alert alert-block alert-error fade in">
 		<button type="button" class="close" data-dismiss="alert">×</button>
@@ -405,27 +405,33 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		<h4>Point and Grade</h4>
 		<div class="control-group">
 
-		<div class="controls">
+		<div class="">
 
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="point">Points</label>
-			  <input type="text" id="point" name="point" value="<%=member.getPoint() %>"/>
+			<div class="">
+			<label class="control-label" for="point">Points &nbsp;</label>
+			  <input type="text" id="" name="point" value="<%=member.getPoint() %>"/>
 			</div>
 		</div>
 		
 		<div class="control-group">
-			<div class="controls">
-			<label class="control-label" for="grade">Grade</label>
+			<div class="">
+			<label class="control-label" for="grade">Grade &nbsp;</label>
 <%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%>
 			  <select name="grade" id="grade">
-				<option value="">선택하세요.<%=member.getGrade() %></option>
-				<option value="1">admin</option>
-				<option value="2">admin1</option>
-				<option value="3">admin2</option>
-				<option value="4">admin3</option>
-				<option value="5">admin4</option>
-				
+				<option value="">선택해주세요.</option>				
+				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>admin</option>
+				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>admin1</option>
+				<option value="3" <c:if test="${member.grade == 3 }">selected</c:if>>admin2</option>
+				<option value="4" <c:if test="${member.grade == 4 }">selected</c:if>>admin3</option>
+				<option value="5" <c:if test="${member.grade == 5 }">selected</c:if>>admin4</option>
+				<option value="6" <c:if test="${member.grade == 6 }">selected</c:if>>member</option>
+				<option value="7" <c:if test="${member.grade == 7 }">selected</c:if>>BRONZE</option>
+				<option value="8" <c:if test="${member.grade == 8 }">selected</c:if>>SILVER</option>
+				<option value="9" <c:if test="${member.grade == 9 }">selected</c:if>>GOLD</option>
+				<option value="10" <c:if test="${member.grade == 10 }">selected</c:if>>VIP</option>
+				<option value="11" <c:if test="${member.grade == 11 }">selected</c:if>>VVIP</option>
+			
 			</select>
 			</div>
 		</div>
@@ -433,16 +439,19 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		</div>
 		</div>	
 
-	<p><sup>*</sup>Required field</p>
 	
-	<div class="control-group">
-			<div class="controls">
+		<div class="control-group">
+			<div class="">
 				<input type="hidden" name="email_create" value="1">
 				<input type="hidden" name="is_new_customer" value="1">
 
-		<a href="MemberModifyPro.adm?uID=<%=member.getuID() %>" ><input  class="btn btn-large btn-success" type="button" value="멤버수정"></a>
-		<a href="MemberDeleteForm.adm?uID=<%=member.getuID() %>"><input  class="btn btn-large btn-success" type="button" value="멤버삭제"></a>
+<!--         <a class="" href="#" data-toggle="modal" data-target="#logoutModal"> -->
+<!--           <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> -->
+<!--           Logout -->
+<!--         </a> -->
 
+			<input  class="btn btn-large btn-success" type="submit" value="멤버수정">
+			<input  class="btn btn-large btn-success" type="button" value="멤버삭제" name="removeCheck" data-toggle="modal" data-target="#deleteModal">
 			</div>
 		</div>		
 	</form>
@@ -493,6 +502,26 @@ MemberBean member = (MemberBean)request.getAttribute("member");
       </div>
     </div>
   </div>
+  
+    <!-- delete Modal-->
+  <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">정말 삭제하시겠습니까 ? </h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">정말 삭제를 원하신다면 아래의 삭제를 선택하세요</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="MemberDeletePro.adm?uID=<%=member.getuID() %>">Delete</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 
   <!-- Bootstrap core JavaScript-->
   <script src="admin/vendor/jquery/jquery.min.js?ver=1"></script>

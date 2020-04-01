@@ -4,18 +4,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QDetailService;
+import admin.book.svc.QWriteService;
 import vo.ActionForward;
+import vo.BoardBean;
 
 public class QWriteFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-//		System.out.println("QWriteFormAction");
+		
+		// 문의글 번호, 페이지값 들고오기
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		String page = request.getParameter("page");
+		
 		// 사용자가 상품 문의한 것을 불러옴
-		QDetailService qDetailService = new QDetailService();
-		qDetailService.getArticle();
+		QWriteService qWriteService = new QWriteService();
+		BoardBean board = qWriteService.getBoard(boardNum);
+
+		request.setAttribute("board", board);
+		request.setAttribute("page", page);
 		
 		forward = new ActionForward();
 		forward.setPath("./admin/book/qWriteForm.jsp");
