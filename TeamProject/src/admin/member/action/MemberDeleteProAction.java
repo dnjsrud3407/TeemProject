@@ -45,13 +45,7 @@ public class MemberDeleteProAction implements Action {
 				out.println("histroy.back()");
 				out.println("</script>");
 
-			}else {
-				response.setContentType("text/html; charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('정말 삭제하시겠습니까 ?')");
-				out.println("</script>");
-				
+			}else {				
 				forward = new ActionForward();
 				forward.setPath("MemberList.adm");
 				forward.setRedirect(true);

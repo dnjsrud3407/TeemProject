@@ -49,8 +49,8 @@ public class MemberModifyProAcion implements Action {
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
 				out.println("alert('수정 실패!')");
-//				out.println("history.back()");
-				out.println("location.href='Login.me'");
+				out.println("history.back()");
+//				out.println("location.href='Login.me'");
 				out.println("</script>");
 			} else {
 				
