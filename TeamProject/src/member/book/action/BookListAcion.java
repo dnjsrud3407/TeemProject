@@ -21,22 +21,27 @@ public class BookListAcion implements Action {
 		
 		int page = 1;
 		int limit = 10;
+		int bk2 = Integer.parseInt(request.getParameter("bk2"));
+		
+		
 		
 		//page 파라미터가 존재할 경우 파라미터에 전달된 데이터를 현재 페이지번호로 대체
 		
 		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page")); //정수로 변환하여 저장
 		}
+		
+		System.out.println(page);
+		
 		//svc에 만들기
 		BookListService bookListService = new BookListService();
 		
 		// 책 목록 가져오기
-		ArrayList<BookBean> bookList = bookListService.getBookList(page, limit);
+		ArrayList<BookBean> bookList = bookListService.getBookList(page, limit, bk2);
 		
 		// 책 전체 개수
 		int listCount = bookListService.getListCount();
 		
-
 		// 1. 총 페이지 수 계산
 		int maxPage = listCount / limit + (listCount % limit == 0 ? 0 : 1);
 		// 페이징 사이즈

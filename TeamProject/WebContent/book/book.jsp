@@ -56,17 +56,22 @@ boolean isLogin = false;
   
     <script type="text/javascript">
   	
-   
-    var bookID = "";
-    var bookTitle = "";
 	var isLogin = <%=isLogin%>;
+	var pop_title = document.bookQnaForm;
 	function openQna() {
 		alert(isLogin);
-		var qnaUrl = "http://localhost:8080/TeamProject" + "/QWriteForm.book?bookID=" + ${book.bookID};
+		var qnaUrl = "./QWriteForm.book";
 		var loginUrl = "http://localhost:8080/TeamProject" + "/Login.me?url=" + location.href;
 		if (isLogin) {
 			//alert('true');
- 			window.open(qnaUrl,'_blank','toolbar=yes,scrollbars=yes,resizable=yes,top=100,left=0,width=700,height=600');
+ 			window.open('',"bookQnaForm",'toolbar=no,scrollbars=no,resizable=no,top=100,left=0,width=700,height=600');
+ 			bookQnaForm.action = qnaUrl;
+ 			bookQnaForm.method="post"
+ 			bookQnaForm.target="bookQnaForm";
+ 			bookQnaForm.bookID="${book.bookID}";
+ 			bookQnaForm.bookTitle="${book.bookTitle}";
+ 			bookQnaForm.uID="${sessionScope.uID}";
+ 			bookQnaForm.submit();
 		} else {
 			//alert('alse');
  			window.location.href = loginUrl;
@@ -151,10 +156,10 @@ boolean isLogin = false;
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <li class="subMenu open"><a> 단계별</a>
                 <ul>
-                <li><a class="active" href="BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>4단계</a></li>
+                <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
+                <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
+                <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
+                <li><a href="BookList.bookbk2=4"><i class="icon-chevron-right"></i>4단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
@@ -591,6 +596,11 @@ boolean isLogin = false;
 						        <div class="qBtn">
 									<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" onclick="openQna()">문의하기 </button>
 								</div>
+								</form>
+								<form name="bookQnaForm">
+									<input type="hidden" name="bookID" value="${book.bookID }"/>
+									<input type="hidden" name="bookTitle" value="${book.bookTitle }"/>
+									<input type="hidden" name="uID" value="${sessionScope.uID }"/>
 								</form>
 						 </div>
 					 	<table class="table table-striped">

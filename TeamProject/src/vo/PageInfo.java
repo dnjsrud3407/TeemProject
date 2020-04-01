@@ -8,6 +8,9 @@ public class PageInfo {
 	private int endPage; // 끝 페이지
 	private int pageBlock; // 페이징 사이즈 
 	private int listCount; // 게시물 수
+	private int limit;
+	private String k1;
+	private String k2;
 	
 	public PageInfo() {
 		super();
@@ -31,6 +34,21 @@ public class PageInfo {
 		this.listCount = listCount;
 	}
 
+	
+	public PageInfo(int page, int maxPage, int startPage, int endPage, int pageBlock, int listCount, int limit,
+			String k1, String k2) {
+		super();
+		this.page = page;
+		this.maxPage = maxPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.pageBlock = pageBlock;
+		this.listCount = listCount;
+		this.limit = limit;
+		this.k1 = k1;
+		this.k2 = k2;
+	}
+	
 	public int getPage() {
 		return page;
 	}
@@ -67,5 +85,24 @@ public class PageInfo {
 	public void setPageBlock(int pageBlock) {
 		this.pageBlock = pageBlock;
 	}
+	public int getLimit() {
+		return limit;
+	}
+	public void setLimit(int limit) {
+		this.limit = limit;
+	}
+	public String getK1() {
+		return k1;
+	}
+	public void setK1(String k1) {
+		this.k1 = k1;
+	}
+	public String getK2() {
+		return k2;
+	}
+	public void setK2(String k2) {
+		this.k2 = k2;
+	}
+	
 	
 }

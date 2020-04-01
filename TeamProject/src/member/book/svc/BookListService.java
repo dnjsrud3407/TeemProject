@@ -26,6 +26,24 @@ public class BookListService {
 		
 		return bookList;
 	}
+	
+	
+	// 단계 별 책 목록 가져오기
+	public ArrayList<BookBean> getBookList(int page, int limit, int bk2) {
+		ArrayList<BookBean> bookList = null;
+		
+		Connection con = getConnection();
+		
+		BookDAO bookDAO = BookDAO.getInstance();
+		
+		bookDAO.setConnection(con);
+		
+		bookList = bookDAO.selectBookList(page, limit, bk2);
+		
+		close(con);
+		
+		return bookList;
+	}
 
 	// 책 목록 개수
 		public int getListCount() {

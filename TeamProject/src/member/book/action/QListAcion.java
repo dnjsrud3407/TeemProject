@@ -20,7 +20,7 @@ public class QListAcion implements Action {
 //		BookBean question = qListService.getQuestion(num);
 		
 		ActionForward action = new ActionForward();
-		action.setPath("/book/Q_list.jsp");
+		action.setPath("/book/book.jsp");
 
 		
 		return action;

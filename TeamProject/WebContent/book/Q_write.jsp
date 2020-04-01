@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 
+<%
+int bookID = Integer.parseInt(request.getParameter("bookID"));
+%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,9 +34,14 @@ background-color: #b4b9c9;
 
 
 
-
 </style>
+<script type="text/javascript">
+function qna(){
+	window.close();
+	opener.location.reload();
+}
 
+</script>
 
 </head>
 <body>
@@ -48,7 +58,9 @@ background-color: #b4b9c9;
 		<h1 class="tit_vippop">판매자에게 문의하기</h1>
 		<p class="subinfo"> 상품 문의를 남겨주시면 판매자가 직접 답변을 드립니다.
 		</p>
-		<form action="./QWritePro.book" method="post" enctype="multipart/form-data" name="boardform">
+		<form action="QWritePro.book" method="post" name="boardform" onsubmit="qna()">
+			<input type="hidden" name="bookID" value="<%=bookID %>">
+			<input type="hidden" name="uID" value="${param.uID }"/>
 		   <fieldset>
 		   		<legend>판매자에게 문의하기 폼</legend>
 					<table class="tb_questionform">
@@ -58,22 +70,22 @@ background-color: #b4b9c9;
 						<tbody>
 						<tr>
 							<th>상품명</th>
-							<td class="pdtit">${book.bookTitle}</td>
+							<td class="pdtit" id="bookTitile"><c:out value="${param.bookTitle }"/></td>
 						</tr>
 						<tr>
 							<th>아이디</th>
-							<td>${sessionScope.uID }</td>
+							<td><c:out value="${param.uID }"/></td>
 						</tr>
 						<tr>
 							<th>제목</th>
 							<td>
 							  <input type="text" title="제목" class="ip_viptext" id="qa_title" 
-							  style="width:496px;padding: 7px 18px 5px 12px;height: 18px;" name="boardTitle">
+							  style="width:496px;padding: 10px 18px 5px 12px;height: 20px;" name="boardTitle">
 							</td>
 						</tr>
 						<tr>
 							<th>내용</th>
-							<td>
+							<td id="boardContent">
 								<textarea title="내용" class="ip_viptxtarea" id="ta_content" name="boardContent">
 								
 								</textarea>

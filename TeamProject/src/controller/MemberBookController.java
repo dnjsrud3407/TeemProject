@@ -147,6 +147,7 @@ public class MemberBookController extends HttpServlet {
 			forward.setPath("./book/Q_write.jsp");
 			
 		} else if(command.equals("/QWritePro.book")) {
+			System.out.println(request.getParameter("bookID"));
 			action = new QWriteProAcion();
 			try {
 				forward = action.execute(request, response);
@@ -236,6 +237,7 @@ public class MemberBookController extends HttpServlet {
 	}
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("123post");
 		doProcess(request, response);
 	}
 
