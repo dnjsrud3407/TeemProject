@@ -46,8 +46,8 @@ public class QWriteProAction implements Action {
 		
 		forward = new ActionForward();
 		
-		// 1:1 답변 작성한거 상세보기 창으로 이동
-		forward.setPath("QDetail.abook?boardNum=" + boardReRef + "&page=" + page);
+		// 문의 답변 작성한거 상세보기 창으로 이동
+		forward.setPath("QDetail.abook?boardReRef=" + boardReRef + "&page=" + page);
 		forward.setRedirect(true);
 		
 		return forward;

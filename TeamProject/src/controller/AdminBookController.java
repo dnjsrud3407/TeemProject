@@ -173,14 +173,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/QModifyForm.abook")) {
-            // 상품 문의 글 수정하기 폼 (사용자가 작성한 내용 & 관리자가 작성한 내용 불러옴)
-            action = new QModifyFormAction();
-            try {
-                forward = action.execute(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else if(command.equals("/QModifyPro.abook")) {
             // 상품 문의 글 수정 작업 
             action = new QModifyProAction();

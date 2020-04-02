@@ -310,7 +310,7 @@
             <div class="card-body">
               <div class="table-responsive">
               <div>
-		  		* 문의제목을 클릭하시면 상세한 문의내역 작성이 가능합니다.
+		  		* 문의제목을 클릭하시면 상세한 문의내역 작성/수정이 가능합니다.
 		  	  </div>
               <form action="DeleteForm.abook" id="searchBoard" method="post">
                 <c:if test="${!empty qList && pageInfo.listCount > 0}">
@@ -329,15 +329,19 @@
                     <tr>
                       <td><input type="checkbox" name="boardNumList" value="${board.boardNum }"></td>
                       <td>${board.boardReRef }</td>
-                      	<td>${board.boardRegTime }</td>
-                      	<td><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       	<c:if test="${board.boardReSeq == 0 }">
+                      		<td>${board.boardRegTime }</td>
+	                      	<td><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td class="red">답변대기</td>
+                      		<td>-</td>
                       	</c:if>
                       	<c:if test="${board.boardReSeq > 0 }">
+                      		<td>${board.boardRegTime }</td>
+                      		<td><a href="QDetail.abook?boardReRef=${board.boardReRef }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td>답변완료</td>
+                      		<td>처리된시간미완성</td>
                       	</c:if>
-                      	<td>-</td>
+                      	
                       <td>${board.bookTitle }</td>
                       <td>${board.boardWriter }</td>
                     </tr>

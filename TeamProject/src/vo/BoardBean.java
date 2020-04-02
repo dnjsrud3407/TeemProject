@@ -1,6 +1,7 @@
 package vo;
 
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -22,8 +23,11 @@ public class BoardBean {
 	private int boardReSeq;	// 답변됐는지(1), 안됐는지(0) 판정
 	private int boardReadcount;
 	private int bookID;
+	private String bookTitle;
 	
 	
+	
+
 	private List<FileBean> fileList;
 	
 	public BoardBean() {}
@@ -66,35 +70,44 @@ public class BoardBean {
 		this.bookID = bookID;
 	}
 
-//	// 문의 내역 불러올때 사용
-//		public BoardBean(int boardNum, String boardWriter, String boardTitle, String boardContent,
-//				Date boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int bookID, String bookTitle) {
-//			super();
-//			this.boardNum = boardNum;
-//			this.boardWriter = boardWriter;
-//			this.boardTitle = boardTitle;
-//			this.boardContent = boardContent;
-//			this.boardRegTime = boardRegTime;
-//			this.boardReRef = boardReRef;
-//			this.boardReLev = boardReLev;
-//			this.boardReSeq = boardReSeq;
-//			this.bookID = bookID;			
-//			this.bookTitle = bookTitle;
-//		}
-//		
-//		// 게시글 답변 작성 시 사용
-//		public BoardBean(int boardNum, int kID, String boardWriter, String boardTitle, String boardContent, int boardReRef,
-//				int boardReLev, int bookID) {
-//			super();
-//			this.boardNum = boardNum;
-//			this.kID = kID;
-//			this.boardWriter = boardWriter;
-//			this.boardTitle = boardTitle;
-//			this.boardContent = boardContent;
-//			this.boardReRef = boardReRef;
-//			this.boardReLev = boardReLev;
-//			this.bookID = bookID;
-//		}
+	// 문의 내역 불러올때 사용
+	public BoardBean(int boardNum, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int bookID, String bookTitle) {
+		super();
+		this.boardNum = boardNum;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.bookID = bookID;			
+		this.bookTitle = bookTitle;
+	}
+		
+	// 문의 게시글 답변 작성 시 사용
+	public BoardBean(int boardNum, int kID, String boardWriter, String boardTitle, String boardContent, int boardReRef,
+			int boardReLev, int bookID) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.bookID = bookID;
+	}
+	
+	// 문의 게시글 답변 수정 시 사용
+	public BoardBean(int boardNum, String boardWriter, String boardTitle, String boardContent) {
+		super();
+		this.boardNum = boardNum;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+	}
 
 	public BoardBean(int boardNum, String k1, String k2, String boardTitle, String boardContent,
 			List<FileBean> fileList) {
@@ -106,8 +119,6 @@ public class BoardBean {
 		this.boardContent = boardContent;
 		this.fileList = fileList;
 	}
-
-
 
 	public int getBoardNum() {
 		return boardNum;
@@ -234,6 +245,13 @@ public class BoardBean {
 		this.fileList = fileList;
 	}
 
+	public String getBookTitle() {
+		return bookTitle;
+	}
+
+	public void setBookTitle(String bookTitle) {
+		this.bookTitle = bookTitle;
+	}
 	
 }	
 
