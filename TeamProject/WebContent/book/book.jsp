@@ -1,8 +1,9 @@
+<%@page import="vo.BoardBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 
 
 <%
@@ -53,7 +54,7 @@ boolean isLogin = false;
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
-  
+  	
     <script type="text/javascript">
   	
 	var isLogin = <%=isLogin%>;
@@ -213,6 +214,7 @@ boolean isLogin = false;
 <!-- 				<span class="btn" ><i class="icon-star"></i></span> -->
 <!-- 				<span class="btn" ><i class=" icon-thumbs-up"></i></span> -->
 <!-- 				<span class="btn" ><i class="icon-thumbs-down"></i></span> -->
+
 <!-- 			  </div> -->
 <!-- 			</div> -->
 			</div>
@@ -226,7 +228,7 @@ boolean isLogin = false;
 					<div class="controls">
 					<input type="number" class="span1" placeholder="Qty."/>
 				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookBuy.book'"> 구매하기</button>
-					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookCart.book'"> 장바구니 <i class=" icon-shopping-cart"></i></button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookCart.book?bookID=${book.bookID}'"> 장바구니 <i class=" icon-shopping-cart"></i></button>
 					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookLike.book'"> ♡ </button>	
 					</div>
 				  </div>
@@ -262,7 +264,7 @@ boolean isLogin = false;
 			
 			<div class="span9">
             <ul id="productDetail" class="nav nav-tabs">
-              <li><a href="#bookqna" data-toggle="tab">상품문의</a></li>
+              <li ><a href="#bookqna" data-toggle="tab">상품문의</a></li>
               <li><a href="#review" data-toggle="tab">상품후기</a></li>
               <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
               <li><a href="#profile" data-toggle="tab">Related Products</a></li>
@@ -582,9 +584,10 @@ boolean isLogin = false;
 				<br class="clr">
 					 </div>
 					 <div class="tab-pane fade" id="review">review</div>
-					 <div class="tab-pane fade" id="bookqna">
+					 <div class="tab-pane active " id="bookqna">
 					 	<div>
-						    <h3>상품 문의하기</h3>    
+					 		
+						    <h3><a href='<c:url value ="/Book.book?bookID=${book.bookID}"/>'>상품 문의하기</a></h3>    
 						    <form class="well form-search">
 						        <select id="select11" style="width:100px">
 						                <option>제목</option>
@@ -603,52 +606,33 @@ boolean isLogin = false;
 									<input type="hidden" name="uID" value="${sessionScope.uID }"/>
 								</form>
 						 </div>
-					 	<table class="table table-striped">
+					 	
+					 	
+					  
+					 	<table class="table table-striped" style="width:870px"> 
 					       <thead>
 					         <tr>
-					           <th style="width:30px">번호</th>
-					           <th style="width:50px">답변상태</th>
+					           <th style="width:100px">번호</th>
+					           <th style="width:100px">답변상태</th>
 					           <th style="text-align: center">제목</th>
-					           <th style="width:60px">문의자</th>
-					           <th style="width:60px">등록일</th>
+					           <th style="width:100px">문의자</th>
+					           <th style="width:100px">등록일</th>
+					           
 					         </tr>
 					       </thead>
 					       <tbody>
-					         <tr>
-					           <td>1</td>
-					           <td>Otto</td>
-					           <td>@mdo</td>
-					           <td>Otto</td>
-					           <td>@mdo</td>
-					         </tr>
-					          <tr>
-					          	<td colspan="2"></td>
-								<td colspan="2">답변</td>					          
-					          </tr>
-					         <tr>
-					           <td>2</td>
-					           <td>Thornton</td>
-					           <td>@fat</td>
-					           <td>Thornton</td>
-					           <td>@fat</td>
-					         </tr>
-					         <tr>
-					          	<td colspan="2"></td>
-								<td colspan="2">답변</td>					          
-					          </tr>
-					         <tr>
-					           <td>3</td>
-					           <td>the Bird</td>
-					           <td>@twitter</td>
-					           <td>Thornton</td>
-					           <td>@fat</td>
-					         </tr>
-					         <tr>
-					          	<td colspan="2"></td>
-								<td colspan="2">답변</td>					          
-					          </tr>
-					       </tbody>
-					     </table>
+							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
+					       		<tr>
+									<td>${qna.boardNum }</td>
+									<td><c:if test="${0 < qna.boardReSeq}"> 
+	           		 					답변완료 </c:if> 답변전</td>
+					           		<td>${qna.boardTitle }</td>
+									<td>${qna.boardWriter }</td>
+									<td>${qna.boardRegTime }</td>
+								</tr>				
+  							</c:forEach>
+							</tbody>
+					    </table>
 					 </div>
 		</div>
           </div>
@@ -688,7 +672,6 @@ boolean isLogin = false;
     <script src="themes/js/jquery.js" type="text/javascript"></script>
     <script src="themes/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="themes/js/google-code-prettify/prettify.js"></script>
-    
     <script src="themes/js/bootshop.js"></script>
     <script src="themes/js/jquery.lightbox-0.5.js"></script>
     

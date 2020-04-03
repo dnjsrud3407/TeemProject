@@ -25,7 +25,7 @@ public class BoardDAO {
 	
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
-	private ResultSet rs = null;
+	private ResultSet rs = null; 
 
 	public void setConnection(Connection con) {
 		this.con = con;
