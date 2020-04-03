@@ -13,7 +13,7 @@ public class BoardBean {
 
 	private String k1;
 	private String k2;
-	private String k3;
+//	private String k3;
 	private String boardWriter;
 	private String boardTitle;
 	private String boardContent;
@@ -156,15 +156,15 @@ public class BoardBean {
 
 
 
-	public String getK3() {
-		return k3;
-	}
-
-
-
-	public void setK3(String k3) {
-		this.k3 = k3;
-	}
+//	public String getK3() {
+//		return k3;
+//	}
+//
+//
+//
+//	public void setK3(String k3) {
+//		this.k3 = k3;
+//	}
 	public String getBoardWriter() {
 		return boardWriter;
 	}

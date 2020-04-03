@@ -15,6 +15,17 @@ public class PageInfo {
 	public PageInfo() {
 		super();
 	}
+	
+	
+	public PageInfo(int page, int limit, String k1, String k2) {
+		super();
+		this.page = page;
+		this.limit = limit;
+		this.k1 = k1;
+		this.k2 = k2;
+	}
+
+
 	public PageInfo(int page, int maxPage, int startPage, int endPage, int pageBlock, int listCount) {
 		super();
 		this.page = page;
