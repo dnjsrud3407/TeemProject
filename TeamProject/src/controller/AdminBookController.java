@@ -23,8 +23,8 @@ import admin.book.action.ModifyProAction;
 import admin.book.action.QDeleteProAction;
 import admin.book.action.QDetailAction;
 import admin.book.action.QListAction;
-import admin.book.action.QModifyFormAction;
 import admin.book.action.QModifyProAction;
+import admin.book.action.QSearchProAction;
 import admin.book.action.QWriteFormAction;
 import admin.book.action.QWriteProAction;
 import admin.book.action.RefundListAction;
@@ -176,6 +176,14 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
         } else if(command.equals("/QModifyPro.abook")) {
             // 상품 문의 글 수정 작업 
             action = new QModifyProAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/QSearchPro.abook")) {
+            // 상품 문의 글 검색 작업 
+            action = new QSearchProAction();
             try {
                 forward = action.execute(request, response);
             } catch (Exception e) {

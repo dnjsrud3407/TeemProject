@@ -609,10 +609,11 @@ public class BoardDAO {
 		int listCount = 0;
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
-        String sql = "SELECT COUNT(*) FROM board WHERE kID=?";
+        String sql = "SELECT COUNT(*) FROM board WHERE kID=? AND boardReLev=?";
         try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, kID);
+			pstmt.setInt(2, 0);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				listCount = rs.getInt(1);

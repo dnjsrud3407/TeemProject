@@ -48,7 +48,56 @@
 	    });
 	    $("#datepicker_Before").datepicker(); 
 	    $("#datepicker_After").datepicker(); 
-} ); 
+	    
+	    // 날짜 세팅 (초기값)
+	    var dateBefore = new Date();
+	    var dateAfter = new Date();
+	    dateBefore = getFormatDate(dateBefore, "-1Month");
+	    dateAfter = getFormatDate(dateAfter, "Today");
+	    $("#datepicker_Before").val(dateBefore);
+	    $("#datepicker_After").val(dateAfter);
+	});
+	
+	
+	// 현재 날짜 구하기
+	function getFormatDate(date, type){
+	    var year = date.getFullYear();        //yyyy
+	    var month;
+	    var day;
+	    if(type == "Today") {
+	    	month = date.getMonth()+1;
+	    	day = date.getDate(); 
+	    } else if(type == "-7Day") {
+	    	month = date.getMonth()+1;
+	    	day = date.getDate()-7; 
+	    	if(day <= 0) {
+	    		if(month == 2 || month == 4 || month == 6 || month == 8 || month == 9 || month == 11 || month == 1) {
+		    		month = date.getMonth();
+		    		day = 31 + day;	// 음수값 만큼 31에서 뺌(1,3,5,7,8,10,12월은 31일 까지)
+	    		} else if(month == 3) {
+	    			day = 28 + day;
+	    		} else {
+	    			day = 30 + day;
+	    		}
+	    	}
+	    } else if(type == "-1Month") {
+	    	month = date.getMonth();
+	    	day = date.getDate(); 
+	    } else if(type == "-3Month") {
+	    	month = date.getMonth()-2;
+	    	day = date.getDate(); 
+	    }
+	    month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
+	    day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+	    return  year + '-' + month + '-' + day;
+	}
+	
+	// 날짜 바꾸기(type = 'Today', '-7Day', '-1Month', '-3Month')
+	function changeDate(type) {
+		var date = new Date();
+		date = getFormatDate(date, type);
+		$("#datepicker_Before").val(date);
+	}
 </script>
 <style type="text/css">
 #pageList {
@@ -274,17 +323,17 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="Search.abook" method="post" id="searchForm">
+              <form action="QSearchPro.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
                   	<th style="width: 15%;">문의 접수일</th>
                   	<td>
-                  		<input type="button" value="오늘">
-                  		<input type="button" value="1주일">
-                  		<input type="button" value="1개월">
-                  		<input type="button" value="3개월"> | 
-                  		<input type="text" id="datepicker_Before" name="bookPublishedDate" placeholder="" readonly="readonly">
-                  		<input type="text" id="datepicker_After" name="bookPublishedDate" placeholder="" readonly="readonly">
+                  		<input type="button" value="오늘" onclick="changeDate('Today')">
+                  		<input type="button" value="1주일전" onclick="changeDate('-7Day')">
+                  		<input type="button" value="1개월전" onclick="changeDate('-1Month')">
+                  		<input type="button" value="3개월전" onclick="changeDate('-3Month')"> | 
+                  		<input type="text" id="datepicker_Before" name="boardRegTime_Before" readonly="readonly">
+                  		<input type="text" id="datepicker_After" name="boardRegTime_After" readonly="readonly">
                   	</td>
                   </tr>
                   <tr>
@@ -297,7 +346,7 @@
                   	</td>
                   </tr>
                 </table>
-                <input type="button" value="검색" id="search" onclick="search2(1)">
+                <input type="submit" value="검색" id="search" onclick="search2()">
                 <input type="reset" id="btnReset" value="초기화">
               </form>
               </div>

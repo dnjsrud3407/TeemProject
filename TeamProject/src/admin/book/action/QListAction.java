@@ -35,7 +35,7 @@ public class QListAction implements Action {
 		ArrayList<BoardBean> qList = qListService.getList(kID, page, limit);
 		
 		// 상품 문의 게시글 개수 가져오기
-		int listCount = qList.size();
+		int listCount = qListService.getListCount(102);
 		// 1. 총 페이지 수 계산
 		int maxPage = listCount / limit + (listCount % limit == 0 ? 0 : 1);
 		// 페이징 사이즈
@@ -51,6 +51,7 @@ public class QListAction implements Action {
 		}
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, pageBlock, listCount);
+		
 		
 		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("qList", qList);

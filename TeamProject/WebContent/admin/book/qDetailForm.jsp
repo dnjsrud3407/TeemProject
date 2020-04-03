@@ -250,7 +250,7 @@
         <div class="container-fluid">
         	<div class="card shadow mb-4">
 	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">상품 문의 목록</a></h5>
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">&lt; 상품 문의 목록</a></h5>
 	            </div>
         	</div>
 			<div class="row">
