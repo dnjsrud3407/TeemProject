@@ -255,10 +255,10 @@ if(session.getAttribute("uID") == null){
                     <tr>
                       <th>아이디</th>
                       <th>이름</th>
-                      <th>주소</th>
-                      <th>address2</th>
-                      <th>point</th>
-                      <th>grade</th>
+                      <th>휴대폰</th>
+                      <th>이메일</th>
+                      <th>포인트</th>
+                      <th>등급</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -272,8 +272,8 @@ if(session.getAttribute("uID") == null){
  --%>                   
                       <td><%=memberList.get(i).getuID() %></td>
                       <td><%=memberList.get(i).getU_name() %></td>
-                      <td><%=memberList.get(i).getAddress() %></td>
-                      <td><%=memberList.get(i).getAddress2() %></td>
+                      <td><%=memberList.get(i).getPhone_num() %></td>
+                      <td><%=memberList.get(i).getEmail() %></td>
                       <td><%=memberList.get(i).getPoint() %></td>
                       <td><%=memberList.get(i).getGrade() %></td>
                     </tr>
