@@ -140,6 +140,8 @@ public class BoardService {
 		
 		return listCount;
 	}
+	
+	
 
 	public ArrayList<BoardBean> getArticleList(PageInfo pageInfo) {
 		ArrayList<BoardBean> articleList = null;
@@ -202,6 +204,8 @@ public class BoardService {
 		close(con);
 		return articleList;
 	}
+
+	
 
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -129,7 +130,7 @@
 
       <!-- Heading -->
       <div class="sidebar-heading">
-        게시판관리
+        게시판 관리
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
@@ -140,18 +141,19 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="QList.bo">1:1답변목록(답변/수정/삭제)</a>
-            <a class="collapse-item" href="FAQ_List.bo">FAQ목록(답변/수정/삭제)</a>
-            <a class="collapse-item" href="Notice_List.bo">배너 - 공지사항/이벤트목록(작성/수정/삭제)</a>
+          <h6 class="collapse-header">공지사항/이벤트</h6>
+            <a class="collapse-item" href='<c:url value="/admin/notice.adb"/>'>공지사항</a>
+            <a class="collapse-item" href='<c:url value="/admin/event.adb"/>'>이벤트</a>
+            <a class="collapse-item" href="">배너관리(미구현)</a>
           
-            <h6 class="collapse-header">Login Screen-참고:</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-            <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages-참고:</h6>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
+            <h6 class="collapse-header">FAQ/1:1문의 관리</h6>
+            <a class="collapse-item" href='<c:url value="/admin/FAQ.adb"/>'>FAQ 목록</a>
+            <a class="collapse-item" href="register.html">1:1문의 목록(미답변)</a>
+            <a class="collapse-item" href="forgot-password.html">1:1문의 목록(전체)</a>
+<!--             <div class="collapse-divider"></div> -->
+<!--             <h6 class="collapse-header">Other Pages-참고:</h6> -->
+<!--             <a class="collapse-item" href="404.html">404 Page</a> -->
+<!--             <a class="collapse-item" href="blank.html">Blank Page</a> -->
           </div>
         </div>
       </li>
