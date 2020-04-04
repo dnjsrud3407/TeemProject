@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import action.Action;
 import member.book.svc.BookCartProService;
@@ -11,6 +13,7 @@ import member.book.svc.BookLikeProService;
 import member.book.svc.BookListService;
 import vo.ActionForward;
 import vo.BookBean;
+import vo.CartBean;
 
 public class BookCartProAction implements Action {
 
@@ -24,11 +27,18 @@ public class BookCartProAction implements Action {
 		System.out.println(bookID);
 		BookCartProService bookCartProService = new BookCartProService();
 		
-		// 카트에 담긴 상품 정보 가져오기
-		BookBean bookBean = bookCartProService.getCartBook(bookID);
+		// bookID에  해당하는 상품 정보 가져오기
+		BookBean bookBean= bookCartProService.getCartBook(bookID);
 		
-		// 카트에 상품 추가
-		ArrayList<BookBean> bookCartList = bookCartProService.addCart(bookBean);
+		HttpSession session = request.getSession();
+		String uID = (String)session.getAttribute("uID");
+		System.out.println(uID);
+		
+		
+		CartBean cartBean = bookCartProService.getCartList(uID);
+//		
+//		// 카트에 상품 추가
+//		bookCartProService.addCart(bookBean);
 		
 		forward = new ActionForward();
 		forward.setPath("Book.book");
