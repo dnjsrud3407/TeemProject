@@ -59,7 +59,15 @@ MemberBean member = (MemberBean)request.getAttribute("member");
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
-
+<style type="text/css">
+.control-label {
+    width: 150px;
+    text-align: right;
+    }
+input.size {
+	width: 350px;
+}
+</style>
 <script type="text/javascript">	
 	function checkPasswd(passwd) {
 		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합 유효성 검사
@@ -318,7 +326,6 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 
 			<div class="span9">
 			
-	<h3> Member info</h3>	
 	<div class="well">
 	<!--
 	<div class="alert alert-info fade in">
@@ -334,92 +341,95 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
 	<form class="form-horizontal" action="MemberModifyPro.adm" method="post" name="removefrm">
-			<h4>Your personal information</h4>
+			<h4>회원 개인정보</h4>
 	
 		<div class="control-group">
 			<div class="">
 			<label class="control-label" for="inputId">아이디 <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" name="uID" value="<%=member.getuID() %>" readonly>
+			  <input type="text" id="" class="size" name="uID" value="<%=member.getuID() %>" readonly>
 			  <span id="checkIdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<div class="">
 			<label class="control-label" for="inputPassword">비밀번호 <sup>* &nbsp;</sup></label>
-			  <input type="password" id="" name="pw" value="<%=member.getPw() %>" readonly><!-- onkeyup="checkPasswd(this)" --> 
+			  <input type="password" id="" class="size" name="pw" value="<%=member.getPw() %>" readonly><!-- onkeyup="checkPasswd(this)" --> 
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<div class="">
 			<label class="control-label" for="inputName">이름 <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" name="u_name" value="<%=member.getU_name() %>" readonly>
+			  <input type="text" id="" class="size" name="u_name" value="<%=member.getU_name() %>" readonly>
 			</div>
 		</div>
 		<div class="control-group">
 			<div class="">
-			<label class="control-label" for="address">Address <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" name="address" value="<%=member.getAddress() %>" readonly>
+			<label class="control-label" for="address">주소 <sup>* &nbsp;</sup></label>
+			  <input type="text" id="" class="size" name="address" value="<%=member.getAddress() %>" readonly>
 			</div>
 		</div>
+		
 		<div class="control-group">
 			<div class="">
-			<label class="control-label" for="mobile">Mobile Phone <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" name="phone_num" value="<%=member.getPhone_num() %>" readonly> 
+			<label class="control-label" for="address2">상세주소 &nbsp;&nbsp;</label>
+			  <input type="text" id="" class="size" name="address2" value="<%=member.getAddress2() %>" readonly>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<div class="">
+			<label class="control-label" for="mobile">모바일 <sup>* &nbsp;</sup></label>
+			  <input type="text" id="" class="size" name="phone_num" value="<%=member.getPhone_num() %>" readonly> 
 			</div>
 		</div>	
+		
 		<div class="control-group">
 		<div class="">
-		<label class="control-label" for="input_Email">Email <sup>* &nbsp;</sup></label>
-		  <input type="text" id="" name="email" value="<%=member.getEmail() %>" readonly>
+		<label class="control-label" for="input_Email">이메일 <sup>* &nbsp;</sup></label>
+		  <input type="text" id="" class="size" name="email" value="<%=member.getEmail() %>" readonly>
 		</div>
 	  </div>	  
-	
+		
 		<div class="control-group">
 			<div class="">
-			<label class="control-label" for="address2">Address (Line 2) &nbsp;</label>
-			  <input type="text" id="" name="address2" value="<%=member.getAddress2() %>" readonly>
+			<label class="control-label" for="phone">전화번호 &nbsp;&nbsp;</label>
+			  <input type="text" id="" class="size" name="tell_num" value="<%=member.getTell_num() %>" readonly> 
 			</div>
 		</div>
 		
 		<div class="control-group">
 			<div class="">
-			<label class="control-label" for="phone">Home phone &nbsp;</label>
-			  <input type="text" id="" name="tell_num" value="<%=member.getTell_num() %>" readonly> 
+			<label class="control-label" for="joinDate">가입날짜 &nbsp;&nbsp;</label>
+			  <input type="text" id="" class="size" name="joinDate" value="<%=member.getJoinDate() %>" readonly/> 
 			</div>
 		</div>
-		
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="joinDate">joinDate &nbsp;</label>
-			  <input type="text" id="" name="joinDate" value="<%=member.getJoinDate() %>" readonly/> 
-			</div>
-		</div>
-	<p><sup>*</sup>Required field</p>
+		<br>
+	<p class="control-group"><sup>*</sup>필수 입력사항</p>
 
 	<div class="alert alert-block alert-error fade in">
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div>	
 
-		<h4>Point and Grade</h4>
+		<h4>포인트와 등급</h4>
 		<div class="control-group">
 
 		<div class="">
 
 		<div class="control-group">
 			<div class="">
-			<label class="control-label" for="point">Points &nbsp;</label>
-			  <input type="text" id="" name="point" value="<%=member.getPoint() %>"/>
+			<label class="control-label" for="point">포인트 &nbsp;&nbsp;</label>
+			  <input type="text" id="" width="129" name="point" value="<%=member.getPoint() %>"/>Points
 			</div>
 		</div>
 		
 		<div class="control-group">
 			<div class="">
-			<label class="control-label" for="grade">Grade &nbsp;</label>
+			<label class="control-label" for="grade">등급 &nbsp;&nbsp;</label>
 <%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%>
-			  <select name="grade" id="grade">
-				<option value="">선택해주세요.</option>				
+			  <select name="grade" classs="size" id="grade">
+				<option value="" class="size">선택해주세요.</option>				
 				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>admin</option>
 				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>admin1</option>
 				<option value="3" <c:if test="${member.grade == 3 }">selected</c:if>>admin2</option>
@@ -438,7 +448,7 @@ MemberBean member = (MemberBean)request.getAttribute("member");
 		
 		</div>
 		</div>	
-
+<br>
 	
 		<div class="control-group">
 			<div class="">

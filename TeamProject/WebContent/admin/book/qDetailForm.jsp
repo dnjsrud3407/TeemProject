@@ -30,7 +30,7 @@
 
 <style type="text/css">
 .heightM {
-	margin-top: 4%;
+	margin-top: 3%;
 }
 #pageList {
 	margin: auto;
@@ -245,9 +245,14 @@
         </nav>
         <!-- End of Topbar -->
 
+		
         <!-- Begin Page Content -->
         <div class="container-fluid">
-        
+        	<div class="card shadow mb-4">
+	            <div class="card-header py-3">
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">&lt; 상품 문의 목록</a></h5>
+	            </div>
+        	</div>
 			<div class="row">
 
             <!-- 고객문의 내용 보기 -->
@@ -263,27 +268,27 @@
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
 	                      <th style="width:15%">접수번호</th>
-	                      <td>${board.boardNum }</td>
+	                      <td>${board_q.boardNum }</td>
 	                      <th style="width:15%">접수일</th>
-	                      <td>${board.boardRegTime }</td>
+	                      <td>${board_q.boardRegTime }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>고객ID</th>
-	                      <td>${board.boardWriter }</td>
+	                      <td>${board_q.boardWriter }</td>
 	                      <th style="width:15%">처리상태</th>
-	                      <td class="red">답변대기</td>
+	                      <td>답변완료</td>
 	                    </tr>
 	                    <tr>
 	                      <th>상품명</th>
-	                      <td colspan="3">${board.bookTitle }</td>
+	                      <td colspan="3">${board_q.bookTitle }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>문의제목</th>
-	                      <td colspan="3">${board.boardTitle }</td>
+	                      <td colspan="3">${board_q.boardTitle }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>문의 내용</th>
-	                      <td colspan="3"><textarea rows="10" cols="70">${board.boardContent }</textarea></td>
+	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_q.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
 	                </form>
@@ -302,11 +307,18 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	              <form action="QWritePro.abook?page=${page }" method="post" enctype="multipart/form-data">
+	                <form action="QModifyPro.abook" method="post">
+                    <input type="hidden" name="page" value="${page }">
+                    <input type="hidden" name="boardReRef" value="${board_answer.boardReRef }">
+                    <input type="hidden" name="boardNum" value="${board_answer.boardNum }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
+	                      <th>답변제목</th>
+	                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${board_answer.boardTitle }"></td>
+	                    </tr>
+	                    <tr>
 	                      <th style="width:15%">답변 수정</th>
-	                      <td colspan="3"><textarea name="boardContent" rows="17" cols="70"></textarea></td>
+	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${board_answer.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
 	                <input type="submit" value="답변 수정" />

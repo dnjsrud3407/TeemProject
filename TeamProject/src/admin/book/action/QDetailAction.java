@@ -1,26 +1,38 @@
 package admin.book.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import admin.book.svc.QWriteService;
 import vo.ActionForward;
+import vo.BoardBean;
 
 public class QDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-//		System.out.println("QDetailAction");
+
+		// boardReRef와 page 파라미터 불러옴
+		int boardReRef = Integer.parseInt(request.getParameter("boardReRef"));
+		String page = request.getParameter("page");
 		
-		// 사용자가 문의 작성한 것을 불러옴
-		// and 관리자가 작성한 것도 불러옴
+		// 사용자가 문의 작성한 것을 불러옴 and 관리자가 작성한 것도 불러옴
 		QWriteService qDetailService = new QWriteService();
-//		qDetailService.getArticle();
+		ArrayList<BoardBean> qnaList = qDetailService.getqnaList(boardReRef);
+		
+		// i = 0   =>   사용자 문의 글
+		// i = 1   =>   관리자 문의 답변 글
+		request.setAttribute("page", page);
+		request.setAttribute("board_q", qnaList.get(0));
+		request.setAttribute("board_answer", qnaList.get(1));
+		
 		
 		forward = new ActionForward();
-		forward.setPath("./admin/book/qDetail.jsp");
+		forward.setPath("./admin/book/qDetailForm.jsp");
 		return forward;
 	}
 

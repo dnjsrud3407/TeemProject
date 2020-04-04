@@ -29,7 +29,7 @@
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 <script type="text/javascript">
 	//달력 api	
-	$( function() { 
+	$(function() { 
 	    $.datepicker.setDefaults({
 	        dateFormat: 'yy-mm-dd' //Input Display Format 변경
 	        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -49,19 +49,10 @@
 	    $("#datepicker_Before").datepicker(); 
 	    $("#datepicker_After").datepicker(); 
 	    
-	    // 날짜 세팅 (초기값)
-	    var dateBefore = new Date();
-	    var dateAfter = new Date();
-	    dateBefore = getFormatDate(dateBefore, "-1Month");
-	    dateAfter = getFormatDate(dateAfter, "Today");
-	    $("#datepicker_Before").val(dateBefore);
-	    $("#datepicker_After").val(dateAfter);
-	    
-	    
 	});
 	
 	
-	// 현재 날짜 구하기
+	// 날짜 구하기
 	function getFormatDate(date, type){
 	    var year = date.getFullYear();   //yyyy
 	    var month;
@@ -112,15 +103,6 @@
 		// 현재 날짜도 다시
 		dateAfter = getFormatDate(dateAfter, "Today");
 		$("#datepicker_After").val(dateAfter);
-	}
-	
-	function searchList() {
-		var boardRegTime_Before = $("#datepicker_Before").val();
-		var boardRegTime_After = $("#datepicker_After").val();
-		if(boardRegTime_Before == "" || boardRegTime_After == "") {
-			alert('날짜를 설정해주세요');
-			return false;
-		}
 	}
 </script>
 <style type="text/css">
@@ -347,7 +329,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="QSearchPro.abook" method="post" id="searchForm" onsubmit="return searchList()">
+              <form action="QSearchPro.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
                   	<th style="width: 15%;">문의 접수일</th>
@@ -356,22 +338,22 @@
                   		<input type="button" value="1주일전" onclick="changeDate('-7Day')">
                   		<input type="button" value="1개월전" onclick="changeDate('-1Month')">
                   		<input type="button" value="3개월전" onclick="changeDate('-3Month')"> | 
-                  		<input type="text" id="datepicker_Before" name="boardRegTime_Before" readonly="readonly">
-                  		<input type="text" id="datepicker_After" name="boardRegTime_After" readonly="readonly">
+                  		<input type="text" id="datepicker_Before" name="boardRegTime_Before" value="${boardRegTime_Before }" readonly="readonly">
+                  		<input type="text" id="datepicker_After" name="boardRegTime_After" value="${boardRegTime_After }" readonly="readonly">
                   	</td>
                   </tr>
                   <tr>
                   	<th style="width: 15%;">처리상태</th>
                   	<td>
 						<select name="answer" id="answer" class="checkbox_padding">
-				     		<option value="all">전체</option>
-				     		<option value="false">답변대기</option>
-				     		<option value="true">답변완료</option>
+							<option value="all" <c:if test="${answer eq 'all' }"> selected="selected"</c:if>>전체</option>
+							<option value="false" <c:if test="${answer eq 'false' }"> selected="selected"</c:if>>답변대기</option>
+							<option value="true" <c:if test="${answer eq 'true' }"> selected="selected"</c:if>>답변완료</option>
 				  		</select>
                   	</td>
                   </tr>
                 </table>
-                <input type="submit" value="검색" id="search">
+                <input type="submit" value="검색" id="search" onclick="search2()">
                 <input type="reset" id="btnReset" value="초기화">
               </form>
               </div>
@@ -387,7 +369,7 @@
 		  		* 문의제목을 클릭하시면 상세한 문의내역 작성/수정이 가능합니다.
 		  	  </div>
               <form action="DeleteForm.abook" id="searchBoard" method="post">
-                <c:if test="${!empty qList && pageInfo.listCount > 0}">
+                <c:if test="${!empty qSearchList && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
                       <th><input type="checkbox"></th>
@@ -399,7 +381,7 @@
                       <th>상품명</th>
                       <th>고객ID</th>
                     </tr>
-                    <c:forEach var="board" items="${qList }" varStatus="status">
+                    <c:forEach var="board" items="${qSearchList }" varStatus="status">
                     <tr>
                       <td><input type="checkbox" name="boardNumList" value="${board.boardNum }"></td>
                       <td>${board.boardReRef }</td>
@@ -423,13 +405,13 @@
                 </table>
                 <section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="QList.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                		<a href="QSearchPro.abook?page=${pageInfo.startPage-pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="QList.abook?page=${i }">${i }</a>&nbsp;
+                		<a href="QSearchPro.abook?page=${i }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">${i }</a>&nbsp;
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="QList.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                		<a href="QSearchPro.abook?page=${pageInfo.startPage+pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[다음]</a>
                 	</c:if>
                 </section>
                 </c:if>
