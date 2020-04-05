@@ -55,7 +55,7 @@ public class LoginProAction implements Action {
 			// HttpSession 객체의 setAttiribute() 메서드를 호출하여 세션 정보 저장
 			session.setAttribute("uID", uID);
 			forward = new ActionForward();
-			forward.setPath("");
+			forward.setPath("index.jsp");
 			forward.setRedirect(true);
 			
 		}

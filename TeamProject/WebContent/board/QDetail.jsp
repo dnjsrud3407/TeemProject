@@ -83,7 +83,7 @@
               <thead style="border-top: none;">
                 <tr style="border-top: none;">
                   <td>제목</td>
-                  <th colspan="2"  style="font-size: 1.5em;">${boardBean.boarTitle}</th>
+                  <th colspan="2"  style="font-size: 1.5em;">${boardBean.boardTitle}</th>
 				</tr>
               </thead>
               <tbody>

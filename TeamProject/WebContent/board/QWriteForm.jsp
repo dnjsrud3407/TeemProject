@@ -136,7 +136,7 @@
           </tr>
           <tr>
             <td class="textleft" >제목</td>
-            <td style="padding-bottom: 1px;"> <input type="text" name="boarTitle" class="input-xlarge" id="input11" style="padding-top: 8px; padding-bottom: 0px;"> </td>
+            <td style="padding-bottom: 1px;"> <input type="text" name="boardTitle" class="input-xlarge" id="boardTitle" style="padding-top: 8px; padding-bottom: 0px;"> </td>
           </tr>
           <tr>
             <td colspan="4"> <textarea rows="20" cols="6" style="width: 830px;" name="boardContent"></textarea></td>

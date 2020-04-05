@@ -126,7 +126,7 @@
 		 			 <tbody>
 			          <tr onclick="location.href='QDetail.bo?boardNum=${QList.boardNum}&status=<%=status%>'">
 			            <td>${QList.boardNum}</td>
-			            <td>${QList.boarTitle}</td>
+			            <td>${QList.boardTitle}</td>
 			            <td>${QList.boardWriter}</td>
 			 			<td><%=status%></td>
 			 			<td>${QList.boardRegTime}</td>

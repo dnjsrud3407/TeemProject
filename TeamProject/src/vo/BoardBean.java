@@ -168,13 +168,13 @@ public class BoardBean {
 	}
 	
 	//사용자 1:1 문의 답변 목록 
-	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+	public BoardBean(int boardNum, int kID,String boardWriter,String boardTitle,String boardContent,
 			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID) {
 		super();
 		this.boardNum = boardNum;
 		this.kID = kID;
 		this.boardWriter = boardWriter;
-		this.boardTitle = boarTitle;
+		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.boardReRef = boardReRef;
 		this.boardReLev = boardReLev;
