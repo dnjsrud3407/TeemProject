@@ -36,37 +36,26 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
-	<style type="text/css">
-	
-	 .btn2{border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
-	
-	</style>
 	
 	<style type="text/css">
 	
-	
-	
-	#neamam{border-top: none; 
-	border-left: none;
-	 border-right: none;}
-	
-	
-	#neamam2{
-	border-top:solid;
-	}
-	
-	
-	
-	
-	
-	
+	 .btn2 {border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
+	 
+	#orderTable {text-align: center; border-bottom: 2px solid #D9D4D4; border-top: hidden; height: 3.5em; background-color:#f5f5f5 }
 	
 	</style>
+	
+	
+	
+
+
+
+	
+	
   </head>
 <body>
-
 <!-- header -->
-<jsp:include page="top.jsp"></jsp:include>
+<jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
 
 <!-- Header End====================================================================== -->
@@ -74,7 +63,12 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-	<jsp:include page="/member/left.jsp"></jsp:include>
+
+
+<jsp:include page="/member/left.jsp"></jsp:include>
+
+
+
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
@@ -111,59 +105,53 @@
 			</form>
 		  </td>
 		  </tr>
-	</table>	
-	 -->
-
-
-		<c:if test="${orderBean!=null}">
-		  
-			
-			<form>
-	<table class="table table-bordered" style="border-top: none; border-left: none;">
-              <thead style="border-top: none;">
-                <tr style="border-top: none;">
-                  <th  id="neamam" colspan="2">배송회원정보</th>
+	</table>		 -->
+								<c:set value="-1" var="orderNum"></c:set>
+<c:if test="${orderList!=null}">
+	<c:forEach var="list" items="${orderList}" varStatus="status">
+<%-- 			  <c:if test="${list.orderNum eq list.order_ID}"></c:if> --%>
+			<table class="table table-bordered" style="vertical-align: middle;">
+			 <c:if test="${orderNum != list.orderNum}">
+              <thead>
+			  
+                <tr>
+                  <th colspan="4" id="orderTable">주문번호  ${list.orderNum}</th>
+                  <th id="orderTable">상태</th>
 				</tr>
-              </thead>
+              </thead> 
               <tbody>
+            			  <c:set value="${list.orderNum}" var="orderNum"></c:set>
+			</c:if>
                 <tr>
+                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
+                  <td style="border-left: none;">상품명:${list.bookTitle}<br>상품옵션:어쩌구<br>주문번호:${list.orderNum}<br>주문일시:${list.orderTime}</td>
+                  <td><span class="label">쿠폰</span> ${list.coupon_name} <br> <span class="label">포인트</span>  ${list.pointValue} <br><span class="label">총금액</span>${total}</td>
+				 <!--  <td> -->
+				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				 <!--  </td> -->
+                  <td>
+                   <div class="btn2"><a href="OrderDetail.mo?orderNum=${list.orderNum}">주문내역</a></div>
+                   <div class="btn2"><a href="">구매완료</a></div>
+                   <div class="btn2"><a href="">배송조회(api로할지 모양만띄울지 고민)</a></div>
+                   <div class="btn2"><a href="OrderExchange.mo">반품신청</a></div> <!-- order_tb테이블의 orderStatus의 값에 따라 보여지는게 다를것 -->
+                   <div class="btn2"><a href="">교환신청</a></div> <!-- order_tb테이블의 orderStatus의 값에 따라 보여지는게 다를것 -->
+                   <div class="btn2"><a href="">상품평</a></div>
+                  </td>
+                 <td>
+                   <div class="btn2"><a href="">구매취소</a></div> <!-- order_tb테이블의 orderStatus의 값에 따라 보여지는게 다를것 -->
+                 </td>
                 </tr>
-                <tr>
-                  <td>주문번호</td>
-                  <td>${orderBean.orderNum}</td>
-                </tr> 
-                <tr>
-                  <td id="neamam2">주문자</td>
-                  <td id="neamam2">${orderBean.u_name}</td>
-                </tr>
-                <tr>
-                  <td>주문자휴대폰</td>
-                  <td>${orderBean.phone_num}</td>
-                </tr>
-                <tr>
-                  <td>주문자 ID</td>
-                  <td>${orderBean.order_id}</td>
-                </tr>
-                <tr>
-                  <td>주문자이메일</td>
-                  <td>${orderBean.email}</td>
-                </tr>
-                <tr>
-                  <td>받으시는분</td>
-                  <td>${orderBean.orderAddress}</td>
-                </tr>
-                <tr>
-                  <td>배송지</td>
-                  <td>${orderBean.address2}</td>
-                </tr>
-                <tr>
-                  <td>요청사항</td>
-                  <td>요청사항</td>
-                </tr>
-   
+            
 				</tbody>
             </table>
-		</form>
+		
+		</c:forEach>
+</c:if>
+		   
+		   
+		   
+		   
+		   
             <table class="table table-bordered">
 			<tbody>
 				<!--  <tr>
@@ -179,45 +167,10 @@
 				</form> -->
 			<!-- 	</td>
                 </tr> -->
+				
 			</tbody>
 			</table>
 			
-						<form>
-	<table class="table table-bordered" style="border-top: none;">
-              <thead style="border-right: none;">
-                <tr style="border-right: none;">
-                  <th id="neamam" colspan="3">주문상품목록</th>
-				</tr>
-              </thead>
-              <tbody>
-              <tr>
-              <td id="neamam2">상품명      ${orderBean.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
-              </tr>
-                <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/><br> 
-                  상품옵션:${orderBean.bookTitle}  <b style="color: red;">${orderBean.bookEA}개</b><br>
-                                           출판사: ${orderBean.bookPublisher}       
-                 
-                  </td>
-                  
-                  <td><br>
-          <span class="label">금액</span><b>  ${orderBean.bookPrice} 원</b><br>         
-          <span class="label">쿠폰</span>    ${orderBean.coupon_name} <br>
-          <span class="label">포인트</span>    ${orderBean.pointValue} <br>
-          <span class="label">배송비</span>    2500원 <br>
-               
-                   </td>
-                  <td><b>${total} 원</b></td>
-                </tr>
-                  <tr>
-                  <td colspan="3" style="text-align: right;">총 주문금액 : <b>${total} 원</b>
-                  </td>
-                </tr>
-				</tbody>
-            </table>
-		</form>
-         
-		</c:if>	
 		<!-- 	<table class="table table-bordered">
 			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
 			 <tr> 

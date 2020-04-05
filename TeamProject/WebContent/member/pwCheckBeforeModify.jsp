@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
+
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -34,6 +36,12 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
+	
+	<style type="text/css">
+	
+	
+	
+	</style>
 
 <script type="text/javascript">
 	function checkId(id) {
@@ -91,22 +99,81 @@
 </script>	
   </head>
 <body>
-
-<jsp:include page="/member/top.jsp"></jsp:include>
+<div id="header">
+<div class="container">
+<div id="welcomeLine" class="row">
+    <div class="span6"></div>
+    <div class="span6">
+    <div class="pull-right">
+    <a href="AdminMain.adm">관리자</a> | 
+        <a href="Login.me">로그인</a> |
+        <a href="JoinForm.me">회원가입</a> |
+        <a href="member.jsp">마이페이지</a> |
+        <a href="helpCenter.jsp">고객센터</a>
+        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+    </div>
+    </div>
+</div>
+<!-- Navbar ================================================== -->
+<div id="logoArea" class="navbar">
+<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+</a>
+  <div class="navbar-inner">
+    <a class="brand" href="index.ㅓ네"><img src="themes/images/logo.png" alt="Bookshop"/></a>
+<!--    검색하는 창 -->
+    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
+        <input id="srchFld" class="srchTxt" type="text" />
+        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
+    </form>
+    <ul id="topMenu" class="nav">
+     <li><a href="">로드맵</a></li>
+     <li><a href="BookList.book">교재구매</a></li>
+     <li><a href="NoticeList.bo">이벤트</a></li>
+    </ul>
+  </div>
+</div>
+</div>
+</div>
+<!-- 	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a> -->
+<!-- 	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" > -->
+<!-- 		  <div class="modal-header"> -->
+<!-- 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
+<!-- 			<h3>Login Block</h3> -->
+<!-- 		  </div> -->
+<!-- 		  <div class="modal-body"> -->
+<!-- 			<form class="form-horizontal loginFrm"> -->
+<!-- 			  <div class="control-group">								 -->
+<!-- 				<input type="text" id="inputEmail" placeholder="Email"> -->
+<!-- 			  </div> -->
+<!-- 			  <div class="control-group"> -->
+<!-- 				<input type="password" id="inputPassword" placeholder="Password"> -->
+<!-- 			  </div> -->
+<!-- 			  <div class="control-group"> -->
+<!-- 				<label class="checkbox"> -->
+<!-- 				<input type="checkbox"> Remember me -->
+<!-- 				</label> -->
+<!-- 			  </div> -->
+<!-- 			</form>		 -->
+<!-- 			<button type="submit" class="btn btn-success">Sign in</button> -->
+<!-- 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
+<!-- 		  </div> -->
 
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-	<jsp:include page="/member/left.jsp"></jsp:include>
+	 <jsp:include page="/member/left.jsp"></jsp:include>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Registration</li>
+		<li class="active">회원탈퇴</li>
     </ul>
-	<h3> Registration</h3>	
+	<h3>회원탈퇴</h3>	
 	<div class="well">
 	<!--
 	<div class="alert alert-info fade in">
@@ -121,8 +188,11 @@
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-	<form class="form-horizontal" action="ModifyProAction.me?uID=${memberBean.uID}" method="post">
-		<h4>Your personal information</h4>
+	<form class="form-horizontal" action="ModifyFormAction.me" method="post">
+		<h4 style="border-bottom: 1px solid gray; text-align: center; line-height: 200%">고객님의 개인정보 보호를 위해 본인확인을 진행합니다.<br>
+비밀번호를 입력해주세요.
+
+		</h4>
 		<div class="control-group">
 <!-- 		<label class="control-label">Title <sup>*</sup></label> -->
 		<div class="controls">
@@ -134,85 +204,17 @@
 <!-- 		</select> -->
 		</div>
 		</div>
-		<div class="control-group">
-			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
-			<div class="controls">
-			  <input type="text" id="inputId" value="${memberBean.uID}" name="uID" onkeyup="checkId(this)" required="required" readonly="readonly">
-			  <span id="checkIdResult"></span>
-			</div>
-		 </div>
+	
 		 <div class="control-group">
-			<label class="control-label" for="inputPassword">비밀번호 변경 <sup>*</sup></label>
+			<label class="control-label" for="inputPassword" style="position: relative; top: 2px; left: 90px">비밀번호 <sup></sup></label>
 			<div class="controls">
-			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)" required="required">
+			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)" required="required" style="position: relative; top: -18px; left: 90px"><button type="submit" id="submitButton" class="btn btn-primary" style="margin:20px; position: relative; top: -18px; left: 90px">확인</button>
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>
-		 <div class="control-group">
-			<label class="control-label" for="inputName">이름 <sup>*</sup></label>
-			<div class="controls">
-			  <input type="text" id="inputName" value="${memberBean.u_name}" name="u_name" required="required">
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="address">Address<sup>*</sup></label>
-			<div class="controls">
-			  <input type="text" id="address" value="${memberBean.address}" name="address" required="required"/> <span>Street address, P.O. box, company name, c/o</span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="mobile">Mobile Phone<sup>*</sup></label>
-			<div class="controls">
-			  <input type="text" id="mobile" value="${memberBean.phone_num}" name="phone_num" required="required"/> 
-			</div>
-		</div>	
-		<div class="control-group">
-		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
-		<div class="controls">
-		  <input type="text" id="input_Email" value="${memberBean.email}" name="email" required="required">
-		</div>
-	  </div>	  
 	
-		
-
-	<div class="alert alert-block alert-error fade in">
-		<button type="button" class="close" data-dismiss="alert">×</button>
-		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-	 </div>	
-
-		<h4>Additional information</h4>
-		<div class="control-group">
-
-		<div class="controls">
-
-		</div>
-		</div>	
-		<div class="control-group">
-			<label class="control-label" for="address2">Address (Line 2)</label>
-			<div class="controls">
-			  <input type="text" id="address2" value="${memberBean.address2}" name="address2"/> <span>Apartment, suite, unit, building, floor, etc.</span>
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<label class="control-label" for="phone">Home phone</label>
-			<div class="controls">
-			  <input type="text" id="phone" value="${memberBean.tell_num}" name="tell_num"/> <span>You must register at least one phone number</span>
-			</div>
-		</div>
-		
-		
-		
-	<p><sup>*</sup>Required field</p>
-	
-	<div class="control-group">
-			<div class="controls">
-				<input type="hidden" name="email_create" value="1">
-				<input type="hidden" name="is_new_customer" value="1">
-				<input class="btn btn-large btn-success" type="submit" value="Register" />
-			</div>
-		</div>		
 	</form>
+	
 </div>
 
 </div>
@@ -255,6 +257,4 @@
     <script src="themes/js/jquery.lightbox-0.5.js"></script>
 </body>
 </html>
-
-
 

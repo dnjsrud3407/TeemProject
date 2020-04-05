@@ -284,6 +284,240 @@ public MemberDAO() {}
 //		return memberList;
 //	}
 	
+	//회원정보 수정&정보 보기
+	public MemberBean getMemberInfo(String uID) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberBean memberBean=null;
+		
+		try {
+			
+			String sql = "select * from user where uID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1,uID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				memberBean=new MemberBean(
+						rs.getString("uID"),
+						rs.getString("pw"),
+						rs.getString("u_name"),
+						rs.getString("address"),
+						rs.getString("phone_num"),
+						rs.getString("email"),
+						rs.getString("tell_num"),
+						rs.getString("address2"),
+						rs.getInt("point"),
+						rs.getInt("grade"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return memberBean;
+	}
+
 	
+	
+	
+	
+	//회원정보수정
+	public int memberInfoModify(MemberBean memberBean) {
+		System.out.println("memberDAO.memberInfoModify(MemberBean memberBean)");
+		PreparedStatement pstmt = null;
+		int modifySuccess=0;
+		
+		try {
+			
+			String sql = "update user set uID=?,pw=?,u_name=?,address=?,phone_num=?,email=?,tell_num=?,address2=? where uID=?";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,memberBean.getuID());
+			pstmt.setString(2,memberBean.getPw());
+			pstmt.setString(3,memberBean.getU_name());
+			pstmt.setString(4,memberBean.getAddress());
+			pstmt.setString(5,memberBean.getPhone_num());
+			pstmt.setString(6,memberBean.getEmail());
+			pstmt.setString(7,memberBean.getTell_num());
+			pstmt.setString(8,memberBean.getAddress2());
+			pstmt.setString(9,memberBean.getuID());
+			
+			modifySuccess=pstmt.executeUpdate();
+			
+		  System.out.println(modifySuccess);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return modifySuccess;
+		
+	}
+
+	//회원탈퇴시 비밀번호체크&삭제
+	public int checkPass(String uID, String pw) {
+		int pwCheck=0;
+		System.out.println("memberDAO.checkPass(String uID, String pw)");
+		PreparedStatement pstmt = null;
+		
+		
+		try {
+		
+				String sql="delete from user where uID=? and pw=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1,uID);
+				pstmt.setString(2,pw);
+				pwCheck=pstmt.executeUpdate();
+		
+			System.out.println(pwCheck);
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		return pwCheck;
+	}
+
+	
+	//회원정보 수정시 비밀번호 체크
+	public int checkPass2(String uID, String pw) {
+		int pwCheck=0;
+		System.out.println("memberDAO.checkPass2(String uID, String pw)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+		
+				String sql="select * from user where uID=? and pw=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1,uID);
+				pstmt.setString(2,pw);
+				rs=pstmt.executeQuery();
+		
+				if (rs.next()) {
+					pwCheck=1;
+					System.out.println(pwCheck);
+				}else {
+					pwCheck=0;
+					System.out.println(pwCheck);
+				}
+				
+		
+				
+				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		
+		return pwCheck;
+	}
+
+	
+	//쿠폰정보조회
+	public ArrayList<MemberBean> getCouponInfo(String uID) {
+		System.out.println("memberDAO.getCouponInfo(String uID)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberBean memberBean = null;
+		ArrayList<MemberBean> couponInfo = null;
+		
+		try {
+			
+			String sql="select cp.coupon_name,ch.couponStatus,cp.couponReg_date,cp.couponEnd_date"
+					+ " from couponhistory ch join user user on ch.uID=user.uID join coupon cp on ch.cID=cp.cID"
+					+ " where user.uID=?";
+
+			
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,uID);
+			rs=pstmt.executeQuery();
+			
+			couponInfo = new ArrayList<MemberBean>();
+			
+			while (rs.next()) {
+				
+				memberBean = new MemberBean(
+						rs.getString("coupon_name"),
+						rs.getString("couponStatus"),
+						rs.getDate("couponReg_date"),
+						rs.getDate("couponEnd_date"));
+
+				couponInfo.add(memberBean);
+			}
+		
+			 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+//			close(pstmt);
+//			close(rs);
+		}
+		
+		return couponInfo;
+	}
+
+	
+	//포인트 
+	public ArrayList<MemberBean> getPointInfo(String uID) {
+		System.out.println("memberDAO.getPointInfo(String uID)");
+		
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberBean memberBean = null;
+		ArrayList<MemberBean> pointInfo = null;
+		
+		try {
+			
+			String sql="select * from pointhistory where ownerID=?";
+			
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,uID);
+			rs=pstmt.executeQuery();
+			
+			pointInfo = new ArrayList<MemberBean>();
+			
+			while (rs.next()) {
+					
+			memberBean = new MemberBean(
+					rs.getInt("pID"),
+					rs.getString("ownerID"),
+					rs.getDate("pointRegTime"),
+					rs.getString("pointContent"),
+					rs.getInt("pointValue"),
+					rs.getInt("pointAction")
+				
+					);
+			
+			pointInfo.add(memberBean);
+	
+			}//while문
+			
+					
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return pointInfo;
+		
+	}	
 
 }

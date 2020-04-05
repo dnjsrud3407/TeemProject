@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-    
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,40 +39,136 @@
 	 .btn2{border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
 	
 	</style>
-	
-	<style type="text/css">
-	
-	
-	
-	#neamam{border-top: none; 
-	border-left: none;
-	 border-right: none;}
-	
-	
-	#neamam2{
-	border-top:solid;
-	}
-	
-	
-	
-	
-	
-	
-	
-	</style>
   </head>
 <body>
-
-<!-- header -->
-<jsp:include page="top.jsp"></jsp:include>
-<!-- header -->
-
+<div id="header">
+<div class="container">
+<div id="welcomeLine" class="row">
+	<div class="span6"><strong> </strong></div>
+	<div class="span6">
+	<div class="pull-right">
+        <a href="Login.me">로그인</a> |
+        <a href="JoinForm.me">회원가입</a> |
+        <a href="mypage.jsp">마이페이지</a> |
+        <a href="helpCenter.jsp">고객센터</a>
+		<a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	</div>
+	</div>
+</div>
+<!-- Navbar ================================================== -->
+<div id="logoArea" class="navbar">
+<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+	<span class="icon-bar"></span>
+</a>
+  <div class="navbar-inner">
+    <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+		<form class="form-inline navbar-search" method="post" action="products.html" >
+		<input id="srchFld" class="srchTxt" type="text" />
+		  <select class="srchTxt">
+			<option>All</option>
+			<option>CLOTHES </option>
+			<option>FOOD AND BEVERAGES </option>
+			<option>HEALTH & BEAUTY </option>
+			<option>SPORTS & LEISURE </option>
+			<option>BOOKS & ENTERTAINMENTS </option>
+		</select> 
+		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+    </form>
+    <ul id="topMenu" class="nav pull-right">
+	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
+	 <li class=""><a href="normal.html">Delivery</a></li>
+	 <li class=""><a href="contact.html">Contact</a></li>
+	 <li class="">
+	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
+	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
+			<h3>Login Block</h3>
+		  </div>
+		  <div class="modal-body">
+			<form class="form-horizontal loginFrm">
+			  <div class="control-group">								
+				<input type="text" id="inputEmail" placeholder="Email">
+			  </div>
+			  <div class="control-group">
+				<input type="password" id="inputPassword" placeholder="Password">
+			  </div>
+			  <div class="control-group">
+				<label class="checkbox">
+				<input type="checkbox"> Remember me
+				</label>
+			  </div>
+			</form>		
+			<button type="submit" class="btn btn-success">Sign in</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		  </div>
+	</div>
+	</li>
+    </ul>
+  </div>
+</div>
+</div>
+</div>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-	<jsp:include page="/member/left.jsp"></jsp:include>
+	<div id="sidebar" class="span3">
+
+		<ul id="sideManu" class="nav nav-tabs nav-stacked">
+			<li class="subMenu open"><a style="text-align: center; height: 80px "> MY PAGE<br>마이페이지<br><br>[고객님]! 어서오세요<a class="" href="#" style="float: left;">정보수정 </a> </a>
+			<li class="subMenu open"><a style="text-align: center; clear: both;"> 나의 쇼핑 리스트 [230]</a>
+	 		<ul>
+				<li><a class="active" href="OrderList.mo"><i class="icon-chevron-right"></i>주문내역 </a></li>
+				
+				<li><a href="products.html"><i class="icon-chevron-right"></i>배송현황</a></li>
+				<li><a href="products.html"><i class="icon-chevron-right"></i>취소한 주문</a></li>
+				<li><a href="products.html"><i class="icon-chevron-right"></i>반품한 주문</a></li>
+				<li><a href="products.html"><i class="icon-chevron-right"></i>교환중인 상품</a></li>
+				</ul>
+			</li>
+			<li class="subMenu"><a>내 정보 관리</a>
+			<ul style="display:none">
+				<li><a href="products.html"><i class="icon-chevron-right"></i>내정보수정</a></li>
+				<li><a href="products.html"><i class="icon-chevron-right"></i>쿠폰/포인트 조회</a></li>
+				<li><a href="products.html"><i class="icon-chevron-right"></i>나의상품후기</a></li>	  <!--내꺼아님  -->										
+				<li><a href="products.html"><i class="icon-chevron-right"></i>1:1문의내역</a></li>
+				<li><a href="products.html"><i class="icon-chevron-right"></i>상품문의내역</a></li>	  <!--내꺼아님  -->										
+				<li><a href="products.html"><i class="icon-chevron-right"></i>찜한상품</a></li>	  <!--내꺼아님  -->											
+				<li><a href="products.html"><i class="icon-chevron-right"></i>나의상품평</a></li>	  <!--내꺼아님  -->											
+				<li><a href="products.html"><i class="icon-chevron-right"></i>회원탈퇴</a></li>     <!--내꺼아님  -->	
+			</ul>
+			</li>
+			</li>
+	<!-- 		<li><a href="products.html">HEALTH & BEAUTY [18]</a></li>
+			<li><a href="products.html">SPORTS & LEISURE [58]</a></li>
+			<li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li> -->
+		</ul>
+		<br/>
+	 	 <!--  <div class="thumbnail" style="background-color: #807D7D;">
+		 	<img src="..themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera"/>
+			<div class="caption">
+			  <h5 style="text-align: center; color: #FFFAFA">마이페이지</h5>
+				<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+			</div>
+		  </div><br/> -->
+			<div class="thumbnail">
+				<img src="themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
+				<div class="caption">
+				  <h5>최근본 상품?</h5>
+				    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
+				</div>
+			  </div><br/> 
+<!-- 			<div class="thumbnail">
+				<img src="..themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
+				<div class="caption">
+				  <h5>Payment Methods</h5>
+				</div>
+			  </div> -->
+ </div>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
@@ -111,59 +205,79 @@
 			</form>
 		  </td>
 		  </tr>
-	</table>	
-	 -->
-
-
-		<c:if test="${orderBean!=null}">
-		  
-			
+	</table>		 -->
 			<form>
-	<table class="table table-bordered" style="border-top: none; border-left: none;">
-              <thead style="border-top: none;">
-                <tr style="border-top: none;">
-                  <th  id="neamam" colspan="2">배송회원정보</th>
+	<table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="2">상품명</th>
+                  <th>포인트 및 금액</th>
+                  <th>상태</th>
+				  <th>취소</th>
 				</tr>
               </thead>
               <tbody>
                 <tr>
+                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
+                  <td style="border-left: none;">상품명:어쩌구<br>상품옵션:어쩌구<br>주문번호:어쩌구<br>주문일시:어쩌고</td>
+                  <td>MASSA AST<br/>Color : black, Material : metal</td>
+				 <!--  <td> -->
+				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				 <!--  </td> -->
+                  <td>
+                   <div class="btn2"><a href="">주문내역</a></div>
+                   <div class="btn2"><a href="">구매완료</a></div>
+                   <div class="btn2"><a href="">배송조회</a></div>
+                   <div class="btn2"><a href="">상품평</a></div>
+                  </td>
+                 <td>
+                   <div class="btn2"><a href="">구매취소</a></div>
+                 </td>
                 </tr>
-                <tr>
-                  <td>주문번호</td>
-                  <td>${orderBean.orderNum}</td>
-                </tr> 
-                <tr>
-                  <td id="neamam2">주문자</td>
-                  <td id="neamam2">${orderBean.u_name}</td>
+               
+		<!-- 		<tr>
+                  <td> <img width="60" src="..themes/images/products/8.jpg" alt=""/></td>
+                  <td>MASSA AST<br/>Color : black, Material : metal</td>
+				  <td>
+					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"  size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+				  </td>
+                  <td>$7.00</td>
+                  <td>--</td>
+                  <td>$1.00</td>
+                  <td>$8.00</td>
+                </tr> -->
+				<!-- <tr>
+                  <td> <img width="60" src="..themes/images/products/3.jpg" alt=""/></td>
+                  <td>MASSA AST<br/>Color : black, Material : metal</td>
+				  <td>
+					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"  size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+				  </td>
+                  <td>$120.00</td>
+                  <td>$25.00</td>
+                  <td>$15.00</td>
+                  <td>$110.00</td>
+                </tr> -->
+				
+                <!-- <tr>
+                  <td colspan="6" style="text-align:right">Total Price:	</td>
+                  <td> $228.00</td>
+                </tr> -->
+				<!--  <tr>
+                  <td colspan="6" style="text-align:right">Total Discount:	</td>
+                  <td> $50.00</td>
                 </tr>
-                <tr>
-                  <td>주문자휴대폰</td>
-                  <td>${orderBean.phone_num}</td>
-                </tr>
-                <tr>
-                  <td>주문자 ID</td>
-                  <td>${orderBean.order_id}</td>
-                </tr>
-                <tr>
-                  <td>주문자이메일</td>
-                  <td>${orderBean.email}</td>
-                </tr>
-                <tr>
-                  <td>받으시는분</td>
-                  <td>${orderBean.orderAddress}</td>
-                </tr>
-                <tr>
-                  <td>배송지</td>
-                  <td>${orderBean.address2}</td>
-                </tr>
-                <tr>
-                  <td>요청사항</td>
-                  <td>요청사항</td>
-                </tr>
-   
+                 <tr>
+                  <td colspan="6" style="text-align:right">Total Tax:	</td>
+                  <td> $31.00</td>
+                </tr> -->
+				<!--  <tr>
+                  <td colspan="6" style="text-align:right"><strong>TOTAL ($228 - $50 + $31) =</strong></td>
+                  <td class="label label-important" style="display:block"> <strong> $155.00 </strong></td>
+                </tr> -->
 				</tbody>
             </table>
 		</form>
+		
             <table class="table table-bordered">
 			<tbody>
 				<!--  <tr>
@@ -179,45 +293,10 @@
 				</form> -->
 			<!-- 	</td>
                 </tr> -->
+				
 			</tbody>
 			</table>
 			
-						<form>
-	<table class="table table-bordered" style="border-top: none;">
-              <thead style="border-right: none;">
-                <tr style="border-right: none;">
-                  <th id="neamam" colspan="3">주문상품목록</th>
-				</tr>
-              </thead>
-              <tbody>
-              <tr>
-              <td id="neamam2">상품명      ${orderBean.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
-              </tr>
-                <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/><br> 
-                  상품옵션:${orderBean.bookTitle}  <b style="color: red;">${orderBean.bookEA}개</b><br>
-                                           출판사: ${orderBean.bookPublisher}       
-                 
-                  </td>
-                  
-                  <td><br>
-          <span class="label">금액</span><b>  ${orderBean.bookPrice} 원</b><br>         
-          <span class="label">쿠폰</span>    ${orderBean.coupon_name} <br>
-          <span class="label">포인트</span>    ${orderBean.pointValue} <br>
-          <span class="label">배송비</span>    2500원 <br>
-               
-                   </td>
-                  <td><b>${total} 원</b></td>
-                </tr>
-                  <tr>
-                  <td colspan="3" style="text-align: right;">총 주문금액 : <b>${total} 원</b>
-                  </td>
-                </tr>
-				</tbody>
-            </table>
-		</form>
-         
-		</c:if>	
 		<!-- 	<table class="table table-bordered">
 			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
 			 <tr> 

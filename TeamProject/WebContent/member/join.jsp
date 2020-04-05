@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +16,7 @@
 	-->
 	<!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
-
+	
 <!-- Bootstrap style --> 
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
@@ -97,6 +96,7 @@
     <div class="span6"></div>
     <div class="span6">
     <div class="pull-right">
+    <a href="AdminMain.adm">관리자</a> | 
         <a href="Login.me">로그인</a> |
         <a href="JoinForm.me">회원가입</a> |
         <a href="member.jsp">마이페이지</a> |
@@ -113,7 +113,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bookshop"/></a>
+    <a class="brand" href="index.ㅓ네"><img src="themes/images/logo.png" alt="Bookshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -215,14 +215,14 @@
 		<div class="control-group">
 			<label class="control-label" for="inputId">아이디 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="text" id="inputId" placeholder="아이디" name="uID" required="required" onkeyup="checkId(this)">
+			  <input type="text" id="inputId" placeholder="아이디" name="uID" onkeyup="checkId(this)" required="required">
 			  <span id="checkIdResult"></span>
 			</div>
 		 </div>
 		 <div class="control-group">
 			<label class="control-label" for="inputPassword">비밀번호 <sup>*</sup></label>
 			<div class="controls">
-			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" required="required"><!-- onkeyup="checkPasswd(this)" --> 
+			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)" required="required">
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>

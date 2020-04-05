@@ -25,7 +25,12 @@ public class BoardBean {
 	private int bookID;
 	private String bookTitle;
 	
-	
+//--boardfile TABLE------------------------------------	
+	private int fileNum;
+	private String originFileName;
+	private String storedFileName;
+	private String fileType;
+					
 	
 
 	private List<FileBean> fileList;
@@ -69,6 +74,8 @@ public class BoardBean {
 		this.boardReadcount = boardReadcount;
 		this.bookID = bookID;
 	}
+	
+	
 
 	// 문의 내역 불러올때 사용
 	public BoardBean(int boardNum, String boardWriter, String boardTitle, String boardContent,
@@ -119,6 +126,68 @@ public class BoardBean {
 		this.boardContent = boardContent;
 		this.fileList = fileList;
 	}
+
+	
+	//---사용자 1:1 문의 관련-------------------------------
+	
+	//사용자가 1:1 문의 등록
+	public BoardBean(int boardNum, int kID,String boardWriter,String boardTitle,String boardContent,
+			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,int bookID,String originFileName,String storedFileName) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.bookID = bookID;
+		this.originFileName = originFileName;
+		this.storedFileName = storedFileName;
+	}	
+	
+	
+	//사용자 1:1 문의 List 목록 
+	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boarTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.boardRegTime = boardRegTime;
+		this.bookID = bookID;
+		this.storedFileName = storedFileName;
+	}
+	
+	//사용자 1:1 문의 답변 목록 
+	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boarTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.boardRegTime = boardRegTime;
+		this.bookID = bookID;
+	}
+	
+	
+	
+
+
 
 	public int getBoardNum() {
 		return boardNum;
@@ -251,6 +320,54 @@ public class BoardBean {
 
 	public void setBookTitle(String bookTitle) {
 		this.bookTitle = bookTitle;
+	}
+
+
+
+	public int getFileNum() {
+		return fileNum;
+	}
+
+
+
+	public void setFileNum(int fileNum) {
+		this.fileNum = fileNum;
+	}
+
+
+
+	public String getOriginFileName() {
+		return originFileName;
+	}
+
+
+
+	public void setOriginFileName(String originFileName) {
+		this.originFileName = originFileName;
+	}
+
+
+
+	public String getStoredFileName() {
+		return storedFileName;
+	}
+
+
+
+	public void setStoredFileName(String storedFileName) {
+		this.storedFileName = storedFileName;
+	}
+
+
+
+	public String getFileType() {
+		return fileType;
+	}
+
+
+
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
 	}
 	
 }	
