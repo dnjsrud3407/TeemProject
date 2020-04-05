@@ -54,7 +54,6 @@ public class CartDAO {
 				cartBean.setBookPrice(rs.getInt("bookPrice"));
 				
 				cartList.add(cartBean);
-				System.out.println("상품번호 :" + cartBean.getCartNum());
 			}
 			
 		} catch (SQLException e) {
@@ -73,7 +72,6 @@ public class CartDAO {
 	public int addCart(BookBean bookBean, String uID, int qty) {
 		// TODO Auto-generated method stub
 		int cartAddResult = 0;
-		ArrayList<CartBean> cartList = new ArrayList<CartBean>();
 		String sql = "insert into cart values(?,?,?,?)";
 		
 		try {
@@ -85,16 +83,6 @@ public class CartDAO {
 			
 			cartAddResult = pstmt.executeUpdate();
 			
-			if(cartAddResult > 0) {
-				CartBean cartBean = new CartBean(
-						bookBean.getBookID(),
-						bookBean.getBookImage(),
-						bookBean.getBookTitle(),
-						bookBean.getBookPrice(),
-						qty);
-						
-				cartList.add(cartBean);
-			}	
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -107,6 +95,7 @@ public class CartDAO {
 	}
 
 
+	// 카트 상품 수량 변경
 	public int updateQtyCart(BookBean bookBean, String uID, int qty) {
 		// TODO Auto-generated method stub
 		int qtyUpdateResult = 0;
