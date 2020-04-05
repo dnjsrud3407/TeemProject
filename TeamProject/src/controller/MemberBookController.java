@@ -13,7 +13,8 @@ import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 
 import action.Action;
 import member.book.action.BookBuyProAction;
-import member.book.action.BookCartProAction;
+import member.book.action.BookCartAddAction;
+import member.book.action.BookCartListAction;
 import member.book.action.BookDetailAction;
 import member.book.action.BookLikeProAction;
 import member.book.action.BookListAcion;
@@ -197,14 +198,20 @@ public class MemberBookController extends HttpServlet {
 			}
 			
 		// 장바구니	
-		} else if(command.equals("/BookCart.book")) {
-			action = new BookCartProAction();
+		} else if(command.equals("/BookCartAdd.book")) {
+			action = new BookCartAddAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		} else if(command.equals("/BookCartList.book")) {
+			action = new BookCartListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}	
 		} else if(command.equals("/BookBuy.book")) {
 			action = new BookBuyProAction();
 			try {

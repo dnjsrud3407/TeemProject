@@ -222,13 +222,14 @@ boolean isLogin = false;
 				<h3>${book.bookTitle } </h3>
 				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
-				<form class="form-horizontal qtyFrm">
+				<form action="BookCartAdd.book" class="form-horizontal qtyFrm" method="post">
 				  <div class="control-group">
 					<label class="control-label"><span>${book.bookPrice }</span></label>
 					<div class="controls">
-					<input type="number" class="span1" placeholder="Qty."/>
+					<input type="number" class="span1" placeholder="Qty." name="qty"/>
+					<input type="hidden" name="bookID" value="${book.bookID }"/>
 				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookBuy.book'"> 구매하기</button>
-					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookCart.book?bookID=${book.bookID}'"> 장바구니 <i class=" icon-shopping-cart"></i></button>
+					  <button type="submit" class="btn btn-large btn-primary pull-right" > 장바구니 <i class=" icon-shopping-cart"></i></button>
 					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookLike.book'"> ♡ </button>	
 					</div>
 				  </div>
