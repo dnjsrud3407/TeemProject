@@ -66,6 +66,12 @@ public class FAQListAction implements Action {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		
+		ArrayList<String> k2List = boardService.getk2List(k1);
+		
+		// FAQ 카테고리 목록
+		request.setAttribute("k2List", k2List);
+		
+		
 		forward = new ActionForward();
 		forward.setPath("/admin/board/FAQList.jsp");
 		

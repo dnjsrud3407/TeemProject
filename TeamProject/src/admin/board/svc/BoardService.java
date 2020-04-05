@@ -205,6 +205,25 @@ public class BoardService {
 		return articleList;
 	}
 
+	public ArrayList<String> getk2List(String k1) {
+		ArrayList<String> k2List = null;
+		// 1. Connection 객체 가져오기
+		Connection con = getConnection(); // static import 가 아니라면  jdbcUtill.으로 호출(스태틱 메서드 호출 시)
+						
+		// 2. DAO 객체 가져오기(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+						
+		// 3. DAO 객체에 Connection 객체 전달하기
+		boardDAO.setConnection(con);
+				
+		// 4. DAO 객체의 selectArticleList() 메서드 실행
+		k2List = boardDAO.getk2List(k1);
+		
+		// 5. Connection 객체 반환하기
+		close(con);
+		return k2List;
+	}
+
 	
 
 	
