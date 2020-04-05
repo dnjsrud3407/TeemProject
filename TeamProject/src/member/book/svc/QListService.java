@@ -49,7 +49,7 @@ public class QListService {
 	public ArrayList<BoardBean> getQnaBoard(PageInfo pageInfo, int bookID) {
 		ArrayList<BoardBean> articleQnaList = null;
 		
-		System.out.println(bookID);
+		
 		Connection con = getConnection();
 		
 		BoardDAO boardDAO = BoardDAO.getInstance();
@@ -59,7 +59,7 @@ public class QListService {
 		articleQnaList = boardDAO.selectArticleList(pageInfo, bookID);
 		
 		for(int i=0; i<articleQnaList.size(); i++) {
-			System.out.println(articleQnaList.get(i).getBoardNum());
+			System.out.println("qnaboard"+articleQnaList.get(i).getBoardNum());
 		}
 
 		close(con);

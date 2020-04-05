@@ -13,14 +13,17 @@ import vo.ActionForward;
 import vo.BoardBean;
 
 public class QWriteProAcion implements Action {
-
+	
+	 
+	
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("QWriteProAcion");
 		ActionForward forward = null;
 		BoardBean bb = null;
 		
-		String k1 = "상품후기";
+		final String k1 = "상품문의";
+		
 
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		String boardWriter = request.getParameter("uID");

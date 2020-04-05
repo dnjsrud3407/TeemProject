@@ -23,8 +23,14 @@ public class BookDetailAction implements Action {
 		ActionForward forward = null;
 
 		// bookID
-		int bookID = Integer.parseInt(request.getParameter("bookID"));
-
+		int bookID = 0;
+		
+		if(request.getParameter("bookID") != null) {
+			bookID = Integer.parseInt(request.getParameter("bookID"));
+		}
+//		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		
+		
 		// 상품 상세보기//
 		BookDetailService bookDetailService = new BookDetailService();
 		BookBean book = bookDetailService.getArticle(bookID);
@@ -48,12 +54,12 @@ public class BookDetailAction implements Action {
 		pageInfo.setPage(page);
 		pageInfo.setLimit(limit);
 		pageInfo.setK1(k1);
-		System.out.println(bookID);
+		
 		ArrayList<BoardBean> articleQnaList = qListService.getQnaBoard(pageInfo, bookID);
 
 		// 가져온 book request 객체에 넣기
 		request.setAttribute("book", book);
-//		request.setAttribute("artcleQnaList", articleQnaList);
+		request.setAttribute("articleQnaList", articleQnaList);
 
 		forward = new ActionForward();
 		forward.setPath("./book/book.jsp");

@@ -67,13 +67,13 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("../BookList.book")) {
-			action = new BookListAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+//		} else if(command.equals("../BookList.book")) {
+//			action = new BookListAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
 		} else if(command.equals("/Book.book")) {
 			action = new BookDetailAction();
 			try {
@@ -142,12 +142,12 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		// 상품문의 폼	
 		} else if(command.equals("/QWriteForm.book")) {
 			forward = new ActionForward();
 			forward.setPath("./book/Q_write.jsp");
 			
 		} else if(command.equals("/QWritePro.book")) {
-			System.out.println(request.getParameter("bookID"));
 			action = new QWriteProAcion();
 			try {
 				forward = action.execute(request, response);
@@ -196,6 +196,7 @@ public class MemberBookController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		// 장바구니	
 		} else if(command.equals("/BookCart.book")) {
 			action = new BookCartProAction();
 			try {

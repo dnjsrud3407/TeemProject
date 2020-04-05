@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import member.account.action.OrderListAction;
 import member.order.action.ExchangeFormAction;
 import member.order.action.ExchangeProAction;
 import member.order.action.OrderCancelFormAction;
 import member.order.action.OrderCancelProAction;
 import member.order.action.OrderDeliveryAction;
 import member.order.action.OrderDetailAction;
+import member.order.action.OrderListAction;
 import member.order.action.OrderQListAction;
 import member.order.action.OrderRefundFormAction;
 import member.order.action.OrderRefundFormActionPro;
@@ -27,7 +27,7 @@ public class MemberOrderController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		
-		//��ǰ��ȸ �����ȸ 
+ 
 		
 		request.setCharacterEncoding("utf-8");
 		
@@ -44,7 +44,6 @@ public class MemberOrderController extends HttpServlet {
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}else if(command.equals("/OrderDetail.mo")) {//

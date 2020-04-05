@@ -56,12 +56,14 @@
 	    dateAfter = getFormatDate(dateAfter, "Today");
 	    $("#datepicker_Before").val(dateBefore);
 	    $("#datepicker_After").val(dateAfter);
+	    
+	    
 	});
 	
 	
 	// 현재 날짜 구하기
 	function getFormatDate(date, type){
-	    var year = date.getFullYear();        //yyyy
+	    var year = date.getFullYear();   //yyyy
 	    var month;
 	    var day;
 	    if(type == "Today") {
@@ -70,13 +72,20 @@
 	    } else if(type == "-7Day") {
 	    	month = date.getMonth()+1;
 	    	day = date.getDate()-7; 
-	    	if(day <= 0) {
+	    	if(day <= 0) {	// 현재가 2,4,6,8,9,11,1 월이라면
 	    		if(month == 2 || month == 4 || month == 6 || month == 8 || month == 9 || month == 11 || month == 1) {
 		    		month = date.getMonth();
 		    		day = 31 + day;	// 음수값 만큼 31에서 뺌(1,3,5,7,8,10,12월은 31일 까지)
-	    		} else if(month == 3) {
-	    			day = 28 + day;
-	    		} else {
+	    		} else if(month == 3) {	// 현재가 3 월이라면
+	    			month = date.getMonth();
+	    			// 윤달이라면
+	    			if(year % 4 == 0) {
+	    				day = 29 + day;
+	    			} else {
+		    			day = 28 + day;
+	    			}
+	    		} else {	// 그 밖의 달
+	    			month = date.getMonth();
 	    			day = 30 + day;
 	    		}
 	    	}
@@ -94,9 +103,24 @@
 	
 	// 날짜 바꾸기(type = 'Today', '-7Day', '-1Month', '-3Month')
 	function changeDate(type) {
-		var date = new Date();
-		date = getFormatDate(date, type);
-		$("#datepicker_Before").val(date);
+		var dateBefore = new Date();
+	    var dateAfter = new Date();
+	    
+		dateBefore = getFormatDate(dateBefore, type);
+		$("#datepicker_Before").val(dateBefore);
+		
+		// 현재 날짜도 다시
+		dateAfter = getFormatDate(dateAfter, "Today");
+		$("#datepicker_After").val(dateAfter);
+	}
+	
+	function searchList() {
+		var boardRegTime_Before = $("#datepicker_Before").val();
+		var boardRegTime_After = $("#datepicker_After").val();
+		if(boardRegTime_Before == "" || boardRegTime_After == "") {
+			alert('날짜를 설정해주세요');
+			return false;
+		}
 	}
 </script>
 <style type="text/css">
@@ -323,7 +347,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="QSearchPro.abook" method="post" id="searchForm">
+              <form action="QSearchPro.abook" method="post" id="searchForm" onsubmit="return searchList()">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
                   	<th style="width: 15%;">문의 접수일</th>
@@ -340,13 +364,14 @@
                   	<th style="width: 15%;">처리상태</th>
                   	<td>
 						<select name="answer" id="answer" class="checkbox_padding">
-				     		<option value="false">미답변</option>
+				     		<option value="all">전체</option>
+				     		<option value="false">답변대기</option>
 				     		<option value="true">답변완료</option>
 				  		</select>
                   	</td>
                   </tr>
                 </table>
-                <input type="submit" value="검색" id="search" onclick="search2()">
+                <input type="submit" value="검색" id="search">
                 <input type="reset" id="btnReset" value="초기화">
               </form>
               </div>

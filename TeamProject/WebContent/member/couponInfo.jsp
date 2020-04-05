@@ -1,3 +1,6 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.util.Date"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -39,34 +42,21 @@
 	<style type="text/css">
 	
 	 .btn2{border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
+	 #coupontable{table-layout: fixed; width: 800px;}
 	
 	</style>
 	
-	<style type="text/css">
 	
 	
-	
-	#neamam{border-top: none; 
-	border-left: none;
-	 border-right: none;}
-	
-	
-	#neamam2{
-	border-top:solid;
-	}
+
+
+
 	
 	
-	
-	
-	
-	
-	
-	</style>
   </head>
 <body>
-
 <!-- header -->
-<jsp:include page="top.jsp"></jsp:include>
+<jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
 
 <!-- Header End====================================================================== -->
@@ -74,12 +64,14 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
+
 	<jsp:include page="/member/left.jsp"></jsp:include>
+	
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
     </ul>
-	<h3>  주문 내역 <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  쿠폰 정보 <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	<!-- <table class="table table-bordered"> -->
 		<!-- <tr><th> I AM ALREADY REGISTERED  </th></tr>
@@ -111,60 +103,124 @@
 			</form>
 		  </td>
 		  </tr>
-	</table>	
-	 -->
-
-
-		<c:if test="${orderBean!=null}">
-		  
+	</table>		 -->
 			
-			<form>
-	<table class="table table-bordered" style="border-top: none; border-left: none;">
-              <thead style="border-top: none;">
-                <tr style="border-top: none;">
-                  <th  id="neamam" colspan="2">배송회원정보</th>
+	
+<div id="grids">
+<ul class="nav nav-tabs" id="myTab">
+  <li><a href="#one" data-toggle="tab">사용가능</a></li>
+  <li class="active"><a href="#two" data-toggle="tab">사용완료 / 기간만료</a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="tab-pane" id="one">
+  <div class="row-fluid">
+	 <div class="span12">
+	  <p>
+	  
+
+	  
+	  	<c:if test="${couponInfo!=null}">
+		 <c:forEach var="couponInfo" items="${couponInfo}" varStatus="status">  
+		 	 <c:if test="${couponInfo.couponStatus eq '사용안함'}">
+<!-- 		 	 and couponInfo.couponReg_date-couponInfo.couponEnd_date=0 -->
+			<table class="table table-bordered" id="coupontable">
+              <thead>
+                <tr>
+                  <th colspan="2">쿠폰종류</th>
+                  <th>쿠폰정보</th>
+                  <th>유효기간</th>
 				</tr>
-              </thead>
+              </thead> 
               <tbody>
                 <tr>
+                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
+                  <td style="border-left: none;"><span class="label">쿠폰</span>${couponInfo.coupon_name}<br>쿠폰상태:${couponInfo.couponStatus}<br>
+                  <td><span class="label">쿠폰내용</span> ${couponInfo.coupon_name} <br></td>
+				 <!--  <td> -->
+				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				 <!--  </td> -->
+                  <td>
+               		${couponInfo.couponReg_date} ~ ${couponInfo.couponEnd_date}
+                 </td>
                 </tr>
-                <tr>
-                  <td>주문번호</td>
-                  <td>${orderBean.orderNum}</td>
-                </tr> 
-                <tr>
-                  <td id="neamam2">주문자</td>
-                  <td id="neamam2">${orderBean.u_name}</td>
-                </tr>
-                <tr>
-                  <td>주문자휴대폰</td>
-                  <td>${orderBean.phone_num}</td>
-                </tr>
-                <tr>
-                  <td>주문자 ID</td>
-                  <td>${orderBean.order_id}</td>
-                </tr>
-                <tr>
-                  <td>주문자이메일</td>
-                  <td>${orderBean.email}</td>
-                </tr>
-                <tr>
-                  <td>받으시는분</td>
-                  <td>${orderBean.orderAddress}</td>
-                </tr>
-                <tr>
-                  <td>배송지</td>
-                  <td>${orderBean.address2}</td>
-                </tr>
-                <tr>
-                  <td>요청사항</td>
-                  <td>요청사항</td>
-                </tr>
-   
+            
+	
 				</tbody>
             </table>
-		</form>
-            <table class="table table-bordered">
+		   </c:if>
+		   </c:forEach>
+		   </c:if>
+	  
+	  
+	  
+	
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  </p>
+	  </div>
+  </div>
+  </div>
+  <div class="tab-pane active" id="two">
+  <div class="row-fluid">
+	  <div class="span12">
+		<p>
+	<c:if test="${couponInfo!=null}">
+		 <c:forEach var="couponInfo" items="${couponInfo}" varStatus="status">  
+		     <c:if test="${couponInfo.couponStatus eq '사용' or couponInfo.couponStatus eq '만료'}">
+			<table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="2">쿠폰종류</th>
+                  <th>쿠폰정보</th>
+                  <th>유효기간</th>
+				</tr>
+              </thead> 
+              <tbody>
+                <tr>
+                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
+                  <td style="border-left: none;"><span class="label">쿠폰</span>${couponInfo.coupon_name}<br>쿠폰상태:${couponInfo.couponStatus}<br>
+                  <td><span class="label">쿠폰내용</span> ${couponInfo.coupon_name}</td>
+				 <!--  <td> -->
+				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				 <!--  </td> -->
+                  <td>
+               				${couponInfo.couponReg_date} ~ ${couponInfo.couponEnd_date}
+                  </td>
+                 
+                </tr>
+            
+	
+				</tbody>
+            </table>
+		   </c:if>
+		   </c:forEach>
+		   </c:if>
+		
+		</p>
+	  </div>
+	
+	  </div>
+  </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+        <table class="table table-bordered">
 			<tbody>
 				<!--  <tr>
                   <td>  -->
@@ -179,45 +235,10 @@
 				</form> -->
 			<!-- 	</td>
                 </tr> -->
+				
 			</tbody>
 			</table>
 			
-						<form>
-	<table class="table table-bordered" style="border-top: none;">
-              <thead style="border-right: none;">
-                <tr style="border-right: none;">
-                  <th id="neamam" colspan="3">주문상품목록</th>
-				</tr>
-              </thead>
-              <tbody>
-              <tr>
-              <td id="neamam2">상품명      ${orderBean.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
-              </tr>
-                <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/><br> 
-                  상품옵션:${orderBean.bookTitle}  <b style="color: red;">${orderBean.bookEA}개</b><br>
-                                           출판사: ${orderBean.bookPublisher}       
-                 
-                  </td>
-                  
-                  <td><br>
-          <span class="label">금액</span><b>  ${orderBean.bookPrice} 원</b><br>         
-          <span class="label">쿠폰</span>    ${orderBean.coupon_name} <br>
-          <span class="label">포인트</span>    ${orderBean.pointValue} <br>
-          <span class="label">배송비</span>    2500원 <br>
-               
-                   </td>
-                  <td><b>${total} 원</b></td>
-                </tr>
-                  <tr>
-                  <td colspan="3" style="text-align: right;">총 주문금액 : <b>${total} 원</b>
-                  </td>
-                </tr>
-				</tbody>
-            </table>
-		</form>
-         
-		</c:if>	
 		<!-- 	<table class="table table-bordered">
 			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
 			 <tr> 

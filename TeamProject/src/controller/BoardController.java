@@ -53,7 +53,7 @@ public class BoardController extends HttpServlet {
 		// 서블릿 주소에 따라 각각 다른 작업을 수행
 		if (command.equals("/QWriteForm.bo")) {//
 			forward = new ActionForward();
-			forward.setPath("/QWriteForm.jsp");
+			forward.setPath("//board/QWriteForm.jsp");
 		} else if(command.equals("/WriteFormPro.bo")) {//
 			action = new MemberQWriteFormProAction();
 			try {

@@ -25,7 +25,7 @@ public class BoardDAO {
 	
 	private Connection con = null;
 	private PreparedStatement pstmt = null;
-	private ResultSet rs = null;
+	private ResultSet rs = null; 
 
 	public void setConnection(Connection con) {
 		this.con = con;
@@ -829,5 +829,313 @@ public class BoardDAO {
 		
 		return updateCount;
 	}
+
+	// 상품 문의 글 검색한 게시글 개수 구하기
+	public int getSearchListCount(int kID, String boardRegTime_Before, String boardRegTime_After, String searchSql) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "SELECT COUNT(*) FROM board WHERE kID=?"
+				+ " AND boardReLev=? AND DATE(boardRegTime) BETWEEN ? AND ?" + searchSql;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, kID);	
+			pstmt.setInt(2, 0);		// 답변인 글만 가져옴
+			pstmt.setString(3, boardRegTime_Before);
+			pstmt.setString(4, boardRegTime_After);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(rs != null) {close(rs);}
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return listCount;
+	}
+
+	// 상품 문의 글 검색한 게시글 리스트
+	public ArrayList<BoardBean> getSearchBoardList(int kID, String boardRegTime_Before, String boardRegTime_After,
+			String searchSql, int page, int limit) {
+		ArrayList<BoardBean> qSearchList = new ArrayList<BoardBean>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT board.*, book.bookTitle FROM board"
+        		+ " JOIN book ON board.bookID = book.bookID"
+        		+ " WHERE kID=? AND boardReLev=?"
+        		+ " AND DATE(boardRegTime) BETWEEN ? AND ?" + searchSql + " LIMIT ?,?";
+		int startRow = (page - 1) * limit;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, kID);
+			pstmt.setInt(2, 0);
+			pstmt.setString(3, boardRegTime_Before);
+			pstmt.setString(4, boardRegTime_After);
+			pstmt.setInt(5, startRow);
+			pstmt.setInt(6, limit);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardBean board = new BoardBean(
+						rs.getInt("boardNum"), 
+						rs.getString("boardWriter"), 
+						rs.getString("boardTitle"), 
+						rs.getString("boardContent"), 
+						rs.getTimestamp("boardRegTime"), 
+						rs.getInt("boardReRef"), 
+						rs.getInt("boardReLev"), 
+						rs.getInt("boardReSeq"), 
+						rs.getInt("bookID"), 
+						rs.getString("bookTitle")
+						);
+				qSearchList.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(rs != null) {close(rs);}
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return qSearchList;
+	}
+	
+	
+	
+	//-----------사용자 1:1 문의 글 등록----------------------------------------------
+    //헷갈리지 않게 1:1 = OneOnOne 
+	public Boolean insertOneOnOne(String kakegoire, BoardBean boardBean) {
+		Boolean isSuccess = false;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int num=0;
+		
+		System.out.println("BoardDAO.insertOneOnOne(String kakegoire, BoardBean boardBean)");
+		
+		
+		try {
+			
+			String sql = "select max(boardNum) from board";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				num=rs.getInt("max(boardNum)")+1; 
+			}
+			
+			
+			sql="insert into board value(?,?,?,?,?,now(),?,?,?,0,null)";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1,num); 
+			pstmt.setInt(2, boardBean.getkID()); 
+			pstmt.setString(3,boardBean.getBoardWriter());
+			pstmt.setString(4, boardBean.getBoardTitle());
+			pstmt.setString(5, boardBean.getBoardContent());
+			pstmt.setInt(6,num);//re_ref
+			pstmt.setInt(7,0);//re_lev
+			pstmt.setInt(8,0);//re_seq
+			pstmt.executeUpdate();
+			
+			
+			sql="insert into boardfile value(null,?,?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,boardBean.getOriginFileName());
+			pstmt.setString(2, boardBean.getStoredFileName());
+			pstmt.setString(3, boardBean.getFileType());
+			pstmt.setInt(4,num);//re_ref
+			pstmt.setInt(5,boardBean.getkID());//re_ref
+			pstmt.setString(6, boardBean.getBoardWriter());
+			pstmt.executeUpdate();
+			
+			isSuccess=true;
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+			close(rs);
+		}
+		return isSuccess;
+	}
+	
+	
+	
+	// 1:1문의 게시글 가져오기 
+
+	public ArrayList<BoardBean> getOneonOneQList(String uID) {
+		
+		System.out.println("BoardDAO.getOneonOneQList(String uID)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<BoardBean> QList = null;
+		int num = 0; //첫번째 join문이 true라면 boardNum의 값을 저장시킬 변수
+		
+		try {
+			
+			String sql="select *\r\n" + 
+					"from board b left outer join boardfile f\r\n" + 
+					"on b.boardNum = f.board_boardNum where b.boardWriter=? or b.boardWriter='admin'";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uID);
+			rs = pstmt.executeQuery();
+			
+			
+			BoardBean boardBean = null;
+			QList = new ArrayList<BoardBean>();
+			
+			
+			while (rs.next()) {
+				boardBean = new BoardBean(
+						rs.getInt("boardNum"),
+						rs.getInt("kID"), 
+						rs.getString("boardWriter"),
+						rs.getString("boardTitle"),
+						rs.getString("boardContent"), 
+						rs.getInt("boardReRef"),
+						rs.getInt("boardReLev"), 
+						rs.getInt("boardReSeq"), 
+						rs.getInt("boardReadcount"),
+						rs.getTimestamp("boardRegTime"),
+						rs.getInt("bookID"),
+						rs.getString("storedFileName"));
+				QList.add(boardBean);
+			}
+
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rs);
+				
+			}
+		
+			return QList;
+		}
+
+	//1:1문의  상세내용보기
+	public BoardBean getOneonOnegetArticle(int boardNum) {
+		System.out.println("BoardDAO.getOneonOnegetArticle(int boardNum)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardBean boardBean = null;
+		
+		try {
+			
+			String sql="select *\r\n" + 
+					"from board b left outer join boardfile f\r\n" + 
+					"on b.boardNum = f.board_boardNum where b.boardNum=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			rs = pstmt.executeQuery();
+			
+			
+			if (rs.next()) {
+				boardBean = new BoardBean(
+						rs.getInt("boardNum"),
+						rs.getInt("kID"), 
+						rs.getString("boardWriter"),
+						rs.getString("boardTitle"),
+						rs.getString("boardContent"), 
+						rs.getInt("boardReRef"),
+						rs.getInt("boardReLev"), 
+						rs.getInt("boardReSeq"), 
+						rs.getInt("boardReadcount"),
+						rs.getTimestamp("boardRegTime"),
+						rs.getInt("bookID"),
+						rs.getString("storedFileName"));
+			}//if
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return boardBean;
+	}
+
+	//1:1문의  답변
+	public BoardBean getOneonOnegetAnswer(int boardNum) {
+		System.out.println("BoardDAO.getOneonOnegetAnswer(int boardNum)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		BoardBean boardBean2 = null;
+
+		try {
+			
+			String sql="select * from board where boardReRef=? and boardWriter='admin'";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			rs = pstmt.executeQuery();
+			
+			
+			if (rs.next()) {
+				boardBean2 = new BoardBean(
+						rs.getInt("boardNum"),
+						rs.getInt("kID"), 
+						rs.getString("boardWriter"),
+						rs.getString("boarTitle"),
+						rs.getString("boardContent"), 
+						rs.getInt("boardReRef"),
+						rs.getInt("boardReLev"), 
+						rs.getInt("boardReSeq"), 
+						rs.getInt("boardReadcount"),
+						rs.getTimestamp("boardRegTime"),
+						rs.getInt("bookID"));
+				System.out.println(	rs.getInt("boardNum"));
+			}else {
+				System.out.println("답변없음");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return boardBean2;
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
 
