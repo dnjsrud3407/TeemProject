@@ -325,14 +325,14 @@
 		  <!-- 상세 설정 -->
           <div class="card shadow mb-4">
           	<div class="card-header py-3">
-              <h5 class="m-0 font-weight-bold text-primary">상품 문의</h5>
+              <h5 class="m-0 font-weight-bold text-primary">상품 후기</h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="QSearchPro.abook" method="post" id="searchForm">
+              <form action="ReviewSearchPro.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
-                  	<th style="width: 15%;">문의 접수일</th>
+                  	<th style="width: 15%;">후기 접수일</th>
                   	<td>
                   		<input type="button" value="오늘" onclick="changeDate('Today')">
                   		<input type="button" value="1주일전" onclick="changeDate('-7Day')">
@@ -366,7 +366,7 @@
             <div class="card-body">
               <div class="table-responsive">
               <div>
-		  		* 문의제목을 클릭하시면 상세한 문의내역 작성/수정이 가능합니다.
+		  		* 후기제목을 클릭하시면 상세한 후기내역 작성/수정이 가능합니다.
 		  	  </div>
               <form action="DeleteForm.abook" id="searchBoard" method="post">
                 <c:if test="${!empty qSearchList && pageInfo.listCount > 0}">
@@ -374,10 +374,11 @@
                     <tr>
                       <th><input type="checkbox"></th>
                       <th>접수번호</th>
-                      <th>접수일</th>
-                      <th>문의제목</th>
+                      <th>작성일</th>
+                      <th>후기제목</th>
                       <th>처리상태</th>
                       <th>처리일</th>
+                      <th>상품번호</th>
                       <th>상품명</th>
                       <th>고객ID</th>
                     </tr>
@@ -387,17 +388,17 @@
                       <td>${board.boardReRef }</td>
                       	<c:if test="${board.boardReSeq == 0 }">
                       		<td>${board.boardRegTime }</td>
-	                      	<td><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
+	                      	<td><a href="ReviewWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td class="red">답변대기</td>
                       		<td>-</td>
                       	</c:if>
                       	<c:if test="${board.boardReSeq > 0 }">
                       		<td>${board.boardRegTime }</td>
-                      		<td><a href="QDetail.abook?boardReRef=${board.boardReRef }&page=${pageInfo.page}">${board.boardTitle }</a></td>
+                      		<td><a href="ReviewDetail.abook?boardReRef=${board.boardReRef }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td>답변완료</td>
                       		<td>처리된시간미완성</td>
                       	</c:if>
-                      	
+                      <td>${board.bookID }</td>
                       <td>${board.bookTitle }</td>
                       <td>${board.boardWriter }</td>
                     </tr>
@@ -405,13 +406,13 @@
                 </table>
                 <section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="QSearchPro.abook?page=${pageInfo.startPage-pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[이전]</a>&nbsp;
+                		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage-pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="QSearchPro.abook?page=${i }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">${i }</a>&nbsp;
+                		<a href="ReviewSearchPro.abook?page=${i }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">${i }</a>&nbsp;
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="QSearchPro.abook?page=${pageInfo.startPage+pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[다음]</a>
+                		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage+pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[다음]</a>
                 	</c:if>
                 </section>
                 </c:if>

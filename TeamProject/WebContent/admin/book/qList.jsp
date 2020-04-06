@@ -396,6 +396,7 @@
                       <th>문의제목</th>
                       <th>처리상태</th>
                       <th>처리일</th>
+                      <th>상품번호</th>
                       <th>상품명</th>
                       <th>고객ID</th>
                     </tr>
@@ -415,7 +416,7 @@
                       		<td>답변완료</td>
                       		<td>처리된시간미완성</td>
                       	</c:if>
-                      	
+                      <td>${board.bookID }</td>
                       <td>${board.bookTitle }</td>
                       <td>${board.boardWriter }</td>
                     </tr>

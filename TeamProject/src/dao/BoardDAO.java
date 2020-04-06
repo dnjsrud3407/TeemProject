@@ -756,7 +756,7 @@ public class BoardDAO {
 	}
 
 	// 상품 문의 답변 등록 성공 시 문의 글 Seq+1 시키기
-	public int updateReSeq(int boardReRef) {
+	public int updateReSeqPlus(int boardReRef) {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;
 		String sql = "UPDATE board SET boardReSeq=boardReSeq+1 WHERE boardNum=?";
@@ -867,7 +867,8 @@ public class BoardDAO {
 		String sql = "SELECT board.*, book.bookTitle FROM board"
         		+ " JOIN book ON board.bookID = book.bookID"
         		+ " WHERE kID=? AND boardReLev=?"
-        		+ " AND DATE(boardRegTime) BETWEEN ? AND ?" + searchSql + " LIMIT ?,?";
+        		+ " AND DATE(boardRegTime) BETWEEN ? AND ?" + searchSql 
+        		+ " ORDER BY boardReSeq asc, boardReRef desc LIMIT ?,?";
 		int startRow = (page - 1) * limit;
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -904,7 +905,41 @@ public class BoardDAO {
 		return qSearchList;
 	}
 	
+	// 상품 문의 답변 글 삭제하기
+	public int deleteBoard(int boardNum) {
+		int deleteBoard = 0;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM board WHERE boardNum=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			deleteBoard = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return deleteBoard;
+	}
 	
+	// 상품 문의 답변 등록 성공 시 문의 글 Seq-1 시키기
+	public int updateReSeqMinus(int boardReRef) {
+		int insertCount = 0;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE board SET boardReSeq=boardReSeq-1 WHERE boardNum=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardReRef);
+			insertCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return insertCount;
+	}
 	
 	//-----------사용자 1:1 문의 글 등록----------------------------------------------
     //헷갈리지 않게 1:1 = OneOnOne 
@@ -1111,6 +1146,10 @@ public class BoardDAO {
 		
 		return boardBean2;
 	}
+
+	
+
+	
 
 
 	

@@ -47,7 +47,7 @@ public class CartDAO {
 			if(rs.next()) {
 				cartBean = new CartBean();
 				cartBean.setCartNum(rs.getInt("cartNum"));
-				cartBean.set
+//				cartBean.set
 			}
 			
 		} catch (SQLException e) {

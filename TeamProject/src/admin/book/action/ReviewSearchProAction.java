@@ -11,7 +11,7 @@ import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
 
-public class QSearchProAction implements Action {
+public class ReviewSearchProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -44,7 +44,7 @@ public class QSearchProAction implements Action {
     		page = Integer.parseInt(stringPage);
     	}
     	
-    	int kID = 102;
+    	int kID = 103;
     	
 		QSearchService qSearchService = new QSearchService();
 		// 게시글 개수

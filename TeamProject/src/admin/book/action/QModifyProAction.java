@@ -17,7 +17,7 @@ public class QModifyProAction implements Action {
 		
 		// 페이지, 문의글 ReRef, boardNum 파라미터와 답변 제목,내용 불러오기
 		String page = request.getParameter("page");
-		System.out.println("page:"+page);
+		
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");
 		int boardReRef = Integer.parseInt(request.getParameter("boardReRef"));
