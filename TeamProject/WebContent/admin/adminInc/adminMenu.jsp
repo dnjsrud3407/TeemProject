@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!-- Sidebar ================================================== -->
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href='<c:url value="/AdminMain.adm"/>'>
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -89,12 +90,12 @@
           <div class="bg-white py-2 collapse-inner rounded">
           
                       <h6 class="collapse-header">공지사항/이벤트</h6>
-            <a class="collapse-item" href='<c:url value="/admin/notice.adb"/>'>공지사항</a>
-            <a class="collapse-item" href='<c:url value="/admin/event.adb"/>'>이벤트</a>
+            <a class="collapse-item" href='<c:url value="/notice.adb"/>'>공지사항</a>
+            <a class="collapse-item" href='<c:url value="/event.adb"/>'>이벤트</a>
             <a class="collapse-item" href="">배너관리(미구현)</a>
           
             <h6 class="collapse-header">FAQ/1:1문의 관리</h6>
-            <a class="collapse-item" href='<c:url value="/admin/FAQ.adb"/>'>FAQ 목록</a>
+            <a class="collapse-item" href='<c:url value="/FAQ.adb"/>'>FAQ 목록</a>
             <a class="collapse-item" href="register.html">1:1문의 목록(미답변)</a>
             <a class="collapse-item" href="forgot-password.html">1:1문의 목록(전체)</a>
           </div>
