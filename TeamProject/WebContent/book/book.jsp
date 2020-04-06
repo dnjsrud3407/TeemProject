@@ -585,7 +585,7 @@ boolean isLogin = false;
 				<br class="clr">
 					 </div>
 					 <div class="tab-pane fade" id="review">review</div>
-					 <div class="tab-pane active " id="bookqna">
+					 <div class="tab-pane active" id="bookqna">
 					 	<div>
 					 		
 						    <h3><a href='<c:url value ="/Book.book?bookID=${book.bookID}"/>'>상품 문의하기</a></h3>    
@@ -617,14 +617,14 @@ boolean isLogin = false;
 					           <th style="width:100px">답변상태</th>
 					           <th style="text-align: center">제목</th>
 					           <th style="width:100px">문의자</th>
-					           <th style="width:100px">등록일</th>
-					           
+					           <th style="width:100px">등록일</th>  
 					         </tr>
 					       </thead>
 					       <tbody>
 							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
 					       		<tr>
-									<td>${qna.boardNum }</td>
+									<!-- 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 ) -->
+									<td>${pageInfo.listCount -((pageInfo.page-1)* pageInfo.pageBlock + status.index)}</td>
 									<td><c:if test="${0 < qna.boardReSeq}"> 
 	           		 					답변완료 </c:if> 답변전</td>
 					           		<td>${qna.boardTitle }</td>
@@ -635,8 +635,26 @@ boolean isLogin = false;
 							</tbody>
 					    </table>
 					 </div>
-		</div>
-          </div>
+					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+						<div class="pagination">
+							<ul>
+							<li><c:if test="${pageInfo.startPage > pageBlock }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage-pageInfo.pageBlock }"/>'>&lsaquo;</a></c:if></li>
+							<li>
+							<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a>
+							</c:forEach></li>
+<!-- 							<li><a href="#bookqna&page=2">2</a></li> -->
+<!-- 							<li><a href="#bookqna#&page=3">3</a></li> -->
+<!-- 							<li><a href="#bookqna#&page=4">4</a></li> -->
+							<li><a href="#">...</a></li>
+							<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+							</ul>
+							</div>
+							<br class="clr"/>
+						</div>
+          			</div>
 
 	</div>
 </div>

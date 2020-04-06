@@ -41,7 +41,9 @@ public class BookCartAddAction implements Action {
 		System.out.println("사용자이름 :" + uID);
 		
 //		// 카트에 상품 추가
-		 bookCartProService.addCart(bookBean, uID, qty);
+		ArrayList<CartBean> cartList = bookCartProService.addCart(bookBean, uID, qty);
+		
+		session.setAttribute("cartList", cartList);
 		
 		forward = new ActionForward(); 
 		forward.setPath("BookCartList.book"); 

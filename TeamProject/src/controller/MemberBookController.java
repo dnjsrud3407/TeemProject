@@ -197,7 +197,7 @@ public class MemberBookController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		// 장바구니	
+		// 장바구니 추가	
 		} else if(command.equals("/BookCartAdd.book")) {
 			action = new BookCartAddAction();
 			try {
@@ -205,6 +205,7 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+		// 장바구니 리스트	
 		} else if(command.equals("/BookCartList.book")) {
 			action = new BookCartListAction();
 			try {

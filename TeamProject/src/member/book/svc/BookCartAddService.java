@@ -30,7 +30,8 @@ public class BookCartAddService {
 		return bookBean;
 	}
 
-	public void addCart(BookBean bookBean, String uID, int qty) {
+	// 카트 추가 메서드
+	public ArrayList<CartBean> addCart(BookBean bookBean, String uID, int qty) {
 		// TODO Auto-generated method stub
 		ArrayList<CartBean> cartList = null;
 		int cartAddResult = 0; // 카트 insert 성공 여부 변수
@@ -95,8 +96,10 @@ public class BookCartAddService {
 //		for (int i = 0; i<cartList.size(); i++) {
 //			System.out.println("장바구니 " + cartList.get(i).getBookTitle());
 //		}
-	
+		
 		close(con);
+		
+		return cartList;
 	}
 
 }
