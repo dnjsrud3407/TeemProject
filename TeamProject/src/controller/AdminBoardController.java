@@ -10,35 +10,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.action.FAQDeleteProAction;
-import board.action.FAQDetailAction;
-import board.action.FAQListAction;
-import board.action.FAQModifyFormAction;
-import board.action.FAQModifyProAction;
-import board.action.FAQWriteProAction;
-import board.action.NoticeDeleteProAction;
-import board.action.NoticeDetailAction;
-import board.action.NoticeListAction;
-import board.action.NoticeModifyFormAction;
-import board.action.NoticeModifyProAction;
-import board.action.NoticeWriteProAction;
-import board.action.MemberQDeleteProAction;
-import board.action.MemberQModifyFormAction;
-import board.action.MemberQModifyProAction;
-import board.action.MemberQWriteFormProAction;
-import board.action.MemberQListAction;
-import board.action.QDeleteProAction;
-import board.action.QDetailAction;
-import board.action.QListAction;
-import board.action.QModifyFormAction;
-import board.action.QModifyProAction;
-import board.action.QWriteFormAction;
-import board.action.QWriteProAction;
-import board.action.MemberQdetailAction;
+import admin.board.action.FAQDeleteProAction;
+import admin.board.action.FAQDetailAction;
+import admin.board.action.FAQModifyFormAction;
+import admin.board.action.FAQModifyProAction;
+import admin.board.action.FAQWriteProAction;
+import admin.board.action.NoticeDeleteProAction;
+import admin.board.action.NoticeDetailAction;
+import admin.board.action.NoticeModifyProAction;
+import admin.board.action.NoticeWriteProAction;
+import admin.board.action.FAQListAction;
+import admin.board.action.NoticeListAction;
+import admin.board.action.NoticeModifyFormAction;
+//import admin.board.action.MemberQListAction;
+import admin.board.action.QWriteProAction;
+//import admin.board.action.MemberQdetailAction;
 import vo.ActionForward;
 
-@WebServlet("*.bo")
-public class BoardController extends HttpServlet {
+@WebServlet("*.adb")
+public class AdminBoardController extends HttpServlet {
 	
     protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		
@@ -51,120 +41,31 @@ public class BoardController extends HttpServlet {
 		ActionForward forward = null;
 		
 		// 서블릿 주소에 따라 각각 다른 작업을 수행
-		if (command.equals("/QWriteForm.bo")) {//
+		if (command.equals("/admin/QAnswerWriteForm.adb")) {//	1:1 문의 답변 작성 폼
 			forward = new ActionForward();
-			forward.setPath("//board/QWriteForm.jsp");
-		} else if(command.equals("/WriteFormPro.bo")) {//
-			action = new MemberQWriteFormProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QModify.bo")) {//1:1문의 수정폼
+			forward.setPath("/admin/QWriteForm.jsp");
 			
-			action = new MemberQModifyFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QModifyPro.bo")) {//1:1문의 수정
+		} else if(command.equals("/admin/QList.adb")) {//1:1 문의 목록 보기 (미답변 글 위주)
 			
-			action = new MemberQModifyProAction();
+//			action = new MemberQListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/QDeletePro.bo")) {//1:1문의 삭제
+		} else if(command.equals("/admin/Qdetail.adb")) {//1:1 문의 내용 보기
 			
-			action = new MemberQDeleteProAction();
+//			action = new MemberQdetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/QWriteList.bo")) {//1:1 문의내역보기
-			
-			action = new MemberQListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/Qdetail.bo")) {//1:1 문의내역보기
-			
-			action = new MemberQdetailAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QList.bo")) { // ---------------------- 관리자 Area --- 1:1 
-			// 1:1 목록 QListAction()
-			action = new QListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QWriteForm.bo")) {
-            // --- 1:1 답변 작성 폼 (사용자가 작성한 내용을 불러와야 함)
-			
-//		    forward = new ActionForward();
-//            forward.setPath("./board/QWriteForm.jsp");
-            action = new QWriteFormAction();
-            try {
-                forward = action.execute(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if(command.equals("/QWritePro.bo")) {
-            // --- 1:1 작성 작업 QWriteProAction()
-            action = new QWriteProAction();
-            try {
-                forward = action.execute(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if(command.equals("/QDetail.bo")) {
-			// 1:1 답변 상세보기
-			action = new QDetailAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QModifyForm.bo")) {
-			// 1:1 글 수정하기 폼 (사용자가 작성한 내용 & 관리자가 작성한 내용 불러옴)
-			action = new QModifyFormAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QModifyPro.bo")) {
-			// 1:1 글 수정 작업 
-			action = new QModifyProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QDeleteForm.bo")) {
-			// 1:1 글 삭제 폼
-		    forward = new ActionForward();
-            forward.setPath("./board/QDeleteForm.jsp");
-		} else if(command.equals("/QDeletePro.bo")) {
-            // --- 1:1 글 삭제 작업 
-            action = new QDeleteProAction();
-            try {
-                forward = action.execute(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if(command.equals("/FAQList.bo")) { // --- FAQ
+            
+            //
+            // FAQ 관련
+            //
+        } else if(command.equals("/admin/FAQ.adb")) { // --- FAQ
 			// FAQ 목록 FAQListAction()
 			action = new FAQListAction();
 			try {
@@ -172,11 +73,11 @@ public class BoardController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/FAQWriteForm.bo")) {
+		} else if(command.equals("/admin/FAQWriteForm.adb")) {
             // --- FAQ 작성 폼 
             forward = new ActionForward();
             forward.setPath("./board/FAQWriteForm.jsp");
-        } else if(command.equals("/FAQWritePro.bo")) {
+        } else if(command.equals("/admin/FAQWritePro.adb")) {
             // --- FAQ 작성 작업 FAQWriteProAction()
             action = new FAQWriteProAction();
             try {
@@ -184,7 +85,7 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQDetail.bo")) {
+        } else if(command.equals("/admin/FAQDetail.adb")) {
             // --- FAQ 상세보기
             action = new FAQDetailAction();
             try {
@@ -192,7 +93,7 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQModifyForm.bo")) {
+        } else if(command.equals("/admin/FAQModifyForm.adb")) {
             // --- FAQ 수정 폼 (관리자가 작성한 내용 불러옴)
             action = new FAQModifyFormAction();
             try {
@@ -200,7 +101,7 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQModifyPro.bo")) {
+        } else if(command.equals("/admin/FAQModifyPro.adb")) {
             // --- FAQ 수정 작업 
             action = new FAQModifyProAction();
             try {
@@ -208,11 +109,11 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQDeleteForm.bo")) {
+        } else if(command.equals("/admin/FAQDeleteForm.adb")) {
             // --- FAQ 삭제 폼
             forward = new ActionForward();
             forward.setPath("./board/FAQDeleteForm.jsp");
-        } else if(command.equals("/FAQDeletePro.bo")) {
+        } else if(command.equals("/admin/FAQDeletePro.adb")) {
             // --- FAQ 삭제 작업 
             action = new FAQDeleteProAction();
             try {
@@ -220,7 +121,11 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeList.bo")) { // --- Notice
+            
+            //
+            // 공지 관련
+            //
+        } else if(command.equals("/admin/notice.adb")) { // --- Notice
             // Notice 목록 NoticeListAction()
             action = new NoticeListAction();
             try {
@@ -228,11 +133,11 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeWriteForm.bo")) {
+        } else if(command.equals("/admin/noticeWrite.adb")) {
             // --- Notice 작성 폼 
             forward = new ActionForward();
             forward.setPath("./board/NoticeWriteForm.jsp");
-        } else if(command.equals("/NoticeWritePro.bo")) {
+        } else if(command.equals("/admin/noticeWritePro.adb")) {
             // --- Notice 작성 작업 NoticeWriteProAction()
             action = new NoticeWriteProAction();
             try {
@@ -240,7 +145,7 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeDetail.bo")) {
+        } else if(command.equals("/admin/noticeDetail.adb")) {
             // --- Notice 상세보기
             action = new NoticeDetailAction();
             try {
@@ -248,7 +153,7 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeModifyForm.bo")) {
+        } else if(command.equals("/admin/noticeModify.adb")) {
             // --- Notice 수정 폼 (관리자가 작성한 내용 불러옴)
             action = new NoticeModifyFormAction();
             try {
@@ -256,7 +161,7 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeModifyPro.bo")) {
+        } else if(command.equals("/admin/noticeModifyPro.adb")) {
             // --- Notice 수정 작업 
             action = new NoticeModifyProAction();
             try {
@@ -264,11 +169,27 @@ public class BoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeDeleteForm.bo")) {
+        } else if(command.equals("/admin/NoticeDeleteForm.adb")) {
             // --- Notice 삭제 폼
             forward = new ActionForward();
             forward.setPath("./board/NoticeDeleteForm.jsp");
-        } else if(command.equals("/NoticeDeletePro.bo")) {
+        } else if(command.equals("/admin/noticeDeletePro.adb")) {
+            // --- Notice 삭제 작업 
+            action = new NoticeDeleteProAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/admin/event.adb")) {
+            // --- Notice 삭제 작업 
+            action = new NoticeDeleteProAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/admin/eventWrite.adb")) {
             // --- Notice 삭제 작업 
             action = new NoticeDeleteProAction();
             try {

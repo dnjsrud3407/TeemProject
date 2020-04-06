@@ -5,7 +5,7 @@
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="AdminMain.adm">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-laugh-wink"></i>
         </div>
@@ -87,9 +87,16 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="QList.bo">1:1답변목록(답변/수정/삭제)</a>
-            <a class="collapse-item" href="FAQ_List.bo">FAQ목록(답변/수정/삭제)</a>
-            <a class="collapse-item" href="Notice_List.bo">배너 - 공지사항/이벤트목록(작성/수정/삭제)</a>
+          
+                      <h6 class="collapse-header">공지사항/이벤트</h6>
+            <a class="collapse-item" href='<c:url value="/admin/notice.adb"/>'>공지사항</a>
+            <a class="collapse-item" href='<c:url value="/admin/event.adb"/>'>이벤트</a>
+            <a class="collapse-item" href="">배너관리(미구현)</a>
+          
+            <h6 class="collapse-header">FAQ/1:1문의 관리</h6>
+            <a class="collapse-item" href='<c:url value="/admin/FAQ.adb"/>'>FAQ 목록</a>
+            <a class="collapse-item" href="register.html">1:1문의 목록(미답변)</a>
+            <a class="collapse-item" href="forgot-password.html">1:1문의 목록(전체)</a>
           </div>
         </div>
       </li>

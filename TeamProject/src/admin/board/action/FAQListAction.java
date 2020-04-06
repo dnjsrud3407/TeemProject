@@ -20,15 +20,16 @@ public class FAQListAction implements Action {
 		
 		// PageInfo 객체 선언
 		PageInfo pageInfo = null; 
-		
+//		PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 		int page = 1; // 현재 페이지 번호
 		int limit = 10; // 한 페이지 당 출력할 게시물 수
-		// page 파라미터가 존재할 경우 파라미터에 전달된 데이터를 현재 페이지 번호로 대체
-		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page")); // 정수로 변환하여 저장
-		}
 		String k1 = "FAQ";
 		String k2 = request.getParameter("k2");
+		
+		// page 초기화
+		if(request.getParameter("page") != null ) {
+			page = Integer.parseInt(request.getParameter("page"));
+		}
 		
 		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		BoardService boardService = new BoardService();
@@ -65,8 +66,14 @@ public class FAQListAction implements Action {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		
+		ArrayList<String> k2List = boardService.getk2List(k1);
+		
+		// FAQ 카테고리 목록
+		request.setAttribute("k2List", k2List);
+		
+		
 		forward = new ActionForward();
-		forward.setPath("./board/FAQList.jsp");
+		forward.setPath("/admin/board/FAQList.jsp");
 		
 		return forward;
 	}

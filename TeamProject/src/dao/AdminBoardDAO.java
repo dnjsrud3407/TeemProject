@@ -600,6 +600,31 @@ public class AdminBoardDAO {
 		
 		return articleList;
 	}
+
+	
+	// FAQ 세부 카테고리 목록 가져오기
+	public ArrayList<String> getk2List(String k1) {
+		ArrayList<String> k2List = new ArrayList<String>();
+		
+		String sql = "SELECT k2 FROM kategorie WHERE k1=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, k1);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				k2List.add(rs.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs); close(pstmt);
+		}
+		
+		return k2List;
+	}
 	
 	
 	

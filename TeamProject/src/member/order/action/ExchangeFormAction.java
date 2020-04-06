@@ -16,6 +16,7 @@ public class ExchangeFormAction implements Action {
 		System.out.println("ExchangeFormAction");
 		
 		
+		//OrderListAction Service와ㅏ 같음 아직수정하진않을것
 		ExchangeFormService exchangeFormService = new ExchangeFormService();
 		
 		

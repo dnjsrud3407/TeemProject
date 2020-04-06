@@ -8,23 +8,27 @@ import static db.JdbcUtil.rollback;
 import java.sql.Connection;
 
 import dao.MemberDAO;
-import vo.MemberBean;
 
-public class ModifyProService {
+public class PwCheckBeforeModifyService {
 
-	public int memberInfoModify(MemberBean memberBean) {
+	public int checkPass(String uID, String pw) {
 		
-System.out.println("ModifyProService.memberInfoModify(MemberBean memberBea)");
+		System.out.println("PwCheckBeforeModifyService checkPass(String uID, String pw)");
 		
-		Connection con = getConnection();
+
+		int pwCheck =0;
+		
+		Connection con  = getConnection();
+		
 		MemberDAO dao = MemberDAO.getInstance();
+		
 		dao.setConnection(con);
 		
-		int modifySuccess=0;
 		
-		modifySuccess=dao.memberInfoModify(memberBean);
+		 pwCheck=dao.checkPass(uID,pw);
+		 
 		
-		if(modifySuccess > 0) {
+		if(pwCheck > 0) {
 			commit(con);
 		} else {
 			rollback(con);
@@ -32,7 +36,6 @@ System.out.println("ModifyProService.memberInfoModify(MemberBean memberBea)");
 		
 		close(con);
 		
-		return modifySuccess;
+		return pwCheck;
 	}
-
 }

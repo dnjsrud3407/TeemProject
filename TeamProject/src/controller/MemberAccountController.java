@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import member.account.action.CouponInfoAction;
 import member.account.action.DeleteProAction;
 import member.account.action.FindIdProAction;
 import member.account.action.FindPassProAction;
@@ -19,6 +20,7 @@ import member.account.action.LogoutProAction;
 import member.account.action.ModifyFormAction;
 import member.account.action.ModifyProAction;
 import member.account.action.OffInfoAction;
+import member.account.action.PointInfoAction;
 import vo.ActionForward;
 
 @WebServlet("*.me")
@@ -121,6 +123,38 @@ public class MemberAccountController extends HttpServlet {
 		
 	}else if(command.equals("/ModifyProAction.me")) {//
 		action = new ModifyProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/PwCheckBeforeModifyForm.me")) {//
+		forward=new ActionForward();
+		forward.setPath("/member/pwCheckBeforeModify.jsp");
+		try {
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/PwCheckBeforeModifyPro.me")) {//
+		action = new ModifyFormAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/CouponInfoAction.me")) {//
+		action = new CouponInfoAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/PointInfoAction.me")) {//
+		action = new PointInfoAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {

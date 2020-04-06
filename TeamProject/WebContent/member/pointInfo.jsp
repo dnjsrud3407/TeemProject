@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+
+
+
+
     
 
 <!DOCTYPE html>
@@ -20,6 +24,12 @@
 	<!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
+<!-- 	날짜선택 -->
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- 	날짜선택 -->
+
 <!-- Bootstrap style --> 
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
@@ -39,34 +49,59 @@
 	<style type="text/css">
 	
 	 .btn2{border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
-	
+	 #coupontable {table-layout: fixed; width: 800px;}
 	</style>
 	
-	<style type="text/css">
+	<style>
+/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
+.ui-datepicker-trigger{cursor: pointer;}
+/*datepicer input 롤오버 시 손가락 모양 표시*/
+.hasDatepicker{cursor: pointer;}
+</style>
+
+
+	<script type="text/javascript">
+	
+	//-------------------------날짜선택----------------------------
+<script>
+        $(function() {
+            //input을 datepicker로 선언
+            $("#datepicker").datepicker({
+                dateFormat: 'yy-mm-dd' //Input Display Format 변경
+                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
+                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
+                ,changeYear: true //콤보박스에서 년 선택 가능
+                ,changeMonth: true //콤보박스에서 월 선택 가능                
+                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
+                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
+                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
+                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
+                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
+                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
+                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
+                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
+                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
+                ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
+                ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
+            });                    
+            
+            //초기값을 오늘 날짜로 설정
+            $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
+        });
+    </script>
+	
+		
 	
 	
-	
-	#neamam{border-top: none; 
-	border-left: none;
-	 border-right: none;}
-	
-	
-	#neamam2{
-	border-top:solid;
-	}
+
+
+
 	
 	
-	
-	
-	
-	
-	
-	</style>
   </head>
 <body>
-
 <!-- header -->
-<jsp:include page="top.jsp"></jsp:include>
+<jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
 
 <!-- Header End====================================================================== -->
@@ -74,12 +109,14 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
+
 	<jsp:include page="/member/left.jsp"></jsp:include>
+	
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
     </ul>
-	<h3>  주문 내역 <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  포인트조회 <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	<!-- <table class="table table-bordered"> -->
 		<!-- <tr><th> I AM ALREADY REGISTERED  </th></tr>
@@ -111,60 +148,183 @@
 			</form>
 		  </td>
 		  </tr>
-	</table>	
-	 -->
-
-
-		<c:if test="${orderBean!=null}">
-		  
+	</table>		 -->
 			
-			<form>
-	<table class="table table-bordered" style="border-top: none; border-left: none;">
-              <thead style="border-top: none;">
-                <tr style="border-top: none;">
-                  <th  id="neamam" colspan="2">배송회원정보</th>
+			
+			
+	
+
+  
+  
+  	 
+		 	 
+<!-- 			<table class="table table-bordered"> -->
+<!--               <thead> -->
+<!--                 <tr> -->
+<!--                   <th colspan="2">보유 포인트</th> -->
+<!--                   <th>한 달 이내 소멸예정</th> -->
+<!--                   <th>유효기간</th> -->
+<!-- 				</tr> -->
+<!--               </thead>  -->
+<!--               <tbody> -->
+<!--                 <tr> -->
+<!--                   <td> </td> -->
+<!--                   <td style="border-left: none; font-size: 3em; text-align: center; ">여기가 총 포인트 -->
+<!--                   <td><span class="label">쿠폰</span> j <br> <span class="label">포인트</span> dd  <br><span class="label">총금액</span></td> -->
+<!-- 				  <td> -->
+<!-- 					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+<!-- 				  </td> -->
+<!--                   <td> -->
+               		   
+<!--                  </td> -->
+<!--                 </tr> -->
+            
+	
+<!-- 				</tbody> -->
+<!--             </table> -->
+		
+  
+  <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th colspan="2">보유포인트</th>
 				</tr>
-              </thead>
+              </thead> 
               <tbody>
                 <tr>
+                  <td style="text-align: center;"><b style="font-size: 3em; line-height: 2em;">${totalPoint}</b>원
+				 <!--  <td> -->
+				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
+				 <!--  </td> -->
+             
                 </tr>
-                <tr>
-                  <td>주문번호</td>
-                  <td>${orderBean.orderNum}</td>
-                </tr> 
-                <tr>
-                  <td id="neamam2">주문자</td>
-                  <td id="neamam2">${orderBean.u_name}</td>
-                </tr>
-                <tr>
-                  <td>주문자휴대폰</td>
-                  <td>${orderBean.phone_num}</td>
-                </tr>
-                <tr>
-                  <td>주문자 ID</td>
-                  <td>${orderBean.order_id}</td>
-                </tr>
-                <tr>
-                  <td>주문자이메일</td>
-                  <td>${orderBean.email}</td>
-                </tr>
-                <tr>
-                  <td>받으시는분</td>
-                  <td>${orderBean.orderAddress}</td>
-                </tr>
-                <tr>
-                  <td>배송지</td>
-                  <td>${orderBean.address2}</td>
-                </tr>
-                <tr>
-                  <td>요청사항</td>
-                  <td>요청사항</td>
-                </tr>
-   
+            
+	
 				</tbody>
             </table>
-		</form>
-            <table class="table table-bordered">
+  
+<!-- 있던자리 -->
+	
+<div id="grids">
+<ul class="nav nav-tabs" id="myTab">
+  <li><a href="#one" data-toggle="tab"> 획득 내역 </a></li>
+  <li class="active"><a href="#two" data-toggle="tab"> 사용 내역 </a></li>
+</ul>
+ 
+<div class="tab-content">
+  <div class="tab-pane" id="one">
+  <div class="row-fluid">
+	 <div class="span12">
+	  <p>
+	  
+<!-- 	  // 포인트 보여주는곳---------------------------------------------- -->
+	<table class="table" style="border: none;" id="coupontable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>포인트 내용</th>
+                  <th>획득 날짜 </th>
+                  <th>획득 포인트</th>
+				</tr>
+              </thead> 
+     </table>
+<!-- 	  //포인트 보여주는곳---------------------------------------------- -->
+
+	  	<c:if test="${pointInfo!=null}">
+		 <c:forEach var="pointInfo" items="${pointInfo}" varStatus="status">  
+		 	 <c:if test="${pointInfo.pointAction eq 1}">
+
+            
+   <div class="row-fluid">
+    <div class="span12">
+		<table class="table" id="coupontable">
+        <thead>
+       
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>${pointInfo.pointContent}</td>
+            <td>${pointInfo.pointRegTime}</td>
+            <td>${pointInfo.pointValue}</td>
+          </tr>
+        </tbody>
+      </table>
+	</div>
+	</div>
+            
+		   </c:if>
+		   </c:forEach>
+		   </c:if>
+	  
+	  </p>
+	  </div>
+  </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  <div class="tab-pane active" id="two">
+  <div class="row-fluid">
+	  <div class="span12">
+		<p>
+		
+			<table class="table" style="border: none;" id="coupontable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>포인트 내용</th>
+                  <th>획득 날짜 </th>
+                  <th>획득 포인트</th>
+				</tr>
+              </thead> 
+     		</table>
+		
+	<c:if test="${pointInfo!=null}">
+		 <c:forEach var="pointInfo" items="${pointInfo}" varStatus="status">  
+		     <c:if test="${pointInfo.pointAction eq 0 }">
+		           
+   <div class="row-fluid">
+    <div class="span12">
+		<table class="table" id="coupontable">
+        <thead>
+       
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>${pointInfo.pointContent}</td>
+            <td>${pointInfo.pointRegTime}</td>
+            <td>${pointInfo.pointValue}</td>
+          </tr>
+
+        </tbody>
+      </table>
+	</div>
+	</div>
+	
+	
+		   </c:if>
+		   </c:forEach>
+		   </c:if>
+		
+		</p>
+	  </div>
+	
+	  </div>
+  </div>
+  </div>
+  
+  
+
+  
+  
+		
+		
+        <table class="table table-bordered">
 			<tbody>
 				<!--  <tr>
                   <td>  -->
@@ -179,45 +339,10 @@
 				</form> -->
 			<!-- 	</td>
                 </tr> -->
+				
 			</tbody>
 			</table>
 			
-						<form>
-	<table class="table table-bordered" style="border-top: none;">
-              <thead style="border-right: none;">
-                <tr style="border-right: none;">
-                  <th id="neamam" colspan="3">주문상품목록</th>
-				</tr>
-              </thead>
-              <tbody>
-              <tr>
-              <td id="neamam2">상품명      ${orderBean.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
-              </tr>
-                <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/><br> 
-                  상품옵션:${orderBean.bookTitle}  <b style="color: red;">${orderBean.bookEA}개</b><br>
-                                           출판사: ${orderBean.bookPublisher}       
-                 
-                  </td>
-                  
-                  <td><br>
-          <span class="label">금액</span><b>  ${orderBean.bookPrice} 원</b><br>         
-          <span class="label">쿠폰</span>    ${orderBean.coupon_name} <br>
-          <span class="label">포인트</span>    ${orderBean.pointValue} <br>
-          <span class="label">배송비</span>    2500원 <br>
-               
-                   </td>
-                  <td><b>${total} 원</b></td>
-                </tr>
-                  <tr>
-                  <td colspan="3" style="text-align: right;">총 주문금액 : <b>${total} 원</b>
-                  </td>
-                </tr>
-				</tbody>
-            </table>
-		</form>
-         
-		</c:if>	
 		<!-- 	<table class="table table-bordered">
 			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
 			 <tr> 
