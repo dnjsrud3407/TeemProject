@@ -288,18 +288,13 @@ if(session.getAttribute("uID") == null){
 
         </div>
         <!-- /.container-fluid -->
-
+        
       </div>
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+      <jsp:include page="../adminInc/adminBottom.jsp" />
+      
       <!-- End of Footer -->
 
     </div>
@@ -350,6 +345,4 @@ if(session.getAttribute("uID") == null){
   <script src="admin/js/demo/datatables-demo.js?ver=1"></script>
 
 </body>
-
 </html>
-    

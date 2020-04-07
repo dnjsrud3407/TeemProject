@@ -41,7 +41,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="OrderList.adm">주문관리</a>
-            <a class="collapse-item" href="Sales.adm">매출관리</a>
+            <a class="collapse-item" href="OrderCompList.adm">매출관리</a>
           </div>
         </div>
       </li>
