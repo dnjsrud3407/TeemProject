@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QListService;
+import admin.book.svc.QnReListService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
@@ -31,7 +31,7 @@ public class QListAction implements Action {
 		}
 		
 		int kID = 102;
-		QListService qListService = new QListService();
+		QnReListService qListService = new QnReListService();
 		ArrayList<BoardBean> qList = qListService.getList(kID, page, limit);
 		
 		// 상품 문의 게시글 개수 가져오기

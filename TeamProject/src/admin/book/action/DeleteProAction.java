@@ -37,7 +37,6 @@ public class DeleteProAction implements Action {
 		} else {
 		    // 책 삭제하기
 		    boolean isremoveArticleSuccess = deleteProService.removeArticle(bookIDList);
-		    
 		    if (!isremoveArticleSuccess) { // 책 삭제 실패된 경우
 		        response.setContentType("text/html; charset=UTF-8");
                 PrintWriter out = response.getWriter();

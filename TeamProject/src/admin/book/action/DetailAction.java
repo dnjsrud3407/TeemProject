@@ -16,15 +16,17 @@ public class DetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		// bookID, BKID 파라미터로 가져오기
+		// bookID, page 파라미터로 가져오기
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		String page = request.getParameter("page");
 		
-		// 제품 상세보기//
+		// 제품 상세보기
 		DetailService detailService = new DetailService();
 		BookBean book = detailService.getArticle(bookID);
 
-		// 가져온 book request 객체에 넣기
+		// 가져온 book,page request 객체에 넣기
 		request.setAttribute("book", book);
+		request.setAttribute("page", page);
 		
 		forward = new ActionForward();
 		forward.setPath("./admin/book/detail.jsp");

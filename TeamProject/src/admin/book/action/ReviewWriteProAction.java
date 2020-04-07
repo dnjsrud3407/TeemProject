@@ -5,8 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import admin.book.svc.QWriteProService;
-import admin.book.svc.ReviewWriteProService;
+import admin.book.svc.QnReWriteProService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -28,10 +27,10 @@ public class ReviewWriteProAction implements Action {
 		HttpSession session = request.getSession();
 		String boardWriter = (String)session.getAttribute("uID");
 		
-		QWriteProService qWriteProService = new QWriteProService();
+		QnReWriteProService reviewWriteProService = new QnReWriteProService();
 		
 		// 게시글 번호 생성
-		int boardNum = qWriteProService.getBoardNum();
+		int boardNum = reviewWriteProService.getBoardNum();
 		
 		BoardBean board = new BoardBean(
 				boardNum, 
@@ -43,7 +42,7 @@ public class ReviewWriteProAction implements Action {
 				1, 
 				bookID);
 		
-		qWriteProService.writeAnswerBoard(board);
+		reviewWriteProService.writeAnswerBoard(board);
 		
 		forward = new ActionForward();
 		

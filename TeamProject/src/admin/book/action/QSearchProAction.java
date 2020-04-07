@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QSearchService;
+import admin.book.svc.QnReSearchService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
@@ -46,7 +46,7 @@ public class QSearchProAction implements Action {
     	
     	int kID = 102;
     	
-		QSearchService qSearchService = new QSearchService();
+		QnReSearchService qSearchService = new QnReSearchService();
 		// 게시글 개수
 		int listCount = qSearchService.getSearchListCount(kID, boardRegTime_Before, boardRegTime_After, searchSql);
 		ArrayList<BoardBean> qSearchList = null;

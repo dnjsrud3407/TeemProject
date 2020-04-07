@@ -8,7 +8,7 @@ import dao.BoardDAO;
 import vo.BoardBean;
 
 
-public class QWriteProService {
+public class QnReWriteProService {
 
 	// boardNum 생성
 	public int getBoardNum() {

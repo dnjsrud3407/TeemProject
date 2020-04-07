@@ -267,27 +267,27 @@
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
 	                      <th style="width:15%">접수번호</th>
-	                      <td>${board_q.boardNum }</td>
+	                      <td>${board_review.boardNum }</td>
 	                      <th style="width:15%">작성일</th>
-	                      <td>${board_q.boardRegTime }</td>
+	                      <td>${board_review.boardRegTime }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>고객ID</th>
-	                      <td>${board_q.boardWriter }</td>
+	                      <td>${board_review.boardWriter }</td>
 	                      <th style="width:15%">처리상태</th>
 	                      <td>답변완료</td>
 	                    </tr>
 	                    <tr>
 	                      <th>상품명</th>
-	                      <td colspan="3">${board_q.bookTitle }</td>
+	                      <td colspan="3">${board_review.bookTitle }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>후기 제목</th>
-	                      <td colspan="3">${board_q.boardTitle }</td>
+	                      <td colspan="3">${board_review.boardTitle }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>후기 내용</th>
-	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_q.boardContent }</textarea></td>
+	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_review.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
 	              </div>

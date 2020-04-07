@@ -1,13 +1,6 @@
-<%@page import="org.json.simple.JSONArray"%>
-<%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-BookBean book = (BookBean)request.getAttribute("book");
-String nowPage = request.getParameter("page");
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -239,61 +232,61 @@ height: 300px;
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><a href="List.abook?page=<%=nowPage%>">목록으로</a> > 제품보기</h6>
+              <h6 class="m-0 font-weight-bold text-primary"><a href="List.abook?page=${page }">목록으로</a> > 제품보기</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=<%=book.getBookID()%>'">
-                <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=<%=book.getBookID()%>'">
+                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=${book.bookID }'">
+                <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=${book.bookID }'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th style="width:15%">책 카테고리</th>
                       <td>
-                      		<%=book.getBK1() %> > <%=book.getBK2() %> > <%=book.getBK3() %>
+                      		${book.BK1 } > ${book.BK2 } > ${book.BK3 }
                       </td>
                     </tr>
                     <tr>
                       <th style="width:15%">책 제목</th>
-                      <td><%=book.getBookTitle() %></td>
+                      <td>${book.bookTitle }</td>
                     </tr>
                     <tr>
                       <th>상품 이미지</th>
                       <td>
-                        <img src="./upload/<%=book.getBookImage()%>"><br>
-                        <%=book.getBookOriginImage() %>
+                        <img src="./upload/${book.bookImage }"><br>
+                        ${book.bookOriginImage }
                       </td>
                     </tr>
                     <tr>
-                      <th>출판사</th>
-                      <td><%=book.getBookPublisher() %></td>
+                      <th>저자 및 출판사</th>
+                      <td>${book.bookPublisher }</td>
                     </tr>
                     <tr>
                       <th>출판일</th>
-                      <td><%=book.getBookPublishedDate() %></td>
+                      <td>${book.bookPublishedDate }</td>
                     </tr>
                     <tr>
                       <th>가격</th>
-                      <td><%=book.getBookPrice() %></td>
+                      <td>${book.bookPrice }</td>
                     </tr>
                     <tr>
                       <th>상품 재고</th>
-                      <td><%=book.getBookEA() %></td>
+                      <td>${book.bookEA }</td>
                     </tr>
                     <tr>
                       <th>판매량</th>
-                      <td><%=book.getSalesVolume() %></td>
+                      <td>${book.salesVolume }</td>
                     </tr>
                     <tr>
                       <th>상품 소개</th>
-                      <td><%=book.getBookIntroduce() %></td>
+                      <td>${book.bookIntroduce }</td>
                     </tr>
                     <tr>
                       <th>상품의 공개여부</th>
-                      <td><%=book.isBookisView() %></td>
+                      <td>${book.bookisView }</td>
                     </tr>
                     <tr>
                       <th>상품별 포인트 적립률</th>
-                      <td><%=book.getSaveRatio() %></td>
+                      <td>${book.saveRatio }</td>
                     </tr>
                 </table>
               </div>

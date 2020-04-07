@@ -15,6 +15,7 @@ import admin.book.action.BK2Action;
 import admin.book.action.BK3Action;
 import admin.book.action.BuyListAction;
 import admin.book.action.BuyProAction;
+import admin.book.action.DeleteFormAction;
 import admin.book.action.DeleteProAction;
 import admin.book.action.DetailAction;
 import admin.book.action.ListAction;
@@ -34,7 +35,6 @@ import admin.book.action.ReviewDeleteFormAction;
 import admin.book.action.ReviewDeleteProAction;
 import admin.book.action.ReviewDetailAction;
 import admin.book.action.ReviewListAction;
-import admin.book.action.ReviewModifyFormAction;
 import admin.book.action.ReviewModifyProAction;
 import admin.book.action.ReviewSearchProAction;
 import admin.book.action.ReviewWriteFormAction;
@@ -114,8 +114,12 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             }
         } else if(command.equals("/DeleteForm.abook")) {
             // --- 제품 삭제 폼
-            forward = new ActionForward();
-            forward.setPath("./admin/book/deleteForm.jsp");
+        	action = new DeleteFormAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if(command.equals("/DeletePro.abook")) {
             // --- 제품 삭제 작업 
             action = new DeleteProAction();

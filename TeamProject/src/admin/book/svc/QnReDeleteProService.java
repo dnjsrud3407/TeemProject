@@ -6,7 +6,7 @@ import java.sql.Connection;
 
 import dao.BoardDAO;
 
-public class QDeleteProService {
+public class QnReDeleteProService {
 
 	// 관리자 답변 게시글 삭제
 	public boolean deleteBoard(int boardNum, int boardReRef) {

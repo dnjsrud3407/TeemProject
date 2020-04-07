@@ -4,8 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QWriteService;
-import admin.book.svc.ReviewDetailService;
+import admin.book.svc.QnReWriteService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -20,8 +19,8 @@ public class ReviewWriteFormAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자 상품 후기 글을 불러옴
-		QWriteService qWriteService = new QWriteService();
-		BoardBean board = qWriteService.getBoard(boardNum);
+		QnReWriteService reviewWriteService = new QnReWriteService();
+		BoardBean board = reviewWriteService.getBoard(boardNum);
 
 		request.setAttribute("board", board);
 		request.setAttribute("page", page);

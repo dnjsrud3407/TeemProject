@@ -8,8 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.book.svc.DeleteProService;
-import admin.book.svc.QDeleteProService;
-import admin.book.svc.ReviewDeleteProService;
+import admin.book.svc.QnReDeleteProService;
 import vo.ActionForward;
 
 public class ReviewDeleteProAction implements Action {
@@ -31,7 +30,7 @@ public class ReviewDeleteProAction implements Action {
 		DeleteProService deleteProService = new DeleteProService();
 		boolean isRightUser = deleteProService.isRightUser(uID, pw);
 		
-		QDeleteProService qDeleteProService = new QDeleteProService();
+		QnReDeleteProService reviewDeleteProService = new QnReDeleteProService();
 
 		if(!isRightUser) { // 관리자 비밀번호 불일치 시 
 		    response.setContentType("text/html; charset=UTF-8");
@@ -42,7 +41,7 @@ public class ReviewDeleteProAction implements Action {
 		    out.println("</script>");
 		} else {
 			// 답변 글 삭제하기
-			boolean isRemoveBoard = qDeleteProService.deleteBoard(boardNum, boardReRef);
+			boolean isRemoveBoard = reviewDeleteProService.deleteBoard(boardNum, boardReRef);
 			if(!isRemoveBoard) {	// 답변 삭제 실패된 경우
 				response.setContentType("text/html; charset=UTF-8");
                 PrintWriter out = response.getWriter();

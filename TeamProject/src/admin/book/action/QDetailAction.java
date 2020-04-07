@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QWriteService;
+import admin.book.svc.QnReWriteService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -21,14 +21,14 @@ public class QDetailAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자가 문의 작성한 것을 불러옴 and 관리자가 작성한 것도 불러옴
-		QWriteService qDetailService = new QWriteService();
-		ArrayList<BoardBean> qnaList = qDetailService.getqnaList(boardReRef);
+		QnReWriteService qDetailService = new QnReWriteService();
+		ArrayList<BoardBean> qList = qDetailService.getqnaList(boardReRef);
 		
 		// i = 0   =>   사용자 문의 글
 		// i = 1   =>   관리자 문의 답변 글
 		request.setAttribute("page", page);
-		request.setAttribute("board_q", qnaList.get(0));
-		request.setAttribute("board_answer", qnaList.get(1));
+		request.setAttribute("board_q", qList.get(0));
+		request.setAttribute("board_answer", qList.get(1));
 		
 		
 		forward = new ActionForward();

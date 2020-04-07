@@ -424,13 +424,13 @@
                 </table>
                 <section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="QList.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                		<a href="ReviewList.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="QList.abook?page=${i }">${i }</a>&nbsp;
+                		<a href="ReviewList.abook?page=${i }">${i }</a>&nbsp;
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="QList.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                		<a href="ReviewList.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
                 	</c:if>
                 </section>
                 </c:if>

@@ -5,8 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import admin.book.svc.QModifyProService;
-import admin.book.svc.ReviewModifyProService;
+import admin.book.svc.QnReModifyProService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -29,14 +28,14 @@ public class ReviewModifyProAction implements Action {
 		String boardWriter = (String)session.getAttribute("uID");
 		
 		// 후기 답변 글 수정하기
-		QModifyProService qModifyProService = new QModifyProService();
+		QnReModifyProService reviewModifyProService = new QnReModifyProService();
 		BoardBean board = new BoardBean(
 				boardNum,
 				boardWriter,
 				boardTitle, 
 				boardContent);
 		
-		qModifyProService.modifyAnswerBoard(board);
+		reviewModifyProService.modifyAnswerBoard(board);
 		
 		forward = new ActionForward();
 		

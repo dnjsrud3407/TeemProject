@@ -6,8 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QListService;
-import admin.book.svc.ReviewListService;
+import admin.book.svc.QnReListService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
@@ -32,11 +31,11 @@ public class ReviewListAction implements Action {
 		}
 		
 		int kID = 103;
-		QListService qListService = new QListService();
-		ArrayList<BoardBean> reviewList = qListService.getList(kID, page, limit);
+		QnReListService reviewListService = new QnReListService();
+		ArrayList<BoardBean> reviewList = reviewListService.getList(kID, page, limit);
 		
 		// 상품 문의 게시글 개수 가져오기
-		int listCount = qListService.getListCount(103);
+		int listCount = reviewListService.getListCount(103);
 		// 1. 총 페이지 수 계산
 		int maxPage = listCount / limit + (listCount % limit == 0 ? 0 : 1);
 		// 페이징 사이즈

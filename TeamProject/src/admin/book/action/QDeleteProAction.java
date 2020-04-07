@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.book.svc.DeleteProService;
-import admin.book.svc.QDeleteProService;
+import admin.book.svc.QnReDeleteProService;
 import vo.ActionForward;
 
 public class QDeleteProAction implements Action {
@@ -30,7 +30,7 @@ public class QDeleteProAction implements Action {
 		DeleteProService deleteProService = new DeleteProService();
 		boolean isRightUser = deleteProService.isRightUser(uID, pw);
 		
-		QDeleteProService qDeleteProService = new QDeleteProService();
+		QnReDeleteProService qDeleteProService = new QnReDeleteProService();
 
 		if(!isRightUser) { // 관리자 비밀번호 불일치 시 
 		    response.setContentType("text/html; charset=UTF-8");
