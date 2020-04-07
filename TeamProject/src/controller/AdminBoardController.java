@@ -14,6 +14,7 @@ import admin.board.action.FAQDeleteProAction;
 import admin.board.action.FAQDetailAction;
 import admin.board.action.FAQModifyFormAction;
 import admin.board.action.FAQModifyProAction;
+import admin.board.action.FAQWriteFormAction;
 import admin.board.action.FAQWriteProAction;
 import admin.board.action.NoticeDeleteProAction;
 import admin.board.action.NoticeDetailAction;
@@ -73,10 +74,18 @@ public class AdminBoardController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/FAQWriteForm.adb")) {
+		} else if(command.equals("/FAQWrite.adb")) {
             // --- FAQ 작성 폼 
-            forward = new ActionForward();
-            forward.setPath("./board/FAQWriteForm.jsp");
+            action = new FAQWriteFormAction();
+            
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            
+            
         } else if(command.equals("/FAQWritePro.adb")) {
             // --- FAQ 작성 작업 FAQWriteProAction()
             action = new FAQWriteProAction();

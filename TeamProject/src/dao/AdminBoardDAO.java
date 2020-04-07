@@ -413,7 +413,7 @@ public class AdminBoardDAO {
 		
 		try {
 			if(k2 != null) {
-				sql = "SELECT count(*) FROM board kID=?";
+				sql = "SELECT count(*) FROM board WHERE kID=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, kID);
 			} else {

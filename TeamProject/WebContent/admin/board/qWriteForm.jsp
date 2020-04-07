@@ -242,91 +242,91 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">FAQ</h1>
-          	<div>
-          	<table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">		
-              	<tbody>
-              	<tr>
-              		<td><a href='<c:url value="/FAQ.adb"/>'>전체</a></td>
-	              	<c:forEach var="k2List" items="${k2List }" varStatus="k2Status">
-		              	<td>
-		              		<a href='<c:url value="/FAQ.adb?k2=${k2List }"/>'>${k2List}</a>
-		              	</td>
-					</c:forEach>
-				</tr>
-				</tbody>
-			</table>
-            </div>
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th style= "width: 100px;">카테고리</th>
-                      <th>질문</th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                  <c:choose>
-	                  <c:when test="${listcount > 0}">
-		                  <c:forEach var="articleList" items="${articleList }" varStatus="listStatus">
-		                    <tr>
-		                      <th>${articleList.k2 }</th>
-		                      <th><input type="text" value="${articleList.boardTitle }" 
-		                      onclick="if(${listStatus.index}.style.display=="none"){${listStatus.index}.style.display='';}
-		                      else{${lsitStatus.inex}.style.display='none';}"></th>
-		                      
-		                    </tr>
-		                    <tr id="${listStatus.index }" sytle="diplay: none">
-		                    	<th>답변 </th>
-		                    	<th>
-		                    	${articleList.boardContent }
-		                    	<a href='<c:url value="/FAQModifyForm.adb?boardNum='${articleList.boardNum}'"/>'><input type="button" value="수정"></a>
-		                    	<a href="#"><input type="button" value="삭제" onclick="checkOK()"></a>
-		                    	</th>
-		                    <tr>
-		                    <script>
-		                  		function checkOK() {
-									r = confirm("정말로 삭제하시겠습니까?");
-									if(r){
-										location.href="/FAQDeletePro.adb?boardNum=" + ${articleList.boardNum} + "&page=" + ${pageInfo.page};
-									}
-								}
-		                  	</script>
-		                  </c:forEach>
-	                  </c:when>
-                  </c:choose>
-                  	
-                  </tbody>
-                </table>
-              </div>
-              	<div class="card-header py-3">
-              		<section id="pageList">
-                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="FAQ.adb?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
-                	</c:if>
-                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="FAQ.adb?page=${i }">${i }</a>&nbsp;
-                	</c:forEach>
-                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="FAQ.adb?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
-                	</c:if>
-                	</section>
-                	<div style="text-align:right">
-	            	<a href='<c:url value="/FAQWrite.adb?page=${pageInfo.page }"/>'> <input type="button" value="FAQ 작성하기"></a>
-	            	</div>
+                <div class="container-fluid">
+        	<div class="card shadow mb-4">
+	            <div class="card-header py-3">
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">&lt; 상품 문의 목록</a></h5>
 	            </div>
-            </div>
-          </div>
+        	</div>
+			<div class="row">
 
+            <!-- 고객문의 내용 보기 -->
+            <div class="col-lg-6 heightM">
+
+              <div class="card position-relative">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-gray">고객문의 내용</h6>
+                </div>
+                <div class="card-body">
+	              <div class="table-responsive">
+	              <form action="WritePro.abook" method="post" enctype="multipart/form-data">
+	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                    <tr>
+	                      <th style="width:15%">접수번호</th>
+	                      <td>${board.boardNum }</td>
+	                      <th style="width:15%">접수일</th>
+	                      <td>${board.boardRegTime }</td>
+	                    </tr>
+	                    <tr>
+	                      <th>고객ID</th>
+	                      <td>${board.boardWriter }</td>
+	                      <th style="width:15%">처리상태</th>
+	                      <td class="red">답변대기</td>
+	                    </tr>
+	                    <tr>
+	                      <th>상품명</th>
+	                      <td colspan="3">${board.bookTitle }</td>
+	                    </tr>
+	                    <tr>
+	                      <th>문의제목</th>
+	                      <td colspan="3">${board.boardTitle }</td>
+	                    </tr>
+	                    <tr>
+	                      <th>문의 내용</th>
+	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board.boardContent }</textarea></td>
+	                    </tr>
+	                </table>
+	                </form>
+	              </div>
+	            </div>
+              </div>
+
+            </div>
+
+            <!-- 판매자 답변 처리 -->
+            <div class="col-lg-6 heightM">
+
+              <div class="card position-relative">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">판매자 답변</h6>
+                </div>
+                <div class="card-body">
+	              <div class="table-responsive">
+	              <form action="QWritePro.abook" method="post">
+                    <input type="hidden" name="page" value="${page }">
+                    <input type="hidden" name="boardReRef" value="${board.boardReRef }">
+                    <input type="hidden" name="bookID" value="${board.bookID }">
+	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                    <tr>
+	                      <th>답변제목</th>
+	                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
+	                    </tr>
+	                    <tr>
+	                      <th style="width:15%">답변 작성</th>
+	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
+	                    </tr>
+	                </table>
+	                <input type="submit" value="답변 작성" />
+	                </form>
+	              </div>
+	            </div>
+              </div>
+
+            </div>
+
+          </div>
+		  
+          
         </div>
         <!-- /.container-fluid -->
 
