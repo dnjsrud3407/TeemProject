@@ -16,7 +16,7 @@ import member.book.action.BookBuyProAction;
 import member.book.action.CartAddAction;
 import member.book.action.CartListAction;
 import member.book.action.CartQtyChangeAction;
-import member.book.action.CartQtyRemoveAction;
+import member.book.action.CartRemoveAction;
 import member.book.action.BookDetailAction;
 import member.book.action.BookLikeProAction;
 import member.book.action.BookListAcion;
@@ -223,9 +223,9 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		// 장바구니 수량 삭제	
-		}else if(command.equals("/CartQtyRemove.book")) {
-			action = new CartQtyRemoveAction();
+		// 장바구니 삭제	
+		}else if(command.equals("/CartRemove.book")) {
+			action = new CartRemoveAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

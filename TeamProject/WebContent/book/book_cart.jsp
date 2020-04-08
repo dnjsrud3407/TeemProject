@@ -39,31 +39,16 @@
     <style type="text/css" id="enject"></style>
     
     <script>
-	function qtyUp(qtyId) {
-		// 수량 증가 버튼 클릭 시 해당 수량 값을 1 증가하여 수량 갱신
-		var element = document.getElementById("qty" + qtyId);
-// 		alert(element.value);
-// 		element.value = parseInt(element.value) + 1;
-		if(element.value < 99) {
-			element.value = Number(element.value) + 1;
-		}
-	}
-	
-	function qtyDown(qtyId) {
-		// 수량 증가 버튼 클릭 시 해당 수량 값을 1 감소하여 수량 갱신
-		var element = document.getElementById("qty" + qtyId);
-			alert(element.value);
-		
-		if(element.value > 1) {
-			element.value = Number(element.value) - 1;			
+    function inNumber(e){
+    	
+		if(event.keyCode >=48 && event.keyCode <= 57){
+			return true;
+		} else {
+			event.returnValue=false;
 		}
 		
-// 		if(element < 1){
-// 			element = 1;
-// 		} else {
-// 			element.value = parseInt(element.value) - 1;			
-// 		}
 	}
+
 	
 	function qtyChange(qty, sort, cartNum){
 		var changeUrl='CartQtyChange.book?cartNum=' + cartNum + "&qty=";
@@ -78,7 +63,7 @@
 			qty = sort.value;
 		}
 		
-		if(qty === 0){
+		if(qty == 0){
 			console.log(qty);
 			if(confirm('삭제하시겠습니까?')){
 				location.href=removeUrl;				
@@ -94,6 +79,14 @@
 		}
 	}
     
+	function qtyRemove(cartNum){
+		var removeUrl='CartRemove.book?cartNum=' + cartNum;
+			if(confirm('삭제하시겠습니까?')){
+				location.href=removeUrl;	
+			}
+	}
+	
+	
     
     </script>
   </head>
@@ -130,7 +123,7 @@
 	        </c:if>
 	        <a href="OrderList.mo">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ ${cartList.size()} ] 장바구니 </span> </a> 
 	    </div>
     </div>
 </div>
@@ -243,10 +236,11 @@
                   <td>${cart.bookTitle}<br/>Color : black, Material : metal</td>
 				  <td>
 					<div class="input-append">
-						<input class="span1" style="max-width:34px" value="${cart.bookEA }" size="16" type="text" id="qty<c:out value="${status.index}"/>" onchange="javascript:qtyChange(0, this, ${cart.cartNum})">
+						<input class="span1" style="max-width:34px;" value="${cart.bookEA }" size="16" type="text" required="required" id="qty<c:out value="${status.index}"/>"
+						onkeypress="inNumber(this)" onkeyup="javascript:qtyChange(this.value,this,${cart.cartNum})">
 						<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'minus', ${cart.cartNum})"><i class="icon-minus"></i></button>
 						<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'plus', ${cart.cartNum})"><i class="icon-plus"></i></button>
-						<button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				
+						<button class="btn btn-danger" type="button" onclick="qtyRemove(${cart.cartNum })"><i class="icon-remove icon-white"></i></button>				
 					</div>
 				  </td>
                   <td>${cart.bookPrice}</td>

@@ -192,7 +192,7 @@
 				  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
 					${book.bookIntroduce }
 				  </p>
-				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="BookCartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
 				</div>
 			  </div>
 			</li>

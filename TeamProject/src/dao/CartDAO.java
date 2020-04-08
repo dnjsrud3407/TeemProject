@@ -145,6 +145,31 @@ public class CartDAO {
 			return qtyUpdateResult;
 		}
 
+		// 카트상품 삭제
+		public int cartRemove(int cartNum, String uID) {
+			// TODO Auto-generated method stub
+			int cartRemoveResult = 0;
+			
+			String sql ="delete from cart where cartNum=? and user_uID=?";
+					
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, cartNum);
+				pstmt.setString(2, uID);
+				cartRemoveResult = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return cartRemoveResult;
+		}
+
+
+		
+
 	
 
 
