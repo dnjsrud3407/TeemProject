@@ -206,7 +206,10 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }  
+        }  else if(command.contentEquals("/failed.adb")) {
+        	forward = new ActionForward();
+        	forward.setPath("/admin/board/failedMSG.jsp");
+        }
 	
 		
 

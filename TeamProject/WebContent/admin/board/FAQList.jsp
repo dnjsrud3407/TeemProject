@@ -39,7 +39,31 @@
 		width:200px
 		}
 	</style>
-
+	
+	
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+		
+	<script>
+	$(document).ready(function() {
+		
+		$(".contents").hide();
+		
+		$('.title').click(function() {
+			$(this).parent().parent().next().slideToggle();
+			});
+		});
+	
+		
+		function checkOK(boardNum, page) {
+			r = confirm("정말로 삭제하시겠습니까?");
+			if(r){
+				location.href="./FAQDelete.adb?boardNum="+boardNum+"&page="+page;
+			}
+		}
+		
+	</script>
+	
+	
 </head>
 
 <body id="page-top">
@@ -269,38 +293,30 @@
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th style= "width: 100px;">카테고리</th>
-                      <th>질문</th>
+                      <th style= "width: 150px;">카테고리</th>
+                      <th></th>
                     </tr>
                   </thead>
                   
                   <tbody>
                   <c:choose>
-	                  <c:when test="${listcount > 0}">
+	                  <c:when test="${pageInfo.listCount > 0}">
 		                  <c:forEach var="articleList" items="${articleList }" varStatus="listStatus">
 		                    <tr>
 		                      <th>${articleList.k2 }</th>
-		                      <th><input type="text" value="${articleList.boardTitle }" 
-		                      onclick="if(${listStatus.index}.style.display=="none"){${listStatus.index}.style.display='';}
-		                      else{${lsitStatus.inex}.style.display='none';}"></th>
+		                      <th><a href="#" class="title">${articleList.boardTitle }</a></th>
 		                      
 		                    </tr>
-		                    <tr id="${listStatus.index }" sytle="diplay: none">
-		                    	<th>답변 </th>
-		                    	<th>
+		                    <tr class="contents" id="contents">
+		                    	<th></th>
+		                    	<td>
 		                    	${articleList.boardContent }
-		                    	<a href='<c:url value="/FAQModifyForm.adb?boardNum='${articleList.boardNum}'"/>'><input type="button" value="수정"></a>
-		                    	<a href="#"><input type="button" value="삭제" onclick="checkOK()"></a>
-		                    	</th>
+			                    	<div style="text-align: right;">
+			                    		<a href='<c:url value="/FAQModifyForm.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page }"/>'><input type="button" value="수정"></a>
+			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}, ${pageInfo.page })"></a>
+			                    	</div>
+		                    	</td>
 		                    <tr>
-		                    <script>
-		                  		function checkOK() {
-									r = confirm("정말로 삭제하시겠습니까?");
-									if(r){
-										location.href="/FAQDeletePro.adb?boardNum=" + ${articleList.boardNum} + "&page=" + ${pageInfo.page};
-									}
-								}
-		                  	</script>
 		                  </c:forEach>
 	                  </c:when>
                   </c:choose>

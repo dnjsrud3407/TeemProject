@@ -261,27 +261,24 @@
 	              <div class="table-responsive">
 	              
 	              <form action='<c:url value="/FAQWritePro.adb"/>' method="post">
-<%-- 	                    <input type="hidden" name="page" value="${page }"> --%>
-<%-- 	                    <input type="hidden" name="boardReRef" value="${board.boardReRef }"> --%>
-<%-- 	                    <input type="hidden" name="bookID" value="${board.bookID }"> --%>
 							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
-<%-- 							<input type="text" name="showWrite" value="${sessionScope.uID }"> --%>
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                	<tr>
 		                		<th>카테고리</th>
 		                		<td><select name="k2" size="">
 		                			<c:forEach var="k2" items="${k2List }" varStatus="status">
-		                				<option value="${k2 }">${k2 } </option>
+		                				<c:choose><c:when test="${article.k2 eq k2 }"><option value="${k2 }" selected>${k2}</option></c:when>
+		                				</c:choose><c:otherwise><option value="${k2 }">${k2 }</option></c:otherwise>
 		                			</c:forEach>
 		                		</select></td>
 		                	</tr>
 		                    <tr>
 		                      <th>제목(질문)</th>
-		                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
+		                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${article.boardTitle }"></td>
 		                    </tr>
 		                    <tr>
 		                      <th style="width:15%">내용(답변)</th>
-		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
+		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${article.boardContent }</textarea></td>
 		                    </tr>
 		                </table>
 		                <div style="text-align: right;"><input type="submit" value="FAQ 작성"></div>

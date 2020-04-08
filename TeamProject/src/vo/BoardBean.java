@@ -188,10 +188,32 @@ public class BoardBean {
 	
 
 
+	// fAQ 작성시 사용될 생성자
+	
+
+
 
 	public int getBoardNum() {
 		return boardNum;
 	}
+
+	public BoardBean(int boardNum, String k1, String k2, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount) {
+		super();
+		this.boardNum = boardNum;
+		this.k1 = k1;
+		this.k2 = k2;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+	}
+
+
 
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;

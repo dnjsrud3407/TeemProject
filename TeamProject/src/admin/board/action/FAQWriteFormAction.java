@@ -28,9 +28,11 @@ public class FAQWriteFormAction implements Action {
 		BoardService boardService = new BoardService();
 
 		ArrayList<String> k2List = boardService.getk2List("FAQ");
+		String page = request.getParameter("page");
 		
 		// FAQ 카테고리 목록
 		request.setAttribute("k2List", k2List);
+		request.setAttribute("page", page);
 		
 		forward = new ActionForward();
 		
