@@ -95,7 +95,7 @@ public class CartDAO {
 	}
 
 
-	// 카트 상품 수량 변경
+	// 카트 상품 수량 추가
 	public int updateQtyCart(BookBean bookBean, String uID, int qty) {
 		// TODO Auto-generated method stub
 		int qtyUpdateResult = 0;
@@ -120,6 +120,30 @@ public class CartDAO {
 		return qtyUpdateResult;
 	}
 
+	// 카트 상품 수량 변경
+		public int changeQtyCart(BookBean bookBean, String uID, int qty) {
+			// TODO Auto-generated method stub
+			int qtyUpdateResult = 0;
+			
+			String sql = "update cart set bookEA = ? where cartNum = ? and user_uID = ?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, qty);
+				pstmt.setInt(2, bookBean.getBookID());
+				pstmt.setString(3, uID);
+				
+				qtyUpdateResult = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			 
+			return qtyUpdateResult;
+		}
 
 	
 

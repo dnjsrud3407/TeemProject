@@ -37,6 +37,65 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
     <style type="text/css" id="enject"></style>
+    
+    <script>
+	function qtyUp(qtyId) {
+		// 수량 증가 버튼 클릭 시 해당 수량 값을 1 증가하여 수량 갱신
+		var element = document.getElementById("qty" + qtyId);
+// 		alert(element.value);
+// 		element.value = parseInt(element.value) + 1;
+		if(element.value < 99) {
+			element.value = Number(element.value) + 1;
+		}
+	}
+	
+	function qtyDown(qtyId) {
+		// 수량 증가 버튼 클릭 시 해당 수량 값을 1 감소하여 수량 갱신
+		var element = document.getElementById("qty" + qtyId);
+			alert(element.value);
+		
+		if(element.value > 1) {
+			element.value = Number(element.value) - 1;			
+		}
+		
+// 		if(element < 1){
+// 			element = 1;
+// 		} else {
+// 			element.value = parseInt(element.value) - 1;			
+// 		}
+	}
+	
+	function qtyChange(qty, sort, cartNum){
+		var changeUrl='CartQtyChange.book?cartNum=' + cartNum + "&qty=";
+		var removeUrl='CartRemove.book?cartNum=' + cartNum;
+		if(sort === "minus") {
+			qty = qty-1;
+			alert(qty);		
+		} else if(sort === "plus"){
+			qty = qty+1;
+			alert(qty);
+		} else {
+			qty = sort.value;
+		}
+		
+		if(qty === 0){
+			console.log(qty);
+			if(confirm('삭제하시겠습니까?')){
+				location.href=removeUrl;				
+			}
+		} else if(qty < 0){
+			console.log(qty);
+			alert("수량을 1 ~ 99 사이의 값으로 입력하세요.");
+			sort.value = 1;
+			console.log(sort);
+		} else if(qty > 0){
+			console.log(qty);
+			location.href=changeUrl+qty;
+		}
+	}
+    
+    
+    </script>
   </head>
 <body>
 <div id="header">
@@ -112,7 +171,6 @@
                 <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
                 <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
                 <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="BookList.book?bk2=4"><i class="icon-chevron-right"></i>4단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
@@ -134,7 +192,7 @@
     </ul>
 	<h3>  SHOPPING CART [ <small>${cartList.size()} Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
-	<table class="table table-bordered">
+	<!-- <table class="table table-bordered">
 		<tr><th> I AM ALREADY REGISTERED  </th></tr>
 		 <tr> 
 		 <td>
@@ -165,7 +223,7 @@
 		  </td>
 		  </tr>
 	</table>		
-			
+			 -->
 	<table class="table table-bordered">
               <thead>
                 <tr>
@@ -179,12 +237,17 @@
 				</tr>
               </thead>
               <tbody>
-              <c:forEach var="cart" items="${cartList }">
+              <c:forEach var="cart" items="${cartList }" varStatus="status">
                 <tr>
-                  <td> <img width="60" src="${cart.bookImage }" alt="상품이미지"/></td>
+                  <td> <img width="60" src="./upload/${cart.bookImage }" alt="상품이미지"/></td>
                   <td>${cart.bookTitle}<br/>Color : black, Material : metal</td>
 				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text">${cart.bookEA }<button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
+					<div class="input-append">
+						<input class="span1" style="max-width:34px" value="${cart.bookEA }" size="16" type="text" id="qty<c:out value="${status.index}"/>" onchange="javascript:qtyChange(0, this, ${cart.cartNum})">
+						<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'minus', ${cart.cartNum})"><i class="icon-minus"></i></button>
+						<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'plus', ${cart.cartNum})"><i class="icon-plus"></i></button>
+						<button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				
+					</div>
 				  </td>
                   <td>${cart.bookPrice}</td>
                   <td>$25.00</td>
@@ -192,7 +255,7 @@
                   <td></td>
                 </tr>
               </c:forEach>  
-				<tr>
+				<!-- <tr>
                   <td> <img width="60" src="themes/images/products/8.jpg" alt=""/></td>
                   <td>MASSA AST<br/>Color : black, Material : metal</td>
 				  <td>
@@ -202,8 +265,8 @@
                   <td>--</td>
                   <td>$1.00</td>
                   <td>$8.00</td>
-                </tr>
-				<tr>
+                </tr> -->
+				<!-- <tr>
                   <td> <img width="60" src="themes/images/products/3.jpg" alt=""/></td>
                   <td>MASSA AST<br/>Color : black, Material : metal</td>
 				  <td>
@@ -230,7 +293,7 @@
 				 <tr>
                   <td colspan="6" style="text-align:right"><strong>TOTAL ($228 - $50 + $31) =</strong></td>
                   <td class="label label-important" style="display:block"> <strong> $155.00 </strong></td>
-                </tr>
+                </tr> -->
 				</tbody>
             </table>
 		
@@ -280,7 +343,7 @@
 			  </td>
 			  </tr>
             </table>		
-	<a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
+	<a href="./main.me" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
 	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	
 </div>

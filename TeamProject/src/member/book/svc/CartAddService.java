@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import dao.BookDAO;
 import dao.CartDAO;
 
-public class BookCartAddService {
+public class CartAddService {
 
 	// 카트에 담긴 책 정보를 가져오는 메서드
 	public BookBean getCartBook(int bookID) {
@@ -36,7 +36,7 @@ public class BookCartAddService {
 		ArrayList<CartBean> cartList = null;
 		int cartAddResult = 0; // 카트 insert 성공 여부 변수
 		int qtyUpdateResult = 0; // 카트 update 성공 여부 변수
-
+		
 		Connection con = getConnection();
 
 		CartDAO cartDAO = CartDAO.getInstance();

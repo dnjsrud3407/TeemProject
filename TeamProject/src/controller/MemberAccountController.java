@@ -38,8 +38,11 @@ public class MemberAccountController extends HttpServlet {
 		
 		Action action = null;
 	ActionForward forward = null;
+	if (command.equals("/main.me")) {//
+		forward = new ActionForward();
+		forward.setPath("index.jsp");
 	
-	if (command.equals("/Login.me")) {//
+	}else if (command.equals("/Login.me")) {//
 		forward = new ActionForward();
 		forward.setPath("/member/login.jsp");
 		

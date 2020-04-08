@@ -59,11 +59,21 @@ boolean isLogin = false;
   	
 	var isLogin = <%=isLogin%>;
 	var pop_title = document.bookQnaForm;
+	
+	function loginChk() {
+		var loginUrl = "http://localhost:8080/TeamProject" + "/Login.me?url=" + location.href;
+		if(!isLogin){
+			window.location.href = loginUrl;
+			return false;
+		}
+		return true;
+	}
+	
 	function openQna() {
 		alert(isLogin);
 		var qnaUrl = "./QWriteForm.book";
-		var loginUrl = "http://localhost:8080/TeamProject" + "/Login.me?url=" + location.href;
-		if (isLogin) {
+		
+		if(loginChk()){
 			//alert('true');
  			window.open('',"bookQnaForm",'toolbar=no,scrollbars=no,resizable=no,top=100,left=0,width=700,height=600');
  			bookQnaForm.action = qnaUrl;
@@ -73,12 +83,24 @@ boolean isLogin = false;
  			bookQnaForm.bookTitle="${book.bookTitle}";
  			bookQnaForm.uID="${sessionScope.uID}";
  			bookQnaForm.submit();
-		} else {
-			//alert('alse');
- 			window.location.href = loginUrl;
 		}
 	}
     
+	function kindSubmit(index, qty){
+		if(loginChk()){
+			if(index == 1) {
+				document.kindFrm.action='BookBuy.book';
+			} else if(index == 2) {
+				alert(qty);
+				document.kindFrm.action='CartAdd.book';
+			} else if (index == 3) {
+				document.kindFrm.action='BookLike.book';
+			}
+			document.kindFrm.submit();
+		}
+		return false;
+		
+	}
     </script>
 	<style type="text/css" id="enject">
 	.qBtn {
@@ -121,7 +143,7 @@ boolean isLogin = false;
 	        </c:if>
 	        <a href="member.jsp">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
 	    </div>
     </div>
 </div>
@@ -222,15 +244,15 @@ boolean isLogin = false;
 				<h3>${book.bookTitle } </h3>
 				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
-				<form action="BookCartAdd.book" class="form-horizontal qtyFrm" method="post">
+				<form class="form-horizontal qtyFrm" method="post" name="kindFrm">
 				  <div class="control-group">
 					<label class="control-label"><span>${book.bookPrice }</span></label>
 					<div class="controls">
-					<input type="number" class="span1" placeholder="Qty." name="qty"/>
+					<input type="number" class="span1" placeholder="Qty." name="qty" value="1"/>
 					<input type="hidden" name="bookID" value="${book.bookID }"/>
-				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookBuy.book'"> 구매하기</button>
-					  <button type="submit" class="btn btn-large btn-primary pull-right" > 장바구니 <i class=" icon-shopping-cart"></i></button>
-					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookLike.book'"> ♡ </button>	
+				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick='kindSubmit(1)'> 구매하기</button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick='kindSubmit(2,qty.value)'> 장바구니 <i class=" icon-shopping-cart"></i></button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick='kindSubmit(3)'> ♡ </button>	
 					</div>
 				  </div>
 				</form>

@@ -1,36 +1,40 @@
 package member.book.action;
 
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
+
 
 import action.Action;
-import member.book.svc.BookCartAddService;
-import member.book.svc.BookLikeProService;
-import member.book.svc.BookListService;
+import member.book.svc.CartAddService;
+
 import vo.ActionForward;
 import vo.BookBean;
 import vo.CartBean;
 
-public class BookCartAddAction implements Action {
+public class CartAddAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("BookCartAddAction");
+		System.out.println("CartAddAction");
 		
 		ActionForward forward = null;
 		
 		int bookID =Integer.parseInt(request.getParameter("bookID"));
-		int qty = Integer.parseInt(request.getParameter("qty"));
+		int qty = 1;
+		System.out.println(request.getParameter("qty"));
+		if(request.getParameter("qty") != null) {
+			qty = Integer.parseInt(request.getParameter("qty"));
+		}
+
 		System.out.println(qty);
 	
 		System.out.println(bookID);
 		
-		BookCartAddService bookCartProService = new BookCartAddService();
+		CartAddService bookCartProService = new CartAddService();
 		
 		// bookID에  해당하는 상품 정보 가져오기
 		BookBean bookBean= bookCartProService.getCartBook(bookID);
@@ -46,7 +50,7 @@ public class BookCartAddAction implements Action {
 		session.setAttribute("cartList", cartList);
 		
 		forward = new ActionForward(); 
-		forward.setPath("BookCartList.book"); 
+		forward.setPath("CartList.book"); 
 		forward.setRedirect(true); 
 			
 	
