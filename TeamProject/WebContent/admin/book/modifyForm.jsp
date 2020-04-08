@@ -1,10 +1,6 @@
-<%@page import="vo.BookBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%
-BookBean book = (BookBean)request.getAttribute("book");
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -318,7 +314,7 @@ BookBean book = (BookBean)request.getAttribute("book");
 		<!-- Begin Page Content// -->
         <div class="container-fluid">
 
-            <h6 class="m-0 font-weight-bold text-primary"><a href="Detail.abook?bookID=<%=book.getBookID()%>">&lt; 뒤로가기</a></h6><br>
+            <h6 class="m-0 font-weight-bold text-primary"><a href="Detail.abook?bookID=${book.bookID }">&lt; 뒤로가기</a></h6><br>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -326,7 +322,7 @@ BookBean book = (BookBean)request.getAttribute("book");
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="ModifyPro.abook?bookID=<%=book.getBookID() %>" method="post" enctype="multipart/form-data">
+              <form action="ModifyPro.abook?bookID=${book.bookID }" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th style="width:15%">* 책 카테고리</th>
@@ -348,46 +344,46 @@ BookBean book = (BookBean)request.getAttribute("book");
                     </tr>
                     <tr>
                       <th>상품 이미지</th>
-                      <input type="hidden" name="beforeImage" value="<%=book.getBookImage()%>">
-                      <input type="hidden" name="beforeOriginImage" value="<%=book.getBookOriginImage()%>">
+                      <input type="hidden" name="beforeImage" value="${book.bookImage }">
+                      <input type="hidden" name="beforeOriginImage" value="${book.bookOriginImage }">
                       <td>
-                        <%=book.getBookOriginImage()%>
+                        ${book.bookOriginImage }
                         <input type="file" name="bookImage" >
                        </td>
                     </tr>
                     <tr>
                       <th>출판사</th>
-                      <td><input type="text" name="bookPublisher" size="120" value="<%=book.getBookPublisher()%>"></td>
+                      <td><input type="text" name="bookPublisher" size="120" value="${book.bookPublisher }"></td>
                     </tr>
                     <tr>
                     <!-- 달력창 띄우기 -->
                       <th>출판일</th>
-                      <td><input type="text" id="datepicker" name="bookPublishedDate" placeholder="<%=book.getBookPublishedDate() %>" value="<%=book.getBookPublishedDate() %>" readonly="readonly" size="100"></td>
+                      <td><input type="text" id="datepicker" name="bookPublishedDate" placeholder="${book.bookPublishedDate }" value="${book.bookPublishedDate }" readonly="readonly" size="100"></td>
                     </tr>
                     <tr>
                       <th>* 가격</th>
-                      <td><input type="text" name="bookPrice" required="required" size="120" value="<%=book.getBookPrice()%>"></td>
+                      <td><input type="text" name="bookPrice" required="required" size="120" value="${book.bookPrice }"></td>
                     </tr>
                     <tr>
                       <th>* 상품 재고</th>
-                      <td><input type="text" name="bookEA" required="required" size="120" value="<%=book.getBookEA()%>"></td>
+                      <td><input type="text" name="bookEA" required="required" size="120" value="${book.bookEA }"></td>
                     </tr>
                     <tr>
                       <th>* 상품 소개</th>
-                      <td><textarea rows="10" cols="120" name="bookIntroduce" required="required"><%=book.getBookIntroduce()%></textarea></td>
+                      <td><textarea rows="10" cols="120" name="bookIntroduce" required="required">${book.bookIntroduce }</textarea></td>
                     </tr>
                     <tr>
                       <th>* 상품의 공개여부</th>
                       <td>
                         <select name="bookisView">
-                            <option value="true" <%if(book.isBookisView()){ %>selected="selected"<%} %>>공개</option>
-                            <option value="false" <%if(!book.isBookisView()){ %>selected="selected"<%} %>>비공개</option>
+                            <option value="true" <c:if test="${book.bookisView eq 'true'}">selected="selected"</c:if>>공개</option>
+                            <option value="false" <c:if test="${book.bookisView eq 'false'}">selected="selected"</c:if>>비공개</option>
                         </select>
                       </td>
                     </tr>
                     <tr>
                       <th>상품별 포인트 적립률</th>
-                      <td><input type="text" name="saveRatio" size="120" value="<%=book.getSaveRatio()%>"></td>
+                      <td><input type="text" name="saveRatio" size="120" value="${book.saveRatio }"></td>
                     </tr>
                 </table>
                 <input type="submit" value="수정하기">

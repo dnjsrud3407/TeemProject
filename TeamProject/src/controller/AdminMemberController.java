@@ -90,20 +90,18 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			// 매출관리 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+		// 매출관리 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 		} else if(command.equals("/Order.adm")) {
 			forward = new ActionForward();
 			forward.setPath("./admin/order/order.jsp");
 
-		} else if(command.equals("/OrderList.adm")) {
+		} 
+		else if(command.equals("/OrderList.adm")) {
 			forward = new ActionForward();
 			forward.setPath("./admin/order/order_list.jsp");
 
-		} else if(command.equals("/Sales.adm")) {
-			forward = new ActionForward();
-			forward.setPath("./admin/order/sales.jsp");
-
-		} else if(command.equals("/OrderList.adm")) {
+		} 
+		 else if(command.equals("/OrderList.adm")) {
 			action = new OrderListAcion();
 			try {
 				forward = action.execute(request, response);
@@ -117,9 +115,14 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} 
-			// cancel / exchange / refund / delivery >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Details>>>>>>>>>>>>>>>>>>>>>
 
-		} else if(command.equals("/OrderDeliveryDetail.adm")) {
+		} else if(command.equals("/Sales.adm")) {
+			forward = new ActionForward();
+			forward.setPath("./admin/order/sales.jsp");
+
+		}
+		// cancel / exchange / refund / delivery >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Details>>>>>>>>>>>>>>>>>>>>>
+		else if(command.equals("/OrderDeliveryDetail.adm")) {
 			action = new OrderDeliveryDetailAcion();
 			try {
 				forward = action.execute(request, response);

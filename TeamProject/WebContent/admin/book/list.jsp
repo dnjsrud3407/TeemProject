@@ -82,7 +82,7 @@
 	});
 	
 	// =====================검색 json=========================== 
-	function search2(page) {
+	function searchList(page) {
 		var bookID = $("#bookID").val();
 		var bookTitle = $("#bookTitle").val();
 		var bookPublisher = $("#bookPublisher").val();
@@ -146,13 +146,13 @@
 				var next=parseInt(pageInfo.startPage)+parseInt(pageInfo.pageBlock);
 				$("#pageList").html("");
 				if(parseInt(pageInfo.startPage) > parseInt(pageInfo.pageBlock)) {
-					$("#pageList").append("<a href='#' onclick='search2("+pre+")'>[이전]</a>&nbsp;");
+					$("#pageList").append("<a href='#' onclick='searchList("+pre+")'>[이전]</a>&nbsp;");
 				}
 				for(var i = parseInt(pageInfo.startPage); i <= parseInt(pageInfo.endPage); i++) {
-					$("#pageList").append("<a href='#' onclick='search2("+ i +")'>"+i+"</a>&nbsp;");
+					$("#pageList").append("<a href='#' onclick='searchList("+ i +")'>"+i+"</a>&nbsp;");
 				}
 				if(parseInt(pageInfo.endPage) < parseInt(pageInfo.maxPage )) {
-					$("#pageList").append("<a href='#' onclick='search2("+next+")'>[다음]</a>&nbsp;");
+					$("#pageList").append("<a href='#' onclick='searchList("+next+")'>[다음]</a>&nbsp;");
 				}
 			});
 		});
@@ -434,7 +434,7 @@ img{
                   	</td>
                   </tr>
                 </table>
-                <input type="button" value="검색" id="search" onclick="search2(1)">
+                <input type="button" value="검색" id="search" onclick="searchList(1)">
                 <input type="button" id="btnReset" value="초기화">
               </form>
               </div>
@@ -451,8 +451,7 @@ img{
               
               <form action="DeleteForm.abook" id="searchBoard" method="post">
               <input type="button" value="상품등록" onclick="location.href='WriteForm.abook'">
-              <input type="button" value="상품삭제" onsubmit="">
-              <div id="#cmmntList"></div>
+              <input type="submit" value="상품삭제">
               <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>

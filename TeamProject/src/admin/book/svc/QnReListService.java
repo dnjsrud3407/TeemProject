@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import dao.BoardDAO;
 import vo.BoardBean;
 
-public class QListService {
+public class QnReListService {
 
 	// 상품 문의 게시글 개수 가져오기
 	public int getListCount(int kID) {

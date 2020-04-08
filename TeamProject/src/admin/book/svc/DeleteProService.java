@@ -36,6 +36,7 @@ public class DeleteProService {
         		deleteCount = bookDAO.deleteBook(bookID);
         	}
         } else {
+        	System.out.println(bookIDList[0]);
         	bookID = Integer.parseInt(bookIDList[0]);
         	deleteCount = bookDAO.deleteBook(bookID);
         }

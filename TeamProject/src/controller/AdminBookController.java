@@ -15,11 +15,13 @@ import admin.book.action.BK2Action;
 import admin.book.action.BK3Action;
 import admin.book.action.BuyListAction;
 import admin.book.action.BuyProAction;
+import admin.book.action.DeleteFormAction;
 import admin.book.action.DeleteProAction;
 import admin.book.action.DetailAction;
 import admin.book.action.ListAction;
 import admin.book.action.ModifyFormAction;
 import admin.book.action.ModifyProAction;
+import admin.book.action.QDeleteFormAction;
 import admin.book.action.QDeleteProAction;
 import admin.book.action.QDetailAction;
 import admin.book.action.QListAction;
@@ -29,11 +31,12 @@ import admin.book.action.QWriteFormAction;
 import admin.book.action.QWriteProAction;
 import admin.book.action.RefundListAction;
 import admin.book.action.RefundProAction;
+import admin.book.action.ReviewDeleteFormAction;
 import admin.book.action.ReviewDeleteProAction;
 import admin.book.action.ReviewDetailAction;
 import admin.book.action.ReviewListAction;
-import admin.book.action.ReviewModifyFormAction;
 import admin.book.action.ReviewModifyProAction;
+import admin.book.action.ReviewSearchProAction;
 import admin.book.action.ReviewWriteFormAction;
 import admin.book.action.ReviewWriteProAction;
 import admin.book.action.SearchProAction;
@@ -111,8 +114,12 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             }
         } else if(command.equals("/DeleteForm.abook")) {
             // --- 제품 삭제 폼
-            forward = new ActionForward();
-            forward.setPath("./admin/book/deleteForm.jsp");
+        	action = new DeleteFormAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if(command.equals("/DeletePro.abook")) {
             // --- 제품 삭제 작업 
             action = new DeleteProAction();
@@ -191,8 +198,12 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             }
         } else if(command.equals("/QDeleteForm.abook")) {
             // 상품 문의 글 삭제 폼
-            forward = new ActionForward();
-            forward.setPath("./admin/book/qDeleteForm.jsp");
+            action = new QDeleteFormAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if(command.equals("/QDeletePro.abook")) {
             // 상품 문의 답변 글 삭제 작업
             action = new QDeleteProAction();
@@ -233,14 +244,6 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/ReviewModifyForm.abook")) {
-            // 상품 후기 글 수정하기 폼 (사용자가 작성한 내용 & 관리자가 작성한 내용 불러옴)
-            action = new ReviewModifyFormAction();
-            try {
-                forward = action.execute(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else if(command.equals("/ReviewModifyPro.abook")) {
             // 상품 후기 글 수정 작업 
             action = new ReviewModifyProAction();
@@ -249,10 +252,22 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        } else if(command.equals("/ReviewSearchPro.abook")) {
+            // 상품 후기 글 검색 작업 
+            action = new ReviewSearchProAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if(command.equals("/ReviewDeleteForm.abook")) {
-            // 상품 후기 글 삭제 폼
-            forward = new ActionForward();
-            forward.setPath("./admin/book/reviewDeleteForm.jsp");
+        	// 상품 후기 글 삭제 폼
+            action = new ReviewDeleteFormAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if(command.equals("/ReviewDeletePro.abook")) {
             // 상품 후기 답변 글 삭제 작업
             action = new ReviewDeleteProAction();

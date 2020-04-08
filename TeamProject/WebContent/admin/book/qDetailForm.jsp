@@ -264,7 +264,6 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	              <form action="WritePro.abook" method="post" enctype="multipart/form-data">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
 	                      <th style="width:15%">접수번호</th>
@@ -283,7 +282,7 @@
 	                      <td colspan="3">${board_q.bookTitle }</td>
 	                    </tr>
 	                    <tr>
-	                      <th>문의제목</th>
+	                      <th>문의 제목</th>
 	                      <td colspan="3">${board_q.boardTitle }</td>
 	                    </tr>
 	                    <tr>
@@ -291,7 +290,6 @@
 	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_q.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
-	                </form>
 	              </div>
 	            </div>
               </div>
@@ -322,6 +320,7 @@
 	                    </tr>
 	                </table>
 	                <input type="submit" value="답변 수정" />
+	                <input type="button" value="답변 삭제" onclick="location.href='QDeleteForm.abook?boardNum=${board_answer.boardNum }&boardReRef=${board_answer.boardReRef }'"/>
 	                </form>
 	              </div>
 	            </div>

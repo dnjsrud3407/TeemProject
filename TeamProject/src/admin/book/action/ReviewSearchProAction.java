@@ -11,7 +11,7 @@ import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
 
-public class QSearchProAction implements Action {
+public class ReviewSearchProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -44,14 +44,14 @@ public class QSearchProAction implements Action {
     		page = Integer.parseInt(stringPage);
     	}
     	
-    	int kID = 102;
+    	int kID = 103;
     	
-		QnReSearchService qSearchService = new QnReSearchService();
+		QnReSearchService reviewSearchService = new QnReSearchService();
 		// 게시글 개수
-		int listCount = qSearchService.getSearchListCount(kID, boardRegTime_Before, boardRegTime_After, searchSql);
-		ArrayList<BoardBean> qSearchList = null;
+		int listCount = reviewSearchService.getSearchListCount(kID, boardRegTime_Before, boardRegTime_After, searchSql);
+		ArrayList<BoardBean> reviewSearchList = null;
 		// === boardList 가져오기
-		qSearchList = qSearchService.getSearchBoardList(kID, boardRegTime_Before, boardRegTime_After, searchSql, page, limit);
+		reviewSearchList = reviewSearchService.getSearchBoardList(kID, boardRegTime_Before, boardRegTime_After, searchSql, page, limit);
 		
 		// 1. 총 페이지 수 계산
     	int maxPage = listCount / limit + (listCount % limit == 0 ? 0 : 1);
@@ -73,10 +73,10 @@ public class QSearchProAction implements Action {
     	request.setAttribute("boardRegTime_After", boardRegTime_After);
     	request.setAttribute("answer", answer);
     	request.setAttribute("pageInfo", pageInfo);
-    	request.setAttribute("qSearchList", qSearchList);
+    	request.setAttribute("reviewSearchList", reviewSearchList);
     	
 		forward = new ActionForward();
-		forward.setPath("./admin/book/qSearchList.jsp");
+		forward.setPath("./admin/book/reviewSearchList.jsp");
 		return forward;
 	}
 

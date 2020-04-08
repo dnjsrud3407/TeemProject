@@ -316,6 +316,89 @@ height: 300px;
               </div>
             </div>
           </div>
+          
+          					<!-- Approach -->
+					<div class="card shadow mb-4">
+						<div class="card-header py-3">
+							<h6 class="m-0 font-weight-bold text-primary">거래 진행 상황</h6>
+<!-- 							<input type="submit" value="세일즈 파일 다운" />&nbsp;&nbsp; -->
+						</div>
+						<div class="card-body">
+							<!-- DataTales Example -->
+<!-- 							<div class="card shadow mb-4"> -->
+								<!--             <div class="card-header py-3"> -->
+								<!--               <h6 class="m-0 font-weight-bold text-primary">거래완료 진행리스트</h6> -->
+								<!--               	<a href="MemberModifyForm.adm"><input type="button" value="멤버수정"></a> -->
+								<!-- 				<a href="MemberDeletePro.adm"><input type="button" value="멤버삭제"></a> -->
+								<!--             </div> -->
+								<div class="card-body">
+<!-- 									<div class="table-responsive"> -->
+										<table class="table table-bordered" id="dataTable"
+											width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th>주문일</th>
+													<th>주문번호</th>
+													<th>주문자명</th>
+													<th>결제방법</th>
+													<th>주문금액</th>
+													<th>주문상태</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr onclick="location.href='OrderDetail.adm'">
+													<td>2020-11-11 11:11</td>
+													<td>202011111111</td>
+													<td>김부킹</td>
+													<td>카드결제</td>
+													<td>100,000원</td>
+													<td><select>
+															<option>주문접수</option>
+															<option>반품신청</option>
+															<option>교환신청</option>
+															<option>취소완료</option>
+													</select></td>
+												</tr>
+												<tr>
+													<td>Garrett Winters</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>63</td>
+													<td>2011/07/25</td>
+													<td>$170,750</td>
+												</tr>
+												<tr>
+													<td>Ashton Cox</td>
+													<td>Junior Technical Author</td>
+													<td>San Francisco</td>
+													<td>66</td>
+													<td>2009/01/12</td>
+													<td>$86,000</td>
+												</tr>
+												<tr>
+													<td>Cedric Kelly</td>
+													<td>Senior Javascript Developer</td>
+													<td>Edinburgh</td>
+													<td>22</td>
+													<td>2012/03/29</td>
+													<td>$433,060</td>
+												</tr>
+												<tr onclick="location.href='OrderCompList.adm'">
+													<td>Airi Satou</td>
+													<td>Accountant</td>
+													<td>Tokyo</td>
+													<td>33</td>
+													<td>2008/11/28</td>
+													<td>$162,700</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+<!-- 							</div> -->
+
+<!-- 						</div> -->
+			              </div>
 
           <!-- Content Row -->
 
@@ -721,26 +804,23 @@ height: 300px;
               </div>
             </div>
           </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
         </div>
         <!-- /.container-fluid -->
 
+
       </div>
-      <!-- End of Main Content -->                
-      </div>
-              </div>
-
-
-
+      <!-- End of Main Content -->                      
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+      <jsp:include page="../adminInc/adminBottom.jsp" />
+
       <!-- End of Footer -->
 
     </div>

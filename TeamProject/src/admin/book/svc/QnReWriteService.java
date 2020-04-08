@@ -8,7 +8,7 @@ import static db.JdbcUtil.*;
 import dao.BoardDAO;
 import vo.BoardBean;
 
-public class QWriteService {
+public class QnReWriteService {
 
 	// 사용자가 상품 문의한 것을 불러옴
 	public BoardBean getBoard(int boardNum) {

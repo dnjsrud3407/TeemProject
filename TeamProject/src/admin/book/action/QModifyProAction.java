@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import admin.book.svc.QModifyProService;
+import admin.book.svc.QnReModifyProService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -17,7 +17,7 @@ public class QModifyProAction implements Action {
 		
 		// 페이지, 문의글 ReRef, boardNum 파라미터와 답변 제목,내용 불러오기
 		String page = request.getParameter("page");
-		System.out.println("page:"+page);
+		
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");
 		int boardReRef = Integer.parseInt(request.getParameter("boardReRef"));
@@ -28,7 +28,7 @@ public class QModifyProAction implements Action {
 		String boardWriter = (String)session.getAttribute("uID");
 		
 		// 문의 답변 글 수정하기
-		QModifyProService qModifyProService = new QModifyProService();
+		QnReModifyProService qModifyProService = new QnReModifyProService();
 		BoardBean board = new BoardBean(
 				boardNum,
 				boardWriter,
