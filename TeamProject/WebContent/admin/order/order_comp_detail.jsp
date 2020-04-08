@@ -248,11 +248,11 @@ img{
 
 		  <!-- 상세 설정 -->
           <div class="card shadow mb-4">
+           <div class="card-header py-3">
+				<h6 class="m-0 font-weight-bold text-primary">-거래 완료 상세보기-</h6>
+			</div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="Search.abook" method="post" id="searchForm">
-			   <h1>-거래 완료 상세보기-</h1>
-
                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               	 <tr>
        				<th style="width: 15%;">상품코드</th>
@@ -518,60 +518,6 @@ img{
               <input type="button" value="제품 반품" onclick="location.href='OrderRefundDetail.adm'">
               <input type="button" value="제품 교환" onclick="location.href='OrderExchangeDetail.adm'">
 
-              <input type="button" value="상품삭제" onsubmit="">
-              <div id="#cmmntList"></div>
-              <c:if test="${bookList != null && pageInfo.listCount > 0}">
-                <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
-                    <tr>
-                      <th><input type="checkbox"></th>
-                      <th>상품 번호</th>
-                      <th>상품 이름</th>
-                      <th>출판사</th>
-                      <th>출판일</th>
-                      <th>가격</th>
-                      <th>재고 수량</th>
-                      <th>판매량</th>
-                      <th>전시상태</th>
-                      <th>포인트 적립률</th>
-                      <th>대분류</th>
-                      <th>단계</th>
-                      <th>소분류</th>
-                    </tr>
-                    <c:forEach var="book" items="${bookList }" varStatus="status">
-                    <tr>
-                      <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
-                      <td>${book.bookID }</td>
-                      <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
-                      <td>${book.bookPublisher }</td>
-                      <td>${book.bookPublishedDate }</td>
-                      <td>${book.bookPrice }</td>
-                      <c:if test="${book.bookEA < 10}">
-                      	<td class="red">${book.bookEA }</td>
-                      </c:if>
-                      <c:if test="${book.bookEA >= 10}">
-                      	<td>${book.bookEA }</td>
-                      </c:if>
-                      <td>${book.salesVolume }</td>
-                      <td>${book.bookisView }</td>
-                      <td>${book.saveRatio }</td>
-                      <td>${book.BK1 }</td>
-                      <td>${book.BK2 }</td>
-                      <td>${book.BK3 }</td>
-                    </tr>
-                    </c:forEach>
-                </table>
-                <section id="pageList">
-                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="List.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
-                	</c:if>
-                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="List.abook?page=${i }">${i }</a>&nbsp;
-                	</c:forEach>
-                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="List.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
-                	</c:if>
-                </section>
-                </c:if>
                 </form>
               </div>
             </div>

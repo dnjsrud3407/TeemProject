@@ -338,7 +338,7 @@ height: 300px;
 											<thead>
 												<tr>
 													<th>주문일</th>
-													<th>주문번호</th>
+													<th>주문상세번호</th>
 													<th>주문자명</th>
 													<th>결제방법</th>
 													<th>주문금액</th>
