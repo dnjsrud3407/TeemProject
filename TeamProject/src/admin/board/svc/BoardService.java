@@ -91,6 +91,7 @@ public class BoardService {
 		int deleteCount = 0;
 		deleteCount = boardDAO.deleteArticle(boardNum, k1, k2);
 		
+		close(con);
 		return 0;
 	}
 
@@ -115,7 +116,7 @@ public class BoardService {
 			System.out.println("수정 실패");
 			rollback(con);
 		}
-		
+		close(con);
 		return updateCount;
 	}
 

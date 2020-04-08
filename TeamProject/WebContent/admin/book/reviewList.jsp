@@ -386,7 +386,10 @@
               <div>
 		  		* 후기제목을 클릭하시면 상세한 후기내역 작성/수정이 가능합니다.
 		  	  </div>
-              <form action="DeleteForm.abook" id="searchBoard" method="post">
+		  	  
+<!-- 		  	  게시판 목록의 리스트 form의 action은 다중 삭제로 이동 -->		  	  
+              <form action="ReviewDeleteForm.abook" id="searchBoard" method="post">
+                <input type="submit" value="답변삭제">
                 <c:if test="${!empty reviewList && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
@@ -402,7 +405,7 @@
                     </tr>
                     <c:forEach var="board" items="${reviewList }" varStatus="status">
                     <tr>
-                      <td><input type="checkbox" name="boardNumList" value="${board.boardNum }"></td>
+                      <td><input type="checkbox" name="boardRe_refList" value="${board.boardReRef }"></td>
                       <td>${board.boardReRef }</td>
                       	<c:if test="${board.boardReSeq == 0 }">
                       		<td>${board.boardRegTime }</td>
@@ -414,7 +417,7 @@
                       		<td>${board.boardRegTime }</td>
                       		<td><a href="ReviewDetail.abook?boardReRef=${board.boardReRef }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td>답변완료</td>
-                      		<td>처리된시간미완성</td>
+                      		<td>${board.boardAnswerRegTime }</td>
                       	</c:if>
                       <td>${board.bookID }</td>	
                       <td>${board.bookTitle }</td>

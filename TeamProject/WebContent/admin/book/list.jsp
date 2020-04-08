@@ -157,6 +157,7 @@
 			});
 		});
 	}
+	
 </script>
 <style type="text/css">
 img{
@@ -449,13 +450,14 @@ img{
             <div class="card-body">
               <div class="table-responsive">
               
+<!--               게시판 목록의 리스트 form의 action은 다중 삭제로 이동-->
               <form action="DeleteForm.abook" id="searchBoard" method="post">
               <input type="button" value="상품등록" onclick="location.href='WriteForm.abook'">
               <input type="submit" value="상품삭제">
               <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
-                      <th><input type="checkbox"></th>
+                      <th><input type="checkbox" onclick="alert('hi')"></th>
                       <th>상품 번호</th>
                       <th>상품 이름</th>
                       <th>출판사</th>
@@ -471,7 +473,7 @@ img{
                     </tr>
                     <c:forEach var="book" items="${bookList }" varStatus="status">
                     <tr>
-                      <td><input type="checkbox" name="bookIDList" value="${book.bookID }"></td>
+                      <td><input type="checkbox" id="checklist" name="bookIDList" value="${book.bookID }"></td>
                       <td>${book.bookID }</td>
                       <td><a href="Detail.abook?bookID=${book.bookID }&page=${pageInfo.page}">${book.bookTitle }</a></td>
                       <td>${book.bookPublisher }</td>

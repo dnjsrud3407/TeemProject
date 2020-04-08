@@ -9,23 +9,41 @@ import dao.BoardDAO;
 public class QnReDeleteProService {
 
 	// 관리자 답변 게시글 삭제
-	public boolean deleteBoard(int boardNum, int boardReRef) {
+	public boolean deleteBoard(String[] boardRe_refList) {
 		Connection con = getConnection();
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
+		int deleteCount = 0;
+        int boardReref = 0;
 		boolean isRemoveBoard = false;
 		
-		int deleteBoard = boardDAO.deleteBoard(boardNum);
+		if(boardRe_refList.length > 1) {	// 여러개 삭제하는 경우
+			for(int i = 0; i < boardRe_refList.length; i++) {
+				boardReref = Integer.parseInt(boardRe_refList[i]);
+        		deleteCount = boardDAO.deleteBoard(boardReref);
+        	}
+		} else {	// 한개 삭제하는 경우
+			boardReref = Integer.parseInt(boardRe_refList[0]);
+        	deleteCount = boardDAO.deleteBoard(boardReref);
+        }
+		
 		int updateCount = 0;
 		
 		// 답변 글 삭제 성공 시 문의글 boardReSeq 를 0으로 바꿔야함
-		if(deleteBoard > 0) {
-			updateCount = boardDAO.updateReSeqMinus(boardReRef);
+		if(deleteCount > 0) {			
+			if(boardRe_refList.length > 1) {	// 여러개 삭제하는 경우
+				for(int i = 0; i < boardRe_refList.length; i++) {
+					boardReref = Integer.parseInt(boardRe_refList[i]);
+					updateCount = boardDAO.updateReSeqMinus(boardReref);
+	        	}
+			} else {	// 한개 삭제하는 경우
+				boardReref = Integer.parseInt(boardRe_refList[0]);
+				updateCount = boardDAO.updateReSeqMinus(boardReref);
+	        }
+			
 			if(updateCount > 0) {
 				isRemoveBoard = true;
 				commit(con);
-			} else {
-				rollback(con);
 			}
 		} else {
 			rollback(con);

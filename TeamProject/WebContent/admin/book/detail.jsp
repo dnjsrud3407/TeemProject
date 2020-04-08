@@ -237,7 +237,7 @@ height: 300px;
             <div class="card-body">
               <div class="table-responsive">
                 <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=${book.bookID }'">
-                <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookID=${book.bookID }'">
+                <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookIDList=${book.bookID }'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th style="width:15%">책 카테고리</th>

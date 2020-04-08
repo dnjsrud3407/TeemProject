@@ -32,7 +32,7 @@ public class QDetailAction implements Action {
 		
 		
 		forward = new ActionForward();
-		forward.setPath("./admin/book/qDetailForm.jsp");
+		forward.setPath("./admin/book/qDetail.jsp");
 		return forward;
 	}
 
