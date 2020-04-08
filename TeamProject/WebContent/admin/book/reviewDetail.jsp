@@ -320,7 +320,7 @@
 	                    </tr>
 	                </table>
 	                <input type="submit" value="답변 수정" />
-	                <input type="button" value="답변 삭제" onclick="location.href='ReviewDeleteForm.abook?boardNum=${board_answer.boardNum }&boardReRef=${board_answer.boardReRef }'"/>
+	                <input type="button" value="답변 삭제" onclick="location.href='ReviewDeleteForm.abook?&boardRe_refList=${board_answer.boardReRef }'"/>
 	                </form>
 	              </div>
 	            </div>

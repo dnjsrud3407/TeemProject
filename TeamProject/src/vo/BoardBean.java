@@ -18,6 +18,7 @@ public class BoardBean {
 	private String boardTitle;
 	private String boardContent;
 	private Timestamp boardRegTime;
+	private Timestamp boardAnswerRegTime;	// 답변한 날짜
 	private int boardReRef;
 	private int boardReLev; // 질문인지(0) or 답변인지(1) 판정
 	private int boardReSeq;	// 답변됐는지(1), 안됐는지(0) 판정
@@ -286,6 +287,14 @@ public class BoardBean {
 
 	public void setBoardRegTime(Timestamp boardRegTime) {
 		this.boardRegTime = boardRegTime;
+	}
+	
+	public Timestamp getBoardAnswerRegTime() {
+		return boardAnswerRegTime;
+	}
+
+	public void setBoardAnswerRegTime(Timestamp boardAnswerRegTime) {
+		this.boardAnswerRegTime = boardAnswerRegTime;
 	}
 
 	public int getBoardReRef() {

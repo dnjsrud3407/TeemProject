@@ -17,9 +17,8 @@ public class ReviewDeleteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		// ============ 파라미터로 글 번호, 글 참조번호(후기 글번호), 입력받은 비밀번호 가져오기
-		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-		int boardReRef = Integer.parseInt(request.getParameter("boardReRef"));
+		// ============ 파라미터로 글 참조번호리스트(boardRe_refList), 입력받은 비밀번호 가져오기
+		String[] boardRe_refList = request.getParameterValues("boardRe_refList");
 		String pw = request.getParameter("pw");
 		
 		// session 에서 관리자 아이디 가져오기
@@ -30,7 +29,7 @@ public class ReviewDeleteProAction implements Action {
 		DeleteProService deleteProService = new DeleteProService();
 		boolean isRightUser = deleteProService.isRightUser(uID, pw);
 		
-		QnReDeleteProService reviewDeleteProService = new QnReDeleteProService();
+		QnReDeleteProService qDeleteProService = new QnReDeleteProService();
 
 		if(!isRightUser) { // 관리자 비밀번호 불일치 시 
 		    response.setContentType("text/html; charset=UTF-8");
@@ -41,13 +40,14 @@ public class ReviewDeleteProAction implements Action {
 		    out.println("</script>");
 		} else {
 			// 답변 글 삭제하기
-			boolean isRemoveBoard = reviewDeleteProService.deleteBoard(boardNum, boardReRef);
+			boolean isRemoveBoard = qDeleteProService.deleteBoard(boardRe_refList);
+			
 			if(!isRemoveBoard) {	// 답변 삭제 실패된 경우
 				response.setContentType("text/html; charset=UTF-8");
                 PrintWriter out = response.getWriter();
                 out.println("<script>");
-                out.println("alert('답변 삭제 실패!')");
-                out.println("history.back()");
+                out.println("alert('등록된 답변이 없습니다')");
+                out.println("history.go(-2)");
                 out.println("</script>");
 			} else {
 				forward = new ActionForward();

@@ -234,7 +234,9 @@
               <div class="card mb-4 py-3 border-left-primary" style="width: 80%; margin: 35% 0 0 55%;">
                 <div class="card-body">
                   <form action="DeletePro.abook" method="post">
-                  	  <input type="hidden" name="bookID" value="${bookID }">
+	                  <c:forEach var="bookID" items="${bookIDList }" varStatus="status">
+	                  	<input type="hidden" name="bookIDList" value="${bookID }">
+	                  </c:forEach>
 				            관리자 비밀번호 &nbsp;&nbsp;&nbsp; <input type="text" name="pw">
 				     <input type="submit" value="삭제하기">
 				  </form>

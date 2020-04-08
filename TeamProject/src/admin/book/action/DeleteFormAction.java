@@ -12,13 +12,9 @@ public class DeleteFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		// detail.jsp 에서 하나만 삭제하는 경우
-		String bookID = request.getParameter("bookID");
-		
-		// list.jsp 에서 1~n개 삭제하는 경우
+		// list.jsp 에서 1~n개 삭제하는 경우 || detail.jsp 에서 1개 삭제하는 경우  모두 포함
 		String[] bookIDList = request.getParameterValues("bookIDList");
 		
-		request.setAttribute("bookID", bookID);
 		request.setAttribute("bookIDList", bookIDList);
 		
 		forward = new ActionForward();

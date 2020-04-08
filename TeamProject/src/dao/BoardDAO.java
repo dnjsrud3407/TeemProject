@@ -603,13 +603,12 @@ public class BoardDAO {
 	}
 	
 	
-	// ====================== 상품 문의 관리자 메서드 ==================================
-	// 상품 문의 게시글 개수 가져오기
+	// ====================== 상품 문의, 후기 관리자 메서드 ==================================
+	// 상품 문의, 후기 게시글 개수 가져오기
 	public int selectListCount(int kID) {
 		int listCount = 0;
-		PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        String sql = "SELECT COUNT(*) FROM board WHERE kID=? AND boardReLev=?";
+        String sql = "SELECT COUNT(*) FROM board JOIN book ON board.bookID = book.bookID"
+        		+ " WHERE kID=? AND boardReLev=?";
         try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, kID);
@@ -628,11 +627,9 @@ public class BoardDAO {
 		return listCount;
 	}
 
-	// 상품 문의 게시글 들고오기
+	// 상품 문의, 후기 게시글 들고오기
 	public ArrayList<BoardBean> selectList(int kID, int page, int limit) {
 		ArrayList<BoardBean> qList = new ArrayList<BoardBean>();
-		PreparedStatement pstmt = null;
-        ResultSet rs = null;
         // 답변 안 된 글(boardReSeq=0)이 우선적으로 보여지고
         // 다음에는 최근글 부터 보여짐
         String sql = "SELECT board.*, book.bookTitle FROM board"
@@ -660,8 +657,11 @@ public class BoardDAO {
 						rs.getInt("bookID"), 
 						rs.getString("bookTitle")
 						);
+				
 				qList.add(board);
 			}
+			
+			setAnswerRegTime(qList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -672,11 +672,41 @@ public class BoardDAO {
 		return qList;
 	}
 
-	// 사용자 문의글 가져오기
+	// selectList 에서 호출되는 함수 - 답글이 달린 경우 답변된 날짜 set 시켜줌
+	void setAnswerRegTime(ArrayList<BoardBean> qList) {
+        String sql = null;
+        
+		for(int i = 0; i < qList.size(); i++) {
+			BoardBean board = qList.get(i);
+			
+			// 만약 답글이 달린 경우 - board.setBoardAnswerRegTime() 호출
+			if(board.getBoardReSeq() > 0) {
+				sql = "SELECT boardRegTime" 
+							+ " FROM board"
+							+ " WHERE boardReRef=? AND boardReLev=?";
+				try {
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, board.getBoardReRef());
+					pstmt.setInt(2, 1);
+					rs = pstmt.executeQuery();
+					if(rs.next()) {
+						board.setBoardAnswerRegTime(rs.getTimestamp(1));
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+		            if(rs != null) {close(rs);}
+		            if(pstmt != null) {close(pstmt);}
+		        }
+				
+			}
+			
+		}
+	}
+	
+	// 사용자 문의, 후기글 가져오기
 	public BoardBean selectBoard(int boardNum) {
 		BoardBean board = null;
-		PreparedStatement pstmt = null;
-        ResultSet rs = null;
         String sql = "SELECT board.*, book.bookTitle FROM board" + 
         		" JOIN book ON board.bookID = book.bookID WHERE boardNum=?";
         try {
@@ -707,11 +737,9 @@ public class BoardDAO {
 		return board;
 	}
 
-	// 문의 답변 등록 시 게시글 번호 구하기 (게시글 중 최대값 구하기)
+	// 문의, 후기 답변 등록 시 게시글 번호 구하기 (게시글 중 최대값 구하기)
 	public int selectMaxNum() {
 		int maxNum = 0;
-	    PreparedStatement pstmt = null;
-	    ResultSet rs = null;
 	    String sql = "SELECT MAX(boardNum) FROM board";
 	    try {
 	        pstmt = con.prepareStatement(sql);
@@ -729,10 +757,9 @@ public class BoardDAO {
 		return maxNum;
 	}
 	
-	// 상품 문의 답변 등록 하기
+	// 상품 문의, 후기 답변 등록 하기
 	public int insertAnswerBoard(BoardBean board) {
 		int insertCount = 0;
-		PreparedStatement pstmt = null;
 	    String sql = "INSERT INTO board(boardNum,kID,boardWriter,boardTitle,boardContent,boardRegTime,boardReRef,boardReLev,bookID)"
 	    		+ "VALUES (?,?,?,?,?,now(),?,?,?)";
 	    try {
@@ -755,10 +782,9 @@ public class BoardDAO {
 	    return insertCount;
 	}
 
-	// 상품 문의 답변 등록 성공 시 문의 글 Seq+1 시키기
+	// 상품 문의, 후기 답변 등록 성공 시 문의 글 Seq+1 시키기
 	public int updateReSeqPlus(int boardReRef) {
 		int insertCount = 0;
-		PreparedStatement pstmt = null;
 		String sql = "UPDATE board SET boardReSeq=boardReSeq+1 WHERE boardNum=?";
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -773,11 +799,9 @@ public class BoardDAO {
 		return insertCount;
 	}
 	
-	// 상품 문의 글과, 관리자가 답변한 글 모두 가져옴 - 답변 작성 후 수정시에 사용
+	// 상품 문의, 후기 글과, 관리자가 답변한 글 모두 가져옴 - 답변 작성 후 수정시에 사용
 	public ArrayList<BoardBean> selectqnaList(int boardReRef) {
 		ArrayList<BoardBean> qnaList = new ArrayList<BoardBean>();
-		PreparedStatement pstmt = null;
-	    ResultSet rs = null;
 	    String sql = "SELECT board.*, book.bookTitle FROM board" + 
         		" JOIN book ON board.bookID = book.bookID WHERE boardReRef=?";
 	    try {
@@ -809,10 +833,9 @@ public class BoardDAO {
 		return qnaList;
 	}
 
-	// 상품 문의 답변 수정 하기
+	// 상품 문의, 후기 답변 수정 하기
 	public int updateAnswerBoard(BoardBean board) {
 		int updateCount = 0;
-		PreparedStatement pstmt = null;
 		String sql = "UPDATE board SET boardWriter=?, boardTitle=?, boardContent=?, boardRegTime=now() WHERE boardNum=?";
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -830,14 +853,11 @@ public class BoardDAO {
 		return updateCount;
 	}
 
-	// 상품 문의 글 검색한 게시글 개수 구하기
+	// 상품 문의, 후기 글 검색한 게시글 개수 구하기
 	public int getSearchListCount(int kID, String boardRegTime_Before, String boardRegTime_After, String searchSql) {
 		int listCount = 0;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		String sql = "SELECT COUNT(*) FROM board WHERE kID=?"
-				+ " AND boardReLev=? AND DATE(boardRegTime) BETWEEN ? AND ?" + searchSql;
+		String sql = "SELECT COUNT(*) FROM board JOIN book ON board.bookID = book.bookID"
+				+ " WHERE kID=? AND boardReLev=? AND DATE(boardRegTime) BETWEEN ? AND ?" + searchSql;
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, kID);	
@@ -858,12 +878,10 @@ public class BoardDAO {
 		return listCount;
 	}
 
-	// 상품 문의 글 검색한 게시글 리스트
+	// 상품 문의, 후기 글 검색한 게시글 리스트
 	public ArrayList<BoardBean> getSearchBoardList(int kID, String boardRegTime_Before, String boardRegTime_After,
 			String searchSql, int page, int limit) {
 		ArrayList<BoardBean> qSearchList = new ArrayList<BoardBean>();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		String sql = "SELECT board.*, book.bookTitle FROM board"
         		+ " JOIN book ON board.bookID = book.bookID"
         		+ " WHERE kID=? AND boardReLev=?"
@@ -895,6 +913,8 @@ public class BoardDAO {
 						);
 				qSearchList.add(board);
 			}
+			
+			setAnswerRegTime(qSearchList);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -905,32 +925,32 @@ public class BoardDAO {
 		return qSearchList;
 	}
 	
-	// 상품 문의 답변 글 삭제하기
-	public int deleteBoard(int boardNum) {
-		int deleteBoard = 0;
-		PreparedStatement pstmt = null;
-		String sql = "DELETE FROM board WHERE boardNum=?";
+	// 상품 문의, 후기 답변 글 삭제하기
+	public int deleteBoard(int boardReref) {
+		int deleteCount = 0;
+		String sql = "DELETE FROM board WHERE boardReref=? AND boardReLev=?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			deleteBoard = pstmt.executeUpdate();
+			pstmt.setInt(1, boardReref);
+			pstmt.setInt(2, 1);
+			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 	        if(pstmt != null) {close(pstmt);}
 	    }
 		
-		return deleteBoard;
+		return deleteCount;
 	}
 	
-	// 상품 문의 답변 등록 성공 시 문의 글 Seq-1 시키기
+	// 상품 문의, 후기 답변 등록 성공 시 문의 글 Seq-1 시키기 (단, 답변이 달린경우만 삭제(oardReSeq=1))
 	public int updateReSeqMinus(int boardReRef) {
 		int insertCount = 0;
-		PreparedStatement pstmt = null;
-		String sql = "UPDATE board SET boardReSeq=boardReSeq-1 WHERE boardNum=?";
+		String sql = "UPDATE board SET boardReSeq=boardReSeq-1 WHERE boardNum=? AND boardReSeq=?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardReRef);
+			pstmt.setInt(2, 1);
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
