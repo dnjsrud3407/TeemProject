@@ -12,7 +12,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - order_delivery_list.jsp</title>
+  <title>팀프로젝트 - 관리자 FAQ목록</title>
 
   <!-- Custom fonts for this template -->
   <link href='<c:url value="/admin/vendor/fontawesome-free/css/all.min.css"/>' rel="stylesheet" type="text/css">
@@ -54,10 +54,10 @@
 		});
 	
 		
-		function checkOK(boardNum, page) {
+		function checkOK(boardNum, page, k2) {
 			r = confirm("정말로 삭제하시겠습니까?");
 			if(r){
-				location.href="./FAQDelete.adb?boardNum="+boardNum+"&page="+page;
+				location.href="./FAQDelete.adb?boardNum="+boardNum+"&page="+page+"&k2="k2;
 			}
 		}
 		
@@ -275,9 +275,9 @@
               	<tbody>
               	<tr>
               		<td><a href='<c:url value="/FAQ.adb"/>'>전체</a></td>
-	              	<c:forEach var="k2List" items="${k2List }" varStatus="k2Status">
+	              	<c:forEach var="k2" items="${k2List }" varStatus="k2Status">
 		              	<td>
-		              		<a href='<c:url value="/FAQ.adb?k2=${k2List }"/>'>${k2List}</a>
+		              		<a href='<c:url value="/FAQ.adb?page${pageInfo.page}&k2=${k2}"/>'>${k2}</a>
 		              	</td>
 					</c:forEach>
 				</tr>
@@ -307,13 +307,14 @@
 		                      <th><a href="#" class="title">${articleList.boardTitle }</a></th>
 		                      
 		                    </tr>
-		                    <tr class="contents" id="contents">
+		                    <tr class="contents">
 		                    	<th></th>
 		                    	<td>
 		                    	${articleList.boardContent }
 			                    	<div style="text-align: right;">
-			                    		<a href='<c:url value="/FAQModifyForm.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page }"/>'><input type="button" value="수정"></a>
-			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}, ${pageInfo.page })"></a>
+			                    		
+			                    		<a href='<c:url value="/FAQModify.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page}&k2=${pageInfo.k2}"/>'><input type="button" value="수정"></a>
+			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}, ${pageInfo}, ${pageInfo.k2})"></a>
 			                    	</div>
 		                    	</td>
 		                    <tr>
@@ -330,14 +331,14 @@
                 		<a href="FAQ.adb?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="FAQ.adb?page=${i }">${i }</a>&nbsp;
+                		<a href="FAQ.adb?page=${i }&k2=">${i }</a>&nbsp;
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
                 		<a href="FAQ.adb?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
                 	</c:if>
                 	</section>
                 	<div style="text-align:right">
-	            	<a href='<c:url value="/FAQWrite.adb?page=${pageInfo.page }"/>'> <input type="button" value="FAQ 작성하기"></a>
+	            	<a href='<c:url value="/FAQWrite.adb?"/>'> <input type="button" value="FAQ 작성하기"></a>
 	            	</div>
 	            </div>
             </div>

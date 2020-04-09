@@ -19,26 +19,23 @@ public class FAQListAction implements Action {
 		System.out.println("FAQ 보기");
 		
 		// PageInfo 객체 선언
-		PageInfo pageInfo = null; 
-//		PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-		int page = 1; // 현재 페이지 번호
-		int limit = 10; // 한 페이지 당 출력할 게시물 수
-		String k1 = "FAQ";
-		String k2 = request.getParameter("k2");
-		
-		// page 초기화
-		if(request.getParameter("page") != null ) {
+		PageInfo pageInfo = new PageInfo();
+		int page = 1;  // 현 페이지 정보
+		int limit = 10; // 한 페이지 당 출력할 게시물 수  - 10개
+		if(request.getParameter("page") != null) {
 			page = Integer.parseInt(request.getParameter("page"));
 		}
+		pageInfo.setPage(page);	// 들고온 페이지 정보가 없을 때 기본 페이지 1
+		
+		String k1 = "FAQ";
+		String k2 = request.getParameter("k2");
 		
 		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		BoardService boardService = new BoardService();
 		int listCount = boardService.getListCount(k1, k2);
 		
-		System.out.println("총 게시물 수 : " + listCount + "개");
-		
-		// pageInfo 에 기본적인 페이지 정보 담아가기
-		pageInfo = new PageInfo(page, limit, k1, k2);
+		// pageInfo limit, k1, k2 담기
+		pageInfo.setLimit(limit); pageInfo.setK1(k1); pageInfo.setK2(k2);
 //		 BoardListService 객체의 getArticleList() 메서드를 호출 하여 게시물 목록 가져오기
 		// => 파라미터로 현재 페이지(page) 와 게시물 수(limit) 를 전달
 		// => ArrayList<BoardBean> 타입 객체 리턴

@@ -31,8 +31,9 @@ public class FAQModifyProAction implements Action {
 		String k2 = request.getParameter("k2");
 		// 글 번호 들고오기
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		// 페이징 처리용 파라미터
 		String page = request.getParameter("page");
-		
+		String pageK2 = request.getParameter("pageK2");
 		// 제목과 내용, 작성자
 		String boardWriter = request.getParameter("boardWriter");
 		String boardTitle = request.getParameter("boardTitle");
@@ -57,7 +58,7 @@ public class FAQModifyProAction implements Action {
 		} else { // 성공 시
 			// FAQ 는 작성한 것을 바로 리스트에서 볼 수 있도록 리스트로 이동한다.
 			// FAQ 작성한거 상세보기
-			forward.setPath("./FAQ.adb?page="+page);
+			forward.setPath("./FAQ.adb?page="+page+"&k2="+pageK2);
 			forward.setRedirect(true);
 		}
 		

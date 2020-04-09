@@ -58,7 +58,7 @@ public class BoardService {
 	}
 
 	// 글 정보를 가져오는 메서드
-	public BoardBean getArticle(int boardNum, String k1, String k2) {
+	public BoardBean getArticle(int boardNum, String k1) {
 		System.out.println("BoardService의 getArticle() 메서드");
 		// 객체 반환을 위한 BoardBean 객체 선언
 		BoardBean bb = null;
@@ -70,14 +70,14 @@ public class BoardService {
 		con = getConnection();
 		boardDAO.setConnection(con);
 		// DB 작업
-		bb = boardDAO.selectArticle(boardNum, k1, k2);
+		bb = boardDAO.selectArticle(boardNum, k1);
 		// DB 연결 종료
 		close(con);
 		
 		return bb;
 	}
 
-	public int deleteArticle(int boardNum, String k1, String k2) {
+	public int deleteArticle(int boardNum, String k1) {
 		System.out.println("BoardService의 deleteArticle() 메서드");
 		
 		BoardBean bb = null;
@@ -89,7 +89,7 @@ public class BoardService {
 		boardDAO.setConnection(con);
 		
 		int deleteCount = 0;
-		deleteCount = boardDAO.deleteArticle(boardNum, k1, k2);
+		deleteCount = boardDAO.deleteArticle(boardNum, k1);
 		
 		close(con);
 		return 0;

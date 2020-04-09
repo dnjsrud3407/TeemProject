@@ -102,7 +102,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQModifyForm.adb")) {
+        } else if(command.equals("/FAQModify.adb")) {
             // --- FAQ 수정 폼 (관리자가 작성한 내용 불러옴)
             action = new FAQModifyFormAction();
             try {
@@ -118,11 +118,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQDeleteForm.adb")) {
-            // --- FAQ 삭제 폼
-            forward = new ActionForward();
-            forward.setPath("./board/FAQDeleteForm.jsp");
-        } else if(command.equals("/FAQDeletePro.adb")) {
+        } else if(command.equals("/FAQDelete.adb")) {
             // --- FAQ 삭제 작업 
             action = new FAQDeleteProAction();
             try {

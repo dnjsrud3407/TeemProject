@@ -165,29 +165,23 @@ public class AdminBoardDAO {
 	//-------------------------------------------------------------------------------
 	// 글 내용 보는 메서드들
 	
-	public BoardBean selectArticle(int boardNum, String k1, String k2) {
+	public BoardBean selectArticle(int boardNum, String k1) {
 		BoardBean bb = null;
 		String sql = "";
-		int kID = get_kID(k1, k2);
 		
 		try {
-			if(k2 != null) {
-				sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategoire k ON b.kID=k.kID WHERE b.boardNum=? AND b.kID=?";
-				pstmt.setInt(1, boardNum); pstmt.setInt(2, kID);
-			} else {
-				sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategoire k ON b.kID=k.kID WHERE b.boardNum=? AND b.kID IN (SELECT kID FROM kategorie WHERE k1=?)";
-				pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
-			}
+			sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.boardNum=? AND k.k1=?";
 			pstmt = con.prepareStatement(sql);
-			
+			pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
 			rs = pstmt.executeQuery();
 			
-			if(rs != null) {
-				bb = new BoardBean(rs.getInt("b.boardNum"), rs.getString("k.k1"), rs.getString("k.k2"),
-						rs.getString("b.boardWriter"), rs.getString("b.boardTitle"), rs.getString("b.boardContent"),
-						rs.getTimestamp("b.boardRegTime"), rs.getInt("b.boardReRef"), rs.getInt("b.boardReLev"),
-						rs.getInt("b.boardReSeq"), rs.getInt("b.boardReadcount"), rs.getInt("b.bookID"));
-				bb.setFileList(selectFileList(boardNum, kID));
+			if(rs.next()) {
+				bb = new BoardBean();
+						bb.setBoardNum(rs.getInt("b.boardNum")); bb.setK1(rs.getString("k.k1")); bb.setK2(rs.getString("k.k2"));
+						bb.setBoardWriter(rs.getString("b.boardWriter")); bb.setBoardTitle(rs.getString("b.boardTitle")); bb.setBoardContent(rs.getString("b.boardContent"));
+						bb.setBoardRegTime(rs.getTimestamp("b.boardRegTime")); bb.setBoardReRef(rs.getInt("b.boardReRef")); bb.setBoardReLev(rs.getInt("b.boardReLev"));
+						bb.setBoardReSeq(rs.getInt("b.boardReSeq")); bb.setBoardReadcount(rs.getInt("b.boardReadcount")); bb.setBookID(rs.getInt("b.bookID"));
+				bb.setFileList(selectFileList(boardNum, k1));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -198,17 +192,17 @@ public class AdminBoardDAO {
 		return bb;
 	}
 	// 파일 가져오기
-	public List<FileBean> selectFileList(int boardNum, int kID) {
+	public List<FileBean> selectFileList(int boardNum, String k1) {
 		
 		List<FileBean> fileList = new ArrayList<FileBean>();
 		FileBean file = null;
 		
-		String sql = "SELECT * FROM boardFile WHERE board_boardNum=? AND board_kID=?";
+		String sql = "SELECT * FROM boardFile WHERE board_boardNum=? AND board_kID IN (SELECT kID FROM kategorie WHERE k1=?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);
-			pstmt.setInt(2, kID);
+			pstmt.setString(2, k1);
 			
 			rs = pstmt.executeQuery();
 			
@@ -294,27 +288,24 @@ public class AdminBoardDAO {
 	
 	// 글 삭제하는 메서드들
 	
-		public int deleteArticle(int boardNum, String k1, String k2) {
+		public int deleteArticle(int boardNum, String k1) {
 			int deleteCount = 0;
-			int kID = get_kID(k1, k2);
 			
-			List<FileBean> fileList = selectFileList(boardNum, kID);
+			List<FileBean> fileList = selectFileList(boardNum, k1);
 			
 			if(fileList.size() > 0) {
-				int deleteFile = deleteAllFile(boardNum, kID);
+				int deleteFile = deleteAllFile(boardNum, k1);
 				if(deleteFile == 0) {
 					return 0;
 				}
 			}
-			String sql = "DELETE FROM board WHERE boardNum=? AND kID=?";
+			String sql = "DELETE FROM board WHERE boardNum=? AND kID IN (SELECT kID FROM kategoire WHERE k1=?)";
 			try {
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, boardNum); pstmt.setInt(2, kID);
+				pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
 				
 				int delete = pstmt.executeUpdate();
-				if(delete != 0) {
-					deleteCount = deleteAllFile(boardNum, kID);
-				}
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
@@ -323,13 +314,13 @@ public class AdminBoardDAO {
 			return deleteCount;
 		}
 	
-		public int deleteAllFile(int boardNum, int kID) {
+		public int deleteAllFile(int boardNum, String k1) {
 			int deleteFile = 0;
 			
-			String sql = "DELETE FROM boardFile WHERE board_boardNum=? AND board_kID=?";
+			String sql = "DELETE FROM boardFile WHERE board_boardNum=? AND board_kID In (SELECT kID FROM kategorie WEHRE k1=?)";
 			try {
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, boardNum); pstmt.setInt(2, kID);
+				pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
 				
 				deleteFile = pstmt.executeUpdate();
 			} catch (SQLException e) {
@@ -354,10 +345,10 @@ public class AdminBoardDAO {
 		
 		int kID = get_kID(bb.getK1(), bb.getK2());
 		
-		if(deleteFileName != null) { deleteFile(bb, deleteFileName, kID); }
+//		if(deleteFileName != null) { deleteFile(bb, deleteFileName, kID); } // kID가 바뀌었을 수 있음(k2의 변경)
 		
 		
-		String sql = "UPDATE board SET kID=? boardTitle=?, boardContent=? WHERE boardNum=? AND kID IN (SELECT kID FROM kategoire WHERE k1=?)";
+		String sql = "UPDATE board SET kID=? boardTitle=?, boardContent=? WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -460,7 +451,7 @@ public class AdminBoardDAO {
 		 * 
 		 * ex) 현재 페이지(page) 가 1 페이지 일 경우 : 게시물 조회 결과의 0번 행부터 10개 가져오기
 		 */
-		int startRow = (page - 1) * 10; // 첫번째 게시물 행(row) 번호 계산
+		int startRow = (page - 1) * limit; // 첫번째 게시물 행(row) 번호 계산
 		String sql ="";
 		int kID = get_kID(k1, k2);
 		try {

@@ -245,7 +245,7 @@
                 <div class="container-fluid">
         	<div class="card shadow mb-4">
 	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="FAQ.adb?page=${page }">&lt; FAQ 목록</a></h5>
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="FAQ.adb">&lt; FAQ 목록</a></h5>
 	            </div>
         	</div>
 			<div class="row">
@@ -260,15 +260,18 @@
                 <div class="card-body">
 	              <div class="table-responsive">
 	              
-	              <form action='<c:url value="/FAQWritePro.adb"/>' method="post">
+	              <form action='<c:url value="/FAQModifyPro.adb"/>' method="post">
 							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
+							<input type="hidden" name="boardNum" value="${article.boardNum }">
+							<input type="hidden" name="page" value="${pagInfo.page }">
+							<input type="hidden" name="pageK2" value="${pageInfo.k2 }">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                	<tr>
 		                		<th>카테고리</th>
 		                		<td><select name="k2" size="">
 		                			<c:forEach var="k2" items="${k2List }" varStatus="status">
 		                				<c:choose><c:when test="${article.k2 eq k2 }"><option value="${k2 }" selected>${k2}</option></c:when>
-		                				</c:choose><c:otherwise><option value="${k2 }">${k2 }</option></c:otherwise>
+		                				<c:otherwise><option value="${k2 }">${k2 }</option></c:otherwise></c:choose>
 		                			</c:forEach>
 		                		</select></td>
 		                	</tr>

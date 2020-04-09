@@ -1,5 +1,7 @@
 package admin.board.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +10,7 @@ import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
+import vo.PageInfo;
 
 public class FAQModifyFormAction implements Action {
 
@@ -20,16 +23,23 @@ public class FAQModifyFormAction implements Action {
 		
 		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-		String page = request.getParameter("page");
+		int page = Integer.parseInt(request.getParameter("page"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정
 		String k1 = "FAQ";
 		String k2 = request.getParameter("k2");
+		
+		// 수정 후 돌아갈 페이지를 위해 페이지 정보 저장
+		PageInfo pageInfo = new PageInfo();
+		pageInfo.setPage(page);
+		pageInfo.setK2(k2);
+		
 		// DB 작업을 위한 BoardService 객체와 글 정보를 담아올 BoardBean 객체 선언
 		BoardService boardService = new BoardService();
 		BoardBean bb = null;
 		// BoardService 객체의 getArticle() 메서드를 호출(BoardBean 객체 반환)
-		bb = boardService.getArticle(boardNum, k1, k2);
-		
+		bb = boardService.getArticle(boardNum, k1);
+		ArrayList<String> k2List = boardService.getk2List(k1);
+		request.setAttribute("k2List", k2List);
 		// 
 		// 
 		forward = new ActionForward();
@@ -37,8 +47,9 @@ public class FAQModifyFormAction implements Action {
 		if(bb != null) {
 			// 받아온 글 정보가 있다면 해당 글 정보를 표시할 jsp 파일로 이동
 			//
+			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("article", bb);
-			forward.setPath("../admin/board/FAQModifyForm.jsp");
+			forward.setPath("/admin/board/FAQModifyForm.jsp");
 		} else {
 			// 받아온 글 정보가 없다면 메시지 호출 후 글 목록으로 보내기
 			session.setAttribute("ErrorMSG", "존재하지 않는 글입니다.");

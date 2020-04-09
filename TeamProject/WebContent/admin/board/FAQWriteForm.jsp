@@ -245,7 +245,8 @@
                 <div class="container-fluid">
         	<div class="card shadow mb-4">
 	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="FAQ.adb?page=${page }">&lt; FAQ 목록</a></h5>
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="/
+	              FAQ.adb?">&lt; FAQ 목록</a></h5>
 	            </div>
         	</div>
 			<div class="row">
@@ -261,11 +262,7 @@
 	              <div class="table-responsive">
 	              
 	              <form action='<c:url value="/FAQWritePro.adb"/>' method="post">
-<%-- 	                    <input type="hidden" name="page" value="${page }"> --%>
-<%-- 	                    <input type="hidden" name="boardReRef" value="${board.boardReRef }"> --%>
-<%-- 	                    <input type="hidden" name="bookID" value="${board.bookID }"> --%>
 							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
-<%-- 							<input type="text" name="showWrite" value="${sessionScope.uID }"> --%>
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                	<tr>
 		                		<th>카테고리</th>
