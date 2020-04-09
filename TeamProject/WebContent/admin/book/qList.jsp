@@ -149,6 +149,10 @@
 </style>
 </head>
 <body id="page-top">
+<!-- 관리자 id 아닌 경우 로그인창으로 이동 -->
+<c:if test="${sessionScope.uID ne 'admin' and sessionScope.uID ne 'admin1' and sessionScope.uID ne 'admin2' and sessionScope.uID ne 'admin3' and sessionScope.uID ne 'admin4'}">
+	<c:redirect url="Main.me"/>
+</c:if>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
