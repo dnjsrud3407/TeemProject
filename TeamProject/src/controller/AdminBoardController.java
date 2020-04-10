@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import admin.board.action.FAQDeleteProAction;
-import admin.board.action.FAQDetailAction;
 import admin.board.action.FAQModifyFormAction;
 import admin.board.action.FAQModifyProAction;
 import admin.board.action.FAQWriteFormAction;
@@ -94,14 +93,6 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/FAQDetail.adb")) {
-            // --- FAQ 상세보기
-            action = new FAQDetailAction();
-            try {
-                forward = action.execute(request, response);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         } else if(command.equals("/FAQModify.adb")) {
             // --- FAQ 수정 폼 (관리자가 작성한 내용 불러옴)
             action = new FAQModifyFormAction();
@@ -130,7 +121,7 @@ public class AdminBoardController extends HttpServlet {
             //
             // 공지 관련
             //
-        } else if(command.equals("/notice.adb")) { // --- Notice
+        } else if(command.equals("/Notice.adb")) { // --- Notice
             // Notice 목록 NoticeListAction()
             action = new NoticeListAction();
             try {
@@ -138,11 +129,11 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/noticeWrite.adb")) {
+        } else if(command.equals("/NoticeWrite.adb")) {
             // --- Notice 작성 폼 
             forward = new ActionForward();
             forward.setPath("./board/NoticeWriteForm.jsp");
-        } else if(command.equals("/noticeWritePro.adb")) {
+        } else if(command.equals("/NoticeWritePro.adb")) {
             // --- Notice 작성 작업 NoticeWriteProAction()
             action = new NoticeWriteProAction();
             try {
@@ -150,7 +141,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/noticeDetail.adb")) {
+        } else if(command.equals("/NoticeDetail.adb")) {
             // --- Notice 상세보기
             action = new NoticeDetailAction();
             try {
@@ -158,7 +149,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/noticeModify.adb")) {
+        } else if(command.equals("/NoticeModify.adb")) {
             // --- Notice 수정 폼 (관리자가 작성한 내용 불러옴)
             action = new NoticeModifyFormAction();
             try {
@@ -166,7 +157,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/noticeModifyPro.adb")) {
+        } else if(command.equals("/NoticeModifyPro.adb")) {
             // --- Notice 수정 작업 
             action = new NoticeModifyProAction();
             try {
@@ -174,11 +165,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/NoticeDeleteForm.adb")) {
-            // --- Notice 삭제 폼
-            forward = new ActionForward();
-            forward.setPath("./board/NoticeDeleteForm.jsp");
-        } else if(command.equals("/noticeDeletePro.adb")) {
+        } else if(command.equals("/NoticeDelete.adb")) {
             // --- Notice 삭제 작업 
             action = new NoticeDeleteProAction();
             try {
@@ -186,6 +173,13 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            //
+            //
+            //
+            // 공지사항
+            
+            
+            
         } else if(command.equals("/event.adb")) {
             // --- Notice 삭제 작업 
             action = new NoticeDeleteProAction();

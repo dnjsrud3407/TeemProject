@@ -44,22 +44,7 @@
 	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
 		
 	<script>
-	$(document).ready(function() {
 		
-// 		$('.contents').hide();
-		
-		$('.title').click(function() {
-			$(this).parent().parent().next().toggle();
-			});
-		});
-	
-		
-		function checkOK(boardNum, page, k2) {
-			r = confirm("정말로 삭제하시겠습니까?");
-			if(r){
-				location.href="./FAQDelete.adb?boardNum="+boardNum+"&page="+page+"&k2="+k2;
-			}
-		}
 		
 	</script>
 	
@@ -114,8 +99,8 @@
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th style= "width: 150px;">카테고리</th>
-                      <th></th>
+                      <th style= "width: 150px;">공지 번호</th>
+                      <th>제목</th>
                     </tr>
                   </thead>
                   
@@ -124,21 +109,9 @@
 	                  <c:when test="${pageInfo.listCount > 0}">
 		                  <c:forEach var="articleList" items="${articleList }" varStatus="listStatus">
 		                    <tr>
-		                      <th>${articleList.k2 }</th>
-		                      <th><a href="#" class="title">${articleList.boardTitle }</a></th>
-		                      
+		                      <th>${articleList.boardNum }</th>
+		                      <th><a href='<c:url value="/NoticeDetail.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page}"/>'>${articleList.boardTitle }</a></th>
 		                    </tr>
-		                    <tr class="contents" style="display:none;">
-		                    	<th></th>
-		                    	<td>
-		                    	${articleList.boardContent }
-			                    	<div style="text-align: right;">
-			                    		
-			                    		<a href='<c:url value="/FAQModify.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page}&k2=${pageInfo.k2}"/>'><input type="button" value="수정"></a>
-			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}, ${pageInfo.page}, ${pageInfo.k2})"></a>
-			                    	</div>
-		                    	</td>
-		                    <tr>
 		                  </c:forEach>
 	                  </c:when>
                   </c:choose>
@@ -149,23 +122,21 @@
               	<div class="card-header py-3">
               		<section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="FAQ.adb?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                		<a href="Notice.adb?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
                 	<c:choose>
                 	<c:when test="${pageInfo.page eq i }">${i }&nbsp;</c:when>
-                	<c:when test="${pageInfo.k2 eq null }"> <a href="FAQ.adb?page=${i }">${i }</a>&nbsp; </c:when>
-                	<c:when test="${pageInfo.k2 != null }"> <a href="FAQ.adb?page=${i }&k2=${pageInfo.k2}">${i }</a>&nbsp; </c:when>
-                	<c:otherwise><a href="FAQ.adb?page=${i }">${i }</a>&nbsp;</c:otherwise>
+                	<c:otherwise><a href="Notice.adb?page=${i }">${i }</a>&nbsp;</c:otherwise>
                 	</c:choose>
                 		
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="FAQ.adb?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                		<a href="Notice.adb?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
                 	</c:if>
                 	</section>
                 	<div style="text-align:right">
-	            	<a href='<c:url value="/FAQWrite.adb?"/>'> <input type="button" value="FAQ 작성하기"></a>
+	            	<a href='<c:url value="/NoticeWrite.adb"/>'> <input type="button" value="공지사항 작성하기"></a>
 	            	</div>
 	            </div>
             </div>

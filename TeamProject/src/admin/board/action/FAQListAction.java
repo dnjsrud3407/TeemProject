@@ -33,7 +33,7 @@ public class FAQListAction implements Action {
 		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		BoardService boardService = new BoardService();
 		int listCount = boardService.getListCount(k1, k2);
-		
+		System.out.println("listCount : " + listCount);
 		// pageInfo limit, k1, k2 담기
 		pageInfo.setLimit(limit); pageInfo.setK1(k1); pageInfo.setK2(k2);
 //		 BoardListService 객체의 getArticleList() 메서드를 호출 하여 게시물 목록 가져오기

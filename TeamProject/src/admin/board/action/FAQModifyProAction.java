@@ -16,7 +16,7 @@ public class FAQModifyProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		System.out.println("FAQModifyProAction");
 		// 리퀘스트 한글처리
 		request.setCharacterEncoding("UTF-8");
 		
@@ -34,6 +34,7 @@ public class FAQModifyProAction implements Action {
 		// 페이징 처리용 파라미터
 		String page = request.getParameter("page");
 		String pageK2 = request.getParameter("pageK2");
+		System.out.println(page + pageK2);
 		// 제목과 내용, 작성자
 		String boardWriter = request.getParameter("boardWriter");
 		String boardTitle = request.getParameter("boardTitle");
@@ -51,15 +52,21 @@ public class FAQModifyProAction implements Action {
 		
 		forward = new ActionForward();
 		// 실패 시
-		if(updateCount != 1) {
+		if(updateCount != 0) {
+			// 성공 시
+			// FAQ 는 작성한 것을 바로 리스트에서 볼 수 있도록 리스트로 이동한다.
+			// FAQ 작성한거 상세보기
+			if(pageK2 != "") {
+				forward.setPath("./FAQ.adb?page="+page+"&k2="+pageK2);
+			} else {
+				forward.setPath("./FAQ.adb?page="+page);
+			}
+			forward.setRedirect(true);
+		} else { 
 			session.setAttribute("ErrorMSG", "게시글 작성에 실패하였습니다.");
 			forward.setPath("failed.adb");
 			forward.setRedirect(true);
-		} else { // 성공 시
-			// FAQ 는 작성한 것을 바로 리스트에서 볼 수 있도록 리스트로 이동한다.
-			// FAQ 작성한거 상세보기
-			forward.setPath("./FAQ.adb?page="+page+"&k2="+pageK2);
-			forward.setRedirect(true);
+			
 		}
 		
 		return forward;

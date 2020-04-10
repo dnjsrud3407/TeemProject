@@ -7,11 +7,13 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
+import vo.PageInfo;
 
 public class FAQDeleteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("FAQ DeletePro");
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		
@@ -29,7 +31,12 @@ public class FAQDeleteProAction implements Action {
 		
 		if(deleteCount != 0) {
 			// 글 삭제 성공 시 반응
-			forward.setPath("/FAQ.adb?page="+page+"&k2="+k2);
+			if(k2 != "") {
+				forward.setPath("./FAQ.adb?page="+page+"&k2="+k2);
+			} else {
+				forward.setPath("./FAQ.adb?page="+page);
+			}
+			forward.setRedirect(true);
 		} else {
 			// 글 삭제 실패 시 반응
 			session.setAttribute("ErrorMSG", "게시글 삭제에 실패하였습니다.");

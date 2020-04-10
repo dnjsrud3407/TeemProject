@@ -90,9 +90,14 @@ public class BoardService {
 		
 		int deleteCount = 0;
 		deleteCount = boardDAO.deleteArticle(boardNum, k1);
+		if(deleteCount != 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
 		
 		close(con);
-		return 0;
+		return deleteCount;
 	}
 
 	public int modifyArticle(BoardBean bb, List<String> deleteFileName) {
