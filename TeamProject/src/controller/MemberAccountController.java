@@ -34,11 +34,11 @@ public class MemberAccountController extends HttpServlet {
 		
 		String command = request.getServletPath();
 		System.out.println(command);
-		
+		//dddfdfd
 		
 		Action action = null;
 	ActionForward forward = null;
-	if (command.equals("/main.me")) {//
+	if (command.equals("/Main.me")) {//
 		forward = new ActionForward();
 		forward.setPath("index.jsp");
 	

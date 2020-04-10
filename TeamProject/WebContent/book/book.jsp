@@ -293,7 +293,7 @@ boolean isLogin = false;
               <li><a href="#profile" data-toggle="tab">Related Products</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
-              <div class="tab-pane fade active in" id="home">
+              <div class="tab-pane active" id="home">
 			  <h4>Product Information</h4>
                 <table class="table table-bordered">
 				<tbody>
@@ -606,8 +606,38 @@ boolean isLogin = false;
 		</div>
 				<br class="clr">
 					 </div>
-					 <div class="tab-pane fade" id="review">review</div>
-					 <div class="tab-pane active" id="bookqna">
+					 <div class="tab-pane fade" id="review">review
+						<div class="row">	  
+							<div class="span2">
+								<img src="themes/images/products/3.jpg" alt="">
+							</div>
+							<div class="span4">
+								<h3>New | Available</h3>				
+								<hr class="soft">
+								<h5>Product Name </h5>
+								<p>
+								Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
+								that is why our goods are so popular..
+								</p>
+								<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+								<br class="clr">
+							</div>
+							<div class="span3 alignR">
+							<form class="form-horizontal qtyFrm">
+							<h3> $140.00</h3>
+							<label class="checkbox">
+								<input type="checkbox">  Adds product to compair
+							</label><br>
+							
+							  <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+							  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+							
+								</form>
+							</div>
+						</div>
+						<hr class="soft">
+					 </div>
+					 <div class="tab-pane fade" id="bookqna">
 					 	<div>
 					 		
 						    <h3><a href='<c:url value ="/Book.book?bookID=${book.bookID}"/>'>상품 문의하기</a></h3>    
@@ -652,6 +682,33 @@ boolean isLogin = false;
 					           		<td>${qna.boardTitle }</td>
 									<td>${qna.boardWriter }</td>
 									<td>${qna.boardRegTime }</td>
+								</tr>
+								<tr style="display: table-row;">
+									<td colspan="5" style="height: 236px;">안녕하세요
+									<div class="qna_title">
+										<span class=""></span>
+									</div>
+									<div>
+										<span class=""></span>
+									</div>
+									<p class="">
+									  <span class="">관리자의 답변</span>
+									  <span class="date">
+									  	"등록일 :
+									  	<em>2020-04-09</em>
+									  </span>
+															  <div class="btn-group">
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">글 수정하기 <span class=""></span></button>
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">글 삭제하기 <span class="caret"></span></button>
+<!-- 							         <ul class="dropdown-menu"> -->
+<!-- 							           <li><a href="#">Action</a></li> -->
+<!-- 							           <li><a href="#">Another action</a></li> -->
+<!-- 							           <li><a href="#">Something else here</a></li> -->
+<!-- 							           <li class="divider"></li> -->
+<!-- 							           <li><a href="#">Separated link</a></li> -->
+<!-- 							         </ul> -->
+							       </div>
+									</td>
 								</tr>				
   							</c:forEach>
 							</tbody>
