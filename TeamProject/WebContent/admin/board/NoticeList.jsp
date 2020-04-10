@@ -75,19 +75,10 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">FAQ</h1>
+          <h1 class="h3 mb-2 text-gray-800">공지 사항</h1>
           	<div>
           	<table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">		
-              	<tbody>
-              	<tr>
-              		<td><a href='<c:url value="/FAQ.adb"/>'>전체</a></td>
-	              	<c:forEach var="k2" items="${k2List }" varStatus="k2Status">
-		              	<td>
-		              		<a href='<c:url value="/FAQ.adb?k2=${k2}"/>'>${k2}</a>
-		              	</td>
-					</c:forEach>
-				</tr>
-				</tbody>
+
 			</table>
             </div>
 

@@ -39,6 +39,27 @@ public class BoardBean {
 	public BoardBean() {}
 	
 	
+	
+
+	public BoardBean(int boardNum, String k1, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount,
+			List<FileBean> fileList) {
+		super();
+		this.boardNum = boardNum;
+		this.k1 = k1;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.fileList = fileList;
+	}
+
+
+
 
 	public BoardBean(int boardNum, String k1, String k2, String boardWriter, String boardTitle, String boardContent,
 			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount, int bookID,

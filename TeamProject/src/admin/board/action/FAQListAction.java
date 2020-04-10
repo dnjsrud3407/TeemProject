@@ -1,5 +1,6 @@
 package admin.board.action;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ public class FAQListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		System.out.println("FAQ 보기");
+		request.setCharacterEncoding("UTF-8");
 		
 		// PageInfo 객체 선언
 		PageInfo pageInfo = new PageInfo();
@@ -29,6 +31,7 @@ public class FAQListAction implements Action {
 		
 		String k1 = "FAQ";
 		String k2 = request.getParameter("k2");
+		
 		
 		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		BoardService boardService = new BoardService();

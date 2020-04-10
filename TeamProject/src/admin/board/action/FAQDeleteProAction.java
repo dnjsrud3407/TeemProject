@@ -19,7 +19,7 @@ public class FAQDeleteProAction implements Action {
 		
 		BoardService boardService = new BoardService();
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-		String k1 = request.getParameter("k1");
+		String k1 = "FAQ";
 		
 		// k2는 페이징용이다.
 		String page = request.getParameter("page");

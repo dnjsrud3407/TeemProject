@@ -1,5 +1,8 @@
 package admin.board.action;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +36,7 @@ public class FAQModifyProAction implements Action {
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 페이징 처리용 파라미터
 		String page = request.getParameter("page");
-		String pageK2 = request.getParameter("pageK2");
-		System.out.println(page + pageK2);
+		
 		// 제목과 내용, 작성자
 		String boardWriter = request.getParameter("boardWriter");
 		String boardTitle = request.getParameter("boardTitle");
@@ -56,11 +58,7 @@ public class FAQModifyProAction implements Action {
 			// 성공 시
 			// FAQ 는 작성한 것을 바로 리스트에서 볼 수 있도록 리스트로 이동한다.
 			// FAQ 작성한거 상세보기
-			if(pageK2 != "") {
-				forward.setPath("./FAQ.adb?page="+page+"&k2="+pageK2);
-			} else {
-				forward.setPath("./FAQ.adb?page="+page);
-			}
+			forward.setPath("./FAQ.adb?page="+page);
 			forward.setRedirect(true);
 		} else { 
 			session.setAttribute("ErrorMSG", "게시글 작성에 실패하였습니다.");

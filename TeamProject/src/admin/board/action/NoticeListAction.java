@@ -17,7 +17,8 @@ public class NoticeListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("FAQ 보기");
+		System.out.println("공지사항 보기");
+		request.setCharacterEncoding("UTF-8");
 		
 		// PageInfo 객체 선언
 		PageInfo pageInfo = new PageInfo();
@@ -30,6 +31,7 @@ public class NoticeListAction implements Action {
 		
 		String k1 = "공지사항";
 		String k2 = request.getParameter("k2");
+		
 		
 		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		BoardService boardService = new BoardService();
@@ -73,9 +75,6 @@ public class NoticeListAction implements Action {
 		request.setAttribute("pageInfo", pageInfo);
 		
 		ArrayList<String> k2List = boardService.getk2List(k1);
-		
-		// FAQ 카테고리 목록
-		request.setAttribute("k2List", k2List);
 		
 		
 		forward = new ActionForward();

@@ -17,6 +17,7 @@ public class FAQModifyFormAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		request.setCharacterEncoding("UTF-8");
 		
 		// 세션 챙기기 + 액션에서 세션값을 활용하여 관리자인지를 체크한 후 관리자가 아니면 메인 홈페이지로 보냄
 		HttpSession session = request.getSession();
@@ -29,9 +30,6 @@ public class FAQModifyFormAction implements Action {
 		String k2 = request.getParameter("k2");
 		
 		// 수정 후 돌아갈 페이지를 위해 페이지 정보 저장
-		PageInfo pageInfo = new PageInfo();
-		pageInfo.setPage(page);
-		pageInfo.setK2(k2);
 		
 		// DB 작업을 위한 BoardService 객체와 글 정보를 담아올 BoardBean 객체 선언
 		BoardService boardService = new BoardService();
@@ -47,7 +45,6 @@ public class FAQModifyFormAction implements Action {
 		if(bb != null) {
 			// 받아온 글 정보가 있다면 해당 글 정보를 표시할 jsp 파일로 이동
 			//
-			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("article", bb);
 			forward.setPath("/admin/board/FAQModifyForm.jsp");
 		} else {

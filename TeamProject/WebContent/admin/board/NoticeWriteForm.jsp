@@ -64,11 +64,6 @@
 
         <!-- Begin Page Content -->
                 <div class="container-fluid">
-        	<div class="card shadow mb-4">
-	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="FAQ.adb">&lt; FAQ 목록</a></h5>
-	            </div>
-        	</div>
 			<div class="row">
 
            <!-- FAQ 작성 -->
@@ -76,34 +71,27 @@
 			<div style="margin-left: auto; margin-right: auto;">
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">FAQ 수정</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
 	              
-	              <form action='<c:url value="/FAQModifyPro.adb"/>' method="post">
-							<input type="hidden" name="boardWriter" value="${article.boardWriter}">
-							<input type="hidden" name="boardNum" value="${article.boardNum }">
+	              <form action='<c:url value="/FAQWritePro.adb"/>' method="post" enctype="multipart/form-data">
+							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		                	<tr>
-		                		<th>카테고리</th>
-		                		<td><select name="k2" size="">
-		                			<c:forEach var="k2" items="${k2List }" varStatus="status">
-		                				<c:choose><c:when test="${article.k2 eq k2 }"><option value="${k2 }" selected>${k2}</option></c:when>
-		                				<c:otherwise><option value="${k2 }">${k2 }</option></c:otherwise></c:choose>
-		                			</c:forEach>
-		                		</select></td>
-		                	</tr>
 		                    <tr>
-		                      <th>제목(질문)</th>
-		                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${article.boardTitle }"></td>
+		                      <th>제목</th>
+		                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
 		                    </tr>
 		                    <tr>
-		                      <th style="width:15%">내용(답변)</th>
-		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${article.boardContent }</textarea></td>
+		                    	<input type="file" name="file">
+		                    </tr>
+		                    <tr>
+		                      <th style="width:15%">내용</th>
+		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
 		                    </tr>
 		                </table>
-		                <div style="text-align: right;"><input type="submit" value="FAQ 수정"></div>
+		                <div style="text-align: right;"><input type="submit" value="FAQ 작성"></div>
 	                </form>
 	                
 	              </div>

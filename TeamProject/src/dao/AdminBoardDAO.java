@@ -300,6 +300,7 @@ public class AdminBoardDAO {
 				}
 			}
 			String sql = "DELETE FROM board WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
+			
 			try {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
@@ -313,6 +314,8 @@ public class AdminBoardDAO {
 			}
 			return deleteCount;
 		}
+		
+		
 	
 		public int deleteAllFile(int boardNum, String k1) {
 			int deleteFile = 0;

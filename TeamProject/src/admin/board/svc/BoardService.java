@@ -80,7 +80,6 @@ public class BoardService {
 	public int deleteArticle(int boardNum, String k1) {
 		System.out.println("BoardService의 deleteArticle() 메서드");
 		
-		BoardBean bb = null;
 		Connection con = null;
 		
 		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();

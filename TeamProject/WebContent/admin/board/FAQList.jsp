@@ -1,3 +1,5 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -97,10 +99,12 @@
               	<tr>
               		<td><a href='<c:url value="/FAQ.adb"/>'>전체</a></td>
 	              	<c:forEach var="k2" items="${k2List }" varStatus="k2Status">
+	              	
 		              	<td>
 		              		<a href='<c:url value="/FAQ.adb?k2=${k2}"/>'>${k2}</a>
 		              	</td>
 					</c:forEach>
+
 				</tr>
 				</tbody>
 			</table>
@@ -134,8 +138,8 @@
 		                    	${articleList.boardContent }
 			                    	<div style="text-align: right;">
 			                    		
-			                    		<a href='<c:url value="/FAQModify.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page}&k2=${pageInfo.k2}"/>'><input type="button" value="수정"></a>
-			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}, ${pageInfo.page}, ${pageInfo.k2})"></a>
+			                    		<a href='<c:url value="/FAQModify.adb?boardNum=${articleList.boardNum}"/>'><input type="button" value="수정"></a>
+			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}"></a>
 			                    	</div>
 		                    	</td>
 		                    <tr>
