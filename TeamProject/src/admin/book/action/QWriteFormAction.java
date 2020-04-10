@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import admin.book.svc.QWriteService;
+import admin.book.svc.QnReWriteService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -19,7 +19,7 @@ public class QWriteFormAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자가 상품 문의한 것을 불러옴
-		QWriteService qWriteService = new QWriteService();
+		QnReWriteService qWriteService = new QnReWriteService();
 		BoardBean board = qWriteService.getBoard(boardNum);
 
 		request.setAttribute("board", board);

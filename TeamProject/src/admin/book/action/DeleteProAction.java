@@ -15,10 +15,9 @@ public class DeleteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		// ============ 파라미터로 책 아이디, 입력받은 비밀번호 가져오기//
-		String[] bookIDList = request.getParameterValues("bookID");
+		// ============ 파라미터로 책 아이디, 입력받은 비밀번호 가져오기
+		String[] bookIDList = request.getParameterValues("bookIDList");
 		String pw = request.getParameter("pw");
-		System.out.println(pw);
 
 		// session 에서 관리자 아이디 가져오기
 		HttpSession session = request.getSession();
@@ -36,7 +35,7 @@ public class DeleteProAction implements Action {
 		    out.println("history.back()");
 		    out.println("</script>");
 		} else {
-		    // 책 삭제하기
+		    // ============= 책 삭제하기
 		    boolean isremoveArticleSuccess = deleteProService.removeArticle(bookIDList);
 		    
 		    if (!isremoveArticleSuccess) { // 책 삭제 실패된 경우

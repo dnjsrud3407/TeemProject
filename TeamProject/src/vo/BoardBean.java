@@ -18,6 +18,7 @@ public class BoardBean {
 	private String boardTitle;
 	private String boardContent;
 	private Timestamp boardRegTime;
+	private Timestamp boardAnswerRegTime;	// 답변한 날짜
 	private int boardReRef;
 	private int boardReLev; // 질문인지(0) or 답변인지(1) 판정
 	private int boardReSeq;	// 답변됐는지(1), 안됐는지(0) 판정
@@ -188,10 +189,32 @@ public class BoardBean {
 	
 
 
+	// fAQ 작성시 사용될 생성자
+	
+
+
 
 	public int getBoardNum() {
 		return boardNum;
 	}
+
+	public BoardBean(int boardNum, String k1, String k2, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount) {
+		super();
+		this.boardNum = boardNum;
+		this.k1 = k1;
+		this.k2 = k2;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+	}
+
+
 
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
@@ -264,6 +287,14 @@ public class BoardBean {
 
 	public void setBoardRegTime(Timestamp boardRegTime) {
 		this.boardRegTime = boardRegTime;
+	}
+	
+	public Timestamp getBoardAnswerRegTime() {
+		return boardAnswerRegTime;
+	}
+
+	public void setBoardAnswerRegTime(Timestamp boardAnswerRegTime) {
+		this.boardAnswerRegTime = boardAnswerRegTime;
 	}
 
 	public int getBoardReRef() {

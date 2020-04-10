@@ -12,7 +12,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>팀프로젝트 - 관리자 FAQ목록</title>
+  <title>SB Admin 2 - order_delivery_list.jsp</title>
 
   <!-- Custom fonts for this template -->
   <link href='<c:url value="/admin/vendor/fontawesome-free/css/all.min.css"/>' rel="stylesheet" type="text/css">
@@ -39,31 +39,7 @@
 		width:200px
 		}
 	</style>
-	
-	
-	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
-		
-	<script>
-	$(document).ready(function() {
-		
-		$(".contents").hide();
-		
-		$('.title').click(function() {
-			$(this).parent().parent().next().slideToggle();
-			});
-		});
-	
-		
-		function checkOK(boardNum, page, k2) {
-			r = confirm("정말로 삭제하시겠습니까?");
-			if(r){
-				location.href="./FAQDelete.adb?boardNum="+boardNum+"&page="+page+"&k2="k2;
-			}
-		}
-		
-	</script>
-	
-	
+
 </head>
 
 <body id="page-top">
@@ -266,84 +242,56 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">FAQ</h1>
-          	<div>
-          	<table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">		
-              	<tbody>
-              	<tr>
-              		<td><a href='<c:url value="/FAQ.adb"/>'>전체</a></td>
-	              	<c:forEach var="k2" items="${k2List }" varStatus="k2Status">
-		              	<td>
-		              		<a href='<c:url value="/FAQ.adb?page${pageInfo.page}&k2=${k2}"/>'>${k2}</a>
-		              	</td>
-					</c:forEach>
-				</tr>
-				</tbody>
-			</table>
-            </div>
-
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th style= "width: 150px;">카테고리</th>
-                      <th></th>
-                    </tr>
-                  </thead>
-                  
-                  <tbody>
-                  <c:choose>
-	                  <c:when test="${pageInfo.listCount > 0}">
-		                  <c:forEach var="articleList" items="${articleList }" varStatus="listStatus">
-		                    <tr>
-		                      <th>${articleList.k2 }</th>
-		                      <th><a href="#" class="title">${articleList.boardTitle }</a></th>
-		                      
-		                    </tr>
-		                    <tr class="contents">
-		                    	<th></th>
-		                    	<td>
-		                    	${articleList.boardContent }
-			                    	<div style="text-align: right;">
-			                    		
-			                    		<a href='<c:url value="/FAQModify.adb?boardNum=${articleList.boardNum}&page=${pageInfo.page}&k2=${pageInfo.k2}"/>'><input type="button" value="수정"></a>
-			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}, ${pageInfo}, ${pageInfo.k2})"></a>
-			                    	</div>
-		                    	</td>
-		                    <tr>
-		                  </c:forEach>
-	                  </c:when>
-                  </c:choose>
-                  	
-                  </tbody>
-                </table>
-              </div>
-              	<div class="card-header py-3">
-              		<section id="pageList">
-                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="FAQ.adb?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
-                	</c:if>
-                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="FAQ.adb?page=${i }&k2=">${i }</a>&nbsp;
-                	</c:forEach>
-                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="FAQ.adb?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
-                	</c:if>
-                	</section>
-                	<div style="text-align:right">
-	            	<a href='<c:url value="/FAQWrite.adb?"/>'> <input type="button" value="FAQ 작성하기"></a>
-	            	</div>
+                <div class="container-fluid">
+        	<div class="card shadow mb-4">
+	            <div class="card-header py-3">
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="/
+	              FAQ.adb?">&lt; FAQ 목록</a></h5>
 	            </div>
-            </div>
-          </div>
+        	</div>
+			<div class="row">
 
+           <!-- FAQ 작성 -->
+
+			<div style="margin-left: auto; margin-right: auto;">
+              <div class="card position-relative">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">FAQ 작성</h6>
+                </div>
+                <div class="card-body">
+	              <div class="table-responsive">
+	              
+	              <form action='<c:url value="/FAQWritePro.adb"/>' method="post">
+							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
+		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		                	<tr>
+		                		<th>카테고리</th>
+		                		<td><select name="k2" size="">
+		                			<c:forEach var="k2" items="${k2List }" varStatus="status">
+		                				<option value="${k2 }">${k2 } </option>
+		                			</c:forEach>
+		                		</select></td>
+		                	</tr>
+		                    <tr>
+		                      <th>제목(질문)</th>
+		                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
+		                    </tr>
+		                    <tr>
+		                      <th style="width:15%">내용(답변)</th>
+		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
+		                    </tr>
+		                </table>
+		                <div style="text-align: right;"><input type="submit" value="FAQ 작성"></div>
+	                </form>
+	                
+	              </div>
+	            </div>
+              </div>
+			</div>
+
+          </div>
+		  
+          
         </div>
         <!-- /.container-fluid -->
 

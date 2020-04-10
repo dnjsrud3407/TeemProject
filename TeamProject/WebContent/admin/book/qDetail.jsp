@@ -75,44 +75,44 @@
         <div class="container-fluid">
         	<div class="card shadow mb-4">
 	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="ReviewList.abook?page=${page }">&lt; 상품 후기 목록</a></h5>
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">&lt; 상품 문의 목록</a></h5>
 	            </div>
         	</div>
 			<div class="row">
 
-            <!-- 고객후기 내용 보기 -->
+            <!-- 고객문의 내용 보기 -->
             <div class="col-lg-6 heightM">
 
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-gray">고객후기 내용</h6>
+                  <h6 class="m-0 font-weight-bold text-gray">고객문의 내용</h6>
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
 	                      <th style="width:15%">접수번호</th>
-	                      <td>${board_review.boardNum }</td>
-	                      <th style="width:15%">작성일</th>
-	                      <td>${board_review.boardRegTime }</td>
+	                      <td>${board_q.boardNum }</td>
+	                      <th style="width:15%">접수일</th>
+	                      <td>${board_q.boardRegTime }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>고객ID</th>
-	                      <td>${board_review.boardWriter }</td>
+	                      <td>${board_q.boardWriter }</td>
 	                      <th style="width:15%">처리상태</th>
 	                      <td>답변완료</td>
 	                    </tr>
 	                    <tr>
 	                      <th>상품명</th>
-	                      <td colspan="3">${board_review.bookTitle }</td>
+	                      <td colspan="3">${board_q.bookTitle }</td>
 	                    </tr>
 	                    <tr>
-	                      <th>후기 제목</th>
-	                      <td colspan="3">${board_review.boardTitle }</td>
+	                      <th>문의 제목</th>
+	                      <td colspan="3">${board_q.boardTitle }</td>
 	                    </tr>
 	                    <tr>
-	                      <th>후기 내용</th>
-	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_review.boardContent }</textarea></td>
+	                      <th>문의 내용</th>
+	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_q.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
 	              </div>
@@ -130,7 +130,7 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	                <form action="ReviewModifyPro.abook" method="post">
+	                <form action="QModifyPro.abook" method="post">
                     <input type="hidden" name="page" value="${page }">
                     <input type="hidden" name="boardReRef" value="${board_answer.boardReRef }">
                     <input type="hidden" name="boardNum" value="${board_answer.boardNum }">
@@ -145,7 +145,7 @@
 	                    </tr>
 	                </table>
 	                <input type="submit" value="답변 수정" />
-	                <input type="button" value="답변 삭제" onclick="location.href='ReviewDeleteForm.abook?&boardRe_refList=${board_answer.boardReRef }'"/>
+	                <input type="button" value="답변 삭제" onclick="location.href='QDeleteForm.abook?boardRe_refList=${board_answer.boardReRef }'"/>
 	                </form>
 	              </div>
 	            </div>

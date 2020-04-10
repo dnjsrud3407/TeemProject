@@ -20,6 +20,7 @@
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
+  
 </head>
 <body id="page-top">
 
@@ -282,13 +283,14 @@
                       <td>2009/01/12</td>
                       <td>$86,000</td>
                     </tr>
-                    <tr onclick="location.href='OrderDeliveryDetail.adm'">
+                    <tr onclick="location.href='https://tracker.delivery/#/:carrier_id/:track_id'">
                       <td>Cedric Kelly</td>
                       <td>Senior Javascript Developer</td>
                       <td>Edinburgh</td>
                       <td>22</td>
                       <td>2012/03/29</td>
-                      <td>$433,060</td>
+                      <td><a href="https://tracker.delivery/#/:carrier_id/:track_id" target="_blank">배송조회</a>
+                      </td>
                     </tr>
                     <tr onclick="location.href='OrderDeliveryDetail.adm'">
                       <td>Airi Satou</td>
@@ -727,13 +729,8 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+      <jsp:include page="../adminInc/adminBottom.jsp" />
+
       <!-- End of Footer -->
 
     </div>

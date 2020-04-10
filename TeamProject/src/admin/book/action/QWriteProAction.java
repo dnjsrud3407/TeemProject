@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import admin.book.svc.QWriteProService;
+import admin.book.svc.QnReWriteProService;
 import vo.ActionForward;
 import vo.BoardBean;
 
@@ -27,7 +27,7 @@ public class QWriteProAction implements Action {
 		HttpSession session = request.getSession();
 		String boardWriter = (String)session.getAttribute("uID");
 		
-		QWriteProService qWriteProService = new QWriteProService();
+		QnReWriteProService qWriteProService = new QnReWriteProService();
 		
 		// 게시글 번호 생성
 		int boardNum = qWriteProService.getBoardNum();

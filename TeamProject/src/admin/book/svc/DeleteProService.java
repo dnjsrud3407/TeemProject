@@ -21,7 +21,7 @@ public class DeleteProService {
         return isRightUser;
     }
 
-    // 책 삭제
+    // 책 삭제 
     public boolean removeArticle(String[] bookIDList) {
         boolean isremoveArticleSuccess = false;
         Connection con = getConnection();
@@ -35,7 +35,7 @@ public class DeleteProService {
         		bookID = Integer.parseInt(bookIDList[i]);
         		deleteCount = bookDAO.deleteBook(bookID);
         	}
-        } else {
+        } else {	// 한개 삭제하는 경우
         	bookID = Integer.parseInt(bookIDList[0]);
         	deleteCount = bookDAO.deleteBook(bookID);
         }

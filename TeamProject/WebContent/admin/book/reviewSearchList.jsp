@@ -28,8 +28,9 @@
 <!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 <script type="text/javascript">
+
 	//달력 api	
-	$( function() { 
+	$(function() { 
 	    $.datepicker.setDefaults({
 	        dateFormat: 'yy-mm-dd' //Input Display Format 변경
 	        ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
@@ -49,19 +50,10 @@
 	    $("#datepicker_Before").datepicker(); 
 	    $("#datepicker_After").datepicker(); 
 	    
-	    // 날짜 세팅 (초기값)
-	    var dateBefore = new Date();
-	    var dateAfter = new Date();
-	    dateBefore = getFormatDate(dateBefore, "-1Month");
-	    dateAfter = getFormatDate(dateAfter, "Today");
-	    $("#datepicker_Before").val(dateBefore);
-	    $("#datepicker_After").val(dateAfter);
-	    
-	    
 	});
 	
 	
-	// 현재 날짜 구하기
+	// 날짜 구하기
 	function getFormatDate(date, type){
 	    var year = date.getFullYear();   //yyyy
 	    var month;
@@ -114,16 +106,7 @@
 		$("#datepicker_After").val(dateAfter);
 	}
 	
-	function searchList() {
-		var boardRegTime_Before = $("#datepicker_Before").val();
-		var boardRegTime_After = $("#datepicker_After").val();
-		if(boardRegTime_Before == "" || boardRegTime_After == "") {
-			alert('날짜를 설정해주세요');
-			return false;
-		}
-	}
-	
-	// 체크박스 전체선택/전체해제
+	//체크박스 전체선택/전체해제
 	function checkAll(checkBox) {
 		if(checkBox.checked == true) {
 			$(".checklist").prop("checked", true);
@@ -177,35 +160,35 @@
 		  <!-- 상세 설정 -->
           <div class="card shadow mb-4">
           	<div class="card-header py-3">
-              <h5 class="m-0 font-weight-bold text-primary">상품 문의</h5>
+              <h5 class="m-0 font-weight-bold text-primary">상품 후기</h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="QSearchPro.abook" method="post" id="searchForm" onsubmit="return searchList()">
+              <form action="ReviewSearchPro.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
-                  	<th style="width: 15%;">문의 접수일</th>
+                  	<th style="width: 15%;">후기 접수일</th>
                   	<td>
                   		<input type="button" value="오늘" onclick="changeDate('Today')">
                   		<input type="button" value="1주일전" onclick="changeDate('-7Day')">
                   		<input type="button" value="1개월전" onclick="changeDate('-1Month')">
                   		<input type="button" value="3개월전" onclick="changeDate('-3Month')"> | 
-                  		<input type="text" id="datepicker_Before" name="boardRegTime_Before" readonly="readonly">
-                  		<input type="text" id="datepicker_After" name="boardRegTime_After" readonly="readonly">
+                  		<input type="text" id="datepicker_Before" name="boardRegTime_Before" value="${boardRegTime_Before }" readonly="readonly">
+                  		<input type="text" id="datepicker_After" name="boardRegTime_After" value="${boardRegTime_After }" readonly="readonly">
                   	</td>
                   </tr>
                   <tr>
                   	<th style="width: 15%;">처리상태</th>
                   	<td>
 						<select name="answer" id="answer" class="checkbox_padding">
-				     		<option value="all">전체</option>
-				     		<option value="false">답변대기</option>
-				     		<option value="true">답변완료</option>
+							<option value="all" <c:if test="${answer eq 'all' }"> selected="selected"</c:if>>전체</option>
+							<option value="false" <c:if test="${answer eq 'false' }"> selected="selected"</c:if>>답변대기</option>
+							<option value="true" <c:if test="${answer eq 'true' }"> selected="selected"</c:if>>답변완료</option>
 				  		</select>
                   	</td>
                   </tr>
                 </table>
-                <input type="submit" value="검색" id="search">
+                <input type="submit" value="검색" id="search" onclick="search2()">
                 <input type="reset" id="btnReset" value="초기화">
               </form>
               </div>
@@ -218,38 +201,38 @@
             <div class="card-body">
               <div class="table-responsive">
               <div>
-		  		* 문의제목을 클릭하시면 상세한 문의내역 작성/수정이 가능합니다.
+		  		* 후기제목을 클릭하시면 상세한 후기내역 작성/수정이 가능합니다.
 		  	  </div>
 		  	  
-<!-- 		  	  게시판 목록의 리스트 form의 action은 다중 삭제로 이동 -->
-              <form action="QDeleteForm.abook" id="searchBoard" method="post">
+<!-- 		  	  게시판 목록의 리스트 form의 action은 다중 삭제로 이동 -->				  	  
+              <form action="ReviewDeleteForm.abook" id="searchBoard" method="post">
                 <input type="submit" value="답변삭제">
-                <c:if test="${!empty qList && pageInfo.listCount > 0}">
+                <c:if test="${!empty reviewSearchList && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>
                       <th><input type="checkbox" onclick="checkAll(this)"></th>
                       <th>접수번호</th>
-                      <th>접수일</th>
-                      <th>문의제목</th>
+                      <th>작성일</th>
+                      <th>후기제목</th>
                       <th>처리상태</th>
                       <th>처리일</th>
                       <th>상품번호</th>
                       <th>상품명</th>
                       <th>고객ID</th>
                     </tr>
-                    <c:forEach var="board" items="${qList }" varStatus="status">
+                    <c:forEach var="board" items="${reviewSearchList }" varStatus="status">
                     <tr>
                       <td><input type="checkbox" class="checklist" name="boardRe_refList" value="${board.boardReRef }"></td>
                       <td>${board.boardReRef }</td>
                       	<c:if test="${board.boardReSeq == 0 }">
                       		<td>${board.boardRegTime }</td>
-	                      	<td><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
+	                      	<td><a href="ReviewWriteForm.abook?boardNum=${board.boardNum }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td class="red">답변대기</td>
                       		<td>-</td>
                       	</c:if>
                       	<c:if test="${board.boardReSeq > 0 }">
                       		<td>${board.boardRegTime }</td>
-                      		<td><a href="QDetail.abook?boardReRef=${board.boardReRef }&page=${pageInfo.page}">${board.boardTitle }</a></td>
+                      		<td><a href="ReviewDetail.abook?boardReRef=${board.boardReRef }&page=${pageInfo.page}">${board.boardTitle }</a></td>
                       		<td>답변완료</td>
                       		<td>${board.boardAnswerRegTime }</td>
                       	</c:if>
@@ -261,13 +244,13 @@
                 </table>
                 <section id="pageList">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-                		<a href="QList.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage-pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="QList.abook?page=${i }">${i }</a>&nbsp;
+                		<a href="ReviewSearchPro.abook?page=${i }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">${i }</a>&nbsp;
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-                		<a href="QList.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage+pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[다음]</a>
                 	</c:if>
                 </section>
                 </c:if>

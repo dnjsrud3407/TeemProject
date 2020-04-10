@@ -391,6 +391,7 @@ public class BookDAO {
 	        
 			return bookList;
 		}
+		
 	// 검색한 결과 들고오기 (책 정보 and 책 리스트 사이즈)
 	public ArrayList<BookBean> selectSearchBookList(String searchSql, int page, int limit) {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();

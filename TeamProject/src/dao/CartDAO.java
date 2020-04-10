@@ -48,12 +48,14 @@ public class CartDAO {
 			while(rs.next()) {
 				CartBean cartBean = new CartBean();
 				cartBean.setCartNum(rs.getInt("cartNum"));
+
 				cartBean.setBookImage(rs.getString("bookImage"));
 				cartBean.setBookTitle(rs.getString("bookTitle"));
 				cartBean.setBookEA(rs.getInt("cart.bookEA"));
 				cartBean.setBookPrice(rs.getInt("bookPrice"));
 				
 				cartList.add(cartBean);
+
 			}
 			
 		} catch (SQLException e) {

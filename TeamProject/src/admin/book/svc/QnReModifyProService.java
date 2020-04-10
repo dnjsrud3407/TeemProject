@@ -7,7 +7,7 @@ import java.sql.Connection;
 
 import dao.BoardDAO;
 
-public class QModifyProService {
+public class QnReModifyProService {
 
 	// 상품 문의 답변 수정
 	public void modifyAnswerBoard(BoardBean board) {
