@@ -13,7 +13,10 @@ import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 
 import action.Action;
 import member.book.action.BookBuyProAction;
-import member.book.action.BookCartProAction;
+import member.book.action.CartAddAction;
+import member.book.action.CartListAction;
+import member.book.action.CartQtyChangeAction;
+import member.book.action.CartRemoveAction;
 import member.book.action.BookDetailAction;
 import member.book.action.BookLikeProAction;
 import member.book.action.BookListAcion;
@@ -196,9 +199,33 @@ public class MemberBookController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		// 장바구니	
-		} else if(command.equals("/BookCart.book")) {
-			action = new BookCartProAction();
+		// 장바구니 추가	
+		} else if(command.equals("/CartAdd.book")) {
+			action = new CartAddAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		// 장바구니 리스트	
+		} else if(command.equals("/CartList.book")) {
+			action = new CartListAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		// 장바구니 수량 변경
+		}else if(command.equals("/CartQtyChange.book")) {
+			action = new CartQtyChangeAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		// 장바구니 삭제	
+		}else if(command.equals("/CartRemove.book")) {
+			action = new CartRemoveAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

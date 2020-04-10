@@ -27,7 +27,7 @@ public class QWriteProService {
 
 		boardDAO.setConnection(con);
 
-		// 대분류에서 제일 큰 글 번호 가져옴
+		// 책 상품 별로  제일 큰 글 번호 가져옴
 		int MaxNum = boardDAO.getMaxNum(bb.getK1());
 		
 		// 글이 하나도 없는지 판별

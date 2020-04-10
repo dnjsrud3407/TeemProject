@@ -68,7 +68,7 @@
 	        </c:if>
 	        <a href="member.jsp">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="BookCartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
 	    </div>
     </div>
 </div>
@@ -106,7 +106,6 @@
                 <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
                 <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
                 <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="BookList.book?bk2=4"><i class="icon-chevron-right"></i>4단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
@@ -173,7 +172,7 @@
 				<input type="checkbox">  Adds product to compair
 			</label><br/>
 			
-			  <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+			  <a href="/BookCartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
 			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 			
 				</form>
@@ -187,32 +186,40 @@
 		<ul class="thumbnails">
 			<li class="span3">
 			  <div class="thumbnail">
-				<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage}" alt="책 이미지"/></a>
+				<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage}" alt="책 이미지" style="height: 200px;"/></a>
 				<div class="caption">
 				  <h5>${book.bookTitle }</h5>
 				  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
 					${book.bookIntroduce }
 				  </p>
-				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="BookCart.book">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
 				</div>
 			  </div>
 			</li>
+			  <c:if test="${((status.index+1) mod 3)==0}">		
 		  </ul>
+		  <ul>
+		  	</c:if>
 		</c:forEach>
+		</ul>
 	<hr class="soft"/>
 	</div>
 </div>
-
+	
 	<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
 	<div class="pagination">
 			<ul>
-			<li><a href="#">&lsaquo;</a></li>
-			<li><a href="BookList.book?bk2=${param.bk2 }&page=1">1</a></li>
-			<li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li>
-			<li><a href="BookList.book?bk2=${param.bk2 }&page=3">3</a></li>
-			<li><a href="BookList.book?bk2=${param.bk2 }&page=4">4</a></li>
+			<li><c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+			<a href="BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
+			<li>
+			<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+			<a href="BookList.book?bk2=${param.bk2 }&page=${i}">${i}</a>
+			</c:forEach></li>
+			<%-- <li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li> --%>
+			
 			<li><a href="#">...</a></li>
-			<li><a href="#">&rsaquo;</a></li>
+			<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+			<a href='<c:url value="/BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
 			</ul>
 			</div>
 			<br class="clr"/>

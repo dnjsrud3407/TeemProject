@@ -20,7 +20,7 @@ public class BookListAcion implements Action {
 		ActionForward forward = null;
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 6;
 		int bk2 = Integer.parseInt(request.getParameter("bk2"));
 		
 		
@@ -44,8 +44,8 @@ public class BookListAcion implements Action {
 		
 		// 1. 총 페이지 수 계산
 		int maxPage = listCount / limit + (listCount % limit == 0 ? 0 : 1);
-		// 페이징 사이즈
-		int pageBlock = 10;
+		// 페이징 사이즈(한 화면 페이지 번호 개수)
+		int pageBlock = 6;
 		// 2. 시작 페이지 번호
 		int startPage = ((page - 1) / pageBlock) * pageBlock + 1;
 		// 3. 마지막 페이지 번호

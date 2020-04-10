@@ -1,13 +1,14 @@
 package vo;
 
 public class CartBean {
-	private int cartNum; // 카트에 저장될 카트번호
-	private String uID; // 카트에 저장될 사용자 이름
+	private int cartNum; // 카트에 저장될 상품번호
 	private String bookImage; // 카트에 저장될 이미지 파일명
 	private String bookTitle;//  카트에 저장될 상품명
 	private int bookPrice; // 카트에 저장될 상품 가격
-	private int bookEA; // 카트에 저장될 상품가격
+	private int bookEA; // 카트에 저장될 상품수량
+	
 		
+	
 	public int getCartNum() {
 		return cartNum;
 	}

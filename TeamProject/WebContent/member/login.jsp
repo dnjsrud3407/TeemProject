@@ -37,7 +37,7 @@
 </head>
 
 <body>
-member/account
+
 
     
 <!-- <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a> -->
@@ -64,8 +64,8 @@ member/account
 			  </div>
 			</form>		
 		  </div>
-		 <div>
-		 <a id="" href="FindId.me">아이디 찾기</a><a id="" href="FindPass.me">비밀번호 찾기</a><a id="" href="JoinForm.me">회원가입</a>
+		 <div style="text-align: center;">
+		 	<a id="" href="FindId.me">아이디 찾기</a><a id="" href="FindPass.me">비밀번호 찾기</a><a id="" href="JoinForm.me">회원가입</a>
 		 </div>
 <!-- <form action="LoginPro.me" method="post"> -->
 <!-- <input type="submit" value="로그인"> -->

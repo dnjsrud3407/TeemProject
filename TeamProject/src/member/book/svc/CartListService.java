@@ -8,59 +8,46 @@ import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import dao.BookDAO;
 import dao.CartDAO;
 
-public class BookCartProService {
+public class CartListService {
 
-	
 	// 카트에 담긴 책 정보를 가져오는 메서드
 	public BookBean getCartBook(int bookID) {
 
 		Connection con = getConnection();
-		
+
 		BookDAO bookDAO = BookDAO.getInstance();
-		
+
 		bookDAO.setConnection(con);
-		
+
 		BookBean bookBean = bookDAO.selectBook(bookID);
-		System.out.println(bookBean.getBookTitle());
 		
+
 		close(con);
-		
+
 		return bookBean;
 	}
 
-	// 세션에 해당되는 카트리스트 가져오는 메서드
-	public CartBean getCartList(String uID) {
-		CartBean cartBean = null;
-		
+
+	public ArrayList<CartBean> getCartList(String uID) {
+		// TODO Auto-generated method stub
+		// HttpSession 객체 가져와서 세션 내의 ArrayList<CartBean> 객체 가져오기
 		Connection con = getConnection();
 		
 		CartDAO cartDAO = CartDAO.getInstance();
 		
 		cartDAO.setConnection(con);
 		
-		cartBean = cartDAO.getCartList(uID);
+		ArrayList<CartBean> cartList = cartDAO.getCartList(uID);
+			
+		close(con);	
 		
-		
-		return cartBean;
+		return cartList;
 	}
-
-
-
-//	public ArrayList<CartBean> addCart(BookBean bookBean) {
-//		// TODO Auto-generated method stub
-//		
-//		
-//		ArrayList<CartBean> bookCartList = 
-//		
-//		
-////		bookCartList.add(bookBean);
-//						
-//		
-//		return null;
-//		
-//	}
 
 }

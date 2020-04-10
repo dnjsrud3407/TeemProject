@@ -172,7 +172,6 @@
                 <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
                 <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
                 <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="BookList.book?bk2=4"><i class="icon-chevron-right"></i>4단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
@@ -352,7 +351,6 @@
                   <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">1단계</a></h4>
                   <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">2단계</a></h4>
                   <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">3단계</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">4단계</a></h4>
               </div>
               </div>
         </div>

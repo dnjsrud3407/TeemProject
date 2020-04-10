@@ -59,11 +59,21 @@ boolean isLogin = false;
   	
 	var isLogin = <%=isLogin%>;
 	var pop_title = document.bookQnaForm;
+	
+	function loginChk() {
+		var loginUrl = "http://localhost:8080/TeamProject" + "/Login.me?url=" + location.href;
+		if(!isLogin){
+			window.location.href = loginUrl;
+			return false;
+		}
+		return true;
+	}
+	
 	function openQna() {
 		alert(isLogin);
 		var qnaUrl = "./QWriteForm.book";
-		var loginUrl = "http://localhost:8080/TeamProject" + "/Login.me?url=" + location.href;
-		if (isLogin) {
+		
+		if(loginChk()){
 			//alert('true');
  			window.open('',"bookQnaForm",'toolbar=no,scrollbars=no,resizable=no,top=100,left=0,width=700,height=600');
  			bookQnaForm.action = qnaUrl;
@@ -73,12 +83,24 @@ boolean isLogin = false;
  			bookQnaForm.bookTitle="${book.bookTitle}";
  			bookQnaForm.uID="${sessionScope.uID}";
  			bookQnaForm.submit();
-		} else {
-			//alert('alse');
- 			window.location.href = loginUrl;
 		}
 	}
     
+	function kindSubmit(index, qty){
+		if(loginChk()){
+			if(index == 1) {
+				document.kindFrm.action='BookBuy.book';
+			} else if(index == 2) {
+				alert(qty);
+				document.kindFrm.action='CartAdd.book';
+			} else if (index == 3) {
+				document.kindFrm.action='BookLike.book';
+			}
+			document.kindFrm.submit();
+		}
+		return false;
+		
+	}
     </script>
 	<style type="text/css" id="enject">
 	.qBtn {
@@ -121,7 +143,7 @@ boolean isLogin = false;
 	        </c:if>
 	        <a href="member.jsp">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
 	    </div>
     </div>
 </div>
@@ -222,14 +244,15 @@ boolean isLogin = false;
 				<h3>${book.bookTitle } </h3>
 				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
-				<form class="form-horizontal qtyFrm">
+				<form class="form-horizontal qtyFrm" method="post" name="kindFrm">
 				  <div class="control-group">
 					<label class="control-label"><span>${book.bookPrice }</span></label>
 					<div class="controls">
-					<input type="number" class="span1" placeholder="Qty."/>
-				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookBuy.book'"> 구매하기</button>
-					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookCart.book?bookID=${book.bookID}'"> 장바구니 <i class=" icon-shopping-cart"></i></button>
-					  <button type="button" class="btn btn-large btn-primary pull-right" onclick="location.href='BookLike.book'"> ♡ </button>	
+					<input type="number" class="span1" placeholder="Qty." name="qty" value="1"/>
+					<input type="hidden" name="bookID" value="${book.bookID }"/>
+				  	  <button type="button" class="btn btn-large btn-primary pull-right" onclick='kindSubmit(1)'> 구매하기</button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick='kindSubmit(2,qty.value)'> 장바구니 <i class=" icon-shopping-cart"></i></button>
+					  <button type="button" class="btn btn-large btn-primary pull-right" onclick='kindSubmit(3)'> ♡ </button>	
 					</div>
 				  </div>
 				</form>
@@ -270,7 +293,7 @@ boolean isLogin = false;
               <li><a href="#profile" data-toggle="tab">Related Products</a></li>
             </ul>
             <div id="myTabContent" class="tab-content">
-              <div class="tab-pane fade active in" id="home">
+              <div class="tab-pane active" id="home">
 			  <h4>Product Information</h4>
                 <table class="table table-bordered">
 				<tbody>
@@ -583,8 +606,38 @@ boolean isLogin = false;
 		</div>
 				<br class="clr">
 					 </div>
-					 <div class="tab-pane fade" id="review">review</div>
-					 <div class="tab-pane active " id="bookqna">
+					 <div class="tab-pane fade" id="review">review
+						<div class="row">	  
+							<div class="span2">
+								<img src="themes/images/products/3.jpg" alt="">
+							</div>
+							<div class="span4">
+								<h3>New | Available</h3>				
+								<hr class="soft">
+								<h5>Product Name </h5>
+								<p>
+								Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
+								that is why our goods are so popular..
+								</p>
+								<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+								<br class="clr">
+							</div>
+							<div class="span3 alignR">
+							<form class="form-horizontal qtyFrm">
+							<h3> $140.00</h3>
+							<label class="checkbox">
+								<input type="checkbox">  Adds product to compair
+							</label><br>
+							
+							  <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+							  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+							
+								</form>
+							</div>
+						</div>
+						<hr class="soft">
+					 </div>
+					 <div class="tab-pane fade" id="bookqna">
 					 	<div>
 					 		
 						    <h3><a href='<c:url value ="/Book.book?bookID=${book.bookID}"/>'>상품 문의하기</a></h3>    
@@ -616,26 +669,71 @@ boolean isLogin = false;
 					           <th style="width:100px">답변상태</th>
 					           <th style="text-align: center">제목</th>
 					           <th style="width:100px">문의자</th>
-					           <th style="width:100px">등록일</th>
-					           
+					           <th style="width:100px">등록일</th>  
 					         </tr>
 					       </thead>
 					       <tbody>
 							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
 					       		<tr>
-									<td>${qna.boardNum }</td>
+									<!-- 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 ) -->
+									<td>${pageInfo.listCount -((pageInfo.page-1)* pageInfo.pageBlock + status.index)}</td>
 									<td><c:if test="${0 < qna.boardReSeq}"> 
 	           		 					답변완료 </c:if> 답변전</td>
 					           		<td>${qna.boardTitle }</td>
 									<td>${qna.boardWriter }</td>
 									<td>${qna.boardRegTime }</td>
+								</tr>
+								<tr style="display: table-row;">
+									<td colspan="5" style="height: 236px;">안녕하세요
+									<div class="qna_title">
+										<span class=""></span>
+									</div>
+									<div>
+										<span class=""></span>
+									</div>
+									<p class="">
+									  <span class="">관리자의 답변</span>
+									  <span class="date">
+									  	"등록일 :
+									  	<em>2020-04-09</em>
+									  </span>
+															  <div class="btn-group">
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">글 수정하기 <span class=""></span></button>
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">글 삭제하기 <span class="caret"></span></button>
+<!-- 							         <ul class="dropdown-menu"> -->
+<!-- 							           <li><a href="#">Action</a></li> -->
+<!-- 							           <li><a href="#">Another action</a></li> -->
+<!-- 							           <li><a href="#">Something else here</a></li> -->
+<!-- 							           <li class="divider"></li> -->
+<!-- 							           <li><a href="#">Separated link</a></li> -->
+<!-- 							         </ul> -->
+							       </div>
+									</td>
 								</tr>				
   							</c:forEach>
 							</tbody>
 					    </table>
 					 </div>
-		</div>
-          </div>
+					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+						<div class="pagination">
+							<ul>
+							<li><c:if test="${pageInfo.startPage > pageBlock }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage-pageInfo.pageBlock }"/>'>&lsaquo;</a></c:if></li>
+							<li>
+							<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a>
+							</c:forEach></li>
+<!-- 							<li><a href="#bookqna&page=2">2</a></li> -->
+<!-- 							<li><a href="#bookqna#&page=3">3</a></li> -->
+<!-- 							<li><a href="#bookqna#&page=4">4</a></li> -->
+							<li><a href="#">...</a></li>
+							<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+							</ul>
+							</div>
+							<br class="clr"/>
+						</div>
+          			</div>
 
 	</div>
 </div>
