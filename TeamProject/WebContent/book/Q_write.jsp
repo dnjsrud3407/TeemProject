@@ -35,12 +35,42 @@ background-color: #b4b9c9;
 
 
 </style>
+<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
 <script type="text/javascript">
-function qna(){
-	window.close();
-	opener.location.reload();
-}
 
+	
+$(document).ready(function(){
+	
+	
+	var form = $('form#boardform');
+	
+	$(form).submit(function(e) {
+		e.preventDefault();
+		
+		var formData = $(form).serialize();
+		
+		
+		$.ajax({
+			type: "post",
+			url: $(form).attr('action'),
+			data: formData,
+			success: function(data)
+			{	alert("등록 완료");
+				opener.location.reload();
+				
+			},
+			error: function(xhr, ajaxSettings, thrownError)
+			{
+				alert("등록 실패");
+				opener.location.reload();
+				window.close();
+				}
+			
+				
+			});
+		});	
+});
+			
 </script>
 
 </head>
@@ -58,7 +88,7 @@ function qna(){
 		<h1 class="tit_vippop">판매자에게 문의하기</h1>
 		<p class="subinfo"> 상품 문의를 남겨주시면 판매자가 직접 답변을 드립니다.
 		</p>
-		<form action="QWritePro.book" method="post" name="boardform" onsubmit="qna()">
+		<form action='<c:url value="/QWritePro.book"/>' name="boardform" id="boardform">
 			<input type="hidden" name="bookID" value="<%=bookID %>">
 			<input type="hidden" name="uID" value="${param.uID }"/>
 		   <fieldset>
@@ -124,7 +154,7 @@ function qna(){
 		<p class="bottom_btns">
 		<!-- "javascript:;insertQna('1766321978')" -->
 			
-			<input type="submit" class="bt_confirm bt_vipround100 hover" title="확인" value="확인">
+			<input type="submit" class="bt_confirm bt_vipround100 hover" title="확인" value="확인" id="btnSubmit">
 				
 			<a	href="javascript:window.close();" class="bt_cancel bt_vipround100 hover2"><span>취소</span></a>
 		</p>

@@ -23,6 +23,7 @@ public class QModifyProAcion implements Action {
 		
 		ActionForward forward = null;
 		
+		
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");
 
