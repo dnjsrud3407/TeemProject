@@ -150,24 +150,24 @@
 <br class="clr"/>
 <div class="tab-content">
 	<div class="tab-pane" id="listView">
+	  <c:forEach var="book" items="${bookList }" varStatus="status">
 		<div class="row">	  
 			<div class="span2">
-				<img src="themes/images/products/3.jpg" alt=""/>
+				<img src="upload/${book.bookImage }" alt="책이미지"/>
 			</div>
 			<div class="span4">
 				<h3>New | Available</h3>				
 				<hr class="soft"/>
-				<h5>Product Name </h5>
+				<h5>${book.bookTitle } </h5>
 				<p>
-				Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-				that is why our goods are so popular..
+				${book.bookIntroduce }
 				</p>
 				<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
 				<br class="clr"/>
 			</div>
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
-			<h3> $140.00</h3>
+			<h3> ${book.bookPrice }</h3>
 			<label class="checkbox">
 				<input type="checkbox">  Adds product to compair
 			</label><br/>
@@ -178,31 +178,34 @@
 				</form>
 			</div>
 		</div>
+	</c:forEach>
 		<hr class="soft"/>
 	</div>
 
-	<div class="tab-pane  active" id="blockView">
-	  <c:forEach var="book" items="${bookList }" varStatus="status">
+	<div class="tab-pane active" id="blockView">
 		<ul class="thumbnails">
-			<li class="span3">
-			  <div class="thumbnail">
-				<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage}" alt="책 이미지" style="height: 200px;"/></a>
-				<div class="caption">
-				  <h5>${book.bookTitle }</h5>
-				  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
-					${book.bookIntroduce }
-				  </p>
-				    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
-				</div>
-			  </div>
-			</li>
-			  <c:if test="${((status.index+1) mod 3)==0}">		
-		  </ul>
-		  <ul>
-		  	</c:if>
-		</c:forEach>
+		  <c:forEach var="book" items="${bookList }" varStatus="status">
+				<li class="span3">
+				  <div class="thumbnail">
+					<a href="Book.book?bookID=${book.bookID }">
+						<img src="upload/${book.bookImage}" alt="책 이미지" style="min-width:100px; max-width: 250px; min-height: 100px; max-height: 250px;"/>
+					</a>
+					<div class="caption">
+					  <h5>${book.bookTitle }</h5>
+					  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
+						${book.bookIntroduce }
+					  </p>
+					    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+					</div>
+				  </div>
+				</li>
+				  <%-- <c:if test="${((status.index+1) mod 3)==0}">		
+			  </ul>
+			  <ul class="thumbnails">
+			  	</c:if> --%>
+			</c:forEach>
 		</ul>
-	<hr class="soft"/>
+		<hr class="soft"/>
 	</div>
 </div>
 	

@@ -15,13 +15,14 @@ boolean isLogin = false;
 	if(session.getAttribute("uID") == null) {
 		isLogin = false;
      	String uID	= (String)session.getAttribute("uID");
-     	System.out.println(uID);
+     	
 	} else { 
 		isLogin = true;
 		String uID	= (String)session.getAttribute("uID");
-     	System.out.println(uID);
+     
 		
 	}
+
 %> 
 <!DOCTYPE html>
 <html lang="en">
@@ -55,8 +56,19 @@ boolean isLogin = false;
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
   	
+  	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
     <script type="text/javascript">
   	
+    $(document).ready(function(){
+    	
+    	$(".qna_tr_s").hide();
+    	
+    	$('.qna_tr_p').click(function(){
+    		
+    	$(this).next().slideToggle();	
+    	});
+    })
+    
 	var isLogin = <%=isLogin%>;
 	var pop_title = document.bookQnaForm;
 	
@@ -69,10 +81,27 @@ boolean isLogin = false;
 		return true;
 	}
 	
-	function openQna() {
+	function openQna(p, number) {
 		alert(isLogin);
-		var qnaUrl = "./QWriteForm.book";
 		
+		
+		var qnaUrl = "";
+		
+		if(p === 'w'){
+			qnaUrl = "./QWriteForm.book";
+			
+		} else if(p === 'm'){
+			qnaUrl = "./QModifyForm.book";
+			
+		} else if(p === 'd'){
+			qnaUrl = "./QDeletePro.book";	
+		} else {
+			alert('알 수 없는 오류입니다');
+		}
+		
+	
+		
+	
 		if(loginChk()){
 			//alert('true');
  			window.open('',"bookQnaForm",'toolbar=no,scrollbars=no,resizable=no,top=100,left=0,width=700,height=600');
@@ -82,6 +111,11 @@ boolean isLogin = false;
  			bookQnaForm.bookID="${book.bookID}";
  			bookQnaForm.bookTitle="${book.bookTitle}";
  			bookQnaForm.uID="${sessionScope.uID}";
+ 			if(p === 'm' || p === 'd'){
+ 				 document.bookQnaForm.boardNum.value=number;
+ 				 
+ 				 
+ 			}
  			bookQnaForm.submit();
 		}
 	}
@@ -101,13 +135,24 @@ boolean isLogin = false;
 		return false;
 		
 	}
+	
+	
     </script>
 	<style type="text/css" id="enject">
 	.qBtn {
     display: inline-block;
     float: right;
 }
-	
+
+.td_rgt {/* border: 1px solid #00f; */
+ text-align:center !important;
+ vertical-align:bottom !important;}
+
+
+.btn_rgt {/* border: 1px solid red; */
+ float: right;
+  
+ }	
 	</style>
   </head>
 <body>
@@ -650,19 +695,20 @@ boolean isLogin = false;
 								<input type="text" class="input-medium search-query" style="">
 								  <button type="submit" class="btn">Search</button>
 						        <div class="qBtn">
-									<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" onclick="openQna()">문의하기 </button>
+									<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" onclick="openQna('w','0')">문의하기 </button>
 								</div>
-								</form>
+							</form>
 								<form name="bookQnaForm">
 									<input type="hidden" name="bookID" value="${book.bookID }"/>
 									<input type="hidden" name="bookTitle" value="${book.bookTitle }"/>
 									<input type="hidden" name="uID" value="${sessionScope.uID }"/>
+									<input type="hidden" name="boardNum" value=""/>
 								</form>
 						 </div>
 					 	
 					 	
 					  
-					 	<table class="table table-striped" style="width:870px"> 
+					 	<table id="qna_tb" class="table table-striped" style="width:870px"> 
 					       <thead>
 					         <tr>
 					           <th style="width:100px">번호</th>
@@ -674,7 +720,7 @@ boolean isLogin = false;
 					       </thead>
 					       <tbody>
 							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
-					       		<tr>
+					       		<tr class="qna_tr_p">
 									<!-- 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 ) -->
 									<td>${pageInfo.listCount -((pageInfo.page-1)* pageInfo.pageBlock + status.index)}</td>
 									<td><c:if test="${0 < qna.boardReSeq}"> 
@@ -683,8 +729,8 @@ boolean isLogin = false;
 									<td>${qna.boardWriter }</td>
 									<td>${qna.boardRegTime }</td>
 								</tr>
-								<tr style="display: table-row;">
-									<td colspan="5" style="height: 236px;">안녕하세요
+								<tr class="qna_tr_s" style="display: table-row;">
+									<td colspan="5" style="height: 236px;" class="td_rgt">안녕하세요
 									<div class="qna_title">
 										<span class=""></span>
 									</div>
@@ -697,9 +743,10 @@ boolean isLogin = false;
 									  	"등록일 :
 									  	<em>2020-04-09</em>
 									  </span>
-															  <div class="btn-group">
-							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">글 수정하기 <span class=""></span></button>
-							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">글 삭제하기 <span class="caret"></span></button>
+															  <div class="btn-group btn_rgt">
+									
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 <span class=""></span></button>
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 <span class="caret"></span></button>
 <!-- 							         <ul class="dropdown-menu"> -->
 <!-- 							           <li><a href="#">Action</a></li> -->
 <!-- 							           <li><a href="#">Another action</a></li> -->

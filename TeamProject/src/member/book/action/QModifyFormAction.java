@@ -13,16 +13,13 @@ public class QModifyFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	
 		System.out.println("QModifyFormAction");
-//		int board_num = Integer.parseInt(request.getParameter("board_num"));
-//		String page = request.getParameter("page");
-//		
-//		BookBean question = null;
-//		QModifyProService qModifyProService = new QModifyProService();
-//		question = qModifyProService.getReviews(num);
-	
-//		request.setAttribute("question", question);
-//		request.setAttribute("page", page);
 
+
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		System.out.println(boardNum);
+		
+		
+		
 		ActionForward forward = new ActionForward();
 		forward.setPath("/book/Q_modify.jsp");
 		

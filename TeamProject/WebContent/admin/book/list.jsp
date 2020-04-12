@@ -129,7 +129,7 @@
 		  				+"<td>"+ book.bookPublisher
 		  				+"</td><td>"+ book.bookPublishedDate 
 		  				+"</td><td>"+ book.bookPrice 
-	  					+ outBookEA
+	  					+"</td><td>"+ outBookEA
 		  				+"</td><td>"+ book.salesVolume 
 		  				+"</td><td>"+ book.bookisView
 		  				+"</td><td>"+ book.saveRatio 
