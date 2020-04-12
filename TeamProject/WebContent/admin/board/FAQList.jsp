@@ -56,10 +56,10 @@
 		});
 	
 		
-		function checkOK(boardNum, page, k2) {
+		function checkOK(boardNum) {
 			r = confirm("정말로 삭제하시겠습니까?");
 			if(r){
-				location.href="./FAQDelete.adb?boardNum="+boardNum+"&page="+page+"&k2="+k2;
+				location.href="./FAQDelete.adb?boardNum="+boardNum;
 			}
 		}
 		
@@ -139,7 +139,7 @@
 			                    	<div style="text-align: right;">
 			                    		
 			                    		<a href='<c:url value="/FAQModify.adb?boardNum=${articleList.boardNum}"/>'><input type="button" value="수정"></a>
-			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum}"></a>
+			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${articleList.boardNum})"></a>
 			                    	</div>
 		                    	</td>
 		                    <tr>

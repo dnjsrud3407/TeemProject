@@ -39,6 +39,17 @@
 		width:200px
 		}
 	</style>
+	
+	<script type="text/javascript">
+	
+	function checkOK(boardNum) {
+		r = confirm("정말로 삭제하시겠습니까?");
+		if(r){
+			location.href="./NoticeDelete.adb?boardNum="+boardNum;
+		}
+	}
+		
+	</script>
 
 </head>
 
@@ -74,26 +85,29 @@
                   <h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
                 </div>
                 <div class="card-body">
-	              <div class="table-responsive">
-	              
-	              <form action='<c:url value="/NoticeWritePro.adb"/>' method="post" enctype="multipart/form-data">
-							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
-							
+	              <div class="table-responsive" width="100%">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                    <tr>
 		                      <th>제목</th>
-		                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
-		                    </tr>
-		                    <tr>
-		                    	<input type="file" name="file">
+		                      <td colspan="3">${article.boardTitle }</td>
 		                    </tr>
 		                    <tr>
 		                      <th style="width:15%">내용</th>
-		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
+		                      <td colspan="3">
+		                      
+		                      <c:if test="${article.fileList.size() > 0 }">
+		                      	<c:forEach var="image" items="${article.fileList}" varStatus="index">
+		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/>
+		                      	</c:forEach>
+		                      </c:if>
+		                      ${article.boardContent }
+		                      </td>
 		                    </tr>
 		                </table>
-		                <div style="text-align: right;"><input type="submit" value="공지사항 작성"></div>
-	                </form>
+		                <div style="text-align: right;">
+		                <a href='<c:url value="/NoticeModify.adb?boardNum=${article.boardNum }"/>'><input type="button" value="공지사항  수정"></a>
+		                <a href="#"><input type="button" value="삭제" onclick="checkOK(${article.boardNum})"></a>
+		                </div>
 	                
 	              </div>
 	            </div>

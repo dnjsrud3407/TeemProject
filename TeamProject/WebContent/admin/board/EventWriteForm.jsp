@@ -71,12 +71,12 @@
 			<div style="margin-left: auto; margin-right: auto;">
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">이벤트 작성</h6>
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
 	              
-	              <form action='<c:url value="/NoticeWritePro.adb"/>' method="post" enctype="multipart/form-data">
+	              <form action='<c:url value="/EventWritePro.adb"/>' method="post" enctype="multipart/form-data">
 							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
 							
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -92,7 +92,7 @@
 		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
 		                    </tr>
 		                </table>
-		                <div style="text-align: right;"><input type="submit" value="공지사항 작성"></div>
+		                <div style="text-align: right;"><input type="submit" value="이벤트 작성"></div>
 	                </form>
 	                
 	              </div>

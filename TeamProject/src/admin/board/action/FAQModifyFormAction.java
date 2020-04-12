@@ -24,12 +24,8 @@ public class FAQModifyFormAction implements Action {
 		
 		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-		int page = Integer.parseInt(request.getParameter("page"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정
 		String k1 = "FAQ";
-		String k2 = request.getParameter("k2");
-		
-		// 수정 후 돌아갈 페이지를 위해 페이지 정보 저장
 		
 		// DB 작업을 위한 BoardService 객체와 글 정보를 담아올 BoardBean 객체 선언
 		BoardService boardService = new BoardService();

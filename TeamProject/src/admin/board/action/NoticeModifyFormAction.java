@@ -15,7 +15,7 @@ public class NoticeModifyFormAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("공지사항 수정폼 가기");
+		System.out.println("공지사항 내용보기");
 		
 		HttpSession session = request.getSession();
 		
@@ -36,7 +36,7 @@ public class NoticeModifyFormAction implements Action {
 			// 받아온 글 정보가 있다면 해당 글 정보를 표시할 jsp 파일로 이동
 			//
 			request.setAttribute("article", bb);
-			forward.setPath("/admin/board/NoticeDetail.jsp");
+			forward.setPath("/admin/board/NoticeModifyForm.jsp");
 		} else {
 			// 받아온 글 정보가 없다면 메시지 호출 후 글 목록으로 보내기
 			//

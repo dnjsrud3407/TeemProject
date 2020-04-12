@@ -103,7 +103,7 @@ public class AdminBoardDAO {
 			pstmt.setInt(8, bb.getBoardReLev()); pstmt.setInt(9, bb.getBoardReSeq()); 
 			pstmt.setInt(10, bb.getBoardReadcount()); pstmt.setInt(11, bb.getBookID());
 			int update = pstmt.executeUpdate();
-			if(update != 0 && bb.getFileList() != null) {
+			if(update != 0 && (bb.getFileList() != null ||  bb.getFileList().size() != 0)) {
 				if(bb.getFileList().size() != 0) {
 					insertCount = insertFile(bb, kID);
 				} else {

@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.board.action.EventDeleteAction;
+import admin.board.action.EventDetailAction;
+import admin.board.action.EventModifyFormAction;
+import admin.board.action.EventModifyProAction;
 import admin.board.action.FAQDeleteProAction;
 import admin.board.action.FAQModifyFormAction;
 import admin.board.action.FAQModifyProAction;
@@ -132,7 +136,7 @@ public class AdminBoardController extends HttpServlet {
         } else if(command.equals("/NoticeWrite.adb")) {
             // --- Notice 작성 폼 
             forward = new ActionForward();
-            forward.setPath("./board/NoticeWriteForm.jsp");
+            forward.setPath("./admin/board/NoticeWriteForm.jsp");
         } else if(command.equals("/NoticeWritePro.adb")) {
             // --- Notice 작성 작업 NoticeWriteProAction()
             action = new NoticeWriteProAction();
@@ -180,7 +184,7 @@ public class AdminBoardController extends HttpServlet {
             
             
             
-        } else if(command.equals("/event.adb")) {
+        } else if(command.equals("/Event.adb")) {
             // --- Notice 삭제 작업 
             action = new NoticeDeleteProAction();
             try {
@@ -188,7 +192,7 @@ public class AdminBoardController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else if(command.equals("/eventWrite.adb")) {
+        } else if(command.equals("/EventWrite.adb")) {
             // --- Notice 삭제 작업 
             action = new NoticeDeleteProAction();
             try {
@@ -199,6 +203,38 @@ public class AdminBoardController extends HttpServlet {
         }  else if(command.contentEquals("/failed.adb")) {
         	forward = new ActionForward();
         	forward.setPath("/admin/board/failedMSG.jsp");
+        } else if(command.equals("/EventDetail.adb")) {
+            // --- 이벤트 상세보기
+            action = new EventDetailAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/EventModify.adb")) {
+            // --- 이벤트 수정 폼 (관리자가 작성한 내용 불러옴)
+            action = new EventModifyFormAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/EventModifyPro.adb")) {
+            // --- Notice 수정 작업 
+            action = new EventModifyProAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else if(command.equals("/EventDelete.adb")) {
+            // --- Notice 삭제 작업 
+            action = new EventDeleteAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 	
 		

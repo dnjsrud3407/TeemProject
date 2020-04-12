@@ -16,38 +16,44 @@ public class EventListAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("FAQ 보기");
+		System.out.println("이벤트 보기");
+		request.setCharacterEncoding("UTF-8");
 		
 		// PageInfo 객체 선언
-		PageInfo pageInfo = null; 
-		
-		int page = 1; // 현재 페이지 번호
-		int limit = 10; // 한 페이지 당 출력할 게시물 수
-		// page 파라미터가 존재할 경우 파라미터에 전달된 데이터를 현재 페이지 번호로 대체
+		PageInfo pageInfo = new PageInfo();
+		int page = 1;  // 현 페이지 정보
+		int limit = 10; // 한 페이지 당 출력할 게시물 수  - 10개
 		if(request.getParameter("page") != null) {
-			page = Integer.parseInt(request.getParameter("page")); // 정수로 변환하여 저장
+			page = Integer.parseInt(request.getParameter("page"));
 		}
-		String k1 = "EVENT";
+		pageInfo.setPage(page);	// 들고온 페이지 정보가 없을 때 기본 페이지 1
+		
+		String k1 = "이벤트";
 		String k2 = request.getParameter("k2");
+		
 		
 		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
 		BoardService boardService = new BoardService();
 		int listCount = boardService.getListCount(k1, k2);
-		
-		System.out.println("총 게시물 수 : " + listCount + "개");
-		
-		// pageInfo 에 기본적인 페이지 정보 담아가기
-		pageInfo = new PageInfo(page, limit, k1, k2);
+		System.out.println("listCount : " + listCount);
+		// pageInfo limit, k1, k2 담기
+		pageInfo.setLimit(limit); pageInfo.setK1(k1); pageInfo.setK2(k2);
 //		 BoardListService 객체의 getArticleList() 메서드를 호출 하여 게시물 목록 가져오기
 		// => 파라미터로 현재 페이지(page) 와 게시물 수(limit) 를 전달
 		// => ArrayList<BoardBean> 타입 객체 리턴
 		ArrayList<BoardBean> articleList = boardService.getArticleList(pageInfo);
+		
+		if(articleList != null) {
+			request.setAttribute("articleList", articleList);
+		}
 		// 가져온 게시물 목록 리퀘스트에 저장
-		request.setAttribute("articleList", articleList);
 		
 		// 페이지 계산
 		// 1. 총 페이지 수 계산
 		int maxPage = (int)((double)listCount / limit + 0.95);
+		if(maxPage == 0) {
+			maxPage = 1;
+		}
 		// 2. 시작 페이지 번호 계산
 		int startPage = ((int)((double)page / 10 + 0.9) - 1) * 10 + 1;
 		// 3. 마지막 페이지 번호 계산
@@ -57,17 +63,21 @@ public class EventListAction implements Action {
 			endPage = maxPage;
 		}
 		
-		// pageInfo 객체에 페이지 정보 저장(총 페이지, 시작 페이지, 끝 페이지, 총 게시글 수)
+		// pageInfo 객체에 페이지 정보 저장(총 페이지, 시작 페이지, 현재 페이지, 끝 페이지, 총 게시글 수 등)
 		pageInfo.setMaxPage(maxPage);
 		pageInfo.setStartPage(startPage); 
+		pageInfo.setPage(page);
 		pageInfo.setEndPage(endPage);
 		pageInfo.setListCount(listCount);
+		pageInfo.setPageBlock(10);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		
+		ArrayList<String> k2List = boardService.getk2List(k1);
+		
 		forward = new ActionForward();
 		// 이벤트로 고칠것
-//		forward.setPath("./board/FAQList.jsp");
+		forward.setPath("/admin/board/EventList.jsp");
 		
 		return forward;
 	}

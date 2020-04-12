@@ -16,9 +16,8 @@ public class EventDeleteAction implements Action {
 		BoardService boardService = new BoardService();
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		String k1 = request.getParameter("k1");
-		String k2 = request.getParameter("k2");
 		
-		int deleteCount = boardService.deleteArticle(boardNum, k1, k2);
+		int deleteCount = boardService.deleteArticle(boardNum, k1);
 		
 		if(deleteCount != 0) {
 			// 글 삭제 성공 시 반응

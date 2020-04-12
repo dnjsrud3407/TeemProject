@@ -1,5 +1,6 @@
 package admin.board.action;
 
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -30,6 +31,8 @@ public class NoticeWriteProAction implements Action {
 		
 		// MultipartRequest 객체생성
 		String saveFolder ="/boardFile";
+//		File isDir = new File(saveFolder); // 파일 디렉토리가 없다면 만들어주기 위함
+		
 		
 		ServletContext context = request.getServletContext(); // request 객체로부터 컨텍스트 객체 가져오기
 		String realFolder = context.getRealPath(saveFolder); // 가상 위치로부터 실제 폴더 위치를 가져오기
@@ -51,7 +54,8 @@ public class NoticeWriteProAction implements Action {
 			System.out.println("원본 파일명(보여지는 이름) : " + originFilename);
 			System.out.println("저장된 파일명(중복처리) : " + storedFileName);
 
-			String[] getFileType = originFilename.split("."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름
+			String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름 
+			// "." 은 정규식에서 무작위 문자라는 뜻이라서 . 으로 문자열을 자르기 위해서는 \\.  을 사용해야한다.
 			String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
 			file = new FileBean(originFilename, storedFileName, fileType);
 			fileList.add(file);
@@ -65,6 +69,7 @@ public class NoticeWriteProAction implements Action {
 		
 		// 제목과 내용, 작성자
 		String boardWriter = multi.getParameter("boardWriter");
+		System.out.println("작성자는 " + boardWriter);
 		String boardTitle = multi.getParameter("boardTitle");
 		String boardContent = multi.getParameter("boardContent");
 		
@@ -83,7 +88,7 @@ public class NoticeWriteProAction implements Action {
 		forward = new ActionForward();
 		if(insertCount != 0) {
 			// Notice 작성한거 상세보기
-			forward.setPath("./board/NoticeDetail.jsp?boardNum="+boardNum);
+			forward.setPath("./NoticeDetail.adb?boardNum="+boardNum);
 		} else {
 			
 		}
