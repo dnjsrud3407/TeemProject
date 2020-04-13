@@ -342,7 +342,7 @@ input.size {
 	 </div> -->
 	<form class="form-horizontal" action="MemberModifyPro.adm" method="post" name="removefrm">
 			<h4>회원 개인정보</h4>
-	
+	<table>
 		<div class="control-group">
 			<div class="">
 			<label class="control-label" for="inputId">아이디 <sup>* &nbsp;</sup></label>
@@ -463,7 +463,8 @@ input.size {
 			<input  class="btn btn-large btn-success" type="submit" value="멤버수정">
 			<input  class="btn btn-large btn-success" type="button" value="멤버삭제" name="removeCheck" data-toggle="modal" data-target="#deleteModal">
 			</div>
-		</div>		
+		</div>	
+		</table>	
 	</form>
 </div>
 </div>

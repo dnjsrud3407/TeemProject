@@ -42,7 +42,57 @@ img{
 	margin-right: 2.5%;
 	width:200px
 }
+
+.control-label {
+    width: 150px;
+    text-align: right;
+    }
+input.size {
+	width: 350px;
+}
 </style>
+</style>
+<script type="text/javascript">	
+	function checkPasswd(passwd) {
+		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합 유효성 검사
+		// 1. 정규표현식 지정
+		// 1) 길이 체크 : 8 ~ 16자리. 영문 대문자&소문자&숫자&특수문자(!@#$%^_)
+		var lengthRegex = /^[A-Za-z0-9!@#$%^_]{8,16}$/;
+		// 2) 대문자 체크
+		var upperCaseRegex = /[A-Z]/;
+		// 3) 소문자 체크
+		var lowerCaseRegex = /[a-z]/;
+		// 4) 숫자 체크
+		var digitRegex = /[0-9]/;
+		// 5) 특수문자 체크
+		var specCharRegex = /[!@#$%^_]/;
+		
+// 		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
+		var element = document.getElementById('checkPasswdResult'); // checkPasswdResult 값을 ID 로 갖는 태그 찾기
+		
+// 		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
+// 		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
+		// 길이, 대문자, 소문자, 숫자, 특수문자 체크를 모두 통과했을 경우
+		if(lengthRegex.exec(passwd.value) && upperCaseRegex.exec(passwd.value) &&
+				lowerCaseRegex.exec(passwd.value) && digitRegex.exec(passwd.value) &&
+					specCharRegex.exec(passwd.value)) {
+// 			alert('유효성 검사 통과');	
+			// 지정된 태그 내에 메세지 표시
+			element.innerHTML = "적합한 패스워드";
+		} else { // 유효성 검사를 통과하지 못했을 경우
+// 			alert('유효성 검사 탈락');
+			element.innerHTML = "적합하지 않은 패스워드";
+		}
+	}
+	function removeCheck() {
+		if(confirm("정말 삭제하시겠습니까 ??") == true) {
+			document.removefrm.remove();
+		}else{
+			return false;
+		}
+				
+	}
+</script>	
 </head>
 <body id="page-top">
 
@@ -252,29 +302,7 @@ img{
 			</div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="" method="post" id="">
-               <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-              	 <tr>
-       				<th style="width: 15%;">상품코드</th>
-     				<th style="width: 15%;">옵션</th>
-     				<th style="width: 15%;">상품명</th>
-     				<th style="width: 15%;">상품가격</th>
-					<th style="width: 15%;">수량</th>
-					<th style="width: 15%;">적립금</th>
-					<th style="width: 15%;">취소</th>
-     				
-       			</tr>
-       			<tr>
-       			    <td>2020202022</td>
-					<td><img src="#" alt="-사진-" height="30px"> </td>
-       				<td>Java </td>
-  				    <td>30,000원 </td>
-  				    <td>1 </td>
-  				    <td>3,000원 </td>
-  				    <td><input type="button" value="취소"> </td>
-       			</tr>
-              	</table>
-              	상품합계(30,000) - 회원할인(15,000) + 배송비(3,000) = 총 결제금액 : 18,000원
+              <form action="" method="post" id="searchForm">
               
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					
@@ -355,148 +383,8 @@ img{
                   		</table>
                   	</td>
                   </tr>
-                  </table>
-                  - 주문자 정보
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-	                  <tr>
-	                  	<th style="width: 15%;">주문자명</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/>
-                  			</span>
-	                  	</td>
-	                  	
-	                  	<th style="width: 15%;">이메일</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="발송">
-                  			</span>
-	                  	</td>
-	                  </tr>
-	                  
-	                   <tr>
-	                  	<th style="width: 15%;">전화번호</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="051-1234-5678"/>
-                  			</span>
-	                  	</td>
-	                  	<th style="width: 15%;">휴대폰</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송">
-                  			</span>
-	                  	</td>
-	                  </tr>
-	                  
-	                   <tr>
-	                  	<th style="width: 15%;">우편번호</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색">
-                  			</span>
-	                  	</td>
-	                  </tr>
-	                  
-	                   <tr>
-	                  	<th style="width: 15%;">주소</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="부산 서면 아이티윌"/>
-                  			</span>
-	                  	</td>
-          		       </tr>
-                  </table>
+                  </table>                       
                   
-                  - 수취인 정보
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <tr>
-                  	<th style="width: 15%;">수취인명</th>
-                  	<td colspan="3">
-                  		<span class="checkbox_padding" style="width: 15%;">
-                 				<input type="text" name="" id="" value="김부킹"/>
-                 			</span>
-                  	</td>
-      		       </tr>
-          		   
-          		    <tr>
-	                  	<th style="width: 15%;">전화번호</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="051-1234-5678"/>
-                  			</span>
-	                  	</td>
-	                  	<th style="width: 15%;">휴대폰</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송">
-                  			</span>
-	                  	</td>
-	                  </tr>
-          		       
-          		       <tr>
-	                  	<th style="width: 15%;">우편번호</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색">
-                  			</span>
-	                  	</td>
-	                  </tr>
-	                  
-	                   <tr>
-	                  	<th style="width: 15%;">주소</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="부산 서면 아이티윌"/>
-                  			</span>
-	                  	</td>
-          		       </tr>
-          		       
-          		        <tr>
-	                  	<th style="width: 15%;">요청사항</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<textarea rows="5" cols="100"></textarea>
-                  			</span>
-	                  	</td>
-          		       </tr>
-          		       
-          		       <tr>
-	                  	<th style="width: 15%;">주문 취소 사유</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<textarea rows="5" cols="100"></textarea>
-                  			</span>
-	                  	</td>
-          		       </tr>
-          		       
-          		       <tr>
-	                  	<th style="width: 15%;">관리자 메모</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<textarea rows="5" cols="100"></textarea>
-                  			</span>
-	                  	</td>
-          		       </tr>
-                  </table>
-                  
-                  - 증빙서류 정보
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  	<tr>
-	                  	<th style="width: 15%;">발급 여부</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-								<input type="radio" value="">발행안함
-                  			</span>
-                  			<span class="checkbox_padding" style="width: 15%;">
-								<input type="radio" value="">세금계산서 신청
-                  			</span>
-                  			<span class="checkbox_padding" style="width: 15%;">
-								<input type="radio" value="">현금영수증 신청
-                  			</span>
-	                  	</td>
-          		       </tr>
-                  </table>
                 <input type="button" value="확인" id="" onclick="">
                 <input type="button" id="" value="목록">
               </form>
@@ -505,24 +393,7 @@ img{
           </div>
 
           <!-- DataTales Example// -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h5 class="m-0 font-weight-bold text-primary">주문 내용 상세보기</h5>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-              
-              <form action="DeleteForm.abook" id="searchBoard" method="post">
-              <input type="button" value="배송하기" onclick="location.href='OrderDeliveryDetail.adm'">
-			  <input type="button" value="주문 취소" onclick="location.href='OrderCencleDetail.adm'">
-              <input type="button" value="제품 반품" onclick="location.href='OrderRefundDetail.adm'">
-              <input type="button" value="제품 교환" onclick="location.href='OrderExchangeDetail.adm'">
-
-                </form>
-              </div>
-            </div>
-          </div>
-
+          
         </div>
         <!-- /.container-fluid -->
 
