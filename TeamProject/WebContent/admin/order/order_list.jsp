@@ -1,5 +1,14 @@
+<%@page import="vo.MemberBean"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+if(session.getAttribute("uID") == null){
+	response.sendRedirect("index.jsp");
+}
+ List<MemberBean> memberList = (List<MemberBean>) request.getAttribute("memberList");
+ %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,6 +37,8 @@ width: 400px;
 height: 300px;
 }
 </style>
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -249,7 +260,7 @@ height: 300px;
                      <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="OrderDeliveryList.adm">[]건</a></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <i class="fas fa-box fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -266,7 +277,7 @@ height: 300px;
                       <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="OrderCencleList.adm">[]건</a></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <i class="material-icons fa-3x text-gray-300" style="font-size:48px;">cancel</i>
                     </div>
                   </div>
                 </div>
@@ -292,7 +303,7 @@ height: 300px;
                       </div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <i class="material-icons fa-2x text-gray-300" style="font-size:48px;">assignment_return</i>
                     </div>
                   </div>
                 </div>
@@ -309,7 +320,7 @@ height: 300px;
                       <div class="h5 mb-0 font-weight-bold text-gray-800"><a href="OrderExchangeList.adm">[]건</a></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <i class="fas fa-exchange-alt fa-2x text-gray-300" style="font-size:48px;"></i>
                     </div>
                   </div>
                 </div>

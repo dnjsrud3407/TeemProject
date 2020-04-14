@@ -367,6 +367,7 @@ input.size {
                  	<th style="width: 15%;">아이디 *</th>
                  	<td>
 				  <span class="checkbox_padding" style="width: 15%;">
+                 			<input type="hidden" name="uID" value="<%=member.getuID() %>">
                  			<%=member.getuID() %>
              			</span>
                  	</td>

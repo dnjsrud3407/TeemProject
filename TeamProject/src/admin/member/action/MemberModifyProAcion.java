@@ -41,7 +41,11 @@ public class MemberModifyProAcion implements Action {
 			member.setuID(uID);
 			member.setPoint(Integer.parseInt(request.getParameter("point")));
 			member.setGrade(Integer.parseInt(request.getParameter("grade")));
-			
+			System.out.println(member.getuID());
+
+			System.out.println(member.getPoint());
+			System.out.println(member.getGrade());
+
 			boolean isModifySuccess = memberModifyProService.modifyMember(member);
 		
 			if(!isModifySuccess) {
