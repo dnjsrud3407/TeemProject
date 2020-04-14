@@ -21,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet">
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
@@ -169,10 +170,10 @@
                   <tr>
                   	<th style="width: 15%;">후기 접수일</th>
                   	<td>
-                  		<input type="button" value="오늘" onclick="changeDate('Today')">
-                  		<input type="button" value="1주일전" onclick="changeDate('-7Day')">
-                  		<input type="button" value="1개월전" onclick="changeDate('-1Month')">
-                  		<input type="button" value="3개월전" onclick="changeDate('-3Month')"> | 
+                  		<input type="button" class="custom_dateBtn" value="오늘" onclick="changeDate('Today')">
+                  		<input type="button" class="custom_dateBtn" value="1주일전" onclick="changeDate('-7Day')">
+                  		<input type="button" class="custom_dateBtn" value="1개월전" onclick="changeDate('-1Month')">
+                  		<input type="button" class="custom_dateBtn" value="3개월전" onclick="changeDate('-3Month')"> | 
                   		<input type="text" id="datepicker_Before" name="boardRegTime_Before" value="${boardRegTime_Before }" readonly="readonly">
                   		<input type="text" id="datepicker_After" name="boardRegTime_After" value="${boardRegTime_After }" readonly="readonly">
                   	</td>
@@ -188,8 +189,10 @@
                   	</td>
                   </tr>
                 </table>
-                <input type="submit" value="검색" id="search" onclick="search2()">
-                <input type="reset" id="btnReset" value="초기화">
+                <div class="text-center">
+                	<input type="submit" class="custom_button" value="검색" id="search">
+                	<input type="reset" class="custom_button" id="btnReset" value="초기화">
+              	</div>
               </form>
               </div>
             </div>
@@ -200,13 +203,12 @@
           <div class="card shadow mb-4">
             <div class="card-body">
               <div class="table-responsive">
-              <div>
-		  		* 후기제목을 클릭하시면 상세한 후기내역 작성/수정이 가능합니다.
-		  	  </div>
-		  	  
 <!-- 		  	  게시판 목록의 리스트 form의 action은 다중 삭제로 이동 -->				  	  
               <form action="ReviewDeleteForm.abook" id="searchBoard" method="post">
-                <input type="submit" value="답변삭제">
+              <div>
+                <input type="submit" class="custom_button custom_button_margin" value="답변삭제">
+		  		&nbsp;&nbsp;&nbsp;* 후기제목을 클릭하시면 후기 상세보기, 답변작성, 답변수정, 답변삭제가 가능합니다.
+		  	  </div>
                 <c:if test="${!empty reviewSearchList && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>

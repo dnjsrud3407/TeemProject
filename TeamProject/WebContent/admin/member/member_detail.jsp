@@ -319,14 +319,16 @@ input.size {
           <!-- DataTales Example -->
                      <!-- DataTales Example -->
      
-  <div class="card shadow mb-4">
-
+			  <div class="card shadow mb-4">
+			<div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">회원상세정보</h6>              
+            </div>
             <div class="card-body">
               <div class="table-responsive">
 
-			<div class="span9">
+<!-- 			<div class="span9"> -->
 			
-	<div class="well">
+<!-- 	<div class="well"> -->
 	<!--
 	<div class="alert alert-info fade in">
 		<button type="button" class="close" data-dismiss="alert">×</button>
@@ -340,70 +342,91 @@ input.size {
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-	<form class="form-horizontal" action="MemberModifyPro.adm" method="post" name="removefrm">
+	<form action="MemberModifyPro.adm" method="post" name="" id="searchForm">
 			<h4>회원 개인정보</h4>
-	
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="inputId">아이디 <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" class="size" name="uID" value="<%=member.getuID() %>" readonly>
-			  <span id="checkIdResult"></span>
-			</div>
-		 </div>
-		 <div class="control-group">
-			<div class="">
-			<label class="control-label" for="inputPassword">비밀번호 <sup>* &nbsp;</sup></label>
-			  <input type="password" id="" class="size" name="pw" value="<%=member.getPw() %>" readonly><!-- onkeyup="checkPasswd(this)" --> 
-			  <span id="checkPasswdResult"></span>
-			</div>
-		 </div>
-		 <div class="control-group">
-			<div class="">
-			<label class="control-label" for="inputName">이름 <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" class="size" name="u_name" value="<%=member.getU_name() %>" readonly>
-			</div>
-		</div>
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="address">주소 <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" class="size" name="address" value="<%=member.getAddress() %>" readonly>
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="address2">상세주소 &nbsp;&nbsp;</label>
-			  <input type="text" id="" class="size" name="address2" value="<%=member.getAddress2() %>" readonly>
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="mobile">모바일 <sup>* &nbsp;</sup></label>
-			  <input type="text" id="" class="size" name="phone_num" value="<%=member.getPhone_num() %>" readonly> 
-			</div>
-		</div>	
-		
-		<div class="control-group">
-		<div class="">
-		<label class="control-label" for="input_Email">이메일 <sup>* &nbsp;</sup></label>
-		  <input type="text" id="" class="size" name="email" value="<%=member.getEmail() %>" readonly>
-		</div>
-	  </div>	  
-		
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="phone">전화번호 &nbsp;&nbsp;</label>
-			  <input type="text" id="" class="size" name="tell_num" value="<%=member.getTell_num() %>" readonly> 
-			</div>
-		</div>
-		
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="joinDate">가입날짜 &nbsp;&nbsp;</label>
-			  <input type="text" id="" class="size" name="joinDate" value="<%=member.getJoinDate() %>" readonly/> 
-			</div>
-		</div>
+	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	 
+	 <tr>
+                 	<th style="width: 15%;">이름 *</th>
+                 	<td>
+				  <span class="checkbox_padding" style="width: 15%;">
+                 			<%=member.getU_name() %>
+             			</span>
+                 	</td>
+                 	
+                 	<th style="width: 15%;">가입날짜</th>
+                 	<td>
+                 	    <span class="checkbox_padding" style="width: 15%;">
+                 			<%=member.getJoinDate() %>
+             			</span>
+                 	</td>
+                 </tr>
+                 
+                 
+                 <tr>
+                 	<th style="width: 15%;">아이디 *</th>
+                 	<td>
+				  <span class="checkbox_padding" style="width: 15%;">
+                 			<input type="hidden" name="uID" value="<%=member.getuID() %>">
+                 			<%=member.getuID() %>
+             			</span>
+                 	</td>
+                 	
+                 	<th style="width: 15%;">비밀번호 *</th>
+                 	<td>
+                 	    <span class="checkbox_padding" style="width: 15%;">
+                 			***********
+             			</span>
+                 	</td>
+                 </tr>
+                 
+                 
+                 <tr>
+                 	<th style="width: 15%;">주소 *</th>
+                 	<td colspan="3">
+                 	    <span class="checkbox_padding" style="width: 15%;">
+						<%=member.getAddress() %>
+             			</span>
+                 	
+				</td>
+                 </tr>
+                 
+                 <tr>
+                 	<th style="width: 15%;">상세주소</th>
+                 	<td colspan="3">
+                 	    <span class="checkbox_padding" style="width: 15%;">
+						<%=member.getAddress2() %>
+             			</span>
+                 	
+				</td>
+                 </tr>
+                 
+                 <tr>
+                 	<th style="width: 15%;">모바일 *</th>
+                 	<td>
+                 		<span class="checkbox_padding">
+                 			<%=member.getPhone_num() %>
+                 		</span>
+                 	</td>
+                 	<th style="width: 15%;">전화번호</th>
+                 	<td>
+                 		<span class="checkbox_padding">
+                 			<%=member.getTell_num() %>
+                 		</span>
+                 	</td>
+                 </tr>
+                 
+                 <tr>
+                 	<th style="width: 15%;">이메일</th>
+                 	<td colspan="3">
+                 	    <span class="checkbox_padding" style="width: 15%;">
+						<%=member.getEmail() %>
+             			</span>
+                 	
+				</td>
+                 </tr>
+                  
+	 </table>
 		<br>
 	<p class="control-group"><sup>*</sup>필수 입력사항</p>
 
@@ -416,19 +439,21 @@ input.size {
 		<div class="control-group">
 
 		<div class="">
-
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="point">포인트 &nbsp;&nbsp;</label>
-			  <input type="text" id="" width="129" name="point" value="<%=member.getPoint() %>"/>Points
-			</div>
-		</div>
 		
-		<div class="control-group">
-			<div class="">
-			<label class="control-label" for="grade">등급 &nbsp;&nbsp;</label>
+		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		 <tr>
+	       	<th style="width: 15%;">포인트</th>
+	           	<td>
+				<span class="checkbox_padding" style="width: 15%;">
+			  <input type="text" id="point" width="129" name="point" value="<%=member.getPoint() %>"/> Points
+	   			</span>
+	       	</td>
+	       	
+	       	<th style="width: 15%;">등급</th>
+	       	<td>
+	       	    <span class="checkbox_padding" style="width: 15%;">
 <%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%>
-			  <select name="grade" classs="size" id="grade">
+			  <select name="grade" class="size" id="grade">
 				<option value="" class="size">선택해주세요.</option>				
 				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>admin</option>
 				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>admin1</option>
@@ -442,9 +467,41 @@ input.size {
 				<option value="10" <c:if test="${member.grade == 10 }">selected</c:if>>VIP</option>
 				<option value="11" <c:if test="${member.grade == 11 }">selected</c:if>>VVIP</option>
 			
-			</select>
-			</div>
-		</div>
+			</select>	   			
+			</span>
+	       	</td>
+	       </tr>
+	     </table>
+		
+
+<!-- 		<div class="control-group"> -->
+<!-- 			<div class=""> -->
+<!-- 			<label class="control-label" for="point">포인트 &nbsp;&nbsp;</label> -->
+<%-- 			  <input type="text" id="" width="129" name="point" value="<%=member.getPoint() %>"/>Points --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
+		
+<!-- 		<div class="control-group"> -->
+<!-- 			<div class=""> -->
+<!-- 			<label class="control-label" for="grade">등급 &nbsp;&nbsp;</label> -->
+<%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%> 
+<!-- 			  <select name="grade" classs="size" id="grade"> -->
+<!-- 				<option value="" class="size">선택해주세요.</option>				 -->
+<%-- 				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>admin</option> --%>
+<%-- 				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>admin1</option> --%>
+<%-- 				<option value="3" <c:if test="${member.grade == 3 }">selected</c:if>>admin2</option> --%>
+<%-- 				<option value="4" <c:if test="${member.grade == 4 }">selected</c:if>>admin3</option> --%>
+<%-- 				<option value="5" <c:if test="${member.grade == 5 }">selected</c:if>>admin4</option> --%>
+<%-- 				<option value="6" <c:if test="${member.grade == 6 }">selected</c:if>>member</option> --%>
+<%-- 				<option value="7" <c:if test="${member.grade == 7 }">selected</c:if>>BRONZE</option> --%>
+<%-- 				<option value="8" <c:if test="${member.grade == 8 }">selected</c:if>>SILVER</option> --%>
+<%-- 				<option value="9" <c:if test="${member.grade == 9 }">selected</c:if>>GOLD</option> --%>
+<%-- 				<option value="10" <c:if test="${member.grade == 10 }">selected</c:if>>VIP</option> --%>
+<%-- 				<option value="11" <c:if test="${member.grade == 11 }">selected</c:if>>VVIP</option> --%>
+			
+<!-- 			</select> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		
 		</div>
 		</div>	
@@ -463,10 +520,11 @@ input.size {
 			<input  class="btn btn-large btn-success" type="submit" value="멤버수정">
 			<input  class="btn btn-large btn-success" type="button" value="멤버삭제" name="removeCheck" data-toggle="modal" data-target="#deleteModal">
 			</div>
-		</div>		
+		</div>	
+			
 	</form>
-</div>
-</div>
+<!-- </div> -->
+<!-- </div> -->
 </div>
 </div>
 </div>
@@ -521,8 +579,8 @@ input.size {
         </div>
         <div class="modal-body">정말 삭제를 원하신다면 아래의 삭제를 선택하세요</div>
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="MemberDeletePro.adm?uID=<%=member.getuID() %>">Delete</a>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
+          <a class="btn btn-primary" href="MemberDeletePro.adm?uID=<%=member.getuID() %>">삭제</a>
         </div>
       </div>
     </div>

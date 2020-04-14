@@ -252,7 +252,7 @@ img{
 			</div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="Search.abook" method="post" id="searchForm">
+              <form action="" method="post" id="">
                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               	 <tr>
        				<th style="width: 15%;">상품코드</th>

@@ -21,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet">
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
@@ -139,11 +140,11 @@
 		<!-- Begin Page Content// -->
         <div class="container-fluid">
 
-            <h6 class="m-0 font-weight-bold text-primary"><a href="Detail.abook?bookID=${book.bookID }">&lt; 뒤로가기</a></h6><br>
+          <h6 class="m-0 font-weight-bold text-primary"><a href="Detail.abook?bookID=${book.bookID }&page=${page}">&lt; 이전으로</a></h6><br>
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">제품등록</h6>
+              <h5 class="m-0 font-weight-bold text-primary">상품수정</h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -211,7 +212,7 @@
                       <td><input type="text" name="saveRatio" size="120" value="${book.saveRatio }"></td>
                     </tr>
                 </table>
-                <input type="submit" value="수정하기">
+                <input type="submit" class="custom_button" value="수정하기">
                 </form>
               </div>
             </div>

@@ -21,6 +21,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet">
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
@@ -144,8 +145,8 @@
 	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${board_answer.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
-	                <input type="submit" value="답변 수정" />
-	                <input type="button" value="답변 삭제" onclick="location.href='QDeleteForm.abook?boardRe_refList=${board_answer.boardReRef }'"/>
+	                <input type="submit" class="custom_button" value="답변 수정" />
+	                <input type="button" class="custom_button" value="답변 삭제" onclick="location.href='QDeleteForm.abook?boardRe_refList=${board_answer.boardReRef }'"/>
 	                </form>
 	              </div>
 	            </div>

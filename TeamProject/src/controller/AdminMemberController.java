@@ -42,11 +42,11 @@ public class AdminMemberController extends HttpServlet {
 		ActionForward forward = null;
 		
 		
-		if(command.equals("/AdminMain.adm")) {
+		if(command.equals("/AdminMain.adm")) { //------------------
 			forward = new ActionForward();
 			forward.setPath("/admin/adminMain.jsp");
 			
-		} else if(command.equals("/MemberList.adm")) {
+		} else if(command.equals("/MemberList.adm")) { //------------------
 			action = new MemberListAcion();
 			try {
 				forward = action.execute(request, response);
@@ -62,14 +62,14 @@ public class AdminMemberController extends HttpServlet {
 //				e.printStackTrace();
 //			}		
 //		} 
-	else if(command.equals("/MemberModifyPro.adm")) { //------------------
+	else if(command.equals("/MemberModifyPro.adm")) { 
 			action = new MemberModifyProAcion();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/MemberDetail.adm")) {
+		} else if(command.equals("/MemberDetail.adm")) { //------------------
 			action = new MemberDetailAcion();
 			try {
 				forward = action.execute(request, response);
@@ -83,7 +83,7 @@ public class AdminMemberController extends HttpServlet {
 //			forward.setPath("./admin/member/member_delete.jsp");
 //			
 //		} 
-		else if(command.equals("/MemberDeletePro.adm")) {
+		else if(command.equals("/MemberDeletePro.adm")) { //------------------
 			action = new MemberDeleteProAction();
 			try {
 				forward = action.execute(request, response);
@@ -93,16 +93,16 @@ public class AdminMemberController extends HttpServlet {
 		} 
 		
 		// 매출관리 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-		else if(command.equals("/Order.adm")) {
-			forward = new ActionForward();
-			forward.setPath("./admin/order/order.jsp");
-
-		} 
-		else if(command.equals("/OrderList.adm")) {
-			forward = new ActionForward();
-			forward.setPath("./admin/order/order_list.jsp");
-
-		} 
+//		else if(command.equals("/Order.adm")) { //------------------
+//			forward = new ActionForward();
+//			forward.setPath("./admin/order/order.jsp");
+//
+//		} 
+//		else if(command.equals("/OrderList.adm")) {
+//			forward = new ActionForward();
+//			forward.setPath("./admin/order/order_list.jsp");
+//
+//		} 
 		 else if(command.equals("/OrderList.adm")) {
 			action = new OrderListAcion();
 			try {
