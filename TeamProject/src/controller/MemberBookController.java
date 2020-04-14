@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.org.apache.bcel.internal.generic.ACONST_NULL;
 
 import action.Action;
 import member.book.action.BookBuyProAction;
@@ -158,7 +157,8 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
+		
+		// 상품문의 수정 폼
 		} else if(command.equals("/QModifyForm.book")) {
 			action = new QModifyFormAction();
 			try {

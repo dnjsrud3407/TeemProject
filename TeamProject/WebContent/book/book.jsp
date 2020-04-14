@@ -55,7 +55,7 @@ boolean isLogin = false;
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
-  	
+  	<link rel="css/bookqna.css" rel="stylesheet">
   	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
     <script type="text/javascript">
   	
@@ -97,6 +97,7 @@ boolean isLogin = false;
 			if(loginChk()){
 				if(confirm('삭제하시겠습니까?')){
 					location.href = "./QDeletePro.book?bookID=" + ${book.bookID} + "&boardNum=" + number;
+					return;
 				
 				}
 			}
@@ -735,17 +736,19 @@ boolean isLogin = false;
 									<td>${qna.boardRegTime }</td>
 								</tr>
 								<tr class="qna_tr_s" style="display: table-row;">
-									<td colspan="5" style="height: 236px;" class="td_rgt">안녕하세요
-									<div class="qna_title">
-										<span class=""></span>
+									<td colspan="5" style="height: 236px;" class="td_rgt">
+									<div class="qna_qt">
+										<span class="icon_qt">Q</span>
+										${qna.boardContent}
 									</div>
-									<div>
-										<span class=""></span>
+									<div class="qna_as">
+										<span class="icon_as">A</span>
+										판매자의 답변
 									</div>
-									<p class="">
-									  <span class="">관리자의 답변</span>
+									<p class="info">
+									  <span class="">판매자의 답변</span>
 									  <span class="date">
-									  	"등록일 :
+									  	등록일 :
 									  	<em>2020-04-09</em>
 									  </span>
 															  <div class="btn-group btn_rgt">
