@@ -13,15 +13,19 @@
 
   <title>SB Admin 2 - member_list.jsp</title>
 
+ 
+
   <!-- Custom fonts for this template -->
   <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet">
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
+
 <script src="admin/js/jquery-3.4.1.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script> 
@@ -129,7 +133,7 @@
 		  				+"<td>"+ book.bookPublisher
 		  				+"</td><td>"+ book.bookPublishedDate 
 		  				+"</td><td>"+ book.bookPrice 
-	  					+"</td><td>"+ outBookEA
+	  					+ outBookEA
 		  				+"</td><td>"+ book.salesVolume 
 		  				+"</td><td>"+ book.bookisView
 		  				+"</td><td>"+ book.saveRatio 
@@ -270,8 +274,10 @@ img{
                   	</td>
                   </tr>
                 </table>
-                <input type="button" value="검색" id="search" onclick="searchList(1)">
-                <input type="button" id="btnReset" value="초기화">
+                <div class="text-center">
+                	<input type="button" class="custom_button" value="검색" id="search" onclick="searchList(1)">
+                	<input type="button" class="custom_button" id="btnReset" value="초기화">
+              	</div>
               </form>
               </div>
             </div>
@@ -284,11 +290,13 @@ img{
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              
 <!--               게시판 목록의 리스트 form의 action은 다중 삭제로 이동-->
               <form action="DeleteForm.abook" id="searchBoard" method="post">
-              <input type="button" value="상품등록" onclick="location.href='WriteForm.abook'">
-              <input type="submit" value="상품삭제">
+              <div>
+		  		<input type="button" value="상품등록" class="custom_button custom_button_margin" onclick="location.href='WriteForm.abook'">
+              	<input type="submit" value="상품삭제" class="custom_button custom_button_margin">
+		  		&nbsp;&nbsp;&nbsp;* 상품 이름을 클릭하시면 상세보기, 상품수정, 상품삭제가 가능합니다.
+		  	  </div>
               <c:if test="${bookList != null && pageInfo.listCount > 0}">
                 <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
                     <tr>

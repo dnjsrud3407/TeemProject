@@ -18,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet">
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
@@ -50,26 +51,21 @@
 		<!-- Begin Page Content -->
         <div class="container-fluid">
 
-          <!-- Content Row -->
-          <div class="row">
-
             <!-- Border Left Utilities -->
-            <div class="col-lg-6">
+            <div class="deleteSize">
 
-              <div class="card mb-4 py-3 border-left-primary" style="width: 80%; margin: 35% 0 0 55%;">
+              <div class="card mb-4 py-3 border-left-primary" style="width: 60%; margin: 35% 0 0 55%;">
                 <div class="card-body">
                   <form action="ReviewDeletePro.abook" method="post">
                   	 <c:forEach var="boardRe_ref" items="${boardRe_refList }" varStatus="status">
-	                  	  <input type="hidden" name="boardRe_refList" value="${boardRe_ref }">                  	  
+	                   <input type="hidden" name="boardRe_refList" value="${boardRe_ref }">                  	  
                   	 </c:forEach>
 				          관리자 비밀번호 &nbsp;&nbsp;&nbsp; <input type="text" name="pw">
-				     <input type="submit" value="삭제하기">
+				     <input type="submit" class="custom_button" value="삭제하기">
 				  </form>
                 </div>
               </div>
             </div>
-
-          </div>
 
         </div>
         <!-- /.container-fluid -->

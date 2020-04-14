@@ -18,6 +18,7 @@
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet">
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
@@ -57,12 +58,12 @@ height: 300px;
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary"><a href="List.abook?page=${page }">목록으로</a> > 제품보기</h6>
+              <h5 class="m-0 font-weight-bold text-primary"><a href="List.abook?page=${page }">&lt; 상품 목록</a></h5>
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <input type="button" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=${book.bookID }'">
-                <input type="button" value="삭제하기" onclick="location.href='DeleteForm.abook?bookIDList=${book.bookID }'">
+                <input type="button" class="custom_button custom_button_margin" value="수정하기" onclick="location.href='ModifyForm.abook?bookID=${book.bookID }&page=${page}'">
+                <input type="button" class="custom_button custom_button_margin" value="삭제하기" onclick="location.href='DeleteForm.abook?bookIDList=${book.bookID }&page=${page}'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th style="width:15%">책 카테고리</th>
