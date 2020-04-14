@@ -94,8 +94,13 @@ boolean isLogin = false;
 			qnaUrl = "./QModifyForm.book";
 			
 		} else if(p === 'd'){
-			qnaUrl = "./QDeletePro.book";	
-		} else {
+			if(loginChk()){
+				if(confirm('삭제하시겠습니까?')){
+					location.href = "./QDeletePro.book?bookID=" + ${book.bookID} + "&boardNum=" + number;
+				
+				}
+			}
+		}else {
 			alert('알 수 없는 오류입니다');
 		}
 		
@@ -111,7 +116,7 @@ boolean isLogin = false;
  			bookQnaForm.bookID="${book.bookID}";
  			bookQnaForm.bookTitle="${book.bookTitle}";
  			bookQnaForm.uID="${sessionScope.uID}";
- 			if(p === 'm' || p === 'd'){
+ 			if(p === 'm'){
  				 document.bookQnaForm.boardNum.value=number;
  				 
  				 
@@ -137,7 +142,7 @@ boolean isLogin = false;
 	}
 	
 	
-    </script>
+</script>
 	<style type="text/css" id="enject">
 	.qBtn {
     display: inline-block;

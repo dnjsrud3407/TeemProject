@@ -13,6 +13,7 @@ import dao.BookDAO;
 import member.book.svc.QModifyProService;
 import member.book.svc.ReviewModifyProService;
 import vo.ActionForward;
+import vo.BoardBean;
 import vo.BookBean;
 
 public class QModifyProAcion implements Action {
@@ -23,49 +24,40 @@ public class QModifyProAcion implements Action {
 		
 		ActionForward forward = null;
 		
+		// 상품문의 수정
+		int boardNum =Integer.parseInt(request.getParameter("boardNum"));
+		String boardTitle = request.getParameter("boardTitle");
+		String boardContent = request.getParameter("boardContent");
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		String uID = request.getParameter("uID");
 		
-//		int num = Integer.parseInt(request.getParameter("num"));
-//		String page = request.getParameter("page");
-
-//		boolean isRightUser = false;
-//		QModifyProService qModifyProService = new QModifyProService();
-//		qModifyProService.isWriter(num, request.getParameter("board_pass"));
+		System.out.println("글번호 : " + boardNum + "," + "글제목 :" + boardTitle + "," + "글내용 :" + boardContent);
 		
-//		if(!isRightUser) {
-//			response.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = response.getWriter(); 
-//			out.println("<script>"); // 인터넷 밖으로 내보내는 
-//			out.println("alert('수정 권한이 없습니다!')"); // 경고 dialog출력
-//			out.println("history.go(-1)"); //back은 한칸만가능 go는 히스토리안에서 단계로 넘어갈수있음
-//			out.println("</script>"); 
-//		}else {
-//			BookBean Question = new BookBean();
-			
-//			Question.setBoard_num(board_num);
-//			Question.setBoard_subject(request.getParameter("board_subject"));
-//			Question.setBoard_content(request.getParameter("board_content"));
-			
-//			boolean isModifySuccess = qModifyProService.modifyQuestion(Question);
-//		
-//			if(!isModifySuccess) {
-//				response.setContentType("text/html; charset=UTF-8");
-//				PrintWriter out = response.getWriter();
-//				out.println("<script>");
-//				out.println("alert('글 수정 실패!')"); // 경고 dialog출력
-//				out.println("history.go(-1)"); //back은 한칸만가능 go는 히스토리안에서 단계로 넘어갈수있음
-//				out.println("</script>");
-//				
-//			}else{
-//				forward = new ActionForward();
-//				forward.setPath("BookDetail.book?board_num=" + board_num + "&page=" + page);
-//				forward.setPath("ReviewDetail.book");
-//				forward.setRedirect(true);
-//			}
-//		}
-		forward = new ActionForward();
-		forward.setPath("QDetail.book");
-		forward.setRedirect(true);
+		BoardBean boardBean = new BoardBean();
+		boardBean.setBoardNum(boardNum);
+		boardBean.setBoardTitle(boardTitle);
+		boardBean.setBoardContent(boardContent);
+		boardBean.setBoardWriter(uID);
+		
+		QModifyProService qModifyProService = new QModifyProService();
+		boolean isModifySuccess = qModifyProService.modifyQuestion(boardBean);
+		
 
+			if(!isModifySuccess) {
+				response.setContentType("text/html; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('글 수정 실패!')"); // 경고 dialog출력
+				out.println("history.go(-1)"); //back은 한칸만가능 go는 히스토리안에서 단계로 넘어갈수있음
+				out.println("</script>");
+				
+			}else{
+				forward = new ActionForward();
+				forward.setPath("Book.book?bookID=" + bookID);
+				forward.setRedirect(true);
+			}
+		
+		
 		return forward;
 	}
 }

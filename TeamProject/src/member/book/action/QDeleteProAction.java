@@ -1,10 +1,15 @@
 package member.book.action;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
+import member.book.svc.QDeleteProService;
 import vo.ActionForward;
+import vo.BoardBean;
 
 
 public class QDeleteProAction implements Action {
@@ -13,8 +18,21 @@ public class QDeleteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("QDeleteProAction");
 		
+		// 상품문의 삭제
 		ActionForward forward = null;
 		
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		HttpSession session = request.getSession();
+		String uID = (String)session.getAttribute("uID");
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		
+		BoardBean boardBean = new BoardBean();
+		boardBean.setBoardNum(boardNum);
+		boardBean.setBoardWriter(uID);
+		
+		QDeleteProService qDeleteProService = new QDeleteProService();
+		
+		boolean isDeleteSuccess = qDeleteProService.removeQuestion(boardBean);
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");
 //		
@@ -23,40 +41,22 @@ public class QDeleteProAction implements Action {
 //		isRightUser = qDeleteProAction.isQuestionWriter(num, request.getParameter("board_pass"));
 //		
 
-//		if(!isRightUser) {
-//			response.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = response.getWriter();
-//			out.println("<script>");
-//			out.println("alert('삭제 권한이 없습니다!')");
-//			out.println("history.back()");
-//			out.println("</script>");
-//		} else {
-//			//삭제작업진행 
-////			System.out.println("삭제 완료!");
-//			boolean isDeleteSuccess = reviewDeleteProService.removeReview(num);
-//			
-//			if(!isDeleteSuccess) {
-//				response.setContentType("text/html; charset=UTF-8");
-//
-//				PrintWriter out = response.getWriter();
-//
-//				out.println("<script>");
-//				out.println("alert('글 삭제 실패!!')");
-//				out.println("histroy.back()");
-//				out.println("</script>");
-//
-//			}else {
-//				forward = new ActionForward();
-//				forward.setPath("BoardList.bo?=page" + page);
-//				forward.setRedirect(true);
-//			}
-//		}
+		if(!isDeleteSuccess) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('글 삭제 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		} else {
+			forward = new ActionForward();
+			forward.setPath("Book.book?bookID=" + bookID);
+			forward.setRedirect(true);
+		}
+	
 		
-		forward = new ActionForward();
-		forward.setPath("Book.book");
-		forward.setRedirect(true);
-
 		return forward;
+		
 	}
 
 }

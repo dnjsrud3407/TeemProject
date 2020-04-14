@@ -54,17 +54,17 @@ $(document).ready(function(){
 			type: "post",
 			url: $(form).attr('action'),
 			data: formData,
-			success: function(data)
-			{	alert("등록 완료");
+			success: function(d)
+			{	alert('수정완료');
 				opener.location.reload();
+				window.close();
 				
 			},
 			error: function(xhr, ajaxSettings, thrownError)
-			{
-				alert("등록 실패");
+			{	alert('수정실패');
 				opener.location.reload();
 				window.close();
-				}
+			}
 			
 				
 			});
@@ -88,9 +88,10 @@ $(document).ready(function(){
 		<h1 class="tit_vippop">판매자에게 문의하기</h1>
 		<p class="subinfo"> 상품 문의를 남겨주시면 판매자가 직접 답변을 드립니다.
 		</p>
-		<form action='<c:url value="/QModifyritePro.book"/>' name="boardform" id="boardform">
+		<form action='<c:url value="/QModifyPro.book"/>' name="boardform" id="boardform">
 			<input type="hidden" name="bookID" value="<%=bookID %>">
 			<input type="hidden" name="uID" value="${param.uID }"/>
+			<input type="hidden" name="boardNum" value="${boardBean.boardNum}">
 		   <fieldset>
 		   		<legend>판매자에게 문의하기 폼</legend>
 					<table class="tb_questionform">
@@ -110,14 +111,14 @@ $(document).ready(function(){
 							<th>제목</th>
 							<td>
 							  <input type="text" title="제목" class="ip_viptext" id="qa_title" 
-							  style="width:496px;padding: 10px 18px 5px 12px;height: 20px;" name="boardTitle">
+							  style="width:496px;padding: 10px 18px 5px 12px;height: 20px;" name="boardTitle" value="${boardBean.boardTitle}">
 							</td>
 						</tr>
 						<tr>
 							<th>내용</th>
 							<td id="boardContent">
 								<textarea title="내용" class="ip_viptxtarea" id="ta_content" name="boardContent">
-								
+								${boardBean.boardContent}
 								</textarea>
 							</td>
 						</tr>

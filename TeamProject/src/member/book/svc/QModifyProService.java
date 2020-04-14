@@ -4,44 +4,47 @@ import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import dao.BookDAO;
+import dao.BoardDAO;
+import vo.BoardBean;
 import vo.BookBean;
 
 public class QModifyProService {
 
-	public boolean getQuestion(int num, String parameter) throws Exception {
+	public BoardBean getQuestion(int boardNum) throws Exception {
 		System.out.println("QModifyProService - isWriter");
-		boolean isWriter = false;
+		BoardBean boardBean = null;
 		
-//		Connection con = getConnection();
-//		BookDAO bookDAO = new BookDAO();
-//		bookDAO.setConnection(con);;
-//		
+		Connection con = getConnection();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		boardDAO.setConnection(con);
+
+		boardBean = boardDAO.getQuestion(boardNum);
 //		isWriter = bookDAO.isWriter(num, pass);
 //		
 //		close(con);
-		return isWriter;
+		return boardBean;
 	}
 
-	public boolean modifyQuestion(BookBean question) {
+	public boolean modifyQuestion(BoardBean boardBean) {
 		System.out.println("QModifyProService - isQWriter");
 		int updateCount = 0;
 		boolean isModifySuccess = false;
 		
-//		Connection con = getConnection();
-//		BookDAO bookDAO = new BookDAO();
-//		bookDAO.setConnection(con);
+		Connection con = getConnection();
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		boardDAO.setConnection(con);
 //		
-//		updateCount = bookDAO.updateQuestion(question);
-//				
-//		if(updateCount > 0) {
-//			commit(con);
-//			isModifySuccess = true;
-//		} else {
-//			rollback(con);
-//		}
-//
-//		close(con);
+		updateCount = boardDAO.updateQuestion(boardBean);
+		
+		if(updateCount > 0) {
+			commit(con);
+			isModifySuccess = true;
+		} else {
+			rollback(con);
+		}
+
+		close(con);
+		
 		return isModifySuccess;
 	}
 }

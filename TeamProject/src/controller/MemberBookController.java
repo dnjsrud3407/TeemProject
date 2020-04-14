@@ -149,7 +149,8 @@ public class MemberBookController extends HttpServlet {
 		} else if(command.equals("/QWriteForm.book")) {
 			forward = new ActionForward();
 			forward.setPath("./book/Q_write.jsp");
-			
+		
+		// 상품문의 글쓰기	
 		} else if(command.equals("/QWritePro.book")) {
 			action = new QWriteProAcion();
 			try {
@@ -157,13 +158,17 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		} else if(command.equals("/QModifyForm.book")) {
 			action = new QModifyFormAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
-			}		} else if(command.equals("/QModifyPro.book")) {
+			}
+		
+		// 상품문의 글수정
+		} else if(command.equals("/QModifyPro.book")) {
 			action = new QModifyProAcion();
 			try {
 				forward = action.execute(request, response);
@@ -182,7 +187,8 @@ public class MemberBookController extends HttpServlet {
 		} else if(command.equals("/QDeleteForm.book")){
 			forward = new ActionForward();
 			forward.setPath("./book/Q_delete.jsp");
-			
+		
+		// 상품문의 글삭제
 		} else if(command.equals("/QDeletePro.book")) {
 			action = new QDeleteProAction();
 			try {
@@ -223,6 +229,7 @@ public class MemberBookController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			
 		// 장바구니 삭제	
 		}else if(command.equals("/CartRemove.book")) {
 			action = new CartRemoveAction();

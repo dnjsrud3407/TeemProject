@@ -602,7 +602,42 @@ public class BoardDAO {
 			return listCount;
 	}
 	
+	
+	// 글번호에 맞는 상품문의 글 가져오기
+	public BoardBean getQuestion(int boardNum ) {
+		// TODO Auto-generated method stub
+		BoardBean boardBean = new BoardBean();
+			
+		String sql = "select * from board where boardNum =? ";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+                boardBean.setBoardNum(rs.getInt("boardNum"));
+                boardBean.setBoardWriter(rs.getString("boardWriter"));
+                boardBean.setBoardTitle(rs.getString("boardTitle"));
+                boardBean.setBoardContent(rs.getString("boardContent"));
+                boardBean.setBoardRegTime(rs.getTimestamp("boardRegTime"));
+                boardBean.setBoardReRef(rs.getInt("boardReRef"));
+                boardBean.setBoardReLev(rs.getInt("boardReLev"));
+                boardBean.setBoardReSeq(rs.getInt("boardReSeq"));
+                boardBean.setBoardReadcount(rs.getInt("boardReadcount"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return boardBean;
+	}
 
+		
 	
 	// ====================== 상품 문의, 후기 관리자 메서드 ==================================
 	// 상품 문의, 후기 게시글 개수 가져오기
@@ -1166,6 +1201,73 @@ public class BoardDAO {
 		}
 		
 		return boardBean2;
+	}
+
+	// 상품문의 수정
+	public int updateQuestion(BoardBean boardBean) {
+		int updateCount = 0;
+		String sql = "";
+
+		try {
+			sql = "select * from board where boardNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardBean.getBoardNum());
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
+					sql = "update board set boardTitle=? , boardContent=? where boardNum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, boardBean.getBoardTitle());
+					pstmt.setString(2, boardBean.getBoardContent());
+					pstmt.setInt(3, boardBean.getBoardNum());
+
+					updateCount = pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return updateCount;
+	}
+
+	// 상품문의 삭제
+	public int removeQuestion(BoardBean boardBean) {
+		// TODO Auto-generated method stub
+		int deleteCount = 0;
+		
+		String sql = "";
+
+		try {
+			sql = "select * from board where boardNum = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardBean.getBoardNum());
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
+					sql = "delete from board where boardNum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, boardBean.getBoardNum());
+					deleteCount = pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return deleteCount;
+		
 	}
 
 	
