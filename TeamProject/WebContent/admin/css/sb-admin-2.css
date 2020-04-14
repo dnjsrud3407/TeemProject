@@ -10,6 +10,52 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+.text-center {
+	text-align: center;
+}
+/* 버튼 css */
+.custom_button {
+	background-color: #ffffff;
+	display: inline-block;
+	padding: 6px 14px;
+	outline: none;
+	border-width: 1px;
+	font-weight: 500;
+	border-color: #8DA3DF;
+	border-radius: 3px;
+	text-align: center;
+	text-decoration: none;
+	color: #345ac0;
+	cursor: pointer;
+}
+.custom_dateBtn {
+	background-color: #ffffff;
+	display: inline-block;
+	padding: 4px 14px;
+	outline: none;
+	border-width: 1px;
+	font-weight: 500;
+	border-color: #8DA3DF;
+	border-radius: 3px;
+	text-align: center;
+	text-decoration: none;
+	color: #345ac0;
+	cursor: pointer;
+	font-size: 0.95em;
+}
+.custom_button:active {
+	background-color: #dfe4f0;
+}
+.custom_button_margin {
+	margin-top: 0.4%;
+	margin-bottom: 0.8%;
+}
+.deleteSize {
+	width: 40%;
+	margin: 20% auto;
+	text-align: center;
+}
+/* deleteForm width와 margin설정 */
 :root {
   --blue: #4e73df;
   --indigo: #6610f2;
