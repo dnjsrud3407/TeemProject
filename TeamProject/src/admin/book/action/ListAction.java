@@ -27,7 +27,7 @@ public class ListAction implements Action {
 		String stringPage = request.getParameter("page");
 		
 		// 파라미터에 page값이 없는 경우
-		if(stringPage == null || stringPage.trim().equals("null")) {
+		if(stringPage == null || stringPage.trim().equals("null") || stringPage == "") {
 			page = 1;
 		} else {
 			page = Integer.parseInt(stringPage);
