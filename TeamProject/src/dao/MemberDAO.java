@@ -133,6 +133,8 @@ public MemberDAO() {}
 				mb.setU_name(rs.getString("u_name"));
 				mb.setAddress(rs.getString("address"));
 				mb.setAddress2(rs.getString("address2"));
+				mb.setPhone_num(rs.getString("phone_num"));
+				mb.setEmail(rs.getString("email"));
 				mb.setPoint(rs.getInt("point"));
 				mb.setGrade(rs.getInt("grade"));
 				memberList.add(mb);
@@ -164,11 +166,11 @@ public MemberDAO() {}
 				
 				member = new MemberBean();
 				member.setuID(rs.getString("uID"));
-				member.setPw(rs.getString("pw"));
 				member.setU_name(rs.getString("u_name"));
 				member.setAddress(rs.getString("address"));
 				member.setEmail(rs.getString("email"));
 				member.setTell_num(rs.getString("tell_num"));
+				member.setPhone_num(rs.getString("phone_num"));
 				member.setAddress2(rs.getString("address2"));
 				member.setPoint(rs.getInt("point"));
 				member.setGrade(rs.getInt("grade"));
