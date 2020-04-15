@@ -266,7 +266,10 @@
                 		<a href="QList.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="QList.abook?page=${i }">${i }</a>&nbsp;
+                		<c:choose>
+                			<c:when test="${i eq pageInfo.page }">${i }&nbsp;</c:when>
+                			<c:otherwise><a href="QList.abook?page=${i }">${i }</a>&nbsp;</c:otherwise>
+                		</c:choose>
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
                 		<a href="QList.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>

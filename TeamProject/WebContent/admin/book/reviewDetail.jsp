@@ -90,6 +90,7 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
+	              <form>
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
 	                      <th style="width:15%">접수번호</th>
@@ -116,6 +117,7 @@
 	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_review.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
+	              </form>
 	              </div>
 	            </div>
               </div>

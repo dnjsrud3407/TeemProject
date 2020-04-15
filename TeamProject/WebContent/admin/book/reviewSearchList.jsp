@@ -249,7 +249,10 @@
                 		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage-pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="ReviewSearchPro.abook?page=${i }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">${i }</a>&nbsp;
+                		<c:choose>
+                			<c:when test="${i eq pageInfo.page }">${i }&nbsp;</c:when>
+                			<c:otherwise><a href="ReviewSearchPro.abook?page=${i }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">${i }</a>&nbsp;</c:otherwise>
+                		</c:choose>
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
                 		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage+pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[다음]</a>

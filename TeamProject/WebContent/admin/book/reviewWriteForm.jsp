@@ -89,6 +89,7 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
+	              <form>
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
 	                      <th style="width:15%">접수번호</th>
@@ -115,6 +116,7 @@
 	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
+	              </form>
 	              </div>
 	            </div>
               </div>
@@ -131,6 +133,7 @@
                 <div class="card-body">
 	              <div class="table-responsive">
 	              <form action="ReviewWritePro.abook" method="post">
+                    <input type="hidden" name="uID" value="${board.boardWriter }">	<!-- 고객ID -->
                     <input type="hidden" name="page" value="${page }">
                     <input type="hidden" name="boardReRef" value="${board.boardReRef }">
                     <input type="hidden" name="bookID" value="${board.bookID }">

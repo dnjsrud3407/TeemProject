@@ -54,7 +54,6 @@
 					$("select[name='BK2Category']").html(msg2);
 				}
 			});
-//	 		alert($("#BK2Category option:selected").val());
 			// 레벨 셀렉트 박스 지우기
 			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
 		});
@@ -62,10 +61,10 @@
 		
 		// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
 		$("#BK2Category").on("change", function () {
-//	 		// 대분류, 소분류 값 가져오기
+	 		// 대분류, 소분류 값 가져오기
 			var BK1 = $("#BK1Category option:selected").val();
 			var BK2 = $("#BK2Category option:selected").val();
-//	 		// 소분류 데이터 가져오기
+	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
 				url:"BK3.abook",
@@ -154,7 +153,11 @@
 					$("#pageList").append("<a href='#' onclick='searchList("+pre+")'>[이전]</a>&nbsp;");
 				}
 				for(var i = parseInt(pageInfo.startPage); i <= parseInt(pageInfo.endPage); i++) {
-					$("#pageList").append("<a href='#' onclick='searchList("+ i +")'>"+i+"</a>&nbsp;");
+					if(i == parseInt(pageInfo.page)) {
+						$("#pageList").append(i+"&nbsp;");						
+					} else {
+						$("#pageList").append("<a href='#' onclick='searchList("+ i +")'>"+i+"</a>&nbsp;");
+					}
 				}
 				if(parseInt(pageInfo.endPage) < parseInt(pageInfo.maxPage )) {
 					$("#pageList").append("<a href='#' onclick='searchList("+next+")'>[다음]</a>&nbsp;");
@@ -342,7 +345,10 @@ img{
                 		<a href="List.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>
                 	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-                		<a href="List.abook?page=${i }">${i }</a>&nbsp;
+                		<c:choose>
+                			<c:when test="${i eq pageInfo.page }">${i }&nbsp;</c:when>
+                			<c:otherwise><a href="List.abook?page=${i }">${i }</a>&nbsp;</c:otherwise>
+                		</c:choose>
                 	</c:forEach>
                 	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
                 		<a href="List.abook?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>

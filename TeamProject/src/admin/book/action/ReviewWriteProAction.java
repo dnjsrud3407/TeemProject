@@ -15,7 +15,8 @@ public class ReviewWriteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		
-		// 페이지, 후기글 ReRef, bookID 파라미터와 답변 제목,내용 불러오기
+		// uID, 페이지, 후기글 ReRef, bookID 파라미터와 답변 제목,내용 불러오기
+		String uID = request.getParameter("uID");
 		String page = request.getParameter("page");
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");
@@ -42,7 +43,12 @@ public class ReviewWriteProAction implements Action {
 				1, 
 				bookID);
 		
-		reviewWriteProService.writeAnswerBoard(board);
+		int updateCount = reviewWriteProService.writeAnswerBoard(board);
+		
+		// 포인트 올리는 작업
+		if(updateCount > 0) {
+			reviewWriteProService.plusMemberPoint(uID);
+		}
 		
 		forward = new ActionForward();
 		

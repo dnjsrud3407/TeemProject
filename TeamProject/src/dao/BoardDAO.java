@@ -997,6 +997,68 @@ public class BoardDAO {
 		return insertCount;
 	}
 	
+	// 후기 답변 시 유저 포인트 올리기
+	public int updateMemberPoint(String uID) {
+		int updateCount = 0;
+		String sql = "UPDATE user SET point=point+500 WHERE uID=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uID);
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return updateCount;
+	}
+
+
+	// 포인트 히스토리 max(pID) 구하기
+	public int selectpIDMaxNum() {
+		int pID = 0;
+		String sql = "SELECT MAX(pID) FROM pointhistory";
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				pID = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(rs != null) {close(rs);}
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return pID;
+	}
+	
+	// 포인트 히스토리 insert 
+	public int insertPointHistory(int pID, String uID) {
+		int insertPointHistory = 0;
+		String sql = "INSERT INTO pointhistory VALUES(?,?,now(),?,?,?)";
+		try {
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, pID);
+			pstmt.setString(2, uID);
+			pstmt.setString(3, "책 후기 적립금");
+			pstmt.setInt(4, 500);
+			pstmt.setBoolean(5, true);
+			
+			insertPointHistory = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+	        if(pstmt != null) {close(pstmt);}
+	    }
+		
+		return insertPointHistory;
+	}
+	
+	
 	//-----------사용자 1:1 문의 글 등록----------------------------------------------
     //헷갈리지 않게 1:1 = OneOnOne 
 	public Boolean insertOneOnOne(String kakegoire, BoardBean boardBean) {
@@ -1226,7 +1288,6 @@ public class BoardDAO {
 				}
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rs);
@@ -1238,7 +1299,6 @@ public class BoardDAO {
 
 	// 상품문의 삭제
 	public int removeQuestion(BoardBean boardBean) {
-		// TODO Auto-generated method stub
 		int deleteCount = 0;
 		
 		String sql = "";
@@ -1267,8 +1327,10 @@ public class BoardDAO {
 		
 		
 		return deleteCount;
-		
 	}
+
+
+	
 
 	
 

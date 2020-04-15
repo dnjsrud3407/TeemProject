@@ -221,10 +221,11 @@ public class BookDAO {
 	public int deleteBook(int bookID) {
 	    int deleteCount = 0;
 	    PreparedStatement pstmt = null;
-        String sql = "DELETE FROM book WHERE bookID=?";
+        String sql = "UPDATE book SET bookisView=? WHERE bookID=?";
         try {
             pstmt = con.prepareStatement(sql);
-            pstmt.setInt(1, bookID);
+            pstmt.setBoolean(1, false);
+            pstmt.setInt(2, bookID);
             deleteCount = pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
