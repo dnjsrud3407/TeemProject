@@ -44,9 +44,8 @@ public class QListService {
 		return listCount;
 	}
 	
-
-	// 책 하나의 상품에  글  10개씩 가져오기
-	public ArrayList<BoardBean> getQnaBoard(PageInfo pageInfo, int bookID) {
+	// 책 하나의 상품에  상품문의 글 10개씩 가져오기
+	public ArrayList<BoardBean> getQnaBoard(PageInfo pageInfoQna, int bookID) {
 		ArrayList<BoardBean> articleQnaList = null;
 		
 		
@@ -56,7 +55,7 @@ public class QListService {
 		
 		boardDAO.setConnection(con);
 		
-		articleQnaList = boardDAO.selectArticleList(pageInfo, bookID);
+		articleQnaList = boardDAO.selectQnaList(pageInfoQna, bookID);
 		
 		for(int i=0; i<articleQnaList.size(); i++) {
 			System.out.println("qnaboard"+articleQnaList.get(i).getBoardNum());
@@ -68,4 +67,5 @@ public class QListService {
 	}
 
 	
+
 }

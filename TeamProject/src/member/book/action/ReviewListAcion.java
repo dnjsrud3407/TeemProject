@@ -14,17 +14,18 @@ public class ReviewListAcion implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		System.out.println("ReviewListAcion - ActionForward");
-		
+		ActionForward forward = null;
 //		int num = Integer.parseInt(request.getParameter("num"));
 
 //		ReviewListService reviewListService = new ReviewListService();
 //		BookBean reviews = reviewListService.getRevies(num);
 		
-		ActionForward action = new ActionForward();
-		action.setPath("/book/review_list.jsp");
+		
+		
+		forward.setPath("/book/book_list.jsp");
 
 		
-		return action;
+		return forward;
 	}
 
 }

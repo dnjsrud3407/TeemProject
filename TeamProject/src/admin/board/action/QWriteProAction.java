@@ -51,7 +51,7 @@ public class QWriteProAction implements Action {
 			System.out.println("원본 파일명(보여지는 이름) : " + originFilename);
 			System.out.println("저장된 파일명(중복처리) : " + storedFileName);
 
-			String[] getFileType = originFilename.split("."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름
+			String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름
 			String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
 			file = new FileBean(originFilename, storedFileName, fileType);
 			fileList.add(file);

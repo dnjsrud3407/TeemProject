@@ -25,14 +25,82 @@ public class BoardBean {
 	private int boardReadcount;
 	private int bookID;
 	private String bookTitle;
+	private String score; // 상품후기 평점
 	
-//--boardfile TABLE------------------------------------	
+	public BoardBean(int boardNum, int kID, String k1, String k2, String boardWriter, String boardTitle,
+			String boardContent, Timestamp boardRegTime, Timestamp boardAnswerRegTime, int boardReRef, int boardReLev,
+			int boardReSeq, int boardReadcount, int bookID, String bookTitle, String score, int fileNum,
+			String originFileName, String storedFileName, String fileType, List<FileBean> fileList) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.k1 = k1;
+		this.k2 = k2;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardAnswerRegTime = boardAnswerRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.score = score;
+		this.fileNum = fileNum;
+		this.originFileName = originFileName;
+		this.storedFileName = storedFileName;
+		this.fileType = fileType;
+		this.fileList = fileList;
+	}
+
+
+
+
+	public String getScore() {
+		return score;
+	}
+
+
+
+
+	public void setScore(String score) {
+		this.score = score;
+	}
+
+
+
+	//--boardfile TABLE------------------------------------	
 	private int fileNum;
 	private String originFileName;
 	private String storedFileName;
 	private String fileType;
 					
 	
+
+	
+	// 상품후기 작성에 사용
+	public BoardBean(int boardNum, String k1, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount, int bookID,
+			List<FileBean> fileList, String score) {
+		super();
+		this.boardNum = boardNum;
+		this.k1 = k1;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.bookID = bookID;
+		this.fileList = fileList;
+		this.score = score;
+	}
+
+
 
 	private List<FileBean> fileList;
 	

@@ -85,7 +85,7 @@ public class MemberBookController extends HttpServlet {
 			}	
 		} else if(command.equals("/ReviewWriteForm.book")) {
 			forward = new ActionForward();
-			forward.setPath("./book/review_write.jsp");
+			forward.setPath("/book/review_write.jsp");
 			
 		} else if(command.equals("/ReviewWritePro.book")) {
 			action = new ReviewWriteProAcion();

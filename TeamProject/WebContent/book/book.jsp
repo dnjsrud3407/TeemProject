@@ -655,20 +655,23 @@ boolean isLogin = false;
 			<hr class="soft"/>
 			</div>
 		</div>
+		
+								
 				<br class="clr">
 					 </div>
-					 <div class="tab-pane fade" id="review">review
+					 <div class="tab-pane fade" id="review">
+					 <c:forEach var="review" items="${articleReviewList }" varStatus="status">
+					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
 						<div class="row">	  
 							<div class="span2">
-								<img src="themes/images/products/3.jpg" alt="">
+								<img src="boardfile/${file.originFilename}" alt="">
 							</div>
 							<div class="span4">
 								<h3>New | Available</h3>				
 								<hr class="soft">
-								<h5>Product Name </h5>
+								<h5>${review.boardTitle } </h5>
 								<p>
-								Nowadays the lingerie industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - 
-								that is why our goods are so popular..
+								${review.boardContent }
 								</p>
 								<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
 								<br class="clr">
@@ -687,6 +690,8 @@ boolean isLogin = false;
 							</div>
 						</div>
 						<hr class="soft">
+							</c:forEach>
+						</c:forEach>
 					 </div>
 					 <div class="tab-pane fade" id="bookqna">
 					 	<div>
@@ -768,8 +773,7 @@ boolean isLogin = false;
   							</c:forEach>
 							</tbody>
 					    </table>
-					 </div>
-					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+					    <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
 						<div class="pagination">
 							<ul>
 							<li><c:if test="${pageInfo.startPage > pageBlock }">
@@ -787,6 +791,25 @@ boolean isLogin = false;
 							</ul>
 							</div>
 							<br class="clr"/>
+					 </div>
+<!-- 					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a> -->
+<!-- 						<div class="pagination"> -->
+<!-- 							<ul> -->
+<%-- 							<li><c:if test="${pageInfo.startPage > pageBlock }"> --%>
+<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage-pageInfo.pageBlock }"/>'>&lsaquo;</a></c:if></li> --%>
+<!-- 							<li> -->
+<%-- 							<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"> --%>
+<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a> --%>
+<%-- 							</c:forEach></li> --%>
+<!-- <!-- 							<li><a href="#bookqna&page=2">2</a></li> --> 
+<!-- <!-- 							<li><a href="#bookqna#&page=3">3</a></li> --> 
+<!-- <!-- 							<li><a href="#bookqna#&page=4">4</a></li> --> 
+<!-- 							<li><a href="#">...</a></li> -->
+<%-- 							<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }"> --%>
+<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li> --%>
+<!-- 							</ul> -->
+<!-- 							</div> -->
+<!-- 							<br class="clr"/> -->
 						</div>
           			</div>
 
