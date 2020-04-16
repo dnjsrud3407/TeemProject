@@ -454,7 +454,7 @@ input.size {
 	       	    <span class="checkbox_padding" style="width: 15%;">
 <%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%>
 			  <select name="grade" class="size" id="grade">
-				<option value="" class="size">선택해주세요.</option>				
+				<option value="0" class="size" <c:if test="${member.grade == 1 }">selected</c:if>>선택해주세요.</option>				
 				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>admin</option>
 				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>admin1</option>
 				<option value="3" <c:if test="${member.grade == 3 }">selected</c:if>>admin2</option>
