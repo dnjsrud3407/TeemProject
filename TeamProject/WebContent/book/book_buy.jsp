@@ -256,7 +256,7 @@ function pointDis(){
 	   <tr>
 	   	<td>
 	   		포인트 사용 (${memberBean.point }P 보유)&nbsp;&nbsp;<input type="text" id="point" placeholder="포인트를 입력해주세요">
-	   		<input type="button" value="포인트적용" onclick="pointDis()">
+	   		<input type="button" value="포인트적용" onclick="pointDis(); this.onclick=null">
 	   	</td>
 	   </tr>
     </table>
