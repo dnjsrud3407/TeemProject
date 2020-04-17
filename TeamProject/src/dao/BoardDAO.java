@@ -1552,12 +1552,8 @@ public class BoardDAO {
 			
 			return deleteCount;
 		}
+
 		
-<<<<<<< HEAD
-		
-		return deleteCount;
-	}
-	
 	// 상품후기 등록
 	public int registReview(BoardBean boardBean) {
 		int insertCount = 0;
@@ -1591,43 +1587,38 @@ public class BoardDAO {
 		}
 		
 		
-		return insertCount;
-		
+		return insertCount;	
 	}
 
-
-	
-
-	
-
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-=======
->>>>>>> branch 'master' of https://github.com/dnjsrud3407/TeemProject.git
 }
+	
+
+	
+
+	
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
