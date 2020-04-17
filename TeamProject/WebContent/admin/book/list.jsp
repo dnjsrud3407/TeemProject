@@ -125,12 +125,18 @@
 				} else {
 					outBookEA = "</td><td>"+ bookEA;
 				}
+				// 책 출판일 없으면 공백 
+				var bookPublishedDate = book.bookPublishedDate;
+				/* alert(book.bookPublishedDate); */
+				if(bookPublishedDate == null || bookPublishedDate == "" || bookPublishedDate == "null") {
+					bookPublishedDate = " ";
+				}
 		  		$('#dataSearchTable').append(
 		  				"<tr><td><input type='checkbox' class='checklist' name='bookIDList' value='"+ book.bookID +"'></td>"+
 		  				"<td>" + book.bookID 
 		  				+ "</td><td><a href='Detail.abook?bookID="+ book.bookID +"'>"+book.bookTitle+"</a></td>"
 		  				+"<td>"+ book.bookPublisher
-		  				+"</td><td>"+ book.bookPublishedDate 
+		  				+"</td><td>"+ bookPublishedDate 
 		  				+"</td><td>"+ book.bookPrice 
 	  					+ outBookEA
 		  				+"</td><td>"+ book.salesVolume 
@@ -175,25 +181,6 @@
 		}
 	}
 </script>
-<style type="text/css">
-img{
-	width: 400px;
-	height: 300px;
-}
-#pageList {
-	margin: auto;
-	width: 500px;
-	text-align: center;
-	font-size: 1.2em;
-}
-.red {
-	color: #ff0000;
-}
-.checkbox_padding {
-	margin-right: 2.5%;
-	width:200px
-}
-</style>
 </head>
 <body id="page-top">
 
@@ -229,51 +216,59 @@ img{
               <form action="Search.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
-                  	<th style="width: 15%;">검색어</th>
+                  	<th class="thWidth">검색어</th>
                   	<td>
-                  		상품 번호 <input type="text" name="bookID" id="bookID" style="width:200px">
-                  	</td>
-                  	<td>
-                  		상품 이름 <input type="text" name="bookTitle" id="bookTitle" style="width:200px">
-                  	</td>
-                  	<td>
-                  		출판사 <input type="text" name="bookPublisher" id="bookPublisher" style="width:200px">
+                  		<div class="searchWidth">
+                  			상품 번호 <input type="text" name="bookID" id="bookID" class="inputWidth">
+                  		</div>
+                  		<div class="searchWidth">
+                  			상품 이름 <input type="text" name="bookTitle" id="bookTitle" class="inputWidth">
+                  		</div>
+                  		<div class="searchWidth">
+                  			출판사 <input type="text" name="bookPublisher" id="bookPublisher" class="inputWidth">
+                  		</div>
                   	</td>
                   </tr>
                   <tr>
-                  	<th style="width: 15%;">카테고리</th>
-                  	<td colspan="3">
-						대분류  <select name="BK1Category" id="BK1Category" class="checkbox_padding">
+                  	<th>카테고리</th>
+                  	<td>
+                  		<div class="searchWidth">
+						대분류  <select name="BK1Category" id="BK1Category" class="inputWidth">
 						     		<option value="선택하세요">선택하세요</option>
-						  		</select>
-						레벨  <select name="BK2Category" id="BK2Category" class="checkbox_padding">
+						      </select>
+				  		</div>
+				  		<div class="searchWidth">
+						레벨  <select name="BK2Category" id="BK2Category" class="inputWidth">
 						      		<option value="선택하세요">선택하세요</option>
 						  	   </select>
-						소분류  <select name="BK3Category" id="BK3Category" style="width:200px">
+				       </div>
+				  	   <div class="searchWidth">
+						소분류  <select name="BK3Category" id="BK3Category" class="inputWidth">
 						     		<option value="선택하세요">선택하세요</option>
 						  	  </select>
+					   </div>
                   	</td>
                   </tr>
                   <tr>
                   	<th>기타 여부</th>
-                  	<td colspan="3">
-                  		<span class="checkbox_padding" style="width: 15%;">
+                  	<td>
+                  		<span class="checkbox_padding">
                   			<input type="checkbox" name="bookEA" id="bookEA" value="shortage"/>&nbsp;재고 부족
                   		</span>
                   	</td>
                   </tr>
                   <tr>
                   	<th>전시 여부</th>
-                  	<td colspan="3">
-                  		<span class="checkbox_padding">
+                  	<td>
+                  		<div class="checkboxWidth">
                   			<input type="radio" name="bookisView" value="all"/>&nbsp;전체
-                  		</span>
-                  		<span class="checkbox_padding">
+                  		</div>
+                  		<div class="checkboxWidth">
                   			<input type="radio" name="bookisView" value="true"/>&nbsp;전시중 
-                  		</span>
-                  		<span class="checkbox_padding">
+                  		</div>
+                  		<div class="checkboxWidth">
                   			<input type="radio" name="bookisView" value="false"/>&nbsp;미전시 
-                  		</span>
+                  		</div>
                   	</td>
                   </tr>
                 </table>
@@ -340,7 +335,7 @@ img{
                     </tr>
                     </c:forEach>
                 </table>
-                <section id="pageList">
+                <section id="pageList" class="list-center">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
                 		<a href="List.abook?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
                 	</c:if>

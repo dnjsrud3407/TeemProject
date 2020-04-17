@@ -69,6 +69,39 @@ public class CartDAO {
 		
 		return cartList;
 	}
+	
+	public ArrayList<CartBean> getCartList(String uID, String cartNumStr) {
+		ArrayList<CartBean> cartList = new ArrayList<CartBean>();
+		
+		String sql = "SELECT cartNum, bookImage, bookTitle, cart.bookEA, bookPrice "
+				+ "FROM cart JOIN book ON book.bookID = cart.book_bookID "
+				+ "WHERE user_uID=? AND cartNum In (" + cartNumStr + ")";
+				
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CartBean cartBean = new CartBean();
+				cartBean.setCartNum(rs.getInt("cartNum"));
+				cartBean.setBookImage(rs.getString("bookImage"));
+				cartBean.setBookTitle(rs.getString("bookTitle"));
+				cartBean.setBookEA(rs.getInt("cart.bookEA"));
+				cartBean.setBookPrice(rs.getInt("bookPrice"));
+				
+				cartList.add(cartBean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return cartList;
+	}
 
 	// 카트에 상품 추가
 	public int addCart(BookBean bookBean, String uID, int qty) {
@@ -168,6 +201,9 @@ public class CartDAO {
 			
 			return cartRemoveResult;
 		}
+
+
+		
 
 
 		

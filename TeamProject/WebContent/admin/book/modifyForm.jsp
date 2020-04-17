@@ -151,21 +151,27 @@
               <form action="ModifyPro.abook?bookID=${book.bookID }" method="post" enctype="multipart/form-data">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th style="width:15%">* 책 카테고리</th>
+                      <th class="thWidth">* 책 카테고리</th>
                       <td>
-						대분류 : <select name="BK1Category" id="BK1Category" style="width:200px">
-						     		<option value="선택하세요">선택하세요</option>
-						  		</select>
-						단계 : <select name="BK2Category" id="BK2Category" style="width:200px">
-						      		<option value="선택하세요">선택하세요</option>
-						  	   </select>
-						소분류 : <select name="BK3Category" style="width:200px">
-						     		<option value="선택하세요">선택하세요</option>
-						  	  </select>
+	                      <div class="searchWidth">
+							대분류 : <select name="BK1Category" id="BK1Category" class="inputWidth">
+							     		<option value="선택하세요">선택하세요</option>
+							  		</select>
+						  </div>
+						  <div class="searchWidth">
+							단계 : <select name="BK2Category" id="BK2Category" class="inputWidth">
+							      		<option value="선택하세요">선택하세요</option>
+							  	   </select>
+						  </div>
+						  <div class="searchWidth">
+							소분류 : <select name="BK3Category" class="inputWidth">
+							     		<option value="선택하세요">선택하세요</option>
+							  	  </select>
+						  </div>
                       </td>
                     </tr>
                     <tr>
-                      <th style="width:15%">* 책 제목</th>
+                      <th>* 책 제목</th>
                       <td><input type="text" name="bookTitle" required="required" size="120" value="${book.getBookTitle() }"></td>
                     </tr>
                     <tr>

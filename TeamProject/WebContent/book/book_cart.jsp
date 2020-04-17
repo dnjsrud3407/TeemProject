@@ -37,6 +37,9 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <!-- Cutomizing CSS -->
+    <link href="css/order.css" rel="stylesheet">
     <style type="text/css" id="enject"></style>
     
     <script>
@@ -87,46 +90,16 @@
 			}
 	}
 	
-	
+	// 체크박스 전체선택/전체해제
+	function checkAll(checkBox) {
+		if(checkBox.checked == true) {
+			$(".checklist").prop("checked", true);
+		} else {
+			$(".checklist").prop("checked", false);
+		}
+	}
     
     </script>
-    <!-- jQuery -->
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
-<!-- iamport.payment.js -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script type="text/javascript" charset="utf-8">
-function requestPay(totalPrice) {
-    var IMP = window.IMP; // 생략가능
-    IMP.init('imp39182007');
-    var bookTitle = $("#payTitle").val();
-    
-    IMP.request_pay({
-        pg : 'inicis', // version 1.1.0부터 지원.
-        pay_method : 'card',
-        merchant_uid : 'merchant_' + new Date().getTime(),
-        name : bookTitle,
-        amount : totalPrice,
-        buyer_email : 'iamport@siot.do',
-        buyer_name : '구매자이름',
-        buyer_tel : '010-1234-5678',
-        buyer_addr : '서울특별시 강남구 삼성동',
-        buyer_postcode : '123-456',
-    }, function(rsp) {
-        if ( rsp.success ) {
-            var msg = '결제가 완료되었습니다.';
-            msg += '고유ID : ' + rsp.imp_uid;
-            msg += '상점 거래ID : ' + rsp.merchant_uid;
-            msg += '결제 금액 : ' + rsp.paid_amount;
-            msg += '카드 승인번호 : ' + rsp.apply_num;
-        } else {
-            var msg = '결제에 실패하였습니다.';
-            msg += '에러내용 : ' + rsp.error_msg;
-        }
-        alert(msg);
-    });
-}
-
-</script>
   </head>
 <body>
 <div id="header">
@@ -223,169 +196,83 @@ function requestPay(totalPrice) {
     </ul>
 	<h3>  SHOPPING CART [ <small>${cartList.size()} Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
-	<!-- <table class="table table-bordered">
-		<tr><th> I AM ALREADY REGISTERED  </th></tr>
+	
+    <form class="form-horizontal" action="BookBuy.book" method="post">
+    	<!-- 상품목록 보여주는 테이블 -->
+		<table class="table table-bordered">
+             <thead>
+               <tr>
+                 <th style="width: 70px;"><input type="checkbox" onclick="checkAll(this)">&nbsp;전체선택</th>
+                 <th>상품</th>
+                 <th>상품명</th>
+                 <th>수량변경</th>
+			  	 <th>가격</th>
+                 <th>총가격</th>
+			</tr>
+             </thead>
+             <tbody>
+             <c:forEach var="cart" items="${cartList }" varStatus="status">         	      	
+               <tr>
+                 <td><input type="checkbox" class="checklist" name="cartNumList" value="${cart.cartNum }" checked="checked"></td>
+                 <td> <img width="60" src="./upload/${cart.bookImage }" alt="상품이미지"/></td>
+                 <td>${cart.bookTitle}</td>
+			  <td>
+				<div class="input-append">
+					<input class="span1" style="max-width:34px;" value="${cart.bookEA }" size="16" type="text" required="required" id="qty<c:out value="${status.index}"/>"
+					onkeypress="inNumber(this)" onkeyup="javascript:qtyChange(this.value,this,${cart.cartNum})">
+					<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'minus', ${cart.cartNum})"><i class="icon-minus"></i></button>
+					<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'plus', ${cart.cartNum})"><i class="icon-plus"></i></button>
+					<button class="btn btn-danger" type="button" onclick="qtyRemove(${cart.cartNum })"><i class="icon-remove icon-white"></i></button>				
+				</div>
+			  </td>
+                 <td>${cart.bookPrice}</td>
+                 <td>${cart.bookPrice * cart.bookEA }</td>
+               </tr>
+             </c:forEach>  
+			</tbody>
+         </table>
+		
+			
+		<!-- 결제 정보 테이블 -->	
+		<table class="table table-bordered">
+		 <tr><th>결제예정금액 </th></tr>
 		 <tr> 
 		 <td>
-			<form class="form-horizontal">
-				<div class="control-group">
-				  <label class="control-label" for="inputUsername">Username</label>
-				  <div class="controls">
-					<input type="text" id="inputUsername" placeholder="Username">
-				  </div>
-				</div>
-				<div class="control-group">
-				  <label class="control-label" for="inputPassword1">Password</label>
-				  <div class="controls">
-					<input type="password" id="inputPassword1" placeholder="Password">
-				  </div>
-				</div>
-				<div class="control-group">
-				  <div class="controls">
-					<button type="submit" class="btn">Sign in</button> OR <a href="register.html" class="btn">Register Now!</a>
-				  </div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-					  <a href="forgetpass.html" style="text-decoration:underline">Forgot password ?</a>
-					</div>
-				</div>
-			</form>
-		  </td>
-		  </tr>
-	</table>		
-			 -->
-	<table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th>Product</th>
-                  <th>Description</th>
-                  <th>Quantity/Update</th>
-				  <th>Price</th>
-                  <th>Discount</th>
-                  <th>Tax</th>
-                  <th>Total</th>
-				</tr>
-              </thead>
-              <tbody>
-              <c:forEach var="cart" items="${cartList }" varStatus="status">
-              	<c:choose>
-              		<c:when test="${fn:length(cartList) > 1}">
-              			<input type="hidden" id="payTitle" value="${cart.bookTitle } 외 ${status.end}건">
-              		</c:when>
-             		<c:otherwise>
-              			<input type="hidden" id="payTitle" value="${cart.bookTitle }">
-              		</c:otherwise>   
-              	</c:choose>           	      	
-                <tr>
-                <td>${status.first }</td>
-                  <td> <img width="60" src="./upload/${cart.bookImage }" alt="상품이미지"/></td>
-                  <td>${cart.bookTitle}<br/>Color : black, Material : metal</td>
-				  <td>
-					<div class="input-append">
-						<input class="span1" style="max-width:34px;" value="${cart.bookEA }" size="16" type="text" required="required" id="qty<c:out value="${status.index}"/>"
-						onkeypress="inNumber(this)" onkeyup="javascript:qtyChange(this.value,this,${cart.cartNum})">
-						<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'minus', ${cart.cartNum})"><i class="icon-minus"></i></button>
-						<button class="btn" type="button" onclick="qtyChange(${cart.bookEA },'plus', ${cart.cartNum})"><i class="icon-plus"></i></button>
-						<button class="btn btn-danger" type="button" onclick="qtyRemove(${cart.cartNum })"><i class="icon-remove icon-white"></i></button>				
-					</div>
-				  </td>
-                  <td>${cart.bookPrice}</td>
-                  <td>$25.00</td>
-                  <td>$15.00</td>
-                  <td></td>
-                </tr>
-              </c:forEach>  
-				<!-- <tr>
-                  <td> <img width="60" src="themes/images/products/8.jpg" alt=""/></td>
-                  <td>MASSA AST<br/>Color : black, Material : metal</td>
-				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"  size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
-				  </td>
-                  <td>$7.00</td>
-                  <td>--</td>
-                  <td>$1.00</td>
-                  <td>$8.00</td>
-                </tr> -->
-				<!-- <tr>
-                  <td> <img width="60" src="themes/images/products/3.jpg" alt=""/></td>
-                  <td>MASSA AST<br/>Color : black, Material : metal</td>
-				  <td>
-					<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1"  size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div>
-				  </td>
-                  <td>$120.00</td>
-                  <td>$25.00</td>
-                  <td>$15.00</td>
-                  <td>$110.00</td>
-                </tr>
-				
-                <tr>
-                  <td colspan="6" style="text-align:right">Total Price:	</td>
-                  <td> $228.00</td>
-                </tr>
-				 <tr>
-                  <td colspan="6" style="text-align:right">Total Discount:	</td>
-                  <td> $50.00</td>
-                </tr>
-                 <tr>
-                  <td colspan="6" style="text-align:right">Total Tax:	</td>
-                  <td> $31.00</td>
-                </tr>
-				 <tr>
-                  <td colspan="6" style="text-align:right"><strong>TOTAL ($228 - $50 + $31) =</strong></td>
-                  <td class="label label-important" style="display:block"> <strong> $155.00 </strong></td>
-                </tr> -->
-				</tbody>
-            </table>
-		
-		
-            <table class="table table-bordered">
-			<tbody>
-				 <tr>
-                  <td> 
-				<form class="form-horizontal">
-				<div class="control-group">
-				<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
-				<div class="controls">
-				<input type="text" class="input-medium" placeholder="CODE">
-				<button type="submit" class="btn"> ADD </button>
-				</div>
-				</div>
-				</form>
-				</td>
-                </tr>
-				
-			</tbody>
-			</table>
-			
-			<table class="table table-bordered">
-			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
-			 <tr> 
-			 <td>
-				<form class="form-horizontal">
-				  <div class="control-group">
-					<label class="control-label" for="inputCountry">Country </label>
-					<div class="controls">
-					  <input type="text" id="inputCountry" placeholder="Country">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<label class="control-label" for="inputPost">Post Code/ Zipcode </label>
-					<div class="controls">
-					  <input type="text" id="inputPost" placeholder="Postcode">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<div class="controls">
-					  <button type="submit" class="btn">ESTIMATE </button>
-					</div>
-				  </div>
-				</form>				  
-			  </td>
-			  </tr>
-            </table>		
-	<a href="./main.me" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a>
-	<a href="#" class="btn btn-large pull-right" id="check_module" onclick="requestPay(${totalPrice})">결제하기 <i class="icon-arrow-right"></i></a>
+		   <div class="control-group">
+			 <label class="control-label">총 상품금액 </label>
+			 <div class="controls">
+			   <input type="text" name="totalPrice" value="${totalPrice }" readonly="readonly">
+			 </div>
+		   </div>
+		   <div class="control-group">
+			 <label class="control-label">배송비 </label>
+			 <div class="controls">
+			   <c:choose>
+			  	 <c:when test="${totalPrice >= 50000}">
+					  	   <input type="text" name="shipPrice" value="0" readonly="readonly">
+					   	  <c:set var="FinalPrice" value="${totalPrice }"></c:set>
+			  	 </c:when>
+			  	 <c:otherwise>
+			  	   <input type="text" name="shipPrice" value="2500" readonly="readonly">
+			  	   <c:set var="FinalPrice" value="${totalPrice + 2500 }"></c:set>
+			  	 </c:otherwise>
+			   </c:choose>
+			 </div>
+		   </div>
+		   <div class="control-group">
+			 <label class="control-label">최종 결제금액 </label>
+			 <div class="controls">
+			   <input type="text" name="FinalPrice" value="${FinalPrice }" readonly="readonly">
+			 </div>
+		   </div>
+		 </td>
+		 </tr>
+          </table>		
+             <div class="centerBtn">
+               <input type="button" class="btn btn-large" onclick="location.href='Main.me'" value="쇼핑계속하기"> 
+	     <input type="submit" class="btn btn-large" value="주문하기">
+	   </div> 
+   </form>				  
 	
 </div>
 </div></div>

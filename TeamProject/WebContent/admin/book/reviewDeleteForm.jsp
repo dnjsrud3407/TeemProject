@@ -54,7 +54,7 @@
             <!-- Border Left Utilities -->
             <div class="deleteSize">
 
-              <div class="card mb-4 py-3 border-left-primary" style="width: 60%; margin: 35% 0 0 55%;">
+              <div class="card mb-4 py-3 border-left-primary">
                 <div class="card-body">
                   <form action="ReviewDeletePro.abook" method="post">
                   	 <c:forEach var="boardRe_ref" items="${boardRe_refList }" varStatus="status">

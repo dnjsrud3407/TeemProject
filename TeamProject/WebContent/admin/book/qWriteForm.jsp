@@ -29,24 +29,6 @@
 <!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 
-<style type="text/css">
-.heightM {
-	margin-top: 3%;
-}
-#pageList {
-	margin: auto;
-	width: 500px;
-	text-align: center;
-	font-size: 1.2em;
-}
-.red {
-	color: #ff0000;
-}
-.checkbox_padding {
-	margin-right: 2.5%;
-	width:200px
-}
-</style>
 </head>
 <body id="page-top">
 <!-- 관리자 id 아닌 경우 로그인창으로 이동 -->
@@ -92,15 +74,15 @@
 	              <form>
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th style="width:15%">접수번호</th>
-	                      <td>${board.boardNum }</td>
-	                      <th style="width:15%">접수일</th>
-	                      <td>${board.boardRegTime }</td>
+	                      <th class="thWidth">접수번호</th>
+	                      <td class="tdWidth">${board.boardNum }</td>
+	                      <th class="thWidth">접수일</th>
+	                      <td class="tdWidth">${board.boardRegTime }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>고객ID</th>
 	                      <td>${board.boardWriter }</td>
-	                      <th style="width:15%">처리상태</th>
+	                      <th>처리상태</th>
 	                      <td class="red">답변대기</td>
 	                    </tr>
 	                    <tr>
@@ -138,11 +120,11 @@
                     <input type="hidden" name="bookID" value="${board.bookID }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th>답변제목</th>
+	                      <th class="thWidth">답변제목</th>
 	                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
 	                    </tr>
 	                    <tr>
-	                      <th style="width:15%">답변 작성</th>
+	                      <th>답변 작성</th>
 	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
 	                    </tr>
 	                </table>

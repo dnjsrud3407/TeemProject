@@ -29,24 +29,6 @@
 <!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 
-<style type="text/css">
-.heightM {
-	margin-top: 3%;
-}
-#pageList {
-	margin: auto;
-	width: 500px;
-	text-align: center;
-	font-size: 1.2em;
-}
-.red {
-	color: #ff0000;
-}
-.checkbox_padding {
-	margin-right: 2.5%;
-	width:200px
-}
-</style>
 </head>
 <body id="page-top">
 <!-- 관리자 id 아닌 경우 로그인창으로 이동 -->
@@ -93,15 +75,15 @@
 	              <form>
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th style="width:15%">접수번호</th>
-	                      <td>${board_review.boardNum }</td>
-	                      <th style="width:15%">작성일</th>
-	                      <td>${board_review.boardRegTime }</td>
+	                      <th class="thWidth">접수번호</th>
+	                      <td class="tdWidth">${board_review.boardNum }</td>
+	                      <th class="thWidth">작성일</th>
+	                      <td class="tdWidth">${board_review.boardRegTime }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>고객ID</th>
 	                      <td>${board_review.boardWriter }</td>
-	                      <th style="width:15%">처리상태</th>
+	                      <th>처리상태</th>
 	                      <td>답변완료</td>
 	                    </tr>
 	                    <tr>
@@ -139,11 +121,11 @@
                     <input type="hidden" name="boardNum" value="${board_answer.boardNum }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th>답변제목</th>
+	                      <th class="thWidth">답변제목</th>
 	                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${board_answer.boardTitle }"></td>
 	                    </tr>
 	                    <tr>
-	                      <th style="width:15%">답변 수정</th>
+	                      <th>답변 수정</th>
 	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${board_answer.boardContent }</textarea></td>
 	                    </tr>
 	                </table>

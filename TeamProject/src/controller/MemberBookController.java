@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import action.Action;
+import member.book.action.BookBuyAction;
 import member.book.action.BookBuyProAction;
 import member.book.action.CartAddAction;
 import member.book.action.CartListAction;
@@ -85,7 +86,7 @@ public class MemberBookController extends HttpServlet {
 			}	
 		} else if(command.equals("/ReviewWriteForm.book")) {
 			forward = new ActionForward();
-			forward.setPath("/book/review_write.jsp");
+			forward.setPath("./book/review_write.jsp");
 			
 		} else if(command.equals("/ReviewWritePro.book")) {
 			action = new ReviewWriteProAcion();
@@ -240,6 +241,14 @@ public class MemberBookController extends HttpServlet {
 			}
 			
 		} else if(command.equals("/BookBuy.book")) {
+			action = new BookBuyAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/BookBuyPro.book")) {
 			action = new BookBuyProAction();
 			try {
 				forward = action.execute(request, response);

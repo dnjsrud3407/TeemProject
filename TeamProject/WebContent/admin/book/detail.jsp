@@ -22,12 +22,7 @@
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
   <!-- Custom styles for this page -->
-  <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
-<style type="text/css">
-img{
-height: 300px;
-}
-</style>  
+  <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet"> 
 </head>
 <body id="page-top">
 <!-- 관리자 id 아닌 경우 로그인창으로 이동 -->
@@ -66,19 +61,19 @@ height: 300px;
                 <input type="button" class="custom_button custom_button_margin" value="삭제하기" onclick="location.href='DeleteForm.abook?bookIDList=${book.bookID }&page=${page}'">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
-                      <th style="width:15%">책 카테고리</th>
+                      <th class="thWidth">책 카테고리</th>
                       <td>
                       		${book.BK1 } > ${book.BK2 } > ${book.BK3 }
                       </td>
                     </tr>
                     <tr>
-                      <th style="width:15%">책 제목</th>
+                      <th>책 제목</th>
                       <td>${book.bookTitle }</td>
                     </tr>
                     <tr>
                       <th>상품 이미지</th>
                       <td>
-                        <img src="./upload/${book.bookImage }"><br>
+                        <img class="detail_img" src="./upload/${book.bookImage }"><br>
                         ${book.bookOriginImage }
                       </td>
                     </tr>

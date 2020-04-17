@@ -19,6 +19,7 @@ public class MemberBean {
 	
 
 	//---쿠폰조회---
+	private int cID;
 	private String coupon_name;
 	private String couponStatus;
 	private Date couponReg_date;
@@ -106,6 +107,12 @@ public class MemberBean {
 		this.couponEnd_date = couponEnd_date;
 			
 		}
+	
+	public MemberBean(int cID, String coupon_name) {
+		super();
+		this.cID = cID;
+		this.coupon_name = coupon_name;
+		}
 		
 //포인트조회
 	public MemberBean(int pID,String ownerID,Date pointRegTime,String pointContent,int pointValue,int pointAction) {
@@ -186,7 +193,12 @@ public class MemberBean {
 	public void setJoinDate(Date joinDate) {
 		this.joinDate = joinDate;
 	}
-
+	public int getcID() {
+		return cID;
+	}
+	public void setcID(int cID) {
+		this.cID = cID;
+	}
 	public String getCoupon_name() {
 		return coupon_name;
 	}
