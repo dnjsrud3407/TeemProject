@@ -64,6 +64,23 @@
 	</style>
   </head>
 <body>
+
+<%
+String uID=(String)session.getAttribute("uID");
+if(uID==null){%>
+	
+	<script type="text/javascript">
+	alert("로그인이 필요합니다");
+	 location.href = "Login.me";
+// 	history.back();
+	
+	</script>
+<%}%>
+
+
+
+
+
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
@@ -95,7 +112,7 @@
 	<span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
+    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
 		<form class="form-inline navbar-search" method="post" action="products.html" >
 		<input id="srchFld" class="srchTxt" type="text" />
 		  <select class="srchTxt">

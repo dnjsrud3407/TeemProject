@@ -111,12 +111,12 @@
 	<div class="span9">
     <ul class="breadcrumb">
     </ul>
-	<h3>  상품 사용후기<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>상품 사용후기<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	<section id="reviewForm">
 		<form action="ReviewWritePro.book" method="post" enctype="multipart/form-data" name="reviewForm">
 			<input type="hidden" name="k1" value="상품후기">
-			<input type="hidden" name="bookID" value="1">
+			<input type="hidden" name="bookID" value="${book.bookID}">
 			<input type="hidden" name="boardWriter" value="${sessionScope.uID }">
 			<table>
 				<tr>

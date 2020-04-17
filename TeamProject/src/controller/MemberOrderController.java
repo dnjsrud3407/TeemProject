@@ -14,12 +14,15 @@ import member.order.action.ExchangeFormAction;
 import member.order.action.ExchangeProAction;
 import member.order.action.OrderCancelFormAction;
 import member.order.action.OrderCancelProAction;
+import member.order.action.OrderConFirmProAction;
 import member.order.action.OrderDeliveryAction;
+import member.order.action.OrderDeliveryFormAction;
 import member.order.action.OrderDetailAction;
 import member.order.action.OrderListAction;
 import member.order.action.OrderQListAction;
 import member.order.action.OrderRefundFormAction;
 import member.order.action.OrderRefundFormActionPro;
+import member.order.action.OrderRefundProAction;
 import vo.ActionForward;
 
 @WebServlet("*.mo")
@@ -54,7 +57,7 @@ public class MemberOrderController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}else if(command.equals("/OrderDelivery.mo")) {// 배송조회
-		action = new OrderDeliveryAction();
+		action = new OrderDeliveryFormAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {
@@ -104,7 +107,14 @@ public class MemberOrderController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}else if(command.equals("/OrderRefundPro.mo")) {
-		action = new OrderRefundFormActionPro();
+		action = new OrderRefundProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/OrderConFirmPro.mo")) {
+		action = new OrderConFirmProAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {

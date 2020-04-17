@@ -17,6 +17,7 @@ public class PointInfoAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 	ActionForward forward = null;
+	int totalPoint =0;  //사용자 총 소지 포인트
 		
 		System.out.println("PointInfoAction");
 		
@@ -27,27 +28,23 @@ public class PointInfoAction implements Action {
 		PointInfoService pointInfoService= new PointInfoService();
 		
 		
-		
 		List<MemberBean> pointInfo=pointInfoService.getPointInfo(uID);
 		
-	int totalPoint =0;
-		
-		
 			for (MemberBean pointInfo2 : pointInfo) {
-				
-				
-				
 				if (pointInfo2.getPointAction()==1) {
 					System.out.println("포인트 획득");
 					totalPoint+=pointInfo2.getPointValue();
 					System.out.println(totalPoint);
-	
 				}else {
 					System.out.println("포인트 사용");
 				}
 			}
 		
-		
+
+			
+			
+			
+			
 		
 		request.setAttribute("pointInfo",pointInfo);
 		request.setAttribute("totalPoint",totalPoint);

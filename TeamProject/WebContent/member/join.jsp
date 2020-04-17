@@ -18,6 +18,7 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
+   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive -->	
@@ -87,7 +88,58 @@
 			element.innerHTML = "적합하지 않은 패스워드";
 		}
 	}
-</script>	
+
+	
+	
+	    
+// 	    });
+	    
+	
+
+
+// 	}
+	
+</script>
+
+
+<script type="text/javascript">
+var jc = jQuery.noConflict();
+
+jc(document).ready(function () {
+
+	jc('#emailCheck').click(function() {
+	 var params = jc("#form-horizontal").serialize(); 
+				alert(params);
+		jc.ajax({
+		url : 'dd.send',
+		type : 'post',
+		
+		 data:params,
+
+		success : function(data) {
+// // 			history.back();
+// 			location.href="member/mailcheck.jsp";
+			window.open('member/mailcheck.jsp','이메일 인증','width=430,height=200,location=no,status=no,scrollbars=yes');
+
+		}
+
+	});
+
+});
+	
+	
+	
+	
+
+});
+	
+	
+	
+	
+	
+</script>
+
+
   </head>
 <body>
 <div id="header">
@@ -199,7 +251,7 @@
 		<button type="button" class="close" data-dismiss="alert">×</button>
 		<strong>Lorem Ipsum is simply</strong> dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
 	 </div> -->
-	<form class="form-horizontal" action="JoinPro.me" method="post">
+	<form class="form-horizontal" action="JoinPro.me" method="post" id="form-horizontal" name="form-horizontal">
 		<h4>Your personal information</h4>
 		<div class="control-group">
 <!-- 		<label class="control-label">Title <sup>*</sup></label> -->
@@ -217,6 +269,7 @@
 			<div class="controls">
 			  <input type="text" id="inputId" placeholder="아이디" name="uID" onkeyup="checkId(this)" required="required">
 			  <span id="checkIdResult"></span>
+			  
 			</div>
 		 </div>
 		 <div class="control-group">
@@ -244,14 +297,20 @@
 			  <input type="text" id="mobile" placeholder="Mobile Phone" name="phone_num" required="required"/> 
 			</div>
 		</div>	
+<%! public int getRandom(){
+	int random = 0;
+	random = (int)Math.floor((Math.random()*(99999-10000+1)))+10000;
+	return random;} %>
+
+		
 		<div class="control-group">
 		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
 		<div class="controls">
-		  <input type="text" id="input_Email" placeholder="Email" name="email" required="required">
+		  <input type="text" id="email" placeholder="Email" name="email" required="required">
+		  <input id = "emailCheck" type="button" name="emailCheck" class="emailCheck"  value="인증번호발송">
+		  <input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
 		</div>
 	  </div>	  
-	
-		
 
 	<div class="alert alert-block alert-error fade in">
 		<button type="button" class="close" data-dismiss="alert">×</button>
@@ -279,9 +338,10 @@
 			</div>
 		</div>
 		
-		
+	
 		
 	<p><sup>*</sup>Required field</p>
+	
 	
 	<div class="control-group">
 			<div class="controls">

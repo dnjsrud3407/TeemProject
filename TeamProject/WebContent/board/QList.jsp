@@ -109,10 +109,11 @@
 	<%String status="대기중"; %>
 
 				 <div class="span12">
-					<table class="table" style="table-layout: fixed; width: 800px;">
+					<table class="table" style="table-layout:fixed; width: 800px;">
 			        <thead>
 			          <tr>
 			            <th>글번호 </th>
+			            <th>분류</th>
 			            <th>글 제목</th>
 			            <th>글쓴이</th>
 			            <th>답변상태</th>
@@ -121,27 +122,52 @@
 			        </thead>
 	<c:if test="${QList!=null}">
 	 <c:forEach var="QList" items="${QList}" varStatus="status">
-	   <c:choose>
-		<c:when test="${QList.boardWriter eq sessionScope.uID}">
+	 <c:if test="${QList.boardReLev>0}">
+	 <%status="답변완료" ;%>
+	 </c:if>
+	  <c:if test="${QList.boardReLev==0}">
+	 <%status="대기중" ;%>
+	 </c:if>
 		 			 <tbody>
 			          <tr onclick="location.href='QDetail.bo?boardNum=${QList.boardNum}&status=<%=status%>'">
 			            <td>${QList.boardNum}</td>
-			            <td>${QList.boardTitle}</td>
+			            <td><span style="font-size: -2.5em;"> [${QList.k2}]</span></td>
+			            <td>  &nbsp; &nbsp;  ${QList.boardTitle}</td>
 			            <td>${QList.boardWriter}</td>
 			 			<td><%=status%></td>
 			 			<td>${QList.boardRegTime}</td>
 			 		  </tr>
 			 	     <tbody>
-		</c:when>
-		<c:otherwise>
-			<%status="답변완료"; %>
-		</c:otherwise>
-	  </c:choose>
 	 </c:forEach>
 	</c:if>
 			      </table>
 				</div>
 	
+	
+    <div class="pagination pagination-centered"> 
+        <ul>
+			    <c:choose>
+			    <c:when test="${pageInfo.page <= 1}">
+			   			 <li><a>이전</a></li>
+			    </c:when>
+			    <c:otherwise>
+			          <li><a href="QList.bo?page=${pageInfo.page -1}">이전</a></li>
+			    </c:otherwise>
+			   </c:choose>  
+        	<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
+          				<li><a href="QList.bo?page=${i}">${i}</a></li>
+       		 </c:forEach>  
+				   <c:choose>
+				    <c:when test="${pageInfo.page >= pageInfo.maxPage}">
+				   			 <li><a>다음</a></li>
+				    </c:when>
+				    <c:otherwise>
+				          <li><a href="QList.bo?page=${pageInfo.page +1}">다음</a></li>
+				    </c:otherwise>
+				   </c:choose>      
+        </ul>
+      </div>
+  
 		   
             <table class="table table-bordered">
 			<tbody>
@@ -161,6 +187,9 @@
 				
 			</tbody>
 			</table>
+			
+			
+			
 			
 		<!-- 	<table class="table table-bordered">
 			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>

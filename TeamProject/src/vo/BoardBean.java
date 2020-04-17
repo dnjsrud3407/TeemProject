@@ -76,6 +76,7 @@ public class BoardBean {
 	private String originFileName;
 	private String storedFileName;
 	private String fileType;
+    private boolean isQResult; //답변여부를 체크할 변수
 					
 	
 
@@ -238,25 +239,52 @@ public class BoardBean {
 		this.storedFileName = storedFileName;
 	}	
 	
-	
 	//사용자 1:1 문의 List 목록 
-	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
-			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName) {
-		super();
-		this.boardNum = boardNum;
-		this.kID = kID;
-		this.boardWriter = boardWriter;
-		this.boardTitle = boarTitle;
-		this.boardContent = boardContent;
-		this.boardReRef = boardReRef;
-		this.boardReLev = boardReLev;
-		this.boardReSeq = boardReSeq;
-		this.boardReadcount = boardReadcount;
-		this.boardRegTime = boardRegTime;
-		this.bookID = bookID;
-		this.storedFileName = storedFileName;
-	}
+		public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+				int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2,boolean isQResult) {
+			super();
+			this.boardNum = boardNum;
+			this.kID = kID;
+			this.boardWriter = boardWriter;
+			this.boardTitle = boarTitle;
+			this.boardContent = boardContent;
+			this.boardReRef = boardReRef;
+			this.boardReLev = boardReLev;
+			this.boardReSeq = boardReSeq;
+			this.boardReadcount = boardReadcount;
+			this.boardRegTime = boardRegTime;
+			this.bookID = bookID;
+			this.storedFileName = storedFileName;
+			this.originFileName = originFileName;
+			this.k1 = k1;
+			this.k2 = k2;
+			this.isQResult=isQResult;
+		}
 	
+		
+		//사용자 1:1 상세 내용
+		public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+				int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2) {
+			super();
+			this.boardNum = boardNum;
+			this.kID = kID;
+			this.boardWriter = boardWriter;
+			this.boardTitle = boarTitle;
+			this.boardContent = boardContent;
+			this.boardReRef = boardReRef;
+			this.boardReLev = boardReLev;
+			this.boardReSeq = boardReSeq;
+			this.boardReadcount = boardReadcount;
+			this.boardRegTime = boardRegTime;
+			this.bookID = bookID;
+			this.storedFileName = storedFileName;
+			this.originFileName = originFileName;
+			this.k1 = k1;
+			this.k2 = k2;
+		}
+		
+		
+		
 	//사용자 1:1 문의 답변 목록 
 	public BoardBean(int boardNum, int kID,String boardWriter,String boardTitle,String boardContent,
 			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID) {
@@ -303,6 +331,15 @@ public class BoardBean {
 		this.boardReadcount = boardReadcount;
 	}
 
+
+	public Boolean getIsQResult() {
+		return isQResult;
+	}
+
+
+	public void setIsQResult(Boolean isQResult) {
+		this.isQResult = isQResult;
+	}
 
 
 	public void setBoardNum(int boardNum) {

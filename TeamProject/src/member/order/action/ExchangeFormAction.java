@@ -4,8 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import member.order.svc.ExchangeFormService;
+import member.order.svc.OrderExchangeFormService;
 import vo.ActionForward;
+import vo.OrderBean;
 
 public class ExchangeFormAction implements Action {
 
@@ -15,15 +16,16 @@ public class ExchangeFormAction implements Action {
 		ActionForward forward = null;
 		System.out.println("ExchangeFormAction");
 		
-		
+		String orderNum=request.getParameter("orderNum");
+		int orderDetailNum=Integer.parseInt(orderNum);
 		//OrderListAction Service와ㅏ 같음 아직수정하진않을것
-		ExchangeFormService exchangeFormService = new ExchangeFormService();
+		OrderExchangeFormService exchangeFormService = new OrderExchangeFormService();
+		OrderBean orderBean=exchangeFormService.getOrderDetail(orderDetailNum);
 		
 		
-		
-		
+		request.setAttribute("orderBean",orderBean);
 		forward = new ActionForward();
-		forward.setPath("/member/OrderExchangeForm.jsp");
+		forward.setPath("member/OrderExchangeForm.jsp");
 		return forward;
 	}
 

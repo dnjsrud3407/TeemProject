@@ -12,9 +12,14 @@ public class QDeleteProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		int result=0;
+		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
 		QDeleteProService q_DeleteProService = new QDeleteProService();
-		q_DeleteProService.deleteArticle();
+		result=q_DeleteProService.deleteOneOnOne(boardNum);
+		
+		
+		
+		
 		
 		forward = new ActionForward();
 		forward.setPath("QList.bo");

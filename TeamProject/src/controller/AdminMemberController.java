@@ -62,7 +62,7 @@ public class AdminMemberController extends HttpServlet {
 //				e.printStackTrace();
 //			}		
 //		} 
-	else if(command.equals("/MemberModifyPro.adm")) { 
+	else if(command.equals("/MemberModifyPro.adm")) { //------------------
 			action = new MemberModifyProAcion();
 			try {
 				forward = action.execute(request, response);
@@ -103,7 +103,7 @@ public class AdminMemberController extends HttpServlet {
 //			forward.setPath("./admin/order/order_list.jsp");
 //
 //		} 
-		 else if(command.equals("/OrderList.adm")) {
+		 else if(command.equals("/OrderList.adm")) { 
 			action = new OrderListAcion();
 			try {
 				forward = action.execute(request, response);

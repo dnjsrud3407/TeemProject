@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%
 
@@ -206,7 +206,7 @@ boolean isLogin = false;
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -229,11 +229,10 @@ boolean isLogin = false;
     <div id="sidebar" class="span3" style="width: 120px;">
         <ul id="sideManu" class="nav nav-tabs nav-stacked">
             <li class="subMenu open"><a> 단계별</a>
-                <ul>
-                <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
-                <li><a href="BookList.bookbk2=4"><i class="icon-chevron-right"></i>4단계</a></li>
+	            <ul>
+	                <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
+	                <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
+	                <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
                 </ul>
             </li>
             <li class="subMenu"><a> 분야별 </a>
@@ -340,8 +339,8 @@ boolean isLogin = false;
             <ul id="productDetail" class="nav nav-tabs">
               <li ><a href="#bookqna" data-toggle="tab">상품문의</a></li>
               <li><a href="#review" data-toggle="tab">상품후기</a></li>
-              <li class="active"><a href="#home" data-toggle="tab">Product Details</a></li>
-              <li><a href="#profile" data-toggle="tab">Related Products</a></li>
+              <li class="active"><a href="#home" data-toggle="tab">상세설명</a></li>
+<!--               <li><a href="#profile" data-toggle="tab">Related Products</a></li> -->
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane active" id="home">
@@ -389,6 +388,9 @@ boolean isLogin = false;
 				<br>
 		
 				<a href="QList.book"><input type="button" value="문의 리스트 + 작성"></a>
+				
+				<c:set var="bk2" value="${book.BK2 }"/>
+				 <a href="BookList.book?bk2=${fn:substring(bk2,0,1)}" class="btn btn-large pull-right">Compair Product</a>
 				
 				
               </div>
@@ -660,6 +662,20 @@ boolean isLogin = false;
 				<br class="clr">
 					 </div>
 					 <div class="tab-pane fade" id="review">
+					 <c:if test="${empty articleReviewList }">
+						<h3>상품후기</h3>
+						<hr class="soft">
+						<table>
+						<tr style="height: 200px;">
+							<td style="width: 870px;">
+							   	<h4 style="text-align: center;">등록된 상품평이 없습니다.</h4>
+							</td>
+						</tr>
+						
+						</table>
+							
+								<hr class="soft">
+					 </c:if>
 					 <c:forEach var="review" items="${articleReviewList }" varStatus="status">
 					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
 						<div class="row">	  
@@ -689,9 +705,29 @@ boolean isLogin = false;
 								</form>
 							</div>
 						</div>
-						<hr class="soft">
+								<hr class="soft">
 							</c:forEach>
 						</c:forEach>
+								<div style="text-align: right;"> 상품평은 구매완료 후 <a href="OrderList.mo">수취확인</a>에서 작성하실 수 있습니다.</div>
+						<c:if test="${!empty articleReviewList}">
+						<div class="pagination">
+							<ul>
+							<li><c:if test="${pageInfoReview.startPage > pageBlock }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfoReview.startPage-pageInfoReview.pageBlock }"/>'>&lsaquo;</a></c:if></li>
+							<li>
+							<c:forEach var="i" begin="${pageInfoReview.startPage }" end="${pageInfoReview.endPage }" step="1">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a>
+							</c:forEach></li>
+<!-- 							<li><a href="#bookqna&page=2">2</a></li> -->
+<!-- 							<li><a href="#bookqna#&page=3">3</a></li> -->
+<!-- 							<li><a href="#bookqna#&page=4">4</a></li> -->
+							<li><a href="#">...</a></li>
+							<li><c:if test="${pageInfoReview.endPage < pageInfoReview.maxPage }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfoReview.startPage + pageInfoReview.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+							</ul>
+							</div>
+							<br class="clr"/>
+						</c:if>
 					 </div>
 					 <div class="tab-pane fade" id="bookqna">
 					 	<div>
@@ -733,7 +769,7 @@ boolean isLogin = false;
 							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
 					       		<tr class="qna_tr_p">
 									<!-- 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 ) -->
-									<td>${pageInfo.listCount -((pageInfo.page-1)* pageInfo.pageBlock + status.index)}</td>
+									<td>${pageInfoQna.listCount -((pageInfoQna.page-1)* pageInfoQna.pageBlock + status.index)}</td>
 									<td><c:if test="${0 < qna.boardReSeq}"> 
 	           		 					답변완료 </c:if> 답변전</td>
 					           		<td>${qna.boardTitle }</td>
@@ -773,24 +809,26 @@ boolean isLogin = false;
   							</c:forEach>
 							</tbody>
 					    </table>
-					    <a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
+					   <%--  <a href="BookList.book?bk2=${book.BK2 }" class="btn btn-large pull-right">Compair Product</a> --%>
+					    <c:if test="${!empty articleQnaList }">
 						<div class="pagination">
 							<ul>
-							<li><c:if test="${pageInfo.startPage > pageBlock }">
-							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage-pageInfo.pageBlock }"/>'>&lsaquo;</a></c:if></li>
+							<li><c:if test="${pageInfoQna.startPage > pageBlock }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfoQna.startPage-pageInfoQna.pageBlock }"/>'>&lsaquo;</a></c:if></li>
 							<li>
-							<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+							<c:forEach var="i" begin="${pageInfoQna.startPage }" end="${pageInfoQna.endPage }" step="1">
 							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a>
 							</c:forEach></li>
 <!-- 							<li><a href="#bookqna&page=2">2</a></li> -->
 <!-- 							<li><a href="#bookqna#&page=3">3</a></li> -->
 <!-- 							<li><a href="#bookqna#&page=4">4</a></li> -->
 							<li><a href="#">...</a></li>
-							<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+							<li><c:if test="${pageInfoQna.endPage < pageInfoQna.maxPage }">
+							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfoQna.startPage + pageInfoQna.pageBlock}"/>'>&rsaquo;</a></c:if></li>
 							</ul>
 							</div>
 							<br class="clr"/>
+						</c:if>	
 					 </div>
 <!-- 					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a> -->
 <!-- 						<div class="pagination"> -->

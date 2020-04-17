@@ -1,17 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
-
-
-
-
-    
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <title>마이페이지</title>
+      <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+        <!-- datepicker 한국어로 -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/i18n/datepicker-ko.js"></script>
+    
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -24,11 +25,7 @@
 	<!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
-<!-- 	날짜선택 -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- 	날짜선택 -->
+
 
 <!-- Bootstrap style --> 
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
@@ -52,49 +49,167 @@
 	 #coupontable {table-layout: fixed; width: 800px;}
 	</style>
 	
-	<style>
-/*datepicer 버튼 롤오버 시 손가락 모양 표시*/
-.ui-datepicker-trigger{cursor: pointer;}
-/*datepicer input 롤오버 시 손가락 모양 표시*/
-.hasDatepicker{cursor: pointer;}
-</style>
-
-
-	<script type="text/javascript">
 	
-	//-------------------------날짜선택----------------------------
-<script>
-        $(function() {
-            //input을 datepicker로 선언
-            $("#datepicker").datepicker({
-                dateFormat: 'yy-mm-dd' //Input Display Format 변경
-                ,showOtherMonths: true //빈 공간에 현재월의 앞뒤월의 날짜를 표시
-                ,showMonthAfterYear:true //년도 먼저 나오고, 뒤에 월 표시
-                ,changeYear: true //콤보박스에서 년 선택 가능
-                ,changeMonth: true //콤보박스에서 월 선택 가능                
-                ,showOn: "both" //button:버튼을 표시하고,버튼을 눌러야만 달력 표시 ^ both:버튼을 표시하고,버튼을 누르거나 input을 클릭하면 달력 표시  
-                ,buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif" //버튼 이미지 경로
-                ,buttonImageOnly: true //기본 버튼의 회색 부분을 없애고, 이미지만 보이게 함
-                ,buttonText: "선택" //버튼에 마우스 갖다 댔을 때 표시되는 텍스트                
-                ,yearSuffix: "년" //달력의 년도 부분 뒤에 붙는 텍스트
-                ,monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'] //달력의 월 부분 텍스트
-                ,monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] //달력의 월 부분 Tooltip 텍스트
-                ,dayNamesMin: ['일','월','화','수','목','금','토'] //달력의 요일 부분 텍스트
-                ,dayNames: ['일요일','월요일','화요일','수요일','목요일','금요일','토요일'] //달력의 요일 부분 Tooltip 텍스트
-                ,minDate: "-1M" //최소 선택일자(-1D:하루전, -1M:한달전, -1Y:일년전)
-                ,maxDate: "+1M" //최대 선택일자(+1D:하루후, -1M:한달후, -1Y:일년후)                
-            });                    
+	
+	
+	
+	
+	
+	   <style>    
+        
+            /* Default */
+            input[type=text],input[type=password]{font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+            *{margin:0;padding:0;font-family:"Malgun Gothic","맑은 고딕",Dotum,"돋움",Arial,sans-serif}
+            body{font-size:12px;color:#555;background:transparent;-webkit-user-select:none;-moz-user-select:none;-webkit-text-size-adjust:none;-moz-text-size-adjust:none;-ms-text-size-adjust:none}
+            ol,ul{list-style:none} 
+            table{table-layout:fixed;width:100%;border-collapse:collapse;border-spacing:0}
+            caption{overflow:hidden;width:0;height:0;font-size:0;line-height:0;text-indent:-999em}
+            img,fieldset{border:0}
+            legend{height:0;visibility:hidden}
+            em,address{font-style:normal}
+            img{border:0 none;vertical-align:middle}
+            a{color:#555;text-decoration:none}
+            input,select{margin:0;padding:0;vertical-align:middle}
+            button{margin:0;padding:0;font-family:inherit;border:0 none;background:transparent;cursor:pointer}
+            button::-moz-focus-inner{border:0;padding:0}
+            header,footer,aside,nav,section,article{display:block}
+
+            .clearfix{*zoom:1}
+            .clearfix:after{content:"";display:block;clear:both;overflow:hidden}
+
+            /* Search */
+            .searchBox{border:none}
+            .searchBox tbody th{padding:20px 10px 20px 35px;font-size:14px;font-weight:bold;text-align:left;vertical-align:top;border:none;background:#e6e6e6 }
+            .searchBox tbody td{padding:12px 10px 12px 25px;border:none;background-color:#efefef}
+        
+            .searchDate{overflow:hidden;margin-bottom:10px;*zoom:1}
+            .searchDate:after{display:block;clear:both;content:''}
+            .searchDate li{position:relative;float:left;margin:0 7px 0 0}
+            .searchDate li .chkbox2{display:block;text-align:center}
+            .searchDate li .chkbox2 input{position:absolute;z-index:-1}
+            .searchDate li .chkbox2 label{display:block;width:72px;height:26px;font-size:14px;font-weight:bold;color:#fff;text-align:center;line-height:25px;text-decoration:none;cursor:pointer;background:#a5b0b6}
+            .searchDate li .chkbox2.on label{background:#ec6a6a}
+        
+            .demi{display:inline-block;margin:0 1px;vertical-align:middle}
+            .inpType{padding-left:6px;height:24px;line-height:24px;border:1px solid #dbdbdb}
+            .btncalendar{display:inline-block;width:22px;height:22px;background:url(images/btn_calendar.gif) center center no-repeat;text-indent:-999em}
+
+
+        </style>
+	
+	
+	    <script>      
+        var jb = jQuery.noConflict();
+
+        jb(document).ready(function() {
+
+            //datepicker 한국어로 사용하기 위한 언어설정
+//              jb.datepicker.setDefaults($.datepicker.regional['ko']);     
+        
+            // Datepicker            
+             jb(".datepicker").datepicker({
+                showButtonPanel: true,
+                dateFormat: "yy-mm-dd",
+                onClose : function ( selectedDate ) {
+                
+                    var eleId = $(this).attr("id");
+                    var optionName = "";
+
+                    if(eleId.indexOf("StartDate") > 0) {
+                        eleId = eleId.replace("StartDate", "EndDate");
+                        optionName = "minDate";
+                    } else {
+                        eleId = eleId.replace("EndDate", "StartDate");
+                        optionName = "maxDate";
+                    }
+
+                    jb("#"+eleId).datepicker( "option", optionName, selectedDate );        
+                    jb(".searchDate").find(".chkbox2").removeClass("on"); 
+                }
+            }); 
+
+            //시작일.
+            /*$('#searchStartDate').datepicker("option","onClose", function( selectedDate ) {    
+                // 시작일 datepicker가 닫힐때
+                // 종료일의 선택할수있는 최소 날짜(minDate)를 선택한 시작일로 지정
+                $("#searchEndDate").datepicker( "option", "minDate", selectedDate );
+                $(".searchDate").find(".chkbox2").removeClass("on");
+            });
+            */
+
+            //종료일.
+            /*$('#searchEndDate').datepicker("option","onClose", function( selectedDate ) {    
+                // 종료일 datepicker가 닫힐때
+                // 시작일의 선택할수있는 최대 날짜(maxDate)를 선택한 종료일로 지정 
+                $("#searchStartDate").datepicker( "option", "maxDate", selectedDate );
+                $(".searchDate").find(".chkbox2").removeClass("on");
+            });
+            */
+
+            jb(".dateclick").dateclick();    // DateClick
+            jb(".searchDate").schDate();        // searchDate
             
-            //초기값을 오늘 날짜로 설정
-            $('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)            
         });
-    </script>
-	
-		
-	
-	
 
+        // Search Date
+        jQuery.fn.schDate = function(){
+            var jbobj = jb(this);
+            var jbchk = jbobj.find("input[type=radio]");
+            jbchk.click(function(){                
+            	 jb('input:not(:checked)').parent(".chkbox2").removeClass("on");
+            	 jb('input:checked').parent(".chkbox2").addClass("on");                    
+            });
+        };
 
+        // DateClick
+        jQuery.fn.dateclick = function(){
+            var $obj = $(this);
+            $obj.click(function(){
+            	 jb(this).parent().find("input").focus();
+            });
+        }    
+
+        
+        function setSearchDate(start){
+
+            var num = start.substring(0,1);
+            var str = start.substring(1,2);
+
+            var today = new Date();
+
+            //var year = today.getFullYear();
+            //var month = today.getMonth() + 1;
+            //var day = today.getDate();
+            
+            var endDate =  jb.datepicker.formatDate('yy-mm-dd', today);
+            jb('#searchEndDate').val(endDate);
+            
+            if(str == 'd'){
+                today.setDate(today.getDate() - num);
+            }else if (str == 'w'){
+                today.setDate(today.getDate() - (num*7));
+            }else if (str == 'm'){
+                today.setMonth(today.getMonth() - num);
+                today.setDate(today.getDate() + 1);
+            }
+
+            var startDate =  jb.datepicker.formatDate('yy-mm-dd', today);
+            jb('#searchStartDate').val(startDate);
+                    
+            // 종료일은 시작일 이전 날짜 선택하지 못하도록 비활성화
+             jb("#searchEndDate").datepicker( "option", "minDate", startDate );
+            
+            // 시작일은 종료일 이후 날짜 선택하지 못하도록 비활성화
+             jb("#searchStartDate").datepicker( "option", "maxDate", endDate );
+            
+
+        }
+
+      
+        	
+        </script>
+	
+	
 
 	
 	
@@ -192,19 +307,97 @@
               </thead> 
               <tbody>
                 <tr>
-                  <td style="text-align: center;"><b style="font-size: 3em; line-height: 2em;">${totalPoint}</b>원
-				 <!--  <td> -->
-				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
-				 <!--  </td> -->
-             
+                  <td style="text-align: center;" colspan="2"><b style="font-size: 3em; line-height: 2em; color: blue;">${totalPoint}</b>원
                 </tr>
-            
-	
 				</tbody>
             </table>
   
+     <form id="searchDate" method="get" action="SearchPointProAction.me">
+            
+        <!-- search -->
+        <table class="searchBox">
+            <caption>조회</caption>
+            <colgroup>
+                <col width="123px">
+                <col width="*">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th>조회기간</th>
+                    <td>
+                        <ul class="searchDate">
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType1" onclick="setSearchDate('0d')"/>
+                                    <label for="dateType1">당일</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType2" onclick="setSearchDate('3d')"/>
+                                    <label for="dateType2">3일</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType3" onclick="setSearchDate('1w')"/>
+                                    <label for="dateType3">1주</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType4" onclick="setSearchDate('2w')"/>
+                                    <label for="dateType4">2주</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType5" onclick="setSearchDate('1m')"/>
+                                    <label for="dateType5">1개월</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType6" onclick="setSearchDate('3m')"/>
+                                    <label for="dateType6">3개월</label>
+                                </span>
+                            </li>
+                            <li>
+                                <span class="chkbox2">
+                                    <input type="radio" name="dateType" id="dateType7" onclick="setSearchDate('6m')"/>
+                                    <label for="dateType7">6개월</label>
+                                </span>
+                            </li>
+                        </ul>
+                        
+                        <div class="clearfix">
+                            <!-- 시작일 -->
+                            <span class="dset">
+                                <input type="text" class="datepicker inpType" name="searchStartDate" id="searchStartDate" >
+                                <a href="#none" class="btncalendar dateclick">달력</a>
+                            </span>
+                            <span class="demi">~</span>
+                            <!-- 종료일 -->
+                            <span class="dset">
+                                <input type="text" class="datepicker inpType" name="searchEndDate" id="searchEndDate" >
+                                <a href="#none" class="btncalendar dateclick">달력</a>
+                                <input type="submit" value="검색">
+                            </span>
+                        </div>    
+                    </td>
+                </tr>
+
+            <tbody>
+        </table>
+        </form>
+  
 <!-- 있던자리 -->
+	<c:if test="${empty pointInfo}">
+			      <h4>검색 결과가 없습니다</h4>
+			</c:if>
 	
+	
+	  	<c:if test="${!empty pointInfo}">
 <div id="grids">
 <ul class="nav nav-tabs" id="myTab">
   <li><a href="#one" data-toggle="tab"> 획득 내역 </a></li>
@@ -230,7 +423,6 @@
      </table>
 <!-- 	  //포인트 보여주는곳---------------------------------------------- -->
 
-	  	<c:if test="${pointInfo!=null}">
 		 <c:forEach var="pointInfo" items="${pointInfo}" varStatus="status">  
 		 	 <c:if test="${pointInfo.pointAction eq 1}">
 
@@ -255,18 +447,18 @@
             
 		   </c:if>
 		   </c:forEach>
-		   </c:if>
 	  
 	  </p>
 	  </div>
   </div>
   </div>
+		   </c:if>
   
   
   
   
   
-  
+	<c:if test="${!empty pointInfo}">
   <div class="tab-pane active" id="two">
   <div class="row-fluid">
 	  <div class="span12">
@@ -283,7 +475,6 @@
               </thead> 
      		</table>
 		
-	<c:if test="${pointInfo!=null}">
 		 <c:forEach var="pointInfo" items="${pointInfo}" varStatus="status">  
 		     <c:if test="${pointInfo.pointAction eq 0 }">
 		           
@@ -309,13 +500,43 @@
 	
 		   </c:if>
 		   </c:forEach>
-		   </c:if>
 		
 		</p>
 	  </div>
 	
 	  </div>
   </div>
+		   </c:if>
+  
+  
+  
+  
+    <div class="pagination pagination-centered"> 
+        <ul>
+			    <c:choose>
+			    <c:when test="${pageInfo.page <= 1}">
+			   			 <li><a>이전</a></li>
+			    </c:when>
+			    <c:otherwise>
+			          <li><a href="CouponInfoAction.me?page=${pageInfo.page -1}">이전</a></li>
+			    </c:otherwise>
+			   </c:choose>  
+        	<c:forEach var="i" begin="${pageInfo.startPage}" end="${pageInfo.endPage}" step="1">
+          				<li><a href="CouponInfoAction.me?page=${i}">${i}</a></li>
+       		 </c:forEach>  
+				   <c:choose>
+				    <c:when test="${pageInfo.page >= pageInfo.maxPage}">
+				   			 <li><a>다음</a></li>
+				    </c:when>
+				    <c:otherwise>
+				          <li><a href="CouponInfoAction.me?page=${pageInfo.page +1}">다음</a></li>
+				    </c:otherwise>
+				   </c:choose>      
+        </ul>
+      </div>
+  
+  
+  
   </div>
   
   

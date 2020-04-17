@@ -21,6 +21,9 @@ import member.account.action.ModifyFormAction;
 import member.account.action.ModifyProAction;
 import member.account.action.OffInfoAction;
 import member.account.action.PointInfoAction;
+import member.account.action.SearchCouponProAction;
+import member.account.action.SearchPointProAction;
+import member.account.action.SearchProAction;
 import vo.ActionForward;
 
 @WebServlet("*.me")
@@ -158,6 +161,30 @@ public class MemberAccountController extends HttpServlet {
 		
 	}else if(command.equals("/PointInfoAction.me")) {//
 		action = new PointInfoAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/SearchProAction.me")) {//
+		action = new SearchProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/SearchPointProAction.me")) {//
+		action = new SearchPointProAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/SearchCouponProAction.me")) {//
+		action = new SearchCouponProAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {

@@ -1,6 +1,17 @@
+<%@page import="vo.MemberBean"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.OrderBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%
+if(session.getAttribute("uID") == null){
+	response.sendRedirect("index.jsp");
+}
+    ArrayList<OrderBean> orderList = (ArrayList<OrderBean>) request.getAttribute("orderList");
+    List<MemberBean> memberList = (List<MemberBean>) request.getAttribute("memberList");
+
+ %><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -280,52 +291,18 @@
 													<th>주문상태</th>
 												</tr>
 											</thead>
+											<%for(int i = 0; i < orderList.size(); i++){ %>
 											<tbody>
-												<tr onclick="location.href='OrderCompDetail.adm'">
-													<td>2020-11-11 11:11</td>
-													<td>202011111111</td>
-													<td>케이트 심</td>
-													<td>카드결제</td>
-													<td>100,000원</td>
-													<td><select>
-															<option>주문접수</option>
-															<option>반품신청</option>
-															<option>교환신청</option>
-															<option>취소완료</option>
-													</select></td>
+												<tr onclick="location.href='OrderCompDetail?uID=<%=orderList.get(i).getOrder_id()%>'">
+													<td><%=orderList.get(i).getOrderTime() %></td>
+													<td><%=orderList.get(i).getOrderNum() %></td>
+													<td><%=orderList.get(i).getOrder_id() %></td>
+													<td>카드결제 - </td>
+													<td>100,000원 - </td>
+													<td><%=orderList.get(i).getOrderStatus() %></td>
 												</tr>
-												<tr>
-													<td>Garrett Winters</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>63</td>
-													<td>2011/07/25</td>
-													<td>$170,750</td>
-												</tr>
-												<tr>
-													<td>Ashton Cox</td>
-													<td>Junior Technical Author</td>
-													<td>San Francisco</td>
-													<td>66</td>
-													<td>2009/01/12</td>
-													<td>$86,000</td>
-												</tr>
-												<tr>
-													<td>Cedric Kelly</td>
-													<td>Senior Javascript Developer</td>
-													<td>Edinburgh</td>
-													<td>22</td>
-													<td>2012/03/29</td>
-													<td>$433,060</td>
-												</tr>
-												<tr onclick="location.href='OrderCompDetail.adm'">
-													<td>Airi Satou</td>
-													<td>Accountant</td>
-													<td>Tokyo</td>
-													<td>33</td>
-													<td>2008/11/28</td>
-													<td>$162,700</td>
-												</tr>
+												<%} %>
+												
 											</tbody>
 										</table>
 <!-- 									</div> -->

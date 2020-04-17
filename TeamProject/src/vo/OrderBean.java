@@ -2,6 +2,7 @@ package vo;
 
 import java.sql.Date;
 
+
 public class OrderBean {
 	
 	public  OrderBean() {}
@@ -32,11 +33,16 @@ public class OrderBean {
 	int bookPrice;
 	String u_name;
 	String address2;
+	String address;
 	String phone_num;
 	String tell_num;
 	String email;
 	
-	
+	 int orderDetailCode;
+	 int bookKategorie_BKID;
+	 String paymentType;
+	 String bookIntroduce;
+	 float saveRatio;
 	
 //	--------------
 //	orderNum
@@ -62,6 +68,7 @@ public class OrderBean {
 	Date pointRegTime;
 //	pointValue
 	String orderRec; //수령인
+	String volume;
 	
 	//mypage(orderList)
 	public OrderBean(int orderNum, String order_id,String bookTitle,int bookID, int orderEA, String orderAddress, Date orderTime,
@@ -81,31 +88,6 @@ public class OrderBean {
 		this.bookPrice = bookPrice;
 	}
 	
-	//orderDetail
-	public OrderBean(int orderNum, String order_id,int orderEA,Date orderTime, String orderStatus,String orderAddress, 
-			int bookID, String bookTitle,
-			String bookOriginImage, String bookPublisher, int bookPrice,
-			String u_name,String address2,String phone_num,String tell_num,String email)
-	     {
-		super();
-		this.orderNum = orderNum;
-		this.order_ID = order_id;
-		this.orderEA = orderEA;
-		this.orderTime = orderTime;
-		this.orderStatus = orderStatus;
-		this.orderAddress = orderAddress;
-		this.bookID = bookID;
-		this.bookTitle = bookTitle;
-		this.bookOriginImage = bookOriginImage;
-		this.bookPublisher = bookPublisher;
-		this.bookPrice = bookPrice;
-		this.u_name = u_name;
-		
-		this.address2 = address2;
-		this.phone_num = phone_num;
-		this.tell_num = tell_num;
-		this.email = email;
-	}
 	
 	
 	//수정후 mypage 의 orderlist 포인트는 아직 ㄴㄴ
@@ -113,7 +95,14 @@ public class OrderBean {
 	public OrderBean(int orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
 			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
 			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
-			String couponStatus,String orderRec)
+			String couponStatus,String orderRec,
+			int orderDetailCode,
+			int bookKategorie_BKID,
+			String paymentType,
+			String bookIntroduce,
+			Float saveRatio,
+			String volume
+			)
 	     {
 		super();
 		this.orderNum = orderNum;
@@ -136,20 +125,32 @@ public class OrderBean {
 		
 		this.coupon_name = coupon_name;
 		this.couponStatus = couponStatus;
-//		this.pointAction = pointAction;
-//		this.pointContent = pointContent;
-//		this.pointRegTime = pointRegTime;
-//		this.pointValue = pointValue;
 		this.orderRec = orderRec;
+	
+		this.orderDetailCode = orderDetailCode;
+		this.bookKategorie_BKID = bookKategorie_BKID;
+		this.paymentType = paymentType;
+		this.bookIntroduce = bookIntroduce;
+		this.saveRatio = saveRatio;
+		this.volume = volume;
+		
 	}
 	
 	
-	//오버로딩 orderDetail
+	// orderDetail
 	public OrderBean(int orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
 			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
 			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
-			String couponStatus,Boolean pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec)
-	     {
+			String couponStatus,Boolean pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec,
+			int orderDetailCode,
+			int bookKategorie_BKID,
+			String paymentType,
+			String bookIntroduce,
+			Float saveRatio,
+			String volume
+			)
+	     
+	{
 		super();
 		this.orderNum = orderNum;
 		this.order_ID = order_ID;
@@ -176,11 +177,87 @@ public class OrderBean {
 		this.pointRegTime = pointRegTime;
 		this.pointValue = pointValue;
 		this.orderRec = orderRec;
+		
+		this.orderDetailCode = orderDetailCode;
+		this.bookKategorie_BKID = bookKategorie_BKID;
+		this.paymentType = paymentType;
+		this.bookIntroduce = bookIntroduce;
+		this.saveRatio = saveRatio;
+		this.volume = volume;
+		
 	}
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	public String getVolume() {
+		return volume;
+	}
+
+	public void setVolume(String volume) {
+		this.volume = volume;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public int getOrderDetailCode() {
+		return orderDetailCode;
+	}
+
+	public void setOrderDetailCode(int orderDetailCode) {
+		this.orderDetailCode = orderDetailCode;
+	}
+
+	public int getBookKategorie_BKID() {
+		return bookKategorie_BKID;
+	}
+
+	public void setBookKategorie_BKID(int bookKategorie_BKID) {
+		this.bookKategorie_BKID = bookKategorie_BKID;
+	}
+
+	public String getPaymentType() {
+		return paymentType;
+	}
+
+	public void setPaymentType(String paymentType) {
+		this.paymentType = paymentType;
+	}
+
+	public String getBookIntroduce() {
+		return bookIntroduce;
+	}
+
+	public void setBookIntroduce(String bookIntroduce) {
+		this.bookIntroduce = bookIntroduce;
+	}
+
+	public float getSaveRatio() {
+		return saveRatio;
+	}
+
+	public void setSaveRatio(float saveRatio) {
+		this.saveRatio = saveRatio;
+	}
 
 	public String getOrder_ID() {
 		return order_ID;

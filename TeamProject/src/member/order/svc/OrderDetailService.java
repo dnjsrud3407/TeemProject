@@ -2,13 +2,14 @@ package member.order.svc;
 import static db.JdbcUtil.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import dao.OrderDAO;
 import vo.OrderBean;
 
 public class OrderDetailService {
 
-	public OrderBean orderDetail(int orderNum) {
+	public ArrayList<OrderBean> orderDetail(int orderNum) {
 		
 		//디비연결
 		System.out.println("OrderDetailService.orderDetail(int orderNum)");
@@ -17,7 +18,14 @@ public class OrderDetailService {
 		OrderDAO dao = OrderDAO.getInstance();
 		dao.setConnection(con);
 
-		return dao.orderDetail(orderNum);
+		ArrayList<OrderBean> list = dao.orderDetail(orderNum);
+		
+		
+		
+		close(con);
+	
+		return list;
+				
 		
 	}
 

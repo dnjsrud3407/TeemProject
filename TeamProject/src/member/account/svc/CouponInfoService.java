@@ -29,7 +29,25 @@ public class CouponInfoService {
 		return list;
 		
 	}
-	
+
+	public int getCouponInfoListCount(String uID) {
+		int count=0;
+		
+	System.out.println("CouponInfoService.getCouponInfo(String uID");
+		
+		Connection con = getConnection();
+		MemberDAO dao = MemberDAO.getInstance();
+		dao.setConnection(con);
+		
+		count=dao.getCouponInfoListCount(uID);
+		
+		
+		close(con);
+		
+		return count;
+	}
+
+
 	
 	
 	
