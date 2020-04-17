@@ -21,6 +21,7 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
+   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
      <link href="themes/css/mycus.css" rel="stylesheet"/>
@@ -46,14 +47,82 @@
 	</style>
 	
 	
-	
+	<script type="text/javascript">
 
+// 	alert("정말 회원탈퇴 하시겠습니까?");
+// 	$('form').submit(function()	{
+		
+		
+// 		alert("정말 회원탈퇴 하시겠습니까?");
+		
+// 		return false;
+// 	}
+
+function openWin(orderNum){  
+
+    window.open("OrderExchange.mo?orderNum="+orderNum, "반품", "width=520, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+function openWin2(orderNum){  
+
+    window.open("OrderRefund.mo?orderNum="+orderNum, "교환", "width=520, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+function openWin3(orderNum){  
+
+    window.open("OrderDelivery.mo?orderNum="+orderNum, "배송", "width=389, height=550, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+
+
+
+var ja = jQuery.noConflict();
+
+ja(document).ready(function () {
+	
+// 	var numb = ja('#hel').text();
+		
+// 		ja('#hel').val();
+// 	alert(numb);
+//  comma(numb);
+	
+	ja('#orderConFirm').click(function(){
+		alert("구매확정 하시겠습니까?")
+// 		ja("#orderConFirm").attr("href", "OrderConFirmPro.mo?orderNum="+);
+	    });
+})
+
+
+// var hell = '100000';
+		var hell = document.getElementById(hel2).value;
+		
+	function comma() {
+// 		numb = String(hell);
+	    alert(hell);
+	    return hell.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    
+	}
+	 
+
+
+
+
+// window.onload = function numberWithCommas() {
+	
+// 	alert(hell.value);
+//     return hell.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+// }
+
+	
+</script>
 
 
 	
 	
   </head>
 <body>
+
+
 <!-- header -->
 <jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
@@ -106,7 +175,31 @@
 		  </td>
 		  </tr>
 	</table>		 -->
+		<c:set value="${totalPoint}" var="comma"></c:set>
+	<c:set value="1" var="count"></c:set>
+	  	<table class="table table-bordered">
+<!-- 			  	<tr  style="border-bottom: none;"> -->
+<!-- 				  	<td style="border-bottom: none;">보유포인트</td> -->
+<!-- 				  	<td>사용가능 쿠폰</td> -->
+<!-- 			  	</tr> -->
+
+                <tr style="border-top: none;">
+                   <td style="text-align: center;">보유포인트<br><b style="font-size: 3em; line-height: 2em; color: blue;"><a href="PointInfoAction.me?uID=${sessionScope.uID}" id="hel"><b onmouseup="comma()" id="hel2">${totalPoint}</b></a></b>원
+                   <td style="text-align: center;">  사용가능 쿠폰<br> <b style="font-size: 3em; line-height: 2em; color: blue;">
+                  <c:forEach var="couponCount" items="${couponInfo}" varStatus="status">
+	                   <c:if test="${couponCount.couponStatus eq '사용안함'}">
+	                  		<c:set value="${count + $count}" var="countfinal"></c:set>
+	                   </c:if>
+                  </c:forEach>
+                  <a href="CouponInfoAction.me?uID=${sessionScope.uID}">${countfinal}</a> </b>개</td>
+                </tr>
+        </table>
+	<jsp:include page="search.jsp"></jsp:include>
+	
 								<c:set value="-1" var="orderNum"></c:set>
+                   <c:if test="${empty orderList}">
+						<h5>검색결과가 없습니다</h5>
+				   </c:if>
 <c:if test="${orderList!=null}">
 	<c:forEach var="list" items="${orderList}" varStatus="status">
 <%-- 			  <c:if test="${list.orderNum eq list.order_ID}"></c:if> --%>
@@ -115,7 +208,7 @@
               <thead>
 			  
                 <tr>
-                  <th colspan="4" id="orderTable">주문번호  ${list.orderNum}</th>
+                  <th colspan="4" id="orderTable">주문번호  ${list.orderNum}${list.orderTime}</th>
                   <th id="orderTable">상태</th>
 				</tr>
               </thead> 
@@ -123,6 +216,8 @@
             			  <c:set value="${list.orderNum}" var="orderNum"></c:set>
 			</c:if>
                 <tr>
+                
+                
                   <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
                   <td style="border-left: none;">상품명:${list.bookTitle}<br>상품옵션:어쩌구<br>주문번호:${list.orderNum}<br>주문일시:${list.orderTime}</td>
                   <td><span class="label">쿠폰</span> ${list.coupon_name} <br> <span class="label">포인트</span>  ${list.pointValue} <br><span class="label">총금액</span>${total}</td>
@@ -131,14 +226,24 @@
 				 <!--  </td> -->
                   <td>
                    <div class="btn2"><a href="OrderDetail.mo?orderNum=${list.orderNum}">주문내역</a></div>
-                   <div class="btn2"><a href="">구매완료</a></div>
-                   <div class="btn2"><a href="">배송조회(api로할지 모양만띄울지 고민)</a></div>
-                   <div class="btn2"><a href="OrderExchange.mo">반품신청</a></div> <!-- order_tb테이블의 orderStatus의 값에 따라 보여지는게 다를것 -->
-                   <div class="btn2"><a href="">교환신청</a></div> <!-- order_tb테이블의 orderStatus의 값에 따라 보여지는게 다를것 -->
-                   <div class="btn2"><a href="">상품평</a></div>
+                <c:if test="${list.orderStatus != '구매완료'}"><div class="btn2"><a href="" onClick="javascript:openWin3(${list.orderDetailCode})">배송조회</a></div></c:if>  
+                <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin(${list.orderDetailCode})">반품신청</a></div></c:if>
+                <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin2(${list.orderDetailCode})">교환신청</a></div></c:if>  
+																					<!--                 연결할것 -->
+                <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="" id="orderConFrim">상품후기쓰기</a></div></c:if>  
                   </td>
+                  
                  <td>
-                   <div class="btn2"><a href="">구매취소</a></div> <!-- order_tb테이블의 orderStatus의 값에 따라 보여지는게 다를것 -->
+                 <div class="btn2" style="background-color: #9988;">${list.orderStatus}</div>
+															<!--                  결제취소 아직 구현안함 -->
+                  <c:if test="${list.orderStatus eq '구매완료'}"><div class="btn2">결제취소</div> </c:if>  
+                  <c:if test="${list.orderStatus eq '배송완료'}"><div class="btn2"><a href="OrderConFirmPro.mo?orderNum=${list.orderNum}" id="orderConFirm">구매확정완료</a></div> </c:if>
+                  <c:if test="${list.orderStatus eq '반품'}"><div class="btn2">반품처리중</div> </c:if>   
+                  <c:if test="${list.orderStatus eq '교환'}"><div class="btn2">교환처리중</div> </c:if>
+                  <c:if test="${list.orderStatus eq '취소'}"><div class="btn2">결제취소처리중</div> </c:if>    
+                   <c:if test="${list.orderStatus eq '교환처리완료'}"><div class="btn2">교환처리완료</div> </c:if>    
+                   <c:if test="${list.orderStatus eq '반품처리완료'}"><div class="btn2">반품처리완료</div> </c:if>    
+                   <c:if test="${list.orderStatus eq '취소처리완료'}"><div class="btn2">취소처리완료</div> </c:if>    
                  </td>
                 </tr>
             
@@ -147,10 +252,10 @@
 		
 		</c:forEach>
 </c:if>
-		   
-		   
-		   
-		   
+
+
+
+
 		   
             <table class="table table-bordered">
 			<tbody>

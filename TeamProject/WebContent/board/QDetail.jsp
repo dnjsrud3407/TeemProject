@@ -51,6 +51,25 @@
 	 #qaback {background: #f5f5f5;}
 	</style>
 	
+	
+	
+		<script type="text/javascript">
+			
+			
+			function deleteConFirm() {
+				
+				alert("삭제하시겠습니까?");
+					return ture;
+				}
+				
+			
+			
+			
+			
+			
+	</script>
+	
+	
 
   </head>
 <body>
@@ -83,7 +102,7 @@
               <thead style="border-top: none;">
                 <tr style="border-top: none;">
                   <td>제목</td>
-                  <th colspan="2"  style="font-size: 1.5em;">${boardBean.boardTitle}</th>
+                  <th colspan="2"  style="font-size: 1.5em;">[${boardBean.k2}] &nbsp;&nbsp;&nbsp; ${boardBean.boardTitle}</th>
 				</tr>
               </thead>
               <tbody>
@@ -98,8 +117,12 @@
                 <td id="qa"><b style="font-size: 3em;">Q</b>
                 <p id="b">질문하신 내용</p>
                 </td>
-                  <td colspan="2" style="border-left: none;">${boardBean.boardContent}</td>
+                  <td colspan="2" style="border-left: none;">${boardBean.boardContent}<br></td>
+                  
                 </tr>
+				<tr>
+				 <td colspan="3" style="text-align: right;"> <a class=btn2 href="QModifyForm.bo?boardNum=${boardBean.boardNum}">수정</a><a class=btn2 onclick="javascript:deleteConFirm()" href="QDeletePro.bo?boardNum=${boardBean.boardNum}">삭제</a></td>
+				</tr>                
                 
                  <tr id="qaback">
                 <td id="qa"><b style="font-size: 3em;">A</b>

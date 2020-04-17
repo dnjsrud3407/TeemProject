@@ -8,12 +8,13 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import member.account.svc.CouponInfoService;
 import vo.ActionForward;
 import vo.MemberBean;
+import vo.PageInfo;
 
 public class CouponInfoAction implements Action {
 
@@ -25,20 +26,59 @@ public class CouponInfoAction implements Action {
 		Date stardateDate=null;
 		Date enddateDate=null;
 		
+		
+		
+		
+		//---------------------------------------------------------페이징---------------------------------------------------------------------------------------
+//		int page = 1; // 현재 페이지 번호
+//		int limit = 5; // 한 페이지 당 출력할 게시물 수
+		
 		System.out.println("CouponInfoAction");
+		HttpSession session = request.getSession();
+		String uID=(String) session.getAttribute("uID");
 		
-		String uID=request.getParameter("uID");
 		
-		
+//		
+//		if(request.getParameter("page") != null) {
+//			page = Integer.parseInt(request.getParameter("page")); // 정수로 변환하여 저장
+//		}
+//		
+//	
+//		
 		CouponInfoService couponInfoService= new CouponInfoService();
-		List<MemberBean> couponInfo =  new ArrayList<MemberBean>();
+//		int listCount = couponInfoService.getCouponInfoListCount(uID);
+//		System.out.println("쿠폰카운트쿠폰액션  ㅣ "+listCount);
+//		System.out.println("현재페이지 ; "+page);	
+//		
+		
+		
+		
+//		
+//		int maxPage = (int)((double)listCount / limit + 0.95);
+//		// 2. 시작 페이지 번호 계산
+//		int startPage = (((int)((double)page / 10 + 0.9)) - 1) * 10 + 1;
+//		// 3. 마지막 페이지 번호 계산
+//		int endPage = startPage + 10 - 1;
+//		
+//		if(endPage > maxPage) {
+//			endPage = maxPage;
+//		}
+//		
+//		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
+//		
+		
+		
+//		int startRow=((page-1)*limit)+1;
+	
+		
+		List<MemberBean> couponInfo =  new ArrayList<MemberBean>(); //one
+		
 		
 		couponInfo =couponInfoService.getCouponInfo(uID);
 		
 	  	  
 		
 		for (MemberBean memberBean : couponInfo) {
-			
 			
 			//쿠폰의 시작날짜와 끝나는 날짜를 가져온다
 			stardateDate=memberBean.getCouponReg_date();
@@ -51,26 +91,21 @@ public class CouponInfoAction implements Action {
 			//가져온 현재 날짜를 String으로 변환,format으로 형식맞춰줌
 			String today = (new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss").format(date));
 			
-			
 			//쿠폰의 시작날짜와 끝나는 날짜를 String으로 변환 format으로 형식 맞춰줌
 			String startDate = new SimpleDateFormat("yyyy-mm-dd-hh:mm:ss").format(stardateDate);
 			String endDate = new SimpleDateFormat("yyyy-mm-dd-hh:mm:ss").format(enddateDate);
 			
-			
 			//compareTo 앞에있는 오늘날짜가 끝나는 날짜보다 크 다면 result는 0보다 큰 숫자가 된다
 			int result = today.compareTo(endDate);
 			
-
-			
-			if (memberBean.getCouponStatus()=="사용") {
-				//만료시
+			if (memberBean.getCouponStatus()=="사용") {//쿠폰사용시
 				memberBean.setCouponStatus("사용");
 				
-			}else if(memberBean.getCouponStatus()=="사용안함"){
+			}else if(memberBean.getCouponStatus()=="사용안함"){ //사용하지 않고 만료되지않은 살아있는 쿠폰
 				memberBean.setCouponStatus("사용안함");
 			}
 			
-			if (result>0) {
+			if (result>0) { //쿠폰기한 지났을때
 				memberBean.setCouponStatus("만료");
 			}
 			
@@ -78,16 +113,18 @@ public class CouponInfoAction implements Action {
 			
 		}//for 문 끝
 		
+		
+		
+		
 		  for (MemberBean memberBean : couponInfo) {
-			
 			System.out.println("--*현재쿠폰상태==="+memberBean.getCouponStatus());
+			System.out.println(memberBean.getCoupon_name());
 		}
 
 
 	  
 		
-		
-		
+//		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("couponInfo",couponInfo);
 		forward = new ActionForward();
 		forward.setPath("/member/couponInfo.jsp");

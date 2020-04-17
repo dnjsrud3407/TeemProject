@@ -1060,306 +1060,397 @@ public class BoardDAO {
 	
 	
 	//-----------사용자 1:1 문의 글 등록----------------------------------------------
-    //헷갈리지 않게 1:1 = OneOnOne 
-	public Boolean insertOneOnOne(String kakegoire, BoardBean boardBean) {
-		Boolean isSuccess = false;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int num=0;
-		
-		System.out.println("BoardDAO.insertOneOnOne(String kakegoire, BoardBean boardBean)");
-		
-		
-		try {
+	 //헷갈리지 않게 1:1 = OneOnOne 
+		public Boolean insertOneOnOne(String kakegoire, BoardBean boardBean) {
+			Boolean isSuccess = false;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int num=0;
 			
-			String sql = "select max(boardNum) from board";
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();
+			System.out.println("BoardDAO.insertOneOnOne(String kakegoire, BoardBean boardBean)");
 			
-			if(rs.next()){
-				num=rs.getInt("max(boardNum)")+1; 
+			
+			try {
+				
+				String sql = "select max(boardNum) from board";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()){
+					num=rs.getInt("max(boardNum)")+1; 
+				}
+				
+				
+				sql="insert into board value(?,?,?,?,?,now(),?,?,?,0,null)";
+				pstmt=con.prepareStatement(sql);
+				
+				pstmt.setInt(1,num); 
+				pstmt.setInt(2, boardBean.getkID()); 
+				pstmt.setString(3,boardBean.getBoardWriter());
+				pstmt.setString(4, boardBean.getBoardTitle());
+				pstmt.setString(5, boardBean.getBoardContent());
+				pstmt.setInt(6,num);//re_ref
+				pstmt.setInt(7,0);//re_lev
+				pstmt.setInt(8,0);//re_seq
+				pstmt.executeUpdate();
+				
+				
+				sql="insert into boardfile value(null,?,?,?,?,?,?)";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1,boardBean.getOriginFileName());
+				pstmt.setString(2, boardBean.getStoredFileName());
+				pstmt.setString(3, boardBean.getFileType());
+				pstmt.setInt(4,num);//re_ref
+				pstmt.setInt(5,boardBean.getkID());//re_ref
+				pstmt.setString(6, boardBean.getBoardWriter());
+				pstmt.executeUpdate();
+				
+				isSuccess=true;
+				
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				
+				close(pstmt);
+				close(rs);
 			}
-			
-			
-			sql="insert into board value(?,?,?,?,?,now(),?,?,?,0,null)";
-			pstmt=con.prepareStatement(sql);
-			
-			pstmt.setInt(1,num); 
-			pstmt.setInt(2, boardBean.getkID()); 
-			pstmt.setString(3,boardBean.getBoardWriter());
-			pstmt.setString(4, boardBean.getBoardTitle());
-			pstmt.setString(5, boardBean.getBoardContent());
-			pstmt.setInt(6,num);//re_ref
-			pstmt.setInt(7,0);//re_lev
-			pstmt.setInt(8,0);//re_seq
-			pstmt.executeUpdate();
-			
-			
-			sql="insert into boardfile value(null,?,?,?,?,?,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1,boardBean.getOriginFileName());
-			pstmt.setString(2, boardBean.getStoredFileName());
-			pstmt.setString(3, boardBean.getFileType());
-			pstmt.setInt(4,num);//re_ref
-			pstmt.setInt(5,boardBean.getkID());//re_ref
-			pstmt.setString(6, boardBean.getBoardWriter());
-			pstmt.executeUpdate();
-			
-			isSuccess=true;
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			
-			close(pstmt);
-			close(rs);
+			return isSuccess;
 		}
-		return isSuccess;
-	}
-	
-	
-	
-	// 1:1문의 게시글 가져오기 
+		
+		
+		
+		// 1:1문의 게시글 가져오기 
 
-	public ArrayList<BoardBean> getOneonOneQList(String uID) {
-		
-		System.out.println("BoardDAO.getOneonOneQList(String uID)");
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<BoardBean> QList = null;
-		int num = 0; //첫번째 join문이 true라면 boardNum의 값을 저장시킬 변수
-		
-		try {
+		public ArrayList<BoardBean> getOneonOneQList(String uID, int startRow, int limit) {
+			int startrow2 = startRow-1;
+			System.out.println("startrow"+startRow);
+			System.out.println("limit"+limit);
 			
-			String sql="select *\r\n" + 
-					"from board b left outer join boardfile f\r\n" + 
-					"on b.boardNum = f.board_boardNum where b.boardWriter=? or b.boardWriter='admin'";
+			System.out.println("BoardDAO.getOneonOneQList(String uID)");
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<BoardBean> QList = null;
+			int num = 0; //첫번째 join문이 true라면 boardNum의 값을 저장시킬 변수
+			boolean isresult=false;
 			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, uID);
-			rs = pstmt.executeQuery();
+			try {
+				String sql="select *\r\n" + 
+						"from board b left outer join boardfile f\r\n" + 
+						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
+						"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardNum limit ?,?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, uID);
+				pstmt.setInt(2,startrow2);
+				pstmt.setInt(3,limit);
+				rs = pstmt.executeQuery();
+				
+				
+				BoardBean boardBean = null;
+				QList = new ArrayList<BoardBean>();
+				
+				
+				while (rs.next()) {
+					System.out.println("스텝1");
+					boardBean = new BoardBean(
+							num=rs.getInt("boardNum"),
+							rs.getInt("kID"), 
+							rs.getString("boardWriter"),
+							rs.getString("boardTitle"),
+							rs.getString("boardContent"), 
+							rs.getInt("boardReRef"),
+							rs.getInt("boardReLev"), 
+							rs.getInt("boardReSeq"), 
+							rs.getInt("boardReadcount"),
+							rs.getTimestamp("boardRegTime"),
+							rs.getInt("bookID"),
+							rs.getString("storedFileName"),
+							rs.getString("originFileName"),
+							rs.getString("k1"),
+							rs.getString("k2"),
+							isresult
+							);
+					System.out.println("스텝2 빈에저장");
+					QList.add(boardBean);
+					System.out.println("스텝3 넘 가져오기"+num);
+					
+//					 sql="select * from board where boardReRef=? and boardReLev>0;";
+//					 pstmt = con.prepareStatement(sql);
+//					 pstmt.setInt(1, num);
+//				     rs = pstmt.executeQuery();
+//						if (rs.next()) {
+//									isresult=true;
+//									System.out.println(isresult);
+//						        }//if문 끝
+						
+				}//while문 끝 
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+					close(rs);
+					
+				}
 			
-			
-			BoardBean boardBean = null;
-			QList = new ArrayList<BoardBean>();
-			
-			
-			while (rs.next()) {
-				boardBean = new BoardBean(
-						rs.getInt("boardNum"),
-						rs.getInt("kID"), 
-						rs.getString("boardWriter"),
-						rs.getString("boardTitle"),
-						rs.getString("boardContent"), 
-						rs.getInt("boardReRef"),
-						rs.getInt("boardReLev"), 
-						rs.getInt("boardReSeq"), 
-						rs.getInt("boardReadcount"),
-						rs.getTimestamp("boardRegTime"),
-						rs.getInt("bookID"),
-						rs.getString("storedFileName"));
-				QList.add(boardBean);
+				return QList;
 			}
-
+		//1:1   게시글수
+		public int getOneonOneQListCount(String uID) {
 			
+			System.out.println("BoardDAO.getOneonOneQList(String uID)");
+			int count=0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<BoardBean> QList = null;
+			int num = 0; //첫번째 join문이 true라면 boardNum의 값을 저장시킬 변수
+			boolean isresult=false;
+			
+			try {
+				String sql="select *\r\n" + 
+						"from board b left outer join boardfile f\r\n" + 
+						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
+						"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardNum";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, uID);
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					count+=1;
+		
+				}//while문 끝 
+				
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+					close(rs);
+				}
+			
+				return count;
+			}
+		
+		
+		
+
+		//1:1문의  상세내용보기
+		public BoardBean getOneonOnegetArticle(int boardNum) {
+			System.out.println("BoardDAO.getOneonOnegetArticle(int boardNum)");
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			BoardBean boardBean = null;
+			
+			try {
+				
+				String sql="select *\r\n" + 
+						"from board b left outer join boardfile f\r\n" + 
+						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
+						"on b.kID = k.kID where b.boardNum=?";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardNum);
+				rs = pstmt.executeQuery();
+				
+				
+				if (rs.next()) {
+					
+					boardBean = new BoardBean(
+							rs.getInt("boardNum"),
+							rs.getInt("kID"), 
+							rs.getString("boardWriter"),
+							rs.getString("boardTitle"),
+							rs.getString("boardContent"), 
+							rs.getInt("boardReRef"),
+							rs.getInt("boardReLev"), 
+							rs.getInt("boardReSeq"), 
+							rs.getInt("boardReadcount"),
+							rs.getTimestamp("boardRegTime"),
+							rs.getInt("bookID"),
+							rs.getString("storedFileName"),
+							rs.getString("originFileName"),
+							rs.getString("k1"),
+							rs.getString("k2"));
+				}//if
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}finally {
 				close(pstmt);
 				close(rs);
+			}
+			return boardBean;
+		}
+
+		//1:1문의  답변
+		public BoardBean getOneonOnegetAnswer(int boardNum) {
+			System.out.println("BoardDAO.getOneonOnegetAnswer(int boardNum)");
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			BoardBean boardBean2 = null;
+
+			try {
 				
-			}
-		
-			return QList;
-		}
-
-	//1:1문의  상세내용보기
-	public BoardBean getOneonOnegetArticle(int boardNum) {
-		System.out.println("BoardDAO.getOneonOnegetArticle(int boardNum)");
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		BoardBean boardBean = null;
-		
-		try {
-			
-			String sql="select *\r\n" + 
-					"from board b left outer join boardfile f\r\n" + 
-					"on b.boardNum = f.board_boardNum where b.boardNum=?";
-			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			rs = pstmt.executeQuery();
-			
-			
-			if (rs.next()) {
-				boardBean = new BoardBean(
-						rs.getInt("boardNum"),
-						rs.getInt("kID"), 
-						rs.getString("boardWriter"),
-						rs.getString("boardTitle"),
-						rs.getString("boardContent"), 
-						rs.getInt("boardReRef"),
-						rs.getInt("boardReLev"), 
-						rs.getInt("boardReSeq"), 
-						rs.getInt("boardReadcount"),
-						rs.getTimestamp("boardRegTime"),
-						rs.getInt("bookID"),
-						rs.getString("storedFileName"));
-			}//if
-			
-			
-			
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			close(rs);
-		}
-		return boardBean;
-	}
-
-	//1:1문의  답변
-	public BoardBean getOneonOnegetAnswer(int boardNum) {
-		System.out.println("BoardDAO.getOneonOnegetAnswer(int boardNum)");
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		BoardBean boardBean2 = null;
-
-		try {
-			
-			String sql="select * from board where boardReRef=? and boardWriter='admin'";
-			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			rs = pstmt.executeQuery();
-			
-			
-			if (rs.next()) {
-				boardBean2 = new BoardBean(
-						rs.getInt("boardNum"),
-						rs.getInt("kID"), 
-						rs.getString("boardWriter"),
-						rs.getString("boarTitle"),
-						rs.getString("boardContent"), 
-						rs.getInt("boardReRef"),
-						rs.getInt("boardReLev"), 
-						rs.getInt("boardReSeq"), 
-						rs.getInt("boardReadcount"),
-						rs.getTimestamp("boardRegTime"),
-						rs.getInt("bookID"));
-				System.out.println(	rs.getInt("boardNum"));
-			}else {
-				System.out.println("답변없음");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(pstmt);
-			close(rs);
-		}
-		
-		return boardBean2;
-	}
-
-	// 상품문의 수정
-	public int updateQuestion(BoardBean boardBean) {
-		int updateCount = 0;
-		String sql = "";
-
-		try {
-			sql = "select * from board where boardNum = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardBean.getBoardNum());
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
-					sql = "update board set boardTitle=? , boardContent=? where boardNum=?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setString(1, boardBean.getBoardTitle());
-					pstmt.setString(2, boardBean.getBoardContent());
-					pstmt.setInt(3, boardBean.getBoardNum());
-
-					updateCount = pstmt.executeUpdate();
+				String sql="select * from board where boardReRef=? and boardWriter='admin'";
+				
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardNum);
+				rs = pstmt.executeQuery();
+				
+				
+				if (rs.next()) {
+					boardBean2 = new BoardBean(
+							rs.getInt("boardNum"),
+							rs.getInt("kID"), 
+							rs.getString("boardWriter"),
+							rs.getString("boardTitle"),
+							rs.getString("boardContent"), 
+							rs.getInt("boardReRef"),
+							rs.getInt("boardReLev"), 
+							rs.getInt("boardReSeq"), 
+							rs.getInt("boardReadcount"),
+							rs.getTimestamp("boardRegTime"),
+							rs.getInt("bookID"));
+					System.out.println(	rs.getInt("boardNum"));
+				}else {
+					System.out.println("답변없음");
 				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+				close(rs);
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
+			
+			return boardBean2;
 		}
 
-		return updateCount;
-	}
-
-	// 상품문의 삭제
-	public int removeQuestion(BoardBean boardBean) {
-		int deleteCount = 0;
 		
-		String sql = "";
+		//사용자 1:1문의 수정하기
+		public int oneOnOneModify(BoardBean boardBean) {
+			int result=0;
+			PreparedStatement pstmt = null;
+			System.out.println(		boardBean.getBoardContent());
+			System.out.println(		boardBean.getBoardTitle());
+			System.out.println(	"파일  "+	boardBean.getOriginFileName());
+			System.out.println(		"게시판번호"+boardBean.getBoardNum());
 
-		try {
-			sql = "select * from board where boardNum = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardBean.getBoardNum());
-			rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
-					sql = "delete from board where boardNum=?";
-					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, boardBean.getBoardNum());
-					deleteCount = pstmt.executeUpdate();
+			try {
+				String sql = "update board set boardTitle=?,boardContent=? where boardNum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1,boardBean.getBoardTitle());
+				pstmt.setString(2,boardBean.getBoardContent());
+				pstmt.setInt(3,boardBean.getBoardNum());
+				result=pstmt.executeUpdate();
+				
+				
+				sql="update boardfile set originFileName=?,storedFileName=? where board_boardNum=?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1,boardBean.getOriginFileName());
+				pstmt.setString(2, boardBean.getStoredFileName());
+				pstmt.setInt(3,boardBean.getBoardNum());
+				result=pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
+
+		
+		//사용자 1:1문의 삭제하기
+		public int oneOnOneDelete(int boardNum) {
+			int result=0;
+			PreparedStatement pstmt = null;
+			try {
+				String sql = "delete from boardfile where board_boardNum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,boardNum);
+				result=pstmt.executeUpdate();
+				
+				
+				sql = "delete from board where boardNum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,boardNum);
+				result=pstmt.executeUpdate();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}	
+			return result;
+		}
+
+		
+		// 상품문의 수정
+		public int updateQuestion(BoardBean boardBean) {
+			int updateCount = 0;
+			String sql = "";
+
+			try {
+				sql = "select * from board where boardNum = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardBean.getBoardNum());
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
+						sql = "update board set boardTitle=? , boardContent=? where boardNum=?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, boardBean.getBoardTitle());
+						pstmt.setString(2, boardBean.getBoardContent());
+						pstmt.setInt(3, boardBean.getBoardNum());
+
+						updateCount = pstmt.executeUpdate();
+					}
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
+
+			return updateCount;
+		}
+
+		// 상품문의 삭제
+		public int removeQuestion(BoardBean boardBean) {
+			int deleteCount = 0;
+			
+			String sql = "";
+
+			try {
+				sql = "select * from board where boardNum = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardBean.getBoardNum());
+				rs = pstmt.executeQuery();
+
+				if (rs.next()) {
+					if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
+						sql = "delete from board where boardNum=?";
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, boardBean.getBoardNum());
+						deleteCount = pstmt.executeUpdate();
+					}
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+			
+			return deleteCount;
 		}
 		
-		
-		return deleteCount;
-	}
-
-
-	
-
-	
-
-	
-
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 

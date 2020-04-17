@@ -7,15 +7,15 @@
 	<div id="sidebar" class="span3">
 
 		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<li class="subMenu open"><a style="text-align: center; height: 80px "> MY PAGE<br>마이페이지<br><br>[${sessionScope.uID}]님! 어서오세요<a class="" href="#" style="float: left;">정보수정 </a> </a>
-			<li class="subMenu open"><a style="text-align: center; clear: both;"> 나의 쇼핑 리스트 [230]</a>
+			<li class="subMenu open"><a style="text-align: center; height: 80px "> MY PAGE<br>마이페이지<br><br>[${sessionScope.uID}]님! 어서오세요</a>
+			<li class="subMenu open"><a style="text-align: center; clear: both;"> 나의 쇼핑 </a>
 	 		<ul>
 				<li><a class="active" href="OrderList.mo"><i class="icon-chevron-right"></i>주문내역 </a></li>
 				
-				<li><a href="products.html"><i class="icon-chevron-right"></i>배송현황</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>취소한 주문</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>반품한 주문</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>교환중인 상품</a></li>
+<!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>배송현황</a></li> -->
+<!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>취소한 주문</a></li> -->
+<!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>반품한 주문</a></li> -->
+<!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>교환중인 상품</a></li> -->
 				</ul>
 			</li>
 			<li class="subMenu"><a>내 정보 관리</a>
@@ -23,12 +23,9 @@
 				<li><a href="PwCheckBeforeModifyForm.me?uID=${sessionScope.uID}"><i class="icon-chevron-right"></i>내정보수정</a></li>
 				<li><a href="CouponInfoAction.me?uID=${sessionScope.uID}"><i class="icon-chevron-right"></i>쿠폰조회</a></li>
 				<li><a href="PointInfoAction.me?uID=${sessionScope.uID}"><i class="icon-chevron-right"></i>포인트조회</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>나의상품후기</a></li>	  <!--내꺼아님  -->										
 				<li><a href="QList.bo?uID=${sessionScope.uID}"><i class="icon-chevron-right"></i>1:1문의내역</a></li>
 				<li><a href="QWriteForm.bo?uID=${sessionScope.uID}"><i class="icon-chevron-right"></i>1:1문의 작성하기/FAQ와 연동</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>상품문의내역</a></li>	  <!--내꺼아님  -->										
 				<li><a href="products.html"><i class="icon-chevron-right"></i>찜한상품</a></li>	  <!--내꺼아님  -->											
-				<li><a href="products.html"><i class="icon-chevron-right"></i>나의상품평</a></li>	  <!--내꺼아님  -->											
 				<li><a href="DeleteForm.me?uID=${sessionScope.uID}"><i class="icon-chevron-right"></i>회원탈퇴</a></li>     <!--내꺼아님  -->	
 			</ul>
 			</li>

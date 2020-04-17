@@ -58,10 +58,46 @@
 	
 	
 	
-	
-	
-	
 	</style>
+	
+	
+	
+	
+	
+	<script type="text/javascript">
+	
+	
+	
+	
+	
+	
+	
+	
+	  window.onload = function () {
+		  
+		  
+		  var ea = document.getElementById('bookEA');
+		  var price = document.getElementById('bookPrice');
+		  
+// 		  ea = Number(ea);
+// 		  Number(price);
+		  
+// 		  alert(ea.value*price.value); //갯수*가격
+		  
+		  
+		  
+	  }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	</script>
   </head>
 <body>
 
@@ -113,10 +149,13 @@
 		  </tr>
 	</table>	
 	 -->
+<c:set value="1" var="volume"></c:set>
+<c:set value="1" var="eaPrice"></c:set>
+<c:set value="-1" var="orderNum"></c:set>
+	<c:if test="${orderDetailList!=null}">
+	<c:forEach var="list" items="${orderDetailList}" varStatus="status">
+ <c:if test="${orderNum != list.orderNum}">
 
-
-		<c:if test="${orderBean!=null}">
-		  
 			
 			<form>
 	<table class="table table-bordered" style="border-top: none; border-left: none;">
@@ -130,31 +169,31 @@
                 </tr>
                 <tr>
                   <td>주문번호</td>
-                  <td>${orderBean.orderNum}</td>
+                  <td>${list.orderNum}${list.orderTime}</td>
                 </tr> 
                 <tr>
                   <td id="neamam2">주문자</td>
-                  <td id="neamam2">${orderBean.u_name}</td>
+                  <td id="neamam2">${list.u_name}</td>
                 </tr>
                 <tr>
                   <td>주문자휴대폰</td>
-                  <td>${orderBean.phone_num}</td>
+                  <td>${list.phone_num}</td>
                 </tr>
                 <tr>
                   <td>주문자 ID</td>
-                  <td>${orderBean.order_id}</td>
+                  <td>${list.order_id}</td>
                 </tr>
                 <tr>
                   <td>주문자이메일</td>
-                  <td>${orderBean.email}</td>
+                  <td>${list.email}</td>
                 </tr>
                 <tr>
                   <td>받으시는분</td>
-                  <td>${orderBean.orderAddress}</td>
+                  <td>${list.orderAddress}</td>
                 </tr>
                 <tr>
                   <td>배송지</td>
-                  <td>${orderBean.address2}</td>
+                  <td>${list.address2}</td>
                 </tr>
                 <tr>
                   <td>요청사항</td>
@@ -164,86 +203,91 @@
 				</tbody>
             </table>
 		</form>
-            <table class="table table-bordered">
-			<tbody>
-				<!--  <tr>
-                  <td>  -->
-			<!-- 	<form class="form-horizontal">
-				<div class="control-group">
-				<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
-				<div class="controls">
-				<input type="text" class="input-medium" placeholder="CODE">
-				<button type="submit" class="btn"> ADD </button>
-				</div>
-				</div>
-				</form> -->
-			<!-- 	</td>
-                </tr> -->
-			</tbody>
-			</table>
+		  <c:set value="${list.orderNum}" var="orderNum"></c:set>
+			</c:if>
 			
-						<form>
-	<table class="table table-bordered" style="border-top: none;">
+			
+	<table class="table table-bordered" style="border-top: none; table-layout: fixed;">
               <thead style="border-right: none;">
                 <tr style="border-right: none;">
-                  <th id="neamam" colspan="3">주문상품목록</th>
+<!--                   <th id="neamam" colspan="3">주문상품목록</th> -->
 				</tr>
               </thead>
               <tbody>
               <tr>
-              <td id="neamam2">상품명      ${orderBean.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
+              <td id="neamam2">상품명      ${list.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
               </tr>
                 <tr>
                   <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/><br> 
-                  상품옵션:${orderBean.bookTitle}  <b style="color: red;">${orderBean.bookEA}개</b><br>
-                                           출판사: ${orderBean.bookPublisher}       
-                 
+                  상품옵션:${list.bookTitle}  <b style="color: red;">${list.bookEA}개</b><br>
+                                           출판사: ${list.bookPublisher}<br>
+<!--                  가격 -->
+                 <c:set value="${list.volume}" var="volume"></c:set> 
+<%--              		 <input type="hidden" id="volume" value="${list.volume}"> --%>
+<%--                    <input type="hidden" id="bookEA" value="${list.bookEA}"> --%>
                   </td>
                   
                   <td><br>
-          <span class="label">금액</span><b>  ${orderBean.bookPrice} 원</b><br>         
-          <span class="label">쿠폰</span>    ${orderBean.coupon_name} <br>
-          <span class="label">포인트</span>    ${orderBean.pointValue} <br>
-          <span class="label">배송비</span>    2500원 <br>
+          <span class="label">금액</span><b>  ${list.bookPrice} 원</b><br>        
+          <span class="label">쿠폰</span>    ${list.coupon_name} <br>
+<%--           <span class="label">포인트</span>    ${list.pointValue} <br> --%>
+<!--           <span class="label">배송비</span>    2500원 <br> -->
                
                    </td>
-                  <td><b>${total} 원</b></td>
+                  <td><b>${list.bookEA * list.bookPrice} 원</b>
+<!--                    이자리에 쿠폰사용금액 추가할것 -->
+<!--                    //포인트 가져오는거 안했음 왜냐하면 답이없어  -->
+                   ${list.pointValue} 
+                   ${list.paymentType}
+                  </td>
                 </tr>
                   <tr>
-                  <td colspan="3" style="text-align: right;">총 주문금액 : <b>${total} 원</b>
+<!--                   <td colspan="3" style="text-align: right;">총 주문금액 : <b>원</b> -->
                   </td>
                 </tr>
 				</tbody>
             </table>
-		</form>
-         
-		</c:if>	
-		<!-- 	<table class="table table-bordered">
-			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
-			 <tr> 
-			 <td>
-				<form class="form-horizontal">
-				  <div class="control-group">
-					<label class="control-label" for="inputCountry">Country </label>
-					<div class="controls">
-					  <input type="text" id="inputCountry" placeholder="Country">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<label class="control-label" for="inputPost">Post Code/ Zipcode </label>
-					<div class="controls">
-					  <input type="text" id="inputPost" placeholder="Postcode">
-					</div>
-				  </div>
-				  <div class="control-group">
-					<div class="controls">
-					  <button type="submit" class="btn">ESTIMATE </button>
-					</div>
-				  </div>
-				</form>				  
-			  </td>
-			  </tr>
-            </table>		 -->
+		</c:forEach>
+       </c:if>  
+		
+		
+			<table class="table" style="border-top: none; table-layout: fixed;">
+              <thead style="border-right: none;">
+                 <tr style="border-top: none;">
+                  <th  id="neamam" colspan="2">결제 정보</th>
+				</tr>
+              </thead>
+              	<tbody>
+              	  <tr>
+                     <td id="neamam2">결제수단</td><td id="neamam2"></td> <td id="neamam2"></td>
+                 </tr>
+                 
+                 <tr>
+                     <td colspan="">
+                     <b>${list.paymentType}</b><br>
+<!--                      결제수단 표시할자리 -->
+                   </td>
+                 
+                    <td><br>
+				          <span class="label">포인트</span>    ${list.volume} <br>
+				          <span class="label">쿠폰할인</span>   ${volume} <br>
+				          <span class="label">배송비</span>    2500원 <br>
+                   </td>
+                   <td></td>
+                   
+<!--                    <td style="text-align: center; vertical-align: middle;"><b></b></td> -->
+                </tr>
+                
+                 <tr>
+                  <td colspan="3" style="text-align: right; background-color:#D9D4D4; font: 1.5em" >총 주문금액 : <b style="color: red;"> ${total}원</b>
+                  </td>
+                  
+                </tr>
+                
+				</tbody>
+            </table>
+		
+		 
 <!-- 	<a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a> -->
 	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	
