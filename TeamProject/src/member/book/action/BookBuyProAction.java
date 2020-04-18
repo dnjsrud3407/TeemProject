@@ -21,7 +21,10 @@ public class BookBuyProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		String cID = request.getParameter("couponList");
+		String point = request.getParameter("point");
+		System.out.println("사용한 쿠폰 id" + cID);
+		System.out.println("사용한  point" + point);
 		System.out.println("결제 완료");
 		
 		return forward;
