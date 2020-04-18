@@ -531,12 +531,13 @@ public MemberDAO() {}
 		ArrayList<MemberBean> couponInfo = null;
 		
 		try {
-			String sql="SELECT cp.cID, cp.coupon_name, cp.couponEnd_date"
+			String sql="SELECT cp.cID, cp.coupon_name, cp.volume"
 					+ " FROM couponhistory ch JOIN user user ON ch.uID=user.uID"
 					+ " JOIN coupon cp ON ch.cID=cp.cID"
-					+ " WHERE user.uID=? AND cp.couponEnd_date > now()";
+					+ " WHERE user.uID=? AND cp.couponEnd_date > now() AND ch.couponAction=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1,uID);
+			pstmt.setInt(2, 0);		// 사용가능한 쿠폰만 조회 
 			rs=pstmt.executeQuery();
 			
 			couponInfo = new ArrayList<MemberBean>();
@@ -544,7 +545,8 @@ public MemberDAO() {}
 			while (rs.next()) {
 				memberBean = new MemberBean(
 						rs.getInt("cID"),
-						rs.getString("coupon_name"));
+						rs.getString("coupon_name"),
+						rs.getInt("volume"));
 
 				couponInfo.add(memberBean);
 			}

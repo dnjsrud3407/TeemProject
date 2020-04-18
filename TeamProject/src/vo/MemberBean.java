@@ -24,6 +24,7 @@ public class MemberBean {
 	private String couponStatus;
 	private Date couponReg_date;
 	private Date couponEnd_date;
+	private int volume;
 	
 //	포인트조회
 	private int pointValue;
@@ -108,11 +109,13 @@ public class MemberBean {
 			
 		}
 	
-	public MemberBean(int cID, String coupon_name) {
+	// 주문할 때 사용하는 쿠폰 조회
+	public MemberBean(int cID, String coupon_name, int volume) {
 		super();
 		this.cID = cID;
 		this.coupon_name = coupon_name;
-		}
+		this.volume = volume;
+	}
 		
 //포인트조회
 	public MemberBean(int pID,String ownerID,Date pointRegTime,String pointContent,int pointValue,int pointAction) {
@@ -229,6 +232,14 @@ public class MemberBean {
 
 	public void setCouponEnd_date(Date couponEnd_date) {
 		this.couponEnd_date = couponEnd_date;
+	}
+	
+	public int getVolume() {
+		return volume;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
 	}
 
 	public int getPointValue() {

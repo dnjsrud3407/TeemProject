@@ -50,7 +50,7 @@
 function requestPay() {
     var IMP = window.IMP; // 생략가능
     IMP.init('imp39182007');
-    var totalPrice = $("#totalPrice").val();
+    var totalPrice = $("#finalPrice").val();
     var bookTitle = $("#payTitle").val();
     
     IMP.request_pay({
@@ -58,7 +58,7 @@ function requestPay() {
         pay_method : 'card',
         merchant_uid : 'merchant_' + new Date().getTime(),
         name : bookTitle,
-        amount : totalPrice,
+        amount : 100,
         buyer_email : 'iamport@siot.do',
         buyer_name : '구매자이름',
         buyer_tel : '010-1234-5678',
@@ -81,13 +81,49 @@ function qtyRemove(cartNum){
 			location.href=removeUrl;	
 		}
 }
-function pointDis(){
-	var point = parseInt($("#point").val());
-	var totalPrice = parseInt($("#totalPrice").val());
-	var finalPrice = parseInt($("#finalPrice").val());
-
-	$("#totalPrice").val(totalPrice - point);
-	$("#finalPrice").val(finalPrice - point);
+// 쿠폰 적용
+function couponDis(finalPrice){
+	var beforePrice = parseInt(finalPrice);
+	
+	// 셀렉트에 선택된 cID(value로) 구하기, volume(cID를 id로 가지는)구하기 
+	var cID = "#" + $("#couponList option:selected").val();
+	var volume = parseInt($(cID).val());
+	
+	// 쿠폰이 없는 경우
+	if(cID == "#-1") {
+		alert('사용가능한 쿠폰이 없습니다');
+		volume = 0;		// 쿠폰 초기화
+	} 
+	// 쿠폰 선택하지 않고 적용 누른 경우
+	else if(cID == "#0") {
+		alert('쿠폰을 선택해주세요');
+		volume = 0;		// 쿠폰 초기화
+	}
+	
+	$("#disCoupon").val(volume);
+	// 사용한 포인트 가져오기
+	var point = parseInt($("#disPoint").val());
+	// 최종 결제금액 적용
+	$("#finalPrice").val(beforePrice-point-volume);
+}
+// 포인트 적용
+function pointDis(finalPrice, memberPoint){
+	// 포인트 입력한 값, 사용자 포인트 값, 총 결제금액
+	var point = parseInt($("#pointInput").val());
+	var memberPoint = parseInt(memberPoint);
+	var beforePrice = parseInt(finalPrice);
+	
+	// 입력한 포인트가 보유한 포인트 보다 클 때
+	if(point > memberPoint) {
+		alert('사용가능한 포인트는 ' + memberPoint + 'P 입니다.');
+		$("#pointInput").val(0);	// 포인트 Input 박스 초기화
+		point = 0;	// 포인트 초기화
+	}
+	$("#disPoint").val(point);
+	// 사용한 쿠폰값 가져오기
+	var coupon = parseInt($("#disCoupon").val());
+	// 최종 결제금액 적용
+	$("#finalPrice").val(beforePrice-point-coupon);
 }
 </script>
   </head>
@@ -204,7 +240,7 @@ function pointDis(){
              <c:forEach var="cart" items="${cartList }" varStatus="status">
              	<c:choose>
              		<c:when test="${fn:length(cartList) > 1}">
-             			<input type="hidden" id="payTitle" value="${cart.bookTitle } 외 ${status.end}건">
+             			<input type="hidden" id="payTitle" value="${cart.bookTitle } 외 ${fn:length(cartList)}건">
              		</c:when>
             		<c:otherwise>
              			<input type="hidden" id="payTitle" value="${cart.bookTitle }">
@@ -232,31 +268,35 @@ function pointDis(){
 	   </tr>
     </table>
     <br>
+    <c:set var="finalPrice" value="${totalPrice + shipPrice }"></c:set>
     <!-- 할인 Table -->	
     <table class="table">
 	  <tr><th>할인적용 </th></tr>
 	  <tr> 
 		<td>할인 쿠폰&nbsp;&nbsp;
-		  <select name="couponList">
+		  <select name="couponList" id="couponList">
 		  	<c:choose>
 		  		<c:when test="${fn:length(couponList) < 1}">
-		  			<option>사용가능한 쿠폰이 없습니다</option>
+		  			<option value="-1">사용가능한 쿠폰이 없습니다</option>
 		  		</c:when>
 		  		<c:otherwise>
-				  	<option>선택하세요</option>
+				  	<option value="0">선택하세요</option>
 				  	<c:forEach var="coupon" items="${couponList }" varStatus="status">
 				  		<option value="${coupon.cID }">${coupon.coupon_name }</option>
 				  	</c:forEach>
 		  		</c:otherwise>
 		  	</c:choose>
 		  </select>
-		  <input type="button" value="쿠폰적용" onclick="coupon()">
+		  <c:forEach var="coupon" items="${couponList }" varStatus="status">
+	  		<input type="hidden" id="${coupon.cID }" value="${coupon.volume }">
+		  </c:forEach>
+		  <input type="button" value="쿠폰적용" onclick="couponDis(${finalPrice})">
 		</td>
 	   </tr>
 	   <tr>
 	   	<td>
-	   		포인트 사용 (${memberBean.point }P 보유)&nbsp;&nbsp;<input type="text" id="point" placeholder="포인트를 입력해주세요">
-	   		<input type="button" value="포인트적용" onclick="pointDis(); this.onclick=null">
+	   		포인트 사용 (${memberBean.point }P 보유)&nbsp;&nbsp;<input type="text" name="point" id="pointInput" placeholder="포인트를 입력해주세요">
+	   		<input type="button" value="포인트적용" onclick="pointDis(${finalPrice}, ${memberBean.point })">
 	   	</td>
 	   </tr>
     </table>
@@ -281,9 +321,21 @@ function pointDis(){
 			 </div>
 		   </div>
 		   <div class="control-group">
+			 <label class="control-label">할인쿠폰 </label>
+			 <div class="controls">
+			  	   <input type="text" name="disCoupon" id="disCoupon" value="0" readonly="readonly">
+			 </div>
+		   </div>
+		    <div class="control-group">
+			 <label class="control-label">포인트사용 </label>
+			 <div class="controls">
+			  	   <input type="text" name="disPoint" id="disPoint" value="0" readonly="readonly">
+			 </div>
+		   </div>
+		   <div class="control-group">
 			 <label class="control-label">최종 결제금액 </label>
 			 <div class="controls">
-			   <input type="text" name="finalPrice" id="finalPrice" value="${totalPrice + shipPrice }" readonly="readonly">
+			   <input type="text" name="finalPrice" id="finalPrice" value="${finalPrice }" readonly="readonly">
 			 </div>
 		   </div>
 		 </td>

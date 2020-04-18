@@ -55,7 +55,7 @@
 					$("select[name='BK2Category']").html(msg2);
 				}
 			});
-//	 		alert($("#BK2Category option:selected").val());
+
 			// 레벨 셀렉트 박스 지우기
 			$("select[name='BK3Category']").html("<option value='선택하세요'>선택하세요</option>");
 		});
@@ -63,10 +63,10 @@
 		
 		// ================== 소분류 카테고리 바꼈을 때 레벨 변경함수
 		$("#BK2Category").on("change", function () {
-//	 		// 대분류, 소분류 값 가져오기
+	 		// 대분류, 소분류 값 가져오기
 			var BK1 = $("#BK1Category option:selected").val();
 			var BK2 = $("#BK2Category option:selected").val();
-//	 		// 소분류 데이터 가져오기
+	 		// 소분류 데이터 가져오기
 			$.ajax({
 				type:"POST",
 				url:"BK3.abook",
@@ -77,6 +77,8 @@
 			});
 		});
 	});
+	
+	
 	
   // 달력 api	
   $( function() { 
@@ -98,6 +100,18 @@
       });
       $("#datepicker").datepicker(); 
   } ); 
+  
+  // submit 전 카테고리 체크
+  function KateCheck() {
+	var BK1 = $("#BK1Category option:selected").val();
+	var BK2 = $("#BK2Category option:selected").val();
+	var BK3 = $("#BK3Category option:selected").val();
+	// 카테고리 지정안 할 시 오류 띄우기
+	if(BK1 == '선택하세요' || BK2 == '선택하세요' || BK3 == '선택하세요') {
+		alert('카테고리를 지정하세요');
+		return false;
+	}
+  }
   </script>
 </head>
 <body id="page-top">
@@ -127,7 +141,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="WritePro.abook" method="post" enctype="multipart/form-data">
+              <form action="WritePro.abook" method="post" enctype="multipart/form-data" onsubmit="return KateCheck()">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <tr>
                       <th class="thWidth">* 책 카테고리</th>
@@ -143,7 +157,7 @@
 							  	   </select>
 						  </div>
 						  <div class="searchWidth">
-							소분류 : <select name="BK3Category" class="inputWidth">
+							소분류 : <select name="BK3Category" id="BK3Category" class="inputWidth">
 							     		<option value="선택하세요">선택하세요</option>
 							  	  </select>
 						  </div>
