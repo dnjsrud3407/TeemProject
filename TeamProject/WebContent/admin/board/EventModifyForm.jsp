@@ -78,7 +78,7 @@
 	              
 	              <form action='<c:url value="/EventModifyPro.adb"/>' method="post" enctype="multipart/form-data">
 							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
-							<input type="hidden" name="boardNum" value="${article.baordNum }">
+							<input type="hidden" name="boardNum" value="${article.boardNum }">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                    <tr>
 		                      <th>제목</th>

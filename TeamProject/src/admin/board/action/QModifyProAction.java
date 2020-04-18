@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -47,15 +48,18 @@ public class QModifyProAction implements Action {
 			System.out.println("원본 파일명(보여지는 이름) : " + originFilename);
 			System.out.println("저장된 파일명(중복처리) : " + storedFileName);
 
-			String[] getFileType = originFilename.split("."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름
-			String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
-			file = new FileBean(originFilename, storedFileName, fileType);
-			fileList.add(file);
+			if(originFilename != null) {
+				String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름 
+				// "." 은 정규식에서 무작위 문자라는 뜻이라서 . 으로 문자열을 자르기 위해서는 \\.  을 사용해야한다.
+				String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
+				file = new FileBean(originFilename, storedFileName, fileType);
+				fileList.add(file);
+			}
 		}
 		// DB작업을 위해 서비스 객체 생성
 		BoardService boardService = new BoardService();
 		// 카테고리 관련
-		String k1 = multi.getParameter("k1");
+		String k1 = multi.getParameter("1:1문의");
 		String k2 = multi.getParameter("k2");
 		// 글 번호 들고오기
 		int boardNum = Integer.parseInt(multi.getParameter("boardNum"));
@@ -75,7 +79,7 @@ public class QModifyProAction implements Action {
 		
 		// BoardBean 객체를 전달하여 서비스의 modifyArticle() 메서드를 실행하여  DB에 글을 수정하고, 성공 시 1을 반환받는다, 실패시 0을 반환
 		int updateCount = boardService.modifyArticle(bb, deleteFileName);
-		
+		HttpSession session = request.getSession();
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//1. 파일 변동이 없을 경우 파일관련 작업 없음
 		//
@@ -83,6 +87,7 @@ public class QModifyProAction implements Action {
 		//
 		//3. 기존 파일 삭제 시 삭제된 파일이름 hidden으로 넘겨서 File.delete() 실행
 		
+		String boardReRef = multi.getParameter("boardReRef");
 		if(updateCount != 0) {
 			// 수정 성공시 삭제요청받은 기존 파일을 삭제해야함
 			// 삭제된 파일들을 삭제할 코드
@@ -91,11 +96,15 @@ public class QModifyProAction implements Action {
 				df.delete();		// 파일 삭제
 			}
 			// 수정 성공 시 이동할 경로
-			
+			forward.setPath("/qDetail.adb?boardNum=" + boardReRef);
+			forward.setRedirect(true);
 			
 			
 		} else {
 			// 수정 실패 시 이동할 경로
+			session.setAttribute("ErrorMSG", "답변 작성에 실패하였습니다.");
+			forward.setPath("failed.adb");
+			forward.setRedirect(true);
 		}
 		
 		return forward;

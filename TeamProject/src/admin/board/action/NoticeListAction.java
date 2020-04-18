@@ -74,9 +74,6 @@ public class NoticeListAction implements Action {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		
-		ArrayList<String> k2List = boardService.getk2List(k1);
-		
-		
 		forward = new ActionForward();
 		forward.setPath("/admin/board/NoticeList.jsp");
 		

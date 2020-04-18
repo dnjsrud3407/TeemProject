@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -51,15 +52,18 @@ public class QWriteProAction implements Action {
 			System.out.println("원본 파일명(보여지는 이름) : " + originFilename);
 			System.out.println("저장된 파일명(중복처리) : " + storedFileName);
 
-			String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름
-			String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
-			file = new FileBean(originFilename, storedFileName, fileType);
-			fileList.add(file);
+			if(originFilename != null) {
+				String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름 
+				// "." 은 정규식에서 무작위 문자라는 뜻이라서 . 으로 문자열을 자르기 위해서는 \\.  을 사용해야한다.
+				String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
+				file = new FileBean(originFilename, storedFileName, fileType);
+				fileList.add(file);
+			}
 		}
 		// DB작업을 위해 서비스 객체 생성
 		BoardService boardService = new BoardService();
 		// 카테고리 관련
-		String k1 = multi.getParameter("k1");
+		String k1 = "1:1문의";
 		String k2 = multi.getParameter("k2");
 		// 글 번호 들고오기
 		int boardNum = boardService.getMaxNum(k1) + 1;
@@ -83,8 +87,17 @@ public class QWriteProAction implements Action {
 		int insertCount = boardService.writeArticle(bb);
 		
 		forward = new ActionForward();
-		// 1:1 답변 작성한거 상세보기
-//		forward.setPath("./board/QDetail.jsp");
+		HttpSession session = request.getSession();
+		if(insertCount != 0) {
+			// 글 삭제 성공 시 반응 디테일로 돌아감
+			forward.setPath("/qDetail.adb?boardNum=" + boardReRef);
+			forward.setRedirect(true);
+		} else {
+			// 글 삭제 실패 시 반응
+			session.setAttribute("ErrorMSG", "답변 작성에 실패하였습니다.");
+			forward.setPath("failed.adb");
+			forward.setRedirect(true);
+		}
 		
 		return forward;
 	}

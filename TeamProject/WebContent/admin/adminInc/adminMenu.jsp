@@ -96,8 +96,8 @@
           
             <h6 class="collapse-header">FAQ/1:1문의 관리</h6>
             <a class="collapse-item" href='<c:url value="/FAQ.adb"/>'>FAQ 목록</a>
-            <a class="collapse-item" href="QnoAnswer.adb">1:1문의 목록(미답변)</a>
-            <a class="collapse-item" href="QAll.adb">1:1문의 목록(전체)</a>
+            <a class="collapse-item" href='<c:url value="/QListNA.adb"/>'>1:1문의 목록(미답변)</a>
+            <a class="collapse-item" href='<c:url value="/QList.adb"/>'>1:1문의 목록(전체)</a>
           </div>
         </div>
       </li>

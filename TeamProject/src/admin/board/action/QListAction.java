@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import admin.board.svc.BoardService;
-import board.svc.QListService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
@@ -66,9 +65,14 @@ public class QListAction implements Action {
 		
 		request.setAttribute("pageInfo", pageInfo);
 		
+		ArrayList<String> k2List = boardService.getk2List(k1);
+		
+		// FAQ 카테고리 목록
+		request.setAttribute("k2List", k2List);
+		
 		forward = new ActionForward();
 		// 이벤트로 고칠것
-//		forward.setPath("./board/FAQList.jsp");
+		forward.setPath("./admin/board/qList.jsp");
 		
 		return forward;
 	}
