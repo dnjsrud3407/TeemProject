@@ -1,5 +1,3 @@
-<%@page import="vo.CartBean"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -135,7 +133,7 @@
 	        <a href="OrderList.mo">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
 	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ ${cartList.size()} ] 장바구니 </span> </a> 
-	    </div>
+	    </div>s
     </div>
 </div>
 <!-- Navbar ================================================== -->

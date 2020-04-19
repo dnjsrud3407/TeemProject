@@ -6,6 +6,7 @@ public class CartBean {
 	private String bookTitle;//  카트에 저장될 상품명
 	private int bookPrice; // 카트에 저장될 상품 가격
 	private int bookEA; // 카트에 저장될 상품수량
+	private int bookID;
 	
 		
 	
@@ -39,6 +40,12 @@ public class CartBean {
 	public void setBookEA(int bookEA) {
 		this.bookEA = bookEA;
 	}
+	public int getBookID() {
+		return bookID;
+	}
+	public void setBookID(int bookID) {
+		this.bookID = bookID;
+	}
 	public CartBean() {
 		super();
 	}
@@ -50,7 +57,15 @@ public class CartBean {
 		this.bookPrice = bookPrice;
 		this.bookEA = bookEA;
 	}
-	
+	public CartBean(int cartNum, int bookID, String bookImage, String bookTitle, int bookPrice, int bookEA) {
+		super();
+		this.cartNum = cartNum;
+		this.bookID = bookID;
+		this.bookImage = bookImage;
+		this.bookTitle = bookTitle;
+		this.bookPrice = bookPrice;
+		this.bookEA = bookEA;
+	}
 	
 }
 

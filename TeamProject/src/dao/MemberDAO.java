@@ -531,7 +531,7 @@ public MemberDAO() {}
 		ArrayList<MemberBean> couponInfo = null;
 		
 		try {
-			String sql="SELECT cp.cID, cp.coupon_name, cp.volume"
+			String sql="SELECT ch.num, cp.cID, cp.coupon_name, cp.volume"
 					+ " FROM couponhistory ch JOIN user user ON ch.uID=user.uID"
 					+ " JOIN coupon cp ON ch.cID=cp.cID"
 					+ " WHERE user.uID=? AND cp.couponEnd_date > now() AND ch.couponAction=?";
@@ -544,6 +544,7 @@ public MemberDAO() {}
 			
 			while (rs.next()) {
 				memberBean = new MemberBean(
+						rs.getInt("num"),
 						rs.getInt("cID"),
 						rs.getString("coupon_name"),
 						rs.getInt("volume"));

@@ -19,6 +19,7 @@ public class MemberBean {
 	
 
 	//---쿠폰조회---
+	private int num;
 	private int cID;
 	private String coupon_name;
 	private String couponStatus;
@@ -110,8 +111,9 @@ public class MemberBean {
 		}
 	
 	// 주문할 때 사용하는 쿠폰 조회
-	public MemberBean(int cID, String coupon_name, int volume) {
+	public MemberBean(int num, int cID, String coupon_name, int volume) {
 		super();
+		this.num = num;
 		this.cID = cID;
 		this.coupon_name = coupon_name;
 		this.volume = volume;
@@ -201,6 +203,12 @@ public class MemberBean {
 	}
 	public void setcID(int cID) {
 		this.cID = cID;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getCoupon_name() {
 		return coupon_name;

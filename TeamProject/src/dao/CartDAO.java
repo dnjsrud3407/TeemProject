@@ -73,7 +73,7 @@ public class CartDAO {
 	public ArrayList<CartBean> getCartList(String uID, String cartNumStr) {
 		ArrayList<CartBean> cartList = new ArrayList<CartBean>();
 		
-		String sql = "SELECT cartNum, bookImage, bookTitle, cart.bookEA, bookPrice "
+		String sql = "SELECT cartNum, cart.book_bookID, bookImage, bookTitle, cart.bookEA, bookPrice "
 				+ "FROM cart JOIN book ON book.bookID = cart.book_bookID "
 				+ "WHERE user_uID=? AND cartNum In (" + cartNumStr + ")";
 				
@@ -86,6 +86,7 @@ public class CartDAO {
 			while(rs.next()) {
 				CartBean cartBean = new CartBean();
 				cartBean.setCartNum(rs.getInt("cartNum"));
+				cartBean.setBookID(rs.getInt("book_bookID"));
 				cartBean.setBookImage(rs.getString("bookImage"));
 				cartBean.setBookTitle(rs.getString("bookTitle"));
 				cartBean.setBookEA(rs.getInt("cart.bookEA"));

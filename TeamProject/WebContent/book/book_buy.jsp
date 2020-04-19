@@ -85,17 +85,17 @@ function qtyRemove(cartNum){
 function couponDis(finalPrice){
 	var beforePrice = parseInt(finalPrice);
 	
-	// 셀렉트에 선택된 cID(value로) 구하기, volume(cID를 id로 가지는)구하기 
-	var cID = "#" + $("#couponList option:selected").val();
-	var volume = parseInt($(cID).val());
+	// 셀렉트에 선택된 num(value로) 구하기, volume(num를 id로 가지는)구하기 
+	var num = "#" + $("#couponList option:selected").val();
+	var volume = parseInt($(num).val());
 	
 	// 쿠폰이 없는 경우
-	if(cID == "#-1") {
+	if(num == "#-1") {
 		alert('사용가능한 쿠폰이 없습니다');
 		volume = 0;		// 쿠폰 초기화
 	} 
 	// 쿠폰 선택하지 않고 적용 누른 경우
-	else if(cID == "#0") {
+	else if(num == "#0") {
 		alert('쿠폰을 선택해주세요');
 		volume = 0;		// 쿠폰 초기화
 	}
@@ -238,6 +238,10 @@ function pointDis(finalPrice, memberPoint){
              </thead>
              <tbody>
              <c:forEach var="cart" items="${cartList }" varStatus="status">
+             	<input type="hidden" name="bookID${status.index }" value="${cart.bookID }">
+             	<input type="hidden" name="bookTitle${status.index }" value="${cart.bookTitle }">
+             	<input type="hidden" name="bookPrice${status.index }" value="${cart.bookPrice }">
+             	<input type="hidden" name="bookEA${status.index }" value="${cart.bookEA }">
              	<c:choose>
              		<c:when test="${fn:length(cartList) > 1}">
              			<input type="hidden" id="payTitle" value="${cart.bookTitle } 외 ${fn:length(cartList)}건">
@@ -257,12 +261,15 @@ function pointDis(finalPrice, memberPoint){
          </table>
 	<hr class="soft"/>
 	<br><br>
+	<input type="hidden" name="recName" value="${memberBean.u_name }">
+	<input type="hidden" name="recPhone" value="${memberBean.tell_num }">
+	<input type="hidden" name="orderAddress" value="${memberBean.address2 }">
 	<!-- 배송지 Table -->	
     <table class="table">
 	  <tr><th>배송지 </th></tr>
 	  <tr> 
 		<td>
-		  ${memberBean.u_name } / ${memberBean.phone_num } <br>
+		  ${memberBean.u_name } / ${memberBean.tell_num } <br>
 		  ${memberBean.address2 }
 		</td>
 	   </tr>
@@ -282,13 +289,13 @@ function pointDis(finalPrice, memberPoint){
 		  		<c:otherwise>
 				  	<option value="0">선택하세요</option>
 				  	<c:forEach var="coupon" items="${couponList }" varStatus="status">
-				  		<option value="${coupon.cID }">${coupon.coupon_name }</option>
+				  		<option value="${coupon.num }">${coupon.coupon_name }</option>
 				  	</c:forEach>
 		  		</c:otherwise>
 		  	</c:choose>
 		  </select>
 		  <c:forEach var="coupon" items="${couponList }" varStatus="status">
-	  		<input type="hidden" id="${coupon.cID }" value="${coupon.volume }">
+	  		<input type="hidden" id="${coupon.num }" value="${coupon.volume }">
 		  </c:forEach>
 		  <input type="button" value="쿠폰적용" onclick="couponDis(${finalPrice})">
 		</td>
