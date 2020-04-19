@@ -19,7 +19,13 @@ public class BookBuyProService {
 		int updateCount = orderDAO.insertOrder(orderBean);
 		
 		if(updateCount > 0) {
-			commit(con);
+			int updateBookCount = orderDAO.updateBookEA(orderBean.getOrderList());
+			if(updateBookCount > 0) {
+				commit(con);
+			} else {
+				rollback(con);
+			}
+			
 		} else {
 			rollback(con);
 		}

@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import vo.MemberBean;
 import vo.OrderBean;
@@ -504,6 +505,33 @@ public OrderDAO() {}
 			
 			return insertCount;
 		}
+
+		public int updateBookEA(List<OrderDetailBean> orderList) {
+			// TODO Auto-generated method stub
+			PreparedStatement pstmt = null;
+			int updateBookCount = 0;
+			
+			String sql ="UPDATE book SET bookEA=bookEA-? WHERE bookID=?";
+			
+			try {
+				for(OrderDetailBean orderDetailBean : orderList) {
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, orderDetailBean.getBookEA()); pstmt.setInt(2, orderDetailBean.getBookID());
+					
+					updateBookCount += pstmt.executeUpdate();
+				}
+				if(updateBookCount != orderList.size()) {
+					updateBookCount = 0;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return updateBookCount;
+		}
 	
+		
 
 }
