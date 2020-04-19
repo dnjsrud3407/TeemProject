@@ -6,10 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vo.MemberBean;
 import vo.OrderBean;
+import vo.OrderDetailBean;
 
 public class OrderDAO {
 public OrderDAO() {}
@@ -69,7 +72,7 @@ public OrderDAO() {}
 			while (rs.next()) {
 
 				 orderBean = new OrderBean(
-						rs.getInt("orderNum"),
+						rs.getString("orderNum"),
 						rs.getString("order_ID"),
 						rs.getInt("bookEA"),
 						rs.getDate("orderTime"),
@@ -167,7 +170,7 @@ public OrderDAO() {}
 			while(rs.next()) {
 				orderBean=new OrderBean(
 
-						rs.getInt("orderNum"),
+						rs.getString("orderNum"),
 						rs.getString("order_ID"),
 						rs.getInt("bookEA"),
 						rs.getDate("orderTime"),
@@ -254,7 +257,7 @@ public OrderDAO() {}
 			while(rs.next()) {
 				orderBean=new OrderBean(
 
-						rs.getInt("orderNum"),
+						rs.getString("orderNum"),
 						rs.getString("order_ID"),
 						rs.getInt("bookEA"),
 						rs.getDate("orderTime"),
@@ -355,7 +358,7 @@ public OrderDAO() {}
 				while (rs.next()) {
 
 					orderBean = new OrderBean(
-							rs.getInt("orderNum"),
+							rs.getString("orderNum"),
 							rs.getString("order_ID"),
 							rs.getInt("bookEA"),
 							rs.getDate("orderTime"),
@@ -453,6 +456,53 @@ public OrderDAO() {}
 				close(pstmt);
 			}
 			return right;
+		}
+
+		public int insertOrder(OrderBean orderBean) {
+			int insertCount = 0;
+			PreparedStatement pstmt = null;
+			
+			String sql = "INSERT INTO order_tb(orderNum, order_ID, orderRec, orderAddress, orderTime, "
+					+ "orderStatus, lastModTime, paymentType, couponHistory_num, totalPrice) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, orderBean.getOrderNum()); pstmt.setString(2, orderBean.getOrder_ID());
+				pstmt.setString(3, orderBean.getOrderRec()); pstmt.setString(4, orderBean.getOrderAddress());
+				pstmt.setTimestamp(5, new Timestamp(orderBean.getOrderTime().getTime()));
+				pstmt.setString(6, orderBean.getOrderStatus());
+				pstmt.setTimestamp(7, new Timestamp(orderBean.getLastModTime().getTime()));
+				pstmt.setString(8, orderBean.getPaymentType());
+				pstmt.setInt(9, orderBean.getCoupon_num()); pstmt.setInt(10, orderBean.getTotalPrice());
+				
+				int order_tb_count = pstmt.executeUpdate();
+				
+				if(order_tb_count > 0) {
+					sql = "INSERT INTO order_detail(bookID, orderNum, bookTitle, bookPrice, bookEA) "
+						+ "VALUES(?, ?, ?, ?, ?)";
+					int order_detail_count = 0;
+					for(OrderDetailBean orderDetail : orderBean.getOrderList()) {
+						pstmt = con.prepareStatement(sql);
+						
+						pstmt.setInt(1, orderDetail.getBookID()); pstmt.setString(2, orderDetail.getOrderNum());
+						pstmt.setString(3, orderDetail.getBookTitle()); pstmt.setInt(4, orderDetail.getBookPrice());
+						pstmt.setInt(5, orderDetail.getBookEA());
+						
+						order_detail_count += pstmt.executeUpdate();
+					}
+					if(order_detail_count == orderBean.getOrderList().size()) {
+						insertCount = 1;
+					}
+				
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return insertCount;
 		}
 	
 

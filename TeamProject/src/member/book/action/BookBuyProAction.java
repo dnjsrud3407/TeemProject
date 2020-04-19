@@ -1,5 +1,12 @@
 package member.book.action;
 
+import java.io.PrintWriter;
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,35 +15,116 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import member.account.svc.CouponInfoService;
 import member.account.svc.ModifyFormService;
+import member.book.svc.BookBuyProService;
 import member.book.svc.CartListService;
 import vo.ActionForward;
 import vo.CartBean;
 import vo.MemberBean;
+import vo.OrderBean;
+import vo.OrderDetailBean;
 
 public class BookBuyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		String cID = request.getParameter("couponList");
+		String point = request.getParameter("point");
+		System.out.println("사용한 쿠폰 id" + cID);
+		System.out.println("사용한  point" + point);
+		System.out.println("결제 완료"); 
+		
+		HttpSession session = request.getSession();
+		
+		OrderBean orderBean = null;
+		
+		
+		String order_ID = (String)session.getAttribute("uID");
 		String recName = request.getParameter("recName");
 		String recPhone = request.getParameter("recPhone");
-		String orderAddress = request.getParameter("orderAddress");
-		String cNum = request.getParameter("couponList");
-		String point = request.getParameter("point");
-		String bookID1 = request.getParameter("bookID1");
-		String bookTitle1 = request.getParameter("bookTitle1");
-		String bookPrice1 = request.getParameter("bookPrice1");
-		String bookEA1 = request.getParameter("bookEA1");
-		System.out.println("사용한 쿠폰 Historynum" + cNum);
-		System.out.println("사용한  point : " + point);
-		System.out.println("결제된 bookID1 : " + bookID1);
-		System.out.println("결제된 bookTitle1 : " + bookTitle1);
-		System.out.println("결제된 bookPrice1 : " + bookPrice1);
-		System.out.println("결제된 bookEA1 : " + bookEA1);
+		String orderRec = recName + "/" + recPhone;
+		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
+		
+		String address2 = request.getParameter("orderAddress");
+		String orderStatus = "결제 완료";
+		Date orderTime = new Date(System.currentTimeMillis());
+		Date lastModTime = orderTime;
+		
+		int coupon_num = Integer.parseInt(request.getParameter("couponList"));
+		
+		String paymentType = "Card";
+		
+		// 주문번호 생성
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-mm-dd-hh-mm-ss"); // 시간 형식
+		timeFormat.format(orderTime);							  // 시간 집어넣음
+		String[] timeArray = timeFormat.toString().split("-");					  // 시간을 문자열로 변경 후 연,월,일,시,분,초 추출
+		
+		String orderNum = "";
+		
+		for(String time : timeArray) {	// 추출한 연,월,일,시,분,초 를 하나의 문자열로 합침
+			orderNum += time;
+		}
+		orderNum += order_ID;   // 위에서 합친 문자열에 uID 를 합하여 주문번호 생성
 		
 		
 		
-		System.out.println("결제 완료");
+		
+		
+		// 주문 상세 생성
+		OrderDetailBean orderDetail = null;
+		List<OrderDetailBean> orderList = new ArrayList<OrderDetailBean>();
+		
+		ArrayList<Integer> bookID = new ArrayList<Integer>();
+		ArrayList<String> bookTitle = new ArrayList<String>();
+		ArrayList<Integer> bookPrice = new ArrayList<Integer>();
+		ArrayList<Integer> bookEA = new ArrayList<Integer>();
+
+		Enumeration<String> nameList = request.getParameterNames();
+		
+		while(nameList.hasMoreElements()) {
+			String paramName = nameList.nextElement();
+			if(paramName == null || paramName == "") {
+				break;
+			}
+			
+			
+			if(paramName.contains("bookID")) {
+				bookID.add(Integer.parseInt(request.getParameter(paramName)));
+			}
+			if(paramName.contains("bookTitle")) {
+				bookTitle.add(request.getParameter(paramName));
+			}
+			if(paramName.contains("bookPrice")) {
+				bookPrice.add(Integer.parseInt(request.getParameter(paramName)));
+			}
+			if(paramName.contains("bookEA")) {
+				bookEA.add(Integer.parseInt(request.getParameter(paramName)));
+			}
+			
+		}
+		
+		// 주문 상세 리스트 생성
+		for(int i = 0; i < bookID.size(); i++) {
+			orderDetail = new OrderDetailBean(bookID.get(i), orderNum, bookTitle.get(i), bookPrice.get(i), bookEA.get(i));
+			orderList.add(orderDetail);
+		}
+		
+		// OrderBean 완성 
+		orderBean = new OrderBean(orderNum, order_ID, totalPrice, orderRec, address2, orderTime, orderStatus, lastModTime, coupon_num, paymentType, orderList);
+		
+		BookBuyProService bookBuyProService = new BookBuyProService();
+		
+		int successOrder = bookBuyProService.insertOrder(orderBean);
+		
+		forward = new ActionForward();
+		if(successOrder != 0) {
+			forward.setPath("/");
+			forward.setRedirect(true);
+			
+		} else {
+			
+		}
+		
 		
 		return forward;
 	}
