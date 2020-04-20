@@ -33,6 +33,7 @@ import member.book.action.ReviewListAcion;
 import member.book.action.ReviewModifyFormAction;
 import member.book.action.ReviewModifyProAcion;
 import member.book.action.ReviewWriteProAcion;
+import member.book.action.NewBookAction;
 //import member.book.action.BookBuyProAction;
 //import member.book.action.BookCartProAction;
 //import member.book.action.BookLikeProAction;
@@ -63,8 +64,15 @@ public class MemberBookController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		
-		if(command.equals("/BookList.book")) {
+		// === 메인에서 ajax 제어
+		if(command.equals("/NewBook.book")) {
+			action = new NewBookAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/BookList.book")) {
 			action = new BookListAcion();
 			try {
 				forward = action.execute(request, response);

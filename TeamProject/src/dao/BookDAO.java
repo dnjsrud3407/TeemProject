@@ -345,53 +345,53 @@ public class BookDAO {
 	
 	
 	// 단계별 책 목록 가져오기 
-		public ArrayList<BookBean> selectBookList(int page, int limit, int bk2) {
-			ArrayList<BookBean> bookList = new ArrayList<BookBean>();
-			PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        String sql = "SELECT * FROM book join bookkategorie "
-	        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bk2=? ORDER BY bookID DESC LIMIT ?,?";
-	        BookBean book = null;
-	        
-	        int startRow = (page - 1) * limit;
-	        
-	        try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, bk2);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, limit);
-				rs = pstmt.executeQuery();
-				while(rs.next()) {
-					book = new BookBean(
-							rs.getInt("bookID"), 
-	                        rs.getString("bookTitle"), 
-	                        rs.getString("bookOriginImage"), 
-	                        rs.getString("bookImage"), 
-	                        rs.getString("bookPublisher"), 
-	                        rs.getDate("bookPublishedDate"), 
-	                        rs.getInt("bookPrice"), 
-	                        rs.getInt("bookEA"), 
-	                        rs.getInt("salesVolume"),
-	                        rs.getString("bookIntroduce"), 
-	                        rs.getBoolean("bookisView"), 
-	                        rs.getFloat("saveRatio"),
-	                        rs.getInt("bookKategorie_BKID"),
-	                        rs.getString("BK1"),
-	                        rs.getString("BK2"),
-	                        rs.getString("BK3")
-	                        );
-					bookList.add(book);
-					
-				}
-	        } catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-	            if(rs != null) {close(rs);}
-	            if(pstmt != null) {close(pstmt);}
-	        }
-	        
-			return bookList;
-		}
+	public ArrayList<BookBean> selectBookList(int page, int limit, int bk2) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book join bookkategorie "
+        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bk2=? ORDER BY bookID DESC LIMIT ?,?";
+        BookBean book = null;
+        
+        int startRow = (page - 1) * limit;
+        
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bk2);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"),
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID"),
+                        rs.getString("BK1"),
+                        rs.getString("BK2"),
+                        rs.getString("BK3")
+                        );
+				bookList.add(book);
+				
+			}
+        } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return bookList;
+	}
 		
 	// 검색한 결과 들고오기 (책 정보 and 책 리스트 사이즈)
 	public ArrayList<BookBean> selectSearchBookList(String searchSql, int page, int limit) {
@@ -471,7 +471,7 @@ public class BookDAO {
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
         String sql = "SELECT * FROM book JOIN bookkategorie "
-        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE book.bookTitle LIKE ?" 
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE bookisView=? AND book.bookTitle LIKE ?" 
         		+ " ORDER BY bookID DESC LIMIT ?,?";
         BookBean book = null;
         int startRow = (page - 1) * limit;
@@ -479,9 +479,10 @@ public class BookDAO {
         try {
         	// 페이징 처리////
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + bookTitle + "%");
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, limit);
+			pstmt.setBoolean(1, true);
+			pstmt.setString(2, "%" + bookTitle + "%");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, limit);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				book = new BookBean(
@@ -520,10 +521,11 @@ public class BookDAO {
         ResultSet rs = null;
         int listCount = 0;
         String sql = "SELECT COUNT(*) FROM book JOIN bookkategorie "
-        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE book.bookTitle LIKE ?";
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE bookisView=? AND book.bookTitle LIKE ?";
         try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + bookTitle + "%");
+			pstmt.setBoolean(1, true);
+			pstmt.setString(2, "%" + bookTitle + "%");
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				listCount = rs.getInt(1);
@@ -536,6 +538,43 @@ public class BookDAO {
         }
         
 		return listCount;
+	}
+
+	// main에서 중간 배너 (신권 12권)가져오기
+	public ArrayList<BookBean> selectMiddleBookList() {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book WHERE bookisView=? "
+        		+ "ORDER BY bookID DESC LIMIT ?,?";
+        BookBean book = null;
+
+        try {
+        	// 페이징 처리////
+			pstmt = con.prepareStatement(sql);
+			pstmt.setBoolean(1, true);
+			pstmt.setInt(2, 1);
+			pstmt.setInt(3, 8);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice")
+                        );
+				bookList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+		return bookList;
 	}
 
 

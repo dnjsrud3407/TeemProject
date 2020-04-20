@@ -17,6 +17,7 @@ import member.account.action.FindPassProAction;
 import member.account.action.JoinProAction;
 import member.account.action.LoginProAction;
 import member.account.action.LogoutProAction;
+import member.account.action.Main;
 import member.account.action.ModifyFormAction;
 import member.account.action.ModifyProAction;
 import member.account.action.OffInfoAction;
@@ -42,9 +43,13 @@ public class MemberAccountController extends HttpServlet {
 		Action action = null;
 	ActionForward forward = null;
 	if (command.equals("/Main.me")) {//
-		forward = new ActionForward();
-		forward.setPath("index.jsp");
-	
+		action = new Main();
+		
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}else if (command.equals("/Login.me")) {//
 		forward = new ActionForward();
 		forward.setPath("/member/login.jsp");

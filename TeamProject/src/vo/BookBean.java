@@ -89,6 +89,19 @@ public class BookBean {
 		this.BK3 = bK3;
 	}
 
+    // 메인에서 중간 배너 사용할때
+	public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher, Date bookPublishedDate,
+			int bookPrice) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.bookOriginImage = bookOriginImage;
+		this.bookImage = bookImage;
+		this.bookPublisher = bookPublisher;
+		this.bookPublishedDate = bookPublishedDate;
+		this.bookPrice = bookPrice;
+	}
+
 	public int getBookID() {
         return bookID;
     }
