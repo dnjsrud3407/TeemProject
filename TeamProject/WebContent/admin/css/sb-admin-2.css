@@ -10,6 +10,36 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+/* main 에서 사용 */
+.margin_row {
+  margin-left: 20%;
+}
+.fa-2x_custom {
+    font-size: 3em;
+}
+.text-xl {
+	font-size: 1.1em;
+}
+.iconText {
+	display: inline-block;
+	width: 80%;
+}
+.iconText2 {
+	display: inline-block;
+	width: 20%;
+}
+.clear {
+	clear: both;
+}
+.boardTr {
+	width: 100%;
+}
+.boardTitle {
+	border: 1px solid;
+	background-color: #e8e8e8;
+	padding: 2% 5% 2% 5%;
+}
+ 
 /* 텍스트 중간에 오게 */
 .text-center {
 	text-align: center;
@@ -712,6 +742,8 @@ pre code {
   margin-right: -0.75rem;
   margin-left: -0.75rem;
 }
+
+
 
 .no-gutters {
   margin-right: 0;

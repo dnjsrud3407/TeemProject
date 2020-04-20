@@ -120,7 +120,7 @@ public class BoardDAO {
 		
 		System.out.println(kID);
 		String sql = "INSERT INTO board values(?, ?, ?, ?,"
-				+ " ?, ?, ?, ?, ?, ?, ?)";
+				+ " ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -128,7 +128,7 @@ public class BoardDAO {
 			pstmt.setString(4, bb.getBoardTitle()); pstmt.setString(5, bb.getBoardContent());
 			pstmt.setTimestamp(6, bb.getBoardRegTime()); pstmt.setInt(7, bb.getBoardReRef()); 
 			pstmt.setInt(8, bb.getBoardReLev()); pstmt.setInt(9, bb.getBoardReSeq()); 
-			pstmt.setInt(10, bb.getBoardReadcount()); pstmt.setInt(11, bb.getBookID());
+			pstmt.setInt(10, bb.getBoardReadcount()); pstmt.setInt(11, bb.getBookID()); pstmt.setString(12, null);
 			insertCount = pstmt.executeUpdate();
 //			int update = pstmt.executeUpdate();
 //			if(update != 0) {
