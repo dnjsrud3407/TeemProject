@@ -9,7 +9,7 @@ import static db.JdbcUtil.*;
 public class LoginProService {
 
 	public int isLoginMember(MemberBean member) {
-		int loginResult = 0;	
+		int loginResult = -2;	
 		
 		Connection con = getConnection();
 		
@@ -17,7 +17,7 @@ public class LoginProService {
 		
 		mDAO.setConnection(con);
 		
-		loginResult = mDAO.selectMember(member);
+		loginResult = mDAO.isLogin(member);
 				
 		close(con);
 		

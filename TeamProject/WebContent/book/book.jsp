@@ -5,7 +5,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 
 String nowPage = request.getParameter("page");
@@ -69,6 +69,25 @@ boolean isLogin = false;
     	});
     })
     
+    $(document).on("click",".open-AddReview", function (){
+    	var Title = $('rv_img').data('id');
+    	$(".rv_main ")
+    	var reviewImg = $('.rv_img').attr("src");
+    	console.log(reviewImg);
+//     	var review_t = $('#rv_title').text();
+//     	var review_c = $('#rv_content').text();
+//     	var review_time = $('#rv_regtime').text();
+//     	var readcount = $('#rv_count').text();
+   
+    	$('#cont_img').attr("src",reviewImg);
+//     	$('#rv_readcount').html(readcount + '<br>');
+//     	$('#review_regtime').html(review_time+'<br>');
+//     	$('#detail_title').html(review_t);
+//     	$('#detail_content').html(review_c);
+    	
+    })
+   
+   
 	var isLogin = <%=isLogin%>;
 	var pop_title = document.bookQnaForm;
 	
@@ -125,6 +144,37 @@ boolean isLogin = false;
  			bookQnaForm.submit();
 		}
 	}
+	
+	function openReview(p, number) {
+		alert(isLogin);
+		console.log(p);
+		console.log(number);
+		
+		var reviewUrl = "";
+		
+		if(p === 'm'){
+			reviewUrl = "./ReviewModifyForm.book?boardNum=" + number + "&bookID=" + ${book.bookID};
+			
+		} else if(p === 'd'){
+			if(loginChk()){
+				if(confirm('삭제하시겠습니까?')){
+					location.href = "./ReviewDeletePro.book?boardNum=" + number + "&bookID=" + ${book.bookID};
+					return;	
+				}
+			}
+		}else {
+			alert('알 수 없는 오류입니다');
+		}
+		
+	
+		
+	
+		if(loginChk()){
+			//alert('true');
+ 			window.open(reviewUrl,"reviewForm",'toolbar=no,scrollbars=no,resizable=no,top=100,left=0,width=700,height=700');
+
+		}
+	}
     
 	function kindSubmit(index, qty){
 		if(loginChk()){
@@ -142,6 +192,39 @@ boolean isLogin = false;
 		
 	}
 	
+function readcountUp() {
+		
+	}
+$(document).ready(function() {
+    
+	$.ajax({
+		type: "post",
+		url: $(form).attr('action'),
+		data: formData,
+		success: function(msg)
+		{	
+			
+			
+		},
+		error: function(xhr, ajaxSettings, thrownError)
+		{
+			alert("등록 실패");
+			opener.location.reload();
+			window.close();
+			}
+		
+			
+		});
+	
+	$.ajax({
+		type:"POST",
+		url:"BK1.abook",
+		success: function(msg1){	// 대분류 innerHTML
+			$("select[name='BK1Category']").html(msg1);
+		}
+	});
+	
+	
 	
 </script>
 	<style type="text/css" id="enject">
@@ -151,14 +234,82 @@ boolean isLogin = false;
 }
 
 .td_rgt {/* border: 1px solid #00f; */
- text-align:center !important;
- vertical-align:bottom !important;}
+/*  vertical-align:bottom !important; */}
 
-
+/* 
 .btn_rgt {/* border: 1px solid red; */
  float: right;
   
- }	
+ }	 */
+.rv_wrap .rv_main{
+padding: 20px;
+} 
+
+.rv_content .info_area{
+	position: relative;
+	margin-bottom: 15px;
+	border-bottom: 1px solid; color: #777;
+}
+
+.rv_content .info_area .rv_comment{
+position: absolute;
+top: 0;
+left: 0;
+vertical-align: middle;
+}
+
+.rv_content .info_area .rv_comment .title {
+color: #444;
+font-size: 14px;
+font-weight: 14px;
+font-weight: 700;
+line-height: 20px;
+text-align: left;
+}
+.rv_content .info_area {
+padding: 5px 0;
+text-align: right;
+display: block;
+line-height: 18px;
+}
+
+.rv_content{
+vertical-align: top;
+padding: 15px;}
+
+.info_area{
+vertical-align: top;
+display: block;
+}
+
+.info_text .info_text span{
+display: block;
+line-height: 18px;
+}
+
+
+.scroll_area{
+overflow-y: auto;
+overflow-x: hidden;
+}
+/*Review modal */
+/*  .modal { */
+/*  	text-align: center; */
+/*  } */
+ 
+/*  @@media screen and (min-width: 768px){ */
+/*  	.modal:before { */
+/*  		display: inline-block; */
+/*  		vertical-align: middle; */
+/*  		content: " "; */
+/*  		height: 100%; */
+/*  	} */
+/*  } */
+/*  .modal-dialog { */
+/*  		display: inline-block; */
+/*  		text-align: left; */
+/*  		vertical-align: middle; */
+/*  	} */
 	</style>
   </head>
 <body>
@@ -372,7 +523,7 @@ boolean isLogin = false;
 				
 				<c:set var="bk2" value="${book.BK2 }"/>
 				 <a href="BookList.book?bk2=${fn:substring(bk2,0,1)}" class="btn btn-large pull-right">Compair Product</a>
-				
+				 
 				
               </div>
 		<div class="tab-pane fade" id="profile">
@@ -657,33 +808,49 @@ boolean isLogin = false;
 							
 								<hr class="soft">
 					 </c:if>
+					 
 					 <c:forEach var="review" items="${articleReviewList }" varStatus="status">
 					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
 						<div class="row">	  
 							<div class="span2">
-								<img src="boardfile/${file.originFilename}" alt="">
+								<img id="rv_img" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
 							</div>
 							<div class="span4">
-								<h3>New | Available</h3>				
-								<hr class="soft">
-								<h5>${review.boardTitle } </h5>
-								<p>
-								${review.boardContent }
-								</p>
-								<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
+								
+								<a href="#viewDetail" role="button" data-toggle="modal" class="open-AddReview" onclick="readcountUp('<c:out value="${review.boardNum}"/>')"><h3>New | Available</h3>				
+									
+									<h5 id="rv_title" class="rv_title">${review.boardTitle } </h5>
+									<p id="rv_content" class="rv_content">
+										${review.boardContent }
+									</p>
+								</a>
+								
 								<br class="clr">
 							</div>
-							<div class="span3 alignR">
-							<form class="form-horizontal qtyFrm">
-							<h3> $140.00</h3>
-							<label class="checkbox">
-								<input type="checkbox">  Adds product to compair
-							</label><br>
+							<div class="span3" style="">
 							
-							  <a href="product_details.html" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-							  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+							<div>
+							<h4>작성자 : ${review.boardWriter}</h4>
+							<h4 id="rv_regtime">작성일 : <fmt:formatDate value="${review.boardRegTime }" pattern="yyyy-MM-dd" /></h4>
+							<h4 id="rv_count">조회수 : ${review.boardReadcount }</h4>
+							<h4 style="margin-bottom: 100px;">평점 :
+							<c:forEach  var="i" begin="1" end="${review.score}">
+								<img src="./img/rateStar.png" style="width: 20px; height: 20px;">
+							</c:forEach>
+							<c:if test="${review.score <5 }">
+								<c:forEach  var="i" begin="1" end="${5 - review.score}">
+									<img src="./img/writingStar.png" style="width: 20px; height: 20px;">
+								</c:forEach>
+								
+							</c:if>	 </h4>
 							
-								</form>
+							
+							<br>
+							</div>
+								<div>
+								 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openReview('m','<c:out value="${review.boardNum}"/>')">글 수정하기 <span class=""></span></button>
+							     <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openReview('d','<c:out value="${review.boardNum}"/>')">글 삭제하기 <span class=""></span></button>
+								</div>
 							</div>
 						</div>
 								<hr class="soft">
@@ -758,22 +925,29 @@ boolean isLogin = false;
 									<td>${qna.boardRegTime }</td>
 								</tr>
 								<tr class="qna_tr_s" style="display: table-row;">
-									<td colspan="5" style="height: 236px;" class="td_rgt">
-									<div class="qna_qt">
+								   <td></td>
+								   <td></td>
+									<td><!--  class="td_rgt" -->
+	<%-- 								<div style="text-align:center;">
+									<div class="qna_qt" style="text-align: center; ">
 										<span class="icon_qt">Q</span>
 										${qna.boardContent}
 									</div>
-									<div class="qna_as">
+									<div class="qna_as" style="text-align: center;">
 										<span class="icon_as">A</span>
 										판매자의 답변
 									</div>
-									<p class="info">
+							
+									<p class="info" style="border: 1px solid pink;display: inline-block;">
 									  <span class="">판매자의 답변</span>
 									  <span class="date">
 									  	등록일 :
 									  	<em>2020-04-09</em>
 									  </span>
-															  <div class="btn-group btn_rgt">
+									</p> 
+									</div>
+								 <div class="btn-group btn_rgt" style="border: 1px solid red; float:right ; ">
+								 
 									
 							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 <span class=""></span></button>
 							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 <span class="caret"></span></button>
@@ -784,7 +958,20 @@ boolean isLogin = false;
 <!-- 							           <li class="divider"></li> -->
 <!-- 							           <li><a href="#">Separated link</a></li> -->
 <!-- 							         </ul> -->
-							       </div>
+							       </div> --%>
+							       
+							         
+							           Q ${qna.boardContent}<br>
+                                      A 판매자의 답변   jfdklgjldjgfkjglfjljgjfjgkldjkljigsourttt jfdklgjldjgfkjglfjljgjfjgkldjkljigsourttt<br>
+                                                                                         판매자의 답변 등록일 : 2020-04-09
+							       
+							    	
+									</td>
+									<td colspan="2" style="vertical-align: bottom;">
+									 
+							    	 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 <span class=""></span></button>
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 <span class=""></span></button>
+							    	
 									</td>
 								</tr>				
   							</c:forEach>
@@ -863,6 +1050,50 @@ boolean isLogin = false;
         <p class="pull-right">&copy; BookShop</p>
     </div><!-- Container End -->
     </div>
+    <!-- <div class="modal"></div> -->
+   <!--  <div class="modal-backdrop fade in"></div> -->
+   
+    <div id="viewDetail" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false"
+    style="width: 820px; height: 620px; left:42%; top:45%; border: 1px solid #fff;">
+		<div class="rv_wrap" style="color: #777; letter-spacing: -1px; text-align: left;">
+			<div class="rv_top" style="padding: 20px 20px 20px; border-bottom: 1px solid #c6c6c6; height: 10px; line-height: 18px;" >
+				<strong class="rev_title" style="width: 122px; font-size: 20px; height: 19px;">상품평</strong>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">close</button>
+			</div>
+		  <div class="rv_main">
+			<div class="rv_content">
+				<div class="info_area">
+					<div class="rv_comment">
+						<p class="title" id="detail_title">
+							
+						</p>
+					</div>
+					<div class="info_text" style="text-align: right; width: 774px; height: 46px; padding: 5px;">
+						<div style="display: inline-block; margin-right: 40px;">
+						<span id="rv_readcount"></span>
+						<span id="review_regtime"></span>
+						</div>
+					</div>
+				</div>
+				<div class="scroll_area" style="max-height: 415px;">
+					<div class="cont_box">
+					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img"></p>
+					<p class="cont_text" style="margin: 10px;" id="detail_content"></p>
+					<hr>
+					</div>
+				</div>
+				<div class="cont_bottom">
+					<div class="">
+						
+					</div>
+				</div>
+				 <div></div>	
+			
+			</div>
+		  </div>
+		  
+		</div>  
+	</div>
 <!-- Placed at the end of the document so the pages load faster ============================================= -->
     <script src="themes/js/jquery.js" type="text/javascript"></script>
     <script src="themes/js/bootstrap.min.js" type="text/javascript"></script>

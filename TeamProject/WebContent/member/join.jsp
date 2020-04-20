@@ -105,33 +105,33 @@
 <script type="text/javascript">
 var jc = jQuery.noConflict();
 
-jc(document).ready(function () {
+// jc(document).ready(function () {
 
-	jc('#emailCheck').click(function() {
-	 var params = jc("#form-horizontal").serialize(); 
-				alert(params);
-		jc.ajax({
-		url : 'dd.send',
-		type : 'post',
+// 	jc('#emailCheck').click(function() {
+// 	 var params = jc("#form-horizontal").serialize(); 
+// 				alert(params);
+// 		jc.ajax({
+// 		url : 'dd.send',
+// 		type : 'post',
 		
-		 data:params,
+// 		 data:params,
 
-		success : function(data) {
-// // 			history.back();
-// 			location.href="member/mailcheck.jsp";
-			window.open('member/mailcheck.jsp','이메일 인증','width=430,height=200,location=no,status=no,scrollbars=yes');
+// 		success : function(data) {
+// // // 			history.back();
+// // 			location.href="member/mailcheck.jsp";
+// 			window.open('member/mailcheck.jsp','이메일 인증','width=430,height=200,location=no,status=no,scrollbars=yes');
 
-		}
+// 		}
 
-	});
+// 	});
 
-});
+// });
 	
 	
 	
 	
 
-});
+// });
 	
 	
 	

@@ -230,7 +230,7 @@ ja(document).ready(function () {
                 <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin(${list.orderDetailCode})">반품신청</a></div></c:if>
                 <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin2(${list.orderDetailCode})">교환신청</a></div></c:if>  
 																					<!--                 연결할것 -->
-                <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="" id="orderConFrim">상품후기쓰기</a></div></c:if>  
+                <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="ReviewWriteForm.book?bookID=${list.bookID}" id="orderConFrim">상품후기쓰기</a></div></c:if>  
                   </td>
                   
                  <td>

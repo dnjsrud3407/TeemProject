@@ -14,7 +14,6 @@ public class FindPassProAction implements Action {
 		System.out.println("FindPassProAction");
 		
 		
-		
 		return forward;
 	}
 

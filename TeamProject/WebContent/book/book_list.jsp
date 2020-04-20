@@ -153,7 +153,7 @@
 				<input type="checkbox">  Adds product to compair
 			</label><br/>
 			
-			  <a href="/BookCartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+			  <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
 			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 			
 				</form>

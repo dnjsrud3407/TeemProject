@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import member.book.svc.ReviewDeleteProService;
@@ -17,6 +18,17 @@ public class ReviewDeleteProAction implements Action {
 		
 		ActionForward forward = null;
 		
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		
+		HttpSession session = request.getSession();
+		String boardWriter = (String)session.getAttribute("uID");
+		
+		String k1="상품후기";
+		
+		int bookID = Integer.parseInt(request.getParameter("bookID"));
+		
+		ReviewDeleteProService reviewDeleteProService = new ReviewDeleteProService();
+		boolean isDeleteSuccess = reviewDeleteProService.removeReview(boardNum, boardWriter, k1);
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");
 //		
@@ -24,38 +36,25 @@ public class ReviewDeleteProAction implements Action {
 //		ReviewDeleteProService reviewDeleteProService = new ReviewDeleteProService();
 //		isRightUser = reviewDeleteProService.isReviewWriter(num, request.getParameter("board_pass"));
 //		
+		if(!isDeleteSuccess) {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('글 삭제 실패!')");
+			out.println("history.back()");
+			out.println("</script>");
+		} else {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('글 삭제 성공!!')");
+			out.println("histroy.back()");
+			out.println("</script>");
+		}
 
-//		if(!isRightUser) {
-//			response.setContentType("text/html; charset=UTF-8");
-//			PrintWriter out = response.getWriter();
-//			out.println("<script>");
-//			out.println("alert('삭제 권한이 없습니다!')");
-//			out.println("history.back()");
-//			out.println("</script>");
-//		} else {
-//			//삭제작업진행 
-////			System.out.println("삭제 완료!");
-//			boolean isDeleteSuccess = reviewDeleteProService.removeReview(num);
-//			
-//			if(!isDeleteSuccess) {
-//				response.setContentType("text/html; charset=UTF-8");
-//
-//				PrintWriter out = response.getWriter();
-//
-//				out.println("<script>");
-//				out.println("alert('글 삭제 실패!!')");
-//				out.println("histroy.back()");
-//				out.println("</script>");
-//
-//			}else {
-//				forward = new ActionForward();
-//				forward.setPath("BoardList.bo?=page" + page);
-//				forward.setRedirect(true);
-//			}
-//		}
 		
 		forward = new ActionForward();
-		forward.setPath("Book.book");
+		forward.setPath("Book.book?bookID=" + bookID);
 		forward.setRedirect(true);
 
 		return forward;
