@@ -36,6 +36,16 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
     <style type="text/css" id="enject"></style>
   </head>
+  <script type="text/javascript">
+  function checkSearch() {
+	if($("#srchFld").val() == "") {
+		alert('검색어를 입력하세요');
+		return false;
+	} else {
+		return true;
+	}
+  }
+  </script>
 <body>
 <div id="header">
 <div class="container">
@@ -83,8 +93,8 @@
   <div class="navbar-inner">
     <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
+    <form class="form-inline navbar-search pull-right" method="post" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
+        <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
     <ul id="topMenu" class="nav">

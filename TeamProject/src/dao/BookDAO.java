@@ -463,33 +463,79 @@ public class BookDAO {
         
 		return listCount;
 	}
-	public void updateBoard_re_ref(BookBean bookBean) {
-		
+
+
+	// 책 검색한 목록 가져오기
+	public ArrayList<BookBean> selectSearchBookList(int page, int limit, String bookTitle) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book JOIN bookkategorie "
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE book.bookTitle LIKE ?" 
+        		+ " ORDER BY bookID DESC LIMIT ?,?";
+        BookBean book = null;
+        int startRow = (page - 1) * limit;
+
+        try {
+        	// 페이징 처리////
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + bookTitle + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"),
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID"),
+                        rs.getString("BK1"),
+                        rs.getString("BK2"),
+                        rs.getString("BK3")
+                        );
+				bookList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+		return bookList;
 	}
 
-	
-
-	public boolean isWriter(int num, String pass) {
-		
-		return false;
-	}
-
-	public int updateReview(BookBean review) {
-		return 0;
-	}
-
-
-	public int updateReadcount(int num) {
-		return 0;
-	}
-	public BookBean selectQuestion(int num) {
-		BookBean books = null;
-
-		return books;
-	}
-
-	public int updateQuestion(BookBean question) {
-		return 0;
+	// 책 검색한 목록 사이즈 구하기
+	public int selectSearchListCountMem(String bookTitle) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int listCount = 0;
+        String sql = "SELECT COUNT(*) FROM book JOIN bookkategorie "
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE book.bookTitle LIKE ?";
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, "%" + bookTitle + "%");
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				listCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return listCount;
 	}
 
 
