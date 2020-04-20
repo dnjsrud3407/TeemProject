@@ -30,24 +30,18 @@ public class CouponInfoService {
 		
 	}
 
-	public int getCouponInfoListCount(String uID) {
-		int count=0;
-		
-	System.out.println("CouponInfoService.getCouponInfo(String uID");
-		
+	public List<MemberBean> getCouponList(String uID) {
 		Connection con = getConnection();
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
-		count=dao.getCouponInfoListCount(uID);
-		
+		ArrayList<MemberBean> list = dao.getCouponList(uID);
 		
 		close(con);
 		
-		return count;
+		return list;
 	}
-
-
+	
 	
 	
 	

@@ -54,12 +54,14 @@ public class NoticeWriteProAction implements Action {
 
 			System.out.println("원본 파일명(보여지는 이름) : " + originFilename);
 			System.out.println("저장된 파일명(중복처리) : " + storedFileName);
-
-			String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름 
-			// "." 은 정규식에서 무작위 문자라는 뜻이라서 . 으로 문자열을 자르기 위해서는 \\.  을 사용해야한다.
-			String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
-			file = new FileBean(originFilename, storedFileName, fileType);
-			fileList.add(file);
+			
+			if(originFilename != null) {
+				String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름 
+				// "." 은 정규식에서 무작위 문자라는 뜻이라서 . 으로 문자열을 자르기 위해서는 \\.  을 사용해야한다.
+				String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
+				file = new FileBean(originFilename, storedFileName, fileType);
+				fileList.add(file);
+			}
 		}
 		// DB작업을 위해 서비스 객체 생성
 		BoardService boardService = new BoardService();
@@ -91,7 +93,9 @@ public class NoticeWriteProAction implements Action {
 			// Notice 작성한거 상세보기
 			forward.setPath("./NoticeDetail.adb?boardNum="+boardNum);
 		} else {
-			
+			session.setAttribute("ErrorMSG", "게시글 작성에 실패하였습니다.");
+			forward.setPath("failed.adb");
+			forward.setRedirect(true);
 		}
 		
 		return forward;

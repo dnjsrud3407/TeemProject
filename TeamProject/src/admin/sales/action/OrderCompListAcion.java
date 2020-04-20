@@ -1,6 +1,7 @@
 package admin.sales.action;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,14 +24,14 @@ public class OrderCompListAcion implements Action {
 //		OrderBean order = orderListService.getOrder(num);
 		
 		ActionForward action = new ActionForward();
-		String uId = request.getParameter("order_ID");
+		String orderNum = request.getParameter("order_ID");
 		
 		//삭제필요한지확인
 //		admin.sales.svc.OrderListService mind = null;
 		
 	
 		OrderListService orderListService = new OrderListService();
-		ArrayList<OrderBean> orderList = orderListService.getOrderList(uId);
+		List<OrderBean> orderList = orderListService.orderList();
  
 		request.setAttribute("orderList", orderList);
 		

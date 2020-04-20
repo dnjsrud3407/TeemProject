@@ -1,27 +1,80 @@
 package vo;
 
 import java.sql.Date;
+import java.util.List;
 
 
 public class OrderBean {
 	
 	public  OrderBean() {}
 
+	// 주문번호, 주문자 ID, 최종 가격, 수령인, 배송지, 주문시간, 주문상태, 상태변경시간(주문시간), 쿠폰번호, 결제방식
+	
+	private String orderNum; //주문번호								***
+	private String order_ID; //주문자 아이디 							***
+	private int  totalPrice; // 최총 가격							***
+	private String orderRec; //수령인								***  수령인 + 전화번호
+	private String address2;//									***  배송지
+	private Date orderTime; //주문시간								***
+	private String orderStatus; //주문상태
+	private Date lastModTime; //주문상태 바꾼시간						***
+	private int coupon_num;        //couponhistory 테이블 num		*** 
+	private String paymentType;//								*** 결제 방식
+	private List<OrderDetailBean> orderList;
 	
 	
-	int orderNum; //주문번호
-	String order_ID; //주문자 아이디 
-	String bookTitle;//책 이름                book 테이블
+	
+	
+	public OrderBean(String orderNum, String order_ID, int totalPrice, String orderRec, String address2, Date orderTime,
+			String orderStatus, Date lastModTime, int coupon_num, String paymentType, List<OrderDetailBean> orderList) {
+		super();
+		this.orderNum = orderNum;
+		this.order_ID = order_ID;
+		this.totalPrice = totalPrice;
+		this.orderRec = orderRec;
+		this.address2 = address2;
+		this.orderTime = orderTime;
+		this.orderStatus = orderStatus;
+		this.lastModTime = lastModTime;
+		this.coupon_num = coupon_num;
+		this.paymentType = paymentType;
+		this.orderList = orderList;
+	}
+
+
+
+	public List<OrderDetailBean> getOrderList() {
+		return orderList;
+	}
+
+
+
+	public void setOrderList(List<OrderDetailBean> orderList) {
+		this.orderList = orderList;
+	}
+
+
+
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	String bookTitle;//책 이름                book 테이블	
 	int bookID; //상품번호        이거 order_detail 테이블
 	int orderEA; //주문갯수                     order_detail 테이블
 	String orderAddress; //주문자 주소
-	Date orderTime; //주문시간
-	String orderStatus; //주문상태
-	Date lastModTime; //주문상태 바꾼시간
-	int couponHistory_num; //쿠폰번호 
-	String coupon_name;    //coupon 테이블
+	int couponHistory_num; //쿠폰번호 		
+	String coupon_name;    //coupon 테이블			
+	String u_name;//									***  수령인
+	String phone_num;//									***  수령인 전화번호
 	
-	int coupon_num;        //couponhistory 테이블 num
 	
 	String pointContent;   //pointhistory 테이블
 	int pointValue;
@@ -31,16 +84,12 @@ public class OrderBean {
 	String bookOriginImage;
 	String bookPublisher;
 	int bookPrice;
-	String u_name;
-	String address2;
 	String address;
-	String phone_num;
 	String tell_num;
 	String email;
 	
 	 int orderDetailCode;
 	 int bookKategorie_BKID;
-	 String paymentType;
 	 String bookIntroduce;
 	 float saveRatio;
 	
@@ -67,11 +116,10 @@ public class OrderBean {
 //	pointContent
 	Date pointRegTime;
 //	pointValue
-	String orderRec; //수령인
 	String volume;
 	
 	//mypage(orderList)
-	public OrderBean(int orderNum, String order_id,String bookTitle,int bookID, int orderEA, String orderAddress, Date orderTime,
+	public OrderBean(String orderNum, String order_id,String bookTitle,int bookID, int orderEA, String orderAddress, Date orderTime,
 			String orderStatus, Date lastModTime, int couponHistory_num,String coupon_name,int bookPrice) {
 		super();
 		this.orderNum = orderNum;
@@ -92,7 +140,7 @@ public class OrderBean {
 	
 	//수정후 mypage 의 orderlist 포인트는 아직 ㄴㄴ
 	
-	public OrderBean(int orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
+	public OrderBean(String orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
 			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
 			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
 			String couponStatus,String orderRec,
@@ -138,7 +186,7 @@ public class OrderBean {
 	
 	
 	// orderDetail
-	public OrderBean(int orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
+	public OrderBean(String orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
 			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
 			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
 			String couponStatus,Boolean pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec,
@@ -436,10 +484,10 @@ public class OrderBean {
 		this.email = email;
 	}
 
-	public int getOrderNum() {
+	public String getOrderNum() {
 		return orderNum;
 	}
-	public void setOrderNum(int orderNum) {
+	public void setOrderNum(String orderNum) {
 		this.orderNum = orderNum;
 	}
 	public String getOrder_id() {

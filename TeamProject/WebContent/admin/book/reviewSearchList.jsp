@@ -116,21 +116,6 @@
 		}
 	}
 </script>
-<style type="text/css">
-#pageList {
-	margin: auto;
-	width: 500px;
-	text-align: center;
-	font-size: 1.2em;
-}
-.red {
-	color: #ff0000;
-}
-.checkbox_padding {
-	margin-right: 2.5%;
-	width:200px
-}
-</style>
 </head>
 <body id="page-top">
 <!-- 관리자 id 아닌 경우 로그인창으로 이동 -->
@@ -168,7 +153,7 @@
               <form action="ReviewSearchPro.abook" method="post" id="searchForm">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <tr>
-                  	<th style="width: 15%;">후기 접수일</th>
+                  	<th class="thWidth">후기 접수일</th>
                   	<td>
                   		<input type="button" class="custom_dateBtn" value="오늘" onclick="changeDate('Today')">
                   		<input type="button" class="custom_dateBtn" value="1주일전" onclick="changeDate('-7Day')">
@@ -179,9 +164,9 @@
                   	</td>
                   </tr>
                   <tr>
-                  	<th style="width: 15%;">처리상태</th>
+                  	<th>처리상태</th>
                   	<td>
-						<select name="answer" id="answer" class="checkbox_padding">
+						<select name="answer" id="answer" class="inputWidth">
 							<option value="all" <c:if test="${answer eq 'all' }"> selected="selected"</c:if>>전체</option>
 							<option value="false" <c:if test="${answer eq 'false' }"> selected="selected"</c:if>>답변대기</option>
 							<option value="true" <c:if test="${answer eq 'true' }"> selected="selected"</c:if>>답변완료</option>
@@ -244,7 +229,7 @@
                     </tr>
                     </c:forEach>
                 </table>
-                <section id="pageList">
+                <section id="pageList" class="list-center">
                 	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
                 		<a href="ReviewSearchPro.abook?page=${pageInfo.startPage-pageInfo.pageBlock }&boardRegTime_Before=${boardRegTime_Before}&boardRegTime_After=${boardRegTime_After}&answer=${answer}">[이전]</a>&nbsp;
                 	</c:if>

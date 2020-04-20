@@ -17,14 +17,14 @@ public class NoticeDeleteProAction implements Action {
 		
 		BoardService boardService = new BoardService();
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-		String k1 = request.getParameter("k1");
+		String k1 = "공지사항";
 		
 		int deleteCount = boardService.deleteArticle(boardNum, k1);
 		
 		forward = new ActionForward();
 		if(deleteCount != 0) {
 			// 글 삭제 성공 시 반응
-			forward.setPath("/Notice.adb");
+			forward.setPath("./Notice.adb");
 			forward.setRedirect(true);
 		} else {
 			// 글 삭제 실패 시 반응

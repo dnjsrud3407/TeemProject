@@ -29,7 +29,6 @@ public class MemberDetailAcion implements Action {
 		
 		ActionForward forward = null;
 		String members = request.getParameter("uID");
-
 //		String user = (String)session.getAttribute("user");
 		MemberDetailService memberDetailService = new MemberDetailService();
 		MemberBean member = memberDetailService.getMember(members);

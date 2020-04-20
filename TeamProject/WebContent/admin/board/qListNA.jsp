@@ -1,3 +1,5 @@
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -12,7 +14,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - order_delivery_list.jsp</title>
+  <title>팀프로젝트 - 관리자 QListNA목록</title>
 
   <!-- Custom fonts for this template -->
   <link href='<c:url value="/admin/vendor/fontawesome-free/css/all.min.css"/>' rel="stylesheet" type="text/css">
@@ -39,7 +41,15 @@
 		width:200px
 		}
 	</style>
-
+	
+	
+	<script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+		
+	<script>
+		
+	</script>
+	
+	
 </head>
 
 <body id="page-top">
@@ -63,56 +73,87 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-                <div class="container-fluid">
-                
-            <div class="card shadow mb-4">
-	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="history.back()">&lt; FAQ 목록</a></h5>
-	            </div>
-        	</div>
-                
-                
-			<div class="row">
+        <div class="container-fluid">
 
-           <!-- FAQ 작성 -->
+          <!-- Page Heading -->
+          <h1 class="h3 mb-2 text-gray-800">QListNA</h1>
+          	<div>
+          	<table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">		
+              	<tbody>
+              	<tr>
+              		<td><a href='<c:url value="/QListNA.adb"/>'>전체</a></td>
+	              	<c:forEach var="k2" items="${k2List }" varStatus="k2Status">
+	              	
+		              	<td>
+		              		<a href='<c:url value="/QListNA.adb?k2=${k2}"/>'>${k2}</a>
+		              	</td>
+					</c:forEach>
 
-			<div style="margin-left: auto; margin-right: auto;">
-              <div class="card position-relative">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
-                </div>
-                <div class="card-body">
-	              <div class="table-responsive">
-	              
-	              <form action='<c:url value="/NoticeModifyPro.adb"/>' method="post" enctype="multipart/form-data">
-							<input type="hidden" name="boardWriter" value="${sessionScope.uID}">
-							<input type="hidden" name="boardNum" value="${article.boardNum }">
-		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				</tr>
+				</tbody>
+			</table>
+            </div>
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataSearchTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th style= "width: 150px;">문의번호</th>
+                      <th style="width: 150px;">답변 여부</th>
+                      <th>제목</th>
+                      <th>문의날짜</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                  <c:choose>
+	                  <c:when test="${pageInfo.listCount > 0}">
+		                  <c:forEach var="articleList" items="${articleList }" varStatus="listStatus">
 		                    <tr>
-		                      <th>제목</th>
-		                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${article.boardTitle }"></td>
+		                      <th>${articleList.boardNum }</th>
+		                      <c:choose>
+		                      <c:when test="${articleList.boardReSeq eq 0 }"><th>답변 대기</th></c:when>
+		                      <c:when test="${articleList.boardReSeq > 0 }"><th>답변 완료</th></c:when>
+		                      </c:choose>
+		                      <th><a href="QDetail.adb?boardNum=${articleList.boardNum }" class="title">${articleList.boardTitle }</a></th>
+		                      <th>${articleList.boardRegTime}</th>
 		                    </tr>
-		                    <tr>
-		                    	<input type="file" name="file">
-		                    </tr>
-		                    <tr>
-		                      <th style="width:15%">내용</th>
-		                      <td colspan="3">
-		                      <textarea name="boardContent" rows="15" cols="70" required="required">${article.boardContent }</textarea>
-		                      </td>
-		                    </tr>
-		                </table>
-		                <div style="text-align: right;"><input type="submit" value="공지사항 수정"></div>
-	                </form>
-	                
-	              </div>
-	            </div>
+		                  </c:forEach>
+	                  </c:when>
+                  </c:choose>
+                  	
+                  </tbody>
+                </table>
               </div>
-			</div>
-
+              	<div class="card-header py-3">
+              		<section id="pageList">
+                	<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+                		<a href="QListNA.adb?page=${pageInfo.startPage-pageInfo.pageBlock }">[이전]</a>&nbsp;
+                	</c:if>
+                	<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+                	<c:choose>
+                	<c:when test="${pageInfo.page eq i }">${i }&nbsp;</c:when>
+                	<c:when test="${pageInfo.k2 eq null }"> <a href="QListNA.adb?page=${i }">${i }</a>&nbsp; </c:when>
+                	<c:when test="${pageInfo.k2 != null }"> <a href="QListNA.adb?page=${i }&k2=${pageInfo.k2}">${i }</a>&nbsp; </c:when>
+                	<c:otherwise><a href="QListNA.adb?page=${i }">${i }</a>&nbsp;</c:otherwise>
+                	</c:choose>
+                		
+                	</c:forEach>
+                	<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+                		<a href="QListNA.adb?page=${pageInfo.startPage+pageInfo.pageBlock }">[다음]</a>
+                	</c:if>
+                	</section>
+<!--                 	<div style="text-align:right"> -->
+<%-- 	            	<a href='<c:url value="/QListNAWrite.adb?"/>'> <input type="button" value="1:1 문의 작성하기"></a> --%>
+<!-- 	            	</div> -->
+	            </div>
+            </div>
           </div>
-		  
-          
+
         </div>
         <!-- /.container-fluid -->
 

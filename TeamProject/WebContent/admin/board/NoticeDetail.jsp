@@ -75,6 +75,14 @@
 
         <!-- Begin Page Content -->
                 <div class="container-fluid">
+                
+            <div class="card shadow mb-4">
+	            <div class="card-header py-3">
+	              <h5 class="m-0 font-weight-bold text-primary"><a href='<c:url value="/Notice.adb"/>'>&lt; 공지사항 목록</a></h5>
+	            </div>
+        	</div>
+                
+                
 			<div class="row">
 
            <!-- FAQ 작성 -->
@@ -92,14 +100,14 @@
 		                      <td colspan="3">${article.boardTitle }</td>
 		                    </tr>
 		                    <tr>
-		                      <th style="width:15%">내용</th>
+		                      <th style="width:50%%">내용</th>
 		                      <td colspan="3">
 		                      
 		                      <c:if test="${article.fileList.size() > 0 }">
 		                      	<c:forEach var="image" items="${article.fileList}" varStatus="index">
 		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/>
 		                      	</c:forEach>
-		                      </c:if>
+		                      </c:if><br>
 		                      ${article.boardContent }
 		                      </td>
 		                    </tr>

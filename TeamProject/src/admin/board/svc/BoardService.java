@@ -232,5 +232,53 @@ public class BoardService {
 	
 
 	
+	// 1:1 문의용
+	public ArrayList<BoardBean> getQ(int boardNum, String k1) {
+		System.out.println("BoardService의 getQ() 메서드");
+		// 객체 반환을 위한 BoardBean 객체 선언
+		BoardBean bb = null;
+		//
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		ArrayList<BoardBean> QDeatails = boardDAO.selectQ(boardNum, k1);
+		// DB 연결 종료
+		close(con);
+		
+		return QDeatails;
+	}
+	
+	public int writeReply(BoardBean bb) {
+		System.out.println("BoardService의 writeArticle() 메서드");
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		// 글이 작성되었는가 여부는 int로 리턴받게 된다. 0이면 실패
+		int insertCount = boardDAO.insertArticle(bb);
+		
+		if(insertCount != 0) {
+			int updateSeq = boardDAO.updateSeq(bb.getK1(), bb.getBoardReRef());
+			if(updateSeq != 0) {
+				commit(con);	// 삽입된 글 정보 적용(커밋)
+			} else {
+				rollback(con);
+			}
+		} else {
+			rollback(con);
+		}
+		// DB 연결 종료
+		close(con);
+		
+		return insertCount; // 가져온 최신글의 글 번호 반환
+	}
+	
 	
 }

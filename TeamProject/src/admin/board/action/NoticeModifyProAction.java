@@ -8,6 +8,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -47,16 +48,18 @@ public class NoticeModifyProAction implements Action {
 			System.out.println("원본 파일명(보여지는 이름) : " + originFilename);
 			System.out.println("저장된 파일명(중복처리) : " + storedFileName);
 
-			String[] getFileType = originFilename.split("."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름
-			String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
-			file = new FileBean(originFilename, storedFileName, fileType);
-			fileList.add(file);
+			if(originFilename != null) {
+				String[] getFileType = originFilename.split("\\."); // 파일명 마지막의  확장자를 꺼내기 위하여 . 으로 문자열을 자름 
+				// "." 은 정규식에서 무작위 문자라는 뜻이라서 . 으로 문자열을 자르기 위해서는 \\.  을 사용해야한다.
+				String fileType = getFileType[getFileType.length - 1]; // 파일명 마지막이 .확장자로 끝나므로 끝 인덱스 값을 넣음
+				file = new FileBean(originFilename, storedFileName, fileType);
+				fileList.add(file);
+			}
 		}
 		// DB작업을 위해 서비스 객체 생성
 		BoardService boardService = new BoardService();
 		// 카테고리 관련
-		String k1 = multi.getParameter("k1");
-		String k2 = multi.getParameter("k2");
+		String k1 = "공지사항";
 		// 글 번호 들고오기
 		int boardNum = Integer.parseInt(multi.getParameter("boardNum"));
 		
@@ -65,7 +68,13 @@ public class NoticeModifyProAction implements Action {
 		String boardContent = multi.getParameter("boardContent");
 		
 		// BoardBean 에 파라미터 저장 및 생성
-		bb = new BoardBean(boardNum, k1, k2, boardTitle, boardContent, fileList);
+//		bb = new BoardBean(boardNum, k1, k2, boardTitle, boardContent, fileList);
+		bb = new BoardBean();
+		bb.setBoardNum(boardNum);
+		bb.setK1(k1);
+		bb.setBoardTitle(boardTitle);
+		bb.setBoardContent(boardContent);
+		bb.setFileList(fileList);
 		
 		// 삭제요청받은 파일 목록
 		List<String> deleteFileName = new ArrayList<String>();
@@ -82,7 +91,8 @@ public class NoticeModifyProAction implements Action {
 		//2. 기존 파일 변동여부 와는 상관없이 새 파일 추가되었을 경우 새 파일을 추가
 		//
 		//3. 기존 파일 삭제 시 삭제된 파일이름 hidden으로 넘겨서 File.delete() 실행
-		
+		HttpSession session = request.getSession();
+		forward = new ActionForward();
 		if(updateCount != 0) {
 			// 수정 성공시 삭제요청받은 기존 파일을 삭제해야함
 			// 삭제된 파일들을 삭제할 코드
@@ -91,11 +101,13 @@ public class NoticeModifyProAction implements Action {
 				df.delete();		// 파일 삭제
 			}
 			// 수정 성공 시 이동할 경로
-			
-			
-			
+			forward.setPath("./NoticeDetail.adb?boardNum=" + boardNum);
+			forward.setRedirect(true);
 		} else {
 			// 수정 실패 시 이동할 경로
+			session.setAttribute("ErrorMSG", "게시글 수정에 실패하였습니다.");
+			forward.setPath("failed.adb");
+			forward.setRedirect(true);
 		}
 		
 		return forward;

@@ -1,11 +1,16 @@
 package admin.sales.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.member.svc.MemberDetailService;
 import admin.sales.svc.OrderCompDetailService;
+import admin.sales.svc.OrderDetailService;
 import vo.ActionForward;
+import vo.MemberBean;
 import vo.OrderBean;
 
 public class OrderCompDetailAcion implements Action {
@@ -27,7 +32,20 @@ public class OrderCompDetailAcion implements Action {
 //		request.setAttribute("page", page);
 
 		ActionForward forward = null;
+		String orderNum = request.getParameter("orderNum");
 		
+		OrderDetailService orderDetailService = new OrderDetailService();
+		MemberDetailService memberDetailService = new MemberDetailService();
+		
+		List<OrderBean> order = orderDetailService.selectOrder(orderNum);
+		
+		OrderBean orderDetaile = orderDetailService.orderDetaile(orderNum);
+		MemberBean member = memberDetailService.getMember(orderDetaile.getOrder_ID());
+		
+		request.setAttribute("order", order);
+		request.setAttribute("orderDetaile", orderDetaile);
+		request.setAttribute("member", member);
+
 		forward = new ActionForward();
 		forward.setPath("./admin/order/order_comp_detail.jsp");
 		

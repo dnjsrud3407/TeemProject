@@ -11,7 +11,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - member_list.jsp</title>
+  <title>1:1문의 내용 보기</title>
   
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -28,6 +28,38 @@
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
 <!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
+
+<style type="text/css">
+.heightM {
+	margin-top: 3%;
+}
+#pageList {
+	margin: auto;
+	width: 500px;
+	text-align: center;
+	font-size: 1.2em;
+}
+.red {
+	color: #ff0000;
+}
+.checkbox_padding {
+	margin-right: 2.5%;
+	width:200px
+}
+</style>
+
+
+<script type="text/javascript">
+	
+	function checkOK(boardNum) {
+		r = confirm("정말로 삭제하시겠습니까?");
+		if(r){
+			location.href="./QDelete.adb?boardNum="+boardNum;
+		}
+	}
+		
+	</script>
+
 
 </head>
 <body id="page-top">
@@ -58,48 +90,46 @@
         <div class="container-fluid">
         	<div class="card shadow mb-4">
 	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="ReviewList.abook?page=${page }">&lt; 상품 후기 목록</a></h5>
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">&lt; 1:1 문의 목록</a></h5>
 	            </div>
         	</div>
 			<div class="row">
 
-            <!-- 고객후기 내용 보기 -->
+            <!-- 고객문의 내용 보기 -->
             <div class="col-lg-6 heightM">
 
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-gray">고객후기 내용</h6>
+                  <h6 class="m-0 font-weight-bold text-gray">고객문의 내용</h6>
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	              <form>
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th class="thWidth">접수번호</th>
-	                      <td class="tdWidth">${board_review.boardNum }</td>
-	                      <th class="thWidth">작성일</th>
-	                      <td class="tdWidth">${board_review.boardRegTime }</td>
+	                      <th style="width:60%">접수번호</th>
+	                      <td>${question.boardNum }</td>
+	                      <th style="width:60%">접수일</th>
+	                      <td>${question.boardRegTime }</td>
 	                    </tr>
 	                    <tr>
 	                      <th>고객ID</th>
-	                      <td>${board_review.boardWriter }</td>
-	                      <th>처리상태</th>
+	                      <td>${question.boardWriter }</td>
+	                      <th style="width:60%">처리상태</th>
 	                      <td>답변완료</td>
 	                    </tr>
 	                    <tr>
-	                      <th>상품명</th>
-	                      <td colspan="3">${board_review.bookTitle }</td>
+	                      <th>카테고리</th>
+	                      <td colspan="3">${question.k2 }</td>
 	                    </tr>
 	                    <tr>
-	                      <th>후기 제목</th>
-	                      <td colspan="3">${board_review.boardTitle }</td>
+	                      <th>문의 제목</th>
+	                      <td colspan="3">${question.boardTitle }</td>
 	                    </tr>
 	                    <tr>
-	                      <th>후기 내용</th>
-	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_review.boardContent }</textarea></td>
+	                      <th>문의 내용</th>
+	                      <td colspan="3"><textarea rows="20" cols="40" readonly="readonly">${question.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
-	              </form>
 	              </div>
 	            </div>
               </div>
@@ -107,6 +137,8 @@
             </div>
 
             <!-- 판매자 답변 처리 -->
+            <!-- 답변이 있을 떄! -->
+            <c:if test="${question.boardReSeq > 0 }">
             <div class="col-lg-6 heightM">
 
               <div class="card position-relative">
@@ -115,29 +147,59 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	                <form action="ReviewModifyPro.abook" method="post">
-                    <input type="hidden" name="page" value="${page }">
-                    <input type="hidden" name="boardReRef" value="${board_answer.boardReRef }">
-                    <input type="hidden" name="boardNum" value="${board_answer.boardNum }">
+	                <form action="QModify.adb" method="post">
+                    <input type="hidden" name="boardReRef" value="${answer.boardReRef }">
+                    <input type="hidden" name="boardNum" value="${answer.boardNum }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th class="thWidth">답변제목</th>
-	                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${board_answer.boardTitle }"></td>
+	                      <th>답변제목</th>
+	                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${answer.boardTitle }"></td>
 	                    </tr>
 	                    <tr>
-	                      <th>답변 수정</th>
-	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${board_answer.boardContent }</textarea></td>
+	                      <th style="width:15%">답변 수정</th>
+	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${answer.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
 	                <input type="submit" class="custom_button" value="답변 수정" />
-	                <input type="button" class="custom_button" value="답변 삭제" onclick="location.href='ReviewDeleteForm.abook?&boardRe_refList=${board_answer.boardReRef }'"/>
+	                <input type="button" class="custom_button" value="답변 삭제" onclick="CheckOK(${answer.boardNum})"/>
 	                </form>
 	              </div>
 	            </div>
               </div>
 
             </div>
+            </c:if>
+             <!-- 답변이 없을 떄! -->
+            <c:if test="${question.boardReSeq eq 0 }">
+            <div class="col-lg-6 heightM">
 
+              <div class="card position-relative">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">판매자 답변</h6>
+                </div>
+                <div class="card-body">
+	              <div class="table-responsive">
+	                <form action="QWrite.adb" method="post">
+                    <input type="hidden" name="boardReRef" value="${question.boardReRef }">
+	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                    <tr>
+	                      <th>답변제목</th>
+	                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
+	                    </tr>
+	                    <tr>
+	                      <th style="width:15%">답변 수정</th>
+	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
+	                    </tr>
+	                </table>
+	                <input type="submit" class="custom_button" value="답변 작성" />
+	                </form>
+	              </div>
+	            </div>
+              </div>
+
+            </div>
+            </c:if>
+		<!-- 판매자 답변란 끝 -->
           </div>
 		  
           

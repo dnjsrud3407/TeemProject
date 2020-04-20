@@ -50,4 +50,17 @@ public class CartListService {
 		return cartList;
 	}
 
+
+	public ArrayList<CartBean> getCartList(String uID, String cartNumStr) {
+		Connection con = getConnection();
+		CartDAO cartDAO = CartDAO.getInstance();
+		
+		cartDAO.setConnection(con);
+		
+		ArrayList<CartBean> cartList = cartDAO.getCartList(uID, cartNumStr);
+			
+		close(con);
+		return cartList;
+	}
+
 }
