@@ -36,7 +36,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
-	
+	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
 	<style type="text/css">
 	
 	 .btn2 {border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
@@ -82,9 +82,24 @@
 	
 </style>	
 
+<script type="text/javascript">
+
+document.ready(function () {
+	var fileValue = $('')
+});
+function scoreCheck(){
+	var f = document.reviewForm;
 	
-	
-	
+	if(f.score.value == ''){
+		alert('평점을 선택하여 주세요');
+		f.score.focus();
+		return false;
+	} else {
+		return true;
+	}
+}
+
+</script>		
 
 
 
@@ -114,9 +129,9 @@
 	<h3>상품 사용후기<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	<section id="reviewForm">
-		<form action="ReviewWritePro.book" method="post" enctype="multipart/form-data" name="reviewForm">
+		<form action="ReviewWritePro.book" method="post" enctype="multipart/form-data" name="reviewForm" onsubmit="return scoreCheck()">
 			<input type="hidden" name="k1" value="상품후기">
-			<input type="hidden" name="bookID" value="${book.bookID}">
+			<input type="hidden" name="bookID" value="${param.bookID }">
 			<input type="hidden" name="boardWriter" value="${sessionScope.uID }">
 			<table>
 				<tr>
@@ -135,17 +150,18 @@
 				</tr>
 				<tr>
 					<td class="td_left"><label for="image">사진</label></td>
-					<td class="td_right"><input type="file" name="image" id="image" required="required"/></td>
+					<td class="td_right"><input type="file" name="image" id="image" required="required" title="첨부파일"/></td>
 				</tr>
 				
 				<tr>
 					<td class="td_left"><label class="control-label" for="select01">평점</label></td>
-					<td class="td_right"><select name="score" id="select01" required="required">
-								<option>1</option>
-								<option>2</option>
-								<option>3</option>
-								<option>4</option>
-								<option>5</option>
+					<td class="td_right"><select name="score" id="selectScore" required="required">
+								<option value="">평점을 선택하세요</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+								<option value="3">3</option>
+								<option value="4">4</option>
+								<option value="5">5</option>
 							</select></td>
 				</tr>
 				<tr>

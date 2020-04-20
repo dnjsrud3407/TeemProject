@@ -34,6 +34,24 @@ public class JoinProService {
 		
 		return isJoinSuccess;
 	}
+
+	public boolean deleteMember(MemberBean member) {
+		// TODO Auto-generated method stub
+		boolean isDeleteUser = false;
+		int loginResult = 1;
+		
+		Connection con = getConnection();
+		
+		MemberDAO mDAO = MemberDAO.getInstance();
+		
+		loginResult = mDAO.deleteMember(member);
+		
+		if(loginResult == -1) {
+			isDeleteUser = true;
+		}
+		
+		return isDeleteUser;
+	}
 }	
 	
 	

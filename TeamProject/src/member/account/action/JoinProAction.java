@@ -16,6 +16,7 @@ public class JoinProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
+		boolean isJoinSuccess = false;
 		System.out.println("JoinProAction");
 		
 		// 파라미터 가져오기
@@ -27,19 +28,22 @@ public class JoinProAction implements Action {
 		String email = request.getParameter("email");
 		String tell_num = request.getParameter("tell_num");
 		String address2 = request.getParameter("address2");
+		String withdrawal = "n";
 		
 		int point = 0;
 		int grade = 0;
 		
 		// 파라미터 -> MemberBean 객체에 저장
-		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, 
-				tell_num, address2, point, grade);
-		
+		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, tell_num, address2, point, grade, withdrawal);
+				
 		// MemberJoinProService 클래스의 joinMember() 메서드 호출하여 추가 작업 요청
 				// => 파라미터 : MemberBean      리턴타입 : boolean
+		
 		JoinProService joinService = new JoinProService();
 		
-		boolean isJoinSuccess = joinService.joinMember(member);
+		if(!joinService.deleteMember(member)) {
+			isJoinSuccess = joinService.joinMember(member);
+		}
 		
 		if(!isJoinSuccess) {
 			response.setContentType("text/html; charset=UTF-8");

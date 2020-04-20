@@ -223,27 +223,29 @@ public class BoardDAO {
 		
 		List<FileBean> fileList = new ArrayList<FileBean>();
 		FileBean file = null;
+		PreparedStatement pstmtFile = null;
+		ResultSet rsFile = null;
 		
 		String sql = "SELECT * FROM boardFile WHERE board_boardNum=? AND board_kID=?";
 		
 		try {
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardNum);
-			pstmt.setInt(2, kID);
+			pstmtFile = con.prepareStatement(sql);
+			pstmtFile.setInt(1, boardNum);
+			pstmtFile.setInt(2, kID);
 			
-			rs = pstmt.executeQuery();
+			rsFile = pstmtFile.executeQuery();
 			
-			while(rs.next()) {
-				file = new  FileBean(rs.getInt("fileNum"), rs.getString("originFilename"),
-						rs.getString("storedFileName"), rs.getString("fileType"),
-						rs.getInt("board_boardNum"), rs.getInt("board_kID"),
-						rs.getString("board_boardWriter"));
+			while(rsFile.next()) {
+				file = new  FileBean(rsFile.getInt("fileNum"), rsFile.getString("originFilename"),
+						rsFile.getString("storedFileName"), rsFile.getString("fileType"),
+						rsFile.getInt("board_boardNum"), rsFile.getInt("board_kID"),
+						rsFile.getString("board_boardWriter"));
 				fileList.add(file);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			close(rs); close(pstmt);
+			close(rsFile); close(pstmtFile);
 		}
 		
 		
@@ -579,7 +581,6 @@ public class BoardDAO {
 	public ArrayList<BoardBean> selectReviewList(PageInfo pageInfoReview, int bookID) {
 		// 게시물 목록 조회 후 리턴
 		ArrayList<BoardBean> articleReviewList = new ArrayList<BoardBean>();
-		List<FileBean> fileList = new ArrayList<FileBean>();
 		FileBean file = null;
 		int page = pageInfoReview.getPage();
 		int limit = pageInfoReview.getLimit();
@@ -635,6 +636,7 @@ public class BoardDAO {
 						rs.getString("storedFileName"), rs.getString("fileType"),
 						rs.getInt("board_boardNum"), rs.getInt("board_kID"),
 						rs.getString("board_boardWriter"));
+                List<FileBean> fileList = new ArrayList<FileBean>();
 				fileList.add(file);
                 boardBean.setFileList(fileList);
                 articleReviewList.add(boardBean);
@@ -1553,7 +1555,7 @@ public class BoardDAO {
 			return deleteCount;
 		}
 
-		
+// ---------------------------- 사용자 -----------------------------------------------------		
 	// 상품후기 등록
 	public int registReview(BoardBean boardBean) {
 		int insertCount = 0;
@@ -1588,6 +1590,131 @@ public class BoardDAO {
 		
 		
 		return insertCount;	
+	}
+
+	// 상품후기 들고오기
+	public BoardBean getReviews(int boardNum, String boardWriter, int kID) {
+		BoardBean boardBean = null;
+		
+		
+		String sql="select * from board where boardNum=? and boardWriter=? and kID=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			pstmt.setString(2, boardWriter);
+			pstmt.setInt(3, kID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				boardBean = new BoardBean();
+				boardBean.setBoardNum(rs.getInt("boardNum"));
+				boardBean.setkID(rs.getInt("kID"));
+				boardBean.setBoardWriter(rs.getString("boardWriter"));
+				boardBean.setBoardTitle(rs.getString("boardTitle"));
+				boardBean.setBoardContent(rs.getString("boardContent"));
+				boardBean.setBoardRegTime(rs.getTimestamp("boardRegTime"));
+				boardBean.setBoardReRef(rs.getInt("boardReRef"));
+				boardBean.setBoardReLev(rs.getInt("boardReLev"));
+				boardBean.setBoardReSeq(rs.getInt("boardReSeq"));
+				boardBean.setBoardReadcount(rs.getInt("boardReadcount"));
+				boardBean.setBookID(rs.getInt("bookID"));
+				boardBean.setFileList(selectFileList(boardNum, kID));
+				boardBean.setScore(rs.getString("score"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs); close(pstmt);
+		}
+		return boardBean;
+	}
+
+	// 상품후기 수정
+	public int updateReview(BoardBean boardBean) {
+		int updateCount = 0;
+//		int count = 0;
+//		int listSize = boardBean.getFileList().size();
+		int kID = get_kID(boardBean.getK1());
+		String sql = "";
+		System.out.println(boardBean.getBoardNum());
+		System.out.println(kID);
+		System.out.println(boardBean.getBoardWriter());
+
+		sql = "select * from board where boardNum=? and kID=? and boardWriter=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardBean.getBoardNum());
+			pstmt.setInt(2, kID);
+			pstmt.setString(3, boardBean.getBoardWriter());
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
+					System.out.println("여기까지 들어와짐" + updateCount);
+					FileBean file = boardBean.getFileList().get(0);
+					sql = "update board as b join boardfile as bf on b.boardNum = bf.board_boardNum set b.boardTitle=?, "
+							+ "b.boardContent=?, b.score=?, b.boardRegTime=now(), bf.originFileName=?, bf.storedFileName=?, "
+							+ "bf.fileType=? where boardNum=? and kID=? and boardWriter=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, boardBean.getBoardTitle());
+					pstmt.setString(2, boardBean.getBoardContent());
+					pstmt.setString(3, boardBean.getScore());
+					pstmt.setString(4, file.getOriginFilename());
+					pstmt.setString(5, file.getstoredFileName());
+					pstmt.setString(6, file.getFileType());
+					pstmt.setInt(7, boardBean.getBoardNum());
+					pstmt.setInt(8, kID);
+					pstmt.setString(9, boardBean.getBoardWriter());
+					updateCount = pstmt.executeUpdate();
+				}
+
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return updateCount;
+	}
+
+	// 상품후기 삭제
+	public int removeReview(int boardNum, String boardWriter, String k1) {
+		int deleteCount = 0;
+		
+		int kID = get_kID(k1);
+		String sql="";
+		
+		sql="select * from board where boardNum=? and boardWriter=? and kID=?";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			pstmt.setString(2,boardWriter);
+			pstmt.setInt(3, kID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(boardWriter.equals(rs.getString("boardWriter"))) {
+					sql = "delete b, bf from board b join boardfile bf on b.boardNum = bf.board_boardNum "
+							+ "where boardNum=? and boardWriter=? and kID=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, boardNum);
+					pstmt.setString(2, boardWriter);
+					pstmt.setInt(3, kID);
+					deleteCount = pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs); close(pstmt);
+		}
+		
+		return deleteCount;
 	}
 
 }

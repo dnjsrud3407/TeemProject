@@ -43,7 +43,7 @@ public MemberDAO() {}
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql="insert into user values(?,?,?,?,?,?,?,?,?,?,now)";
+			String sql="insert into user values(?,?,?,?,?,?,?,?,?,?,now(),?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getuID());
 			pstmt.setString(2, member.getPw());
@@ -55,6 +55,7 @@ public MemberDAO() {}
 			pstmt.setString(8, member.getAddress2());
 			pstmt.setInt(9, member.getPoint());
 			pstmt.setInt(10,member.getGrade());
+			pstmt.setString(11,member.getWithdrawal());
 //			pstmt.setDate(11, member.getJoinDate());
 			
 			insertCount = pstmt.executeUpdate();
@@ -66,7 +67,73 @@ public MemberDAO() {}
 		}
 		return insertCount;
 	}
-
+	
+	// 삭제된 회원인지 판별 메서드
+	public int deleteMember(MemberBean member) {
+		int loginResult = 1;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			String sql = "select * from user where uID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getuID());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString("withdrawal").equalsIgnoreCase("y")) {
+					loginResult = -1;
+					return loginResult;
+				}
+			}	
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return loginResult;
+	}
+	
+	
+	// 로그인 판별
+	public int isLogin(MemberBean member) {
+		int loginResult = -2;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select * from user where uID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, member.getuID());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				if(rs.getString("withdrawal").equalsIgnoreCase("y")) {
+					loginResult = -1; // 회원탈퇴
+					return loginResult;
+				} else if(rs.getString("pw").equals(member.getPw())){
+					loginResult = 1; // 로그인 성공
+				} else { 
+					loginResult = 0; // 패스워드 틀림
+				}
+			} else {
+				loginResult = -2; // 아이디 없음
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return loginResult;
+	}
+	
+	
+	
 	public int selectMember(MemberBean member) {
 		int loginResult = 0;
 		
@@ -80,11 +147,15 @@ public MemberDAO() {}
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
+				if(rs.getString("withdrawal").equalsIgnoreCase("y")) {
+					loginResult = -1;
+					return loginResult;
+				}
 				if(rs.getString("pw").equals(member.getPw())) {
 					loginResult = 1;
 					
 				} else { 
-					loginResult = -1;
+					loginResult = 0;
 				}
 			}
 		} catch (SQLException e) {

@@ -16,7 +16,9 @@ public class MemberBean {
 	private int point;
 	private int grade;
 	private Date joinDate;
+	private String withdrawal;
 	
+
 
 	//---쿠폰조회---
 	private String coupon_name;
@@ -43,6 +45,39 @@ public class MemberBean {
 		this.pw = pw;
 	}
 
+	
+	public MemberBean(String uID, String pw, String u_name, String address, String phone_num, String email,
+			String tell_num, String address2, int point, int grade, String withdrawal) {
+		super();
+		this.uID = uID;
+		this.pw = pw;
+		this.u_name = u_name;
+		this.address = address;
+		this.phone_num = phone_num;
+		this.email = email;
+		this.tell_num = tell_num;
+		this.address2 = address2;
+		this.point = point;
+		this.grade = grade;
+		this.withdrawal = withdrawal;
+	}
+
+	public MemberBean(String uID, String pw, String u_name, String address, String phone_num, String email,
+			String tell_num, String address2, int point, int grade, Date joinDate, String withdrawal) {
+		super();
+		this.uID = uID;
+		this.pw = pw;
+		this.u_name = u_name;
+		this.address = address;
+		this.phone_num = phone_num;
+		this.email = email;
+		this.tell_num = tell_num;
+		this.address2 = address2;
+		this.point = point;
+		this.grade = grade;
+		this.joinDate = joinDate;
+		this.withdrawal = withdrawal;
+	}
 
 	public MemberBean(String uID, String pw, String u_name, String address, String phone_num, String email,
 			String tell_num, String address2, int point, int grade, Date joinDate) {
@@ -267,5 +302,12 @@ public class MemberBean {
 		this.pointContent = pointContent;
 	}
 
+	public String getWithdrawal() {
+		return withdrawal;
+	}
+	
+	public void setWithdrawal(String withdrawal) {
+		this.withdrawal = withdrawal;
+	}
 	
 }
