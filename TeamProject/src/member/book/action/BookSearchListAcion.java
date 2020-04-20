@@ -31,7 +31,7 @@ public class BookSearchListAcion implements Action {
 				page = Integer.parseInt(request.getParameter("page")); //정수로 변환하여 저장
 			}
 			
-			int limit = 10;
+			int limit = 5;
 			
 			//svc에 만들기
 			BookSearchListService bookSearchListService = new BookSearchListService();
@@ -58,6 +58,7 @@ public class BookSearchListAcion implements Action {
 			
 			PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, pageBlock, listCount);
 			
+			request.setAttribute("listCount", listCount);
 			request.setAttribute("bookTitle", bookTitle);
 			request.setAttribute("pageInfo", pageInfo);
 			request.setAttribute("bookSearchList", bookSearchList);

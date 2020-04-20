@@ -74,13 +74,13 @@
 </div>
 <!-- Navbar ================================================== -->
 <div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
+	<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	    <span class="icon-bar"></span>
+	</a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -99,82 +99,60 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-    <div id="sidebar" class="span3" style="width: 120px;">
-        <ul id="sideManu" class="nav nav-tabs nav-stacked">
-            <li class="subMenu open"><a> 단계별</a>
-                <ul>
-                <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
-                </ul>
-            </li>
-            <li class="subMenu"><a> 분야별 </a>
-            <ul style="display:none">
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
-            </ul>
-            </li>
-        </ul>
-        <br/>
-    </div>
+    <jsp:include page="../inc/menu.jsp"></jsp:include>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
-	<h4> ${bookTitle } 검색결과 - ${bookSearchList.size() }건 </h4><small class="pull-right"></small>	
-	<hr class="soft"/>  
+	<h4> ${bookTitle } 검색결과 - ${listCount }건 </h4><small class="pull-right"></small>	
+	<hr class="soft"/><hr class="soft"/>  
 <br class="clr"/>
 <div class="tab-content">
 	<div id="listView">
 	  <c:forEach var="book" items="${bookSearchList }" varStatus="status">
 		<div class="row">	  
 			<div class="span2">
-				<img src="upload/${book.bookImage }" alt="책이미지"/>
+				<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage }" alt="책이미지"/></a>
 			</div>
 			<div class="span4">
-				<h3>New | Available</h3>				
-				<hr class="soft"/>
-				<h5>${book.bookTitle } </h5>
-				<p>
-				${book.bookIntroduce }
-				</p>
-				<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-				<br class="clr"/>
+				<h4><a href="Book.book?bookID=${book.bookID }">${book.bookTitle }</a></h4>				
+				${book.bookPublisher } | ${book.bookPublishedDate }
+<%-- 				<h4>${book.bookPrice }원</h4> --%>
+<!-- 				<br class="clr"/> -->
 			</div>
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
-			<h3> ${book.bookPrice }</h3>
-			<label class="checkbox">
-				<input type="checkbox">  Adds product to compair
-			</label><br/>
-			
-			  <a href="/BookCartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-			
-				</form>
+				<h3>${book.bookPrice }<small>원</small></h3>
+			    <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+			    <a href="Book.book?bookID=${book.bookID }" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+			</form>
 			</div>
 		</div>
+		<hr class="soft"/>  
 	</c:forEach>
-		<hr class="soft"/>
 	</div>
 </div>
 	
-	<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
-	<div class="pagination">
+	<div class="pagination cntr">
 		<ul>
-		<li><c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-		<a href="BookSearchList.book?bk2=${param.bk2 }&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
 		<li>
-		<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-		<a href="BookSearchList.book?bk2=${param.bk2 }&page=${i}">${i}</a>
-		</c:forEach></li>
-		<%-- <li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li> --%>
-		
-		<li><a href="#">...</a></li>
-		<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-		<a href='<c:url value="/BookSearchList.book?bk2=${param.bk2 }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+			<c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+				<a href="BookSearchList.book?bookTitle=${bookTitle }&page=${pageInfo.startPage-pageInfo.pageBlock}">[이전]</a>
+			</c:if>
+		</li>
+		<li>
+			<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+				<c:choose>
+					<c:when test="${i eq pageInfo.page }"><a href="#">${i}</a></c:when>
+					<c:otherwise><a class="blue" href="BookSearchList.book?bookTitle=${bookTitle }&page=${i}">${i}</a></c:otherwise>
+				</c:choose>
+			</c:forEach>
+		</li>
+		<li>
+			<c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+				<a href='<c:url value="BookSearchList.book?bookTitle=${bookTitle }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>[다음]</a>
+			</c:if>
+		</li>
 		</ul>
-		</div>
+	</div>
 		<br class="clr"/>
 </div>
 </div>

@@ -85,15 +85,10 @@
 </div>
 <!-- Navbar ================================================== -->
 <div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 <!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
+    <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
@@ -175,183 +170,14 @@
     <div class="container">
     <div class="row">
 <!-- Sidebar ================================================== -->
-    <div id="sidebar" class="span3" style="width: 120px;">
-        <ul id="sideManu" class="nav nav-tabs nav-stacked">
-            <li class="subMenu open"><a> 단계별</a>
-                <ul>
-                <li><a class="active" href="BookList.book?bk2=1"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="BookList.book?bk2=2"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="BookList.book?bk2=3"><i class="icon-chevron-right"></i>3단계</a></li>
-                </ul>
-            </li>
-            <li class="subMenu"><a> 분야별 </a>
-            <ul style="display:none">
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
-            </ul>
-            </li>
-        </ul>
-        <br/>
-    </div>
+    <jsp:include page="./inc/menu.jsp"></jsp:include>
 <!-- Sidebar end=============================================== -->
         <div class="span9">     
             <div class="well well-small">
             <div class="row-fluid">
             <div id="featured" class="carousel slide">
-            <div class="carousel-inner">
-              <div class="item active">
-              <ul class="thumbnails">
-                <li class="span3">
-                  <div class="thumbnail">
-                  <i class="tag"></i>
-                    <a href="Book.book"><img src="themes/images/products/b1.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                  <i class="tag"></i>
-                    <a href="Book.book"><img src="themes/images/products/b2.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                  <i class="tag"></i>
-                    <a href="Book.book"><img src="themes/images/products/b3.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                  <i class="tag"></i>
-                    <a href="Book.book"><img src="themes/images/products/b4.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              </div>
-               <div class="item">
-              <ul class="thumbnails">
-                <li class="span3">
-                  <div class="thumbnail">
-                  <i class="tag"></i>
-                    <a href="Book.book"><img src="themes/images/products/5.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                  <i class="tag"></i>
-                    <a href="Book.book"><img src="themes/images/products/6.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/7.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/8.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              </div>
-               <div class="item">
-              <ul class="thumbnails">
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/9.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/10.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/11.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/1.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              </div>
-               <div class="item">
-              <ul class="thumbnails">
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/2.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/3.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/4.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-                <li class="span3">
-                  <div class="thumbnail">
-                    <a href="Book.book"><img src="themes/images/products/5.jpg" alt=""></a>
-                    <div class="caption">
-                      <h5>Product name</h5>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              </div>
-              </div>
+              <!-- main 중간 페이지 작업해야함!!! -->
+              <jsp:include page="./inc/middle_banner.jsp"></jsp:include>
               <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
               <a class="right carousel-control" href="#featured" data-slide="next">›</a>
               </div>
@@ -371,10 +197,7 @@
                     <a  href="Book.book"><img src="themes/images/products/6.jpg" alt=""/></a>
                     <div class="caption">
                       <h5>책 이름</h5>
-                      <p> 
-                        간단한 소개 
-                      </p>
-                     
+                      <p>간단한 소개</p>
                       <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a></h4>
                     </div>
                   </div>
