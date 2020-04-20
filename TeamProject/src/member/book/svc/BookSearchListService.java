@@ -24,7 +24,7 @@ public class BookSearchListService {
 		return bookList;
 	}
 
-	// 검색한 책 목록 개수
+	// 검색한 책 목록 개수 
 	public int getSearchListCountMem(String bookTitle) {
 		Connection con = getConnection();
 		BookDAO bookDAO = BookDAO.getInstance();

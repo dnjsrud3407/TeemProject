@@ -89,7 +89,7 @@ public class BookBean {
 		this.BK3 = bK3;
 	}
 
-    // 메인에서 중간 배너 사용할때
+    // 메인에서 중간 배너 사용할 때
 	public BookBean(int bookID, String bookTitle, String bookOriginImage, String bookImage, String bookPublisher, Date bookPublishedDate,
 			int bookPrice) {
 		super();

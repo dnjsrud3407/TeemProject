@@ -8,7 +8,7 @@
                   <i class="tag"></i>
                     <a href="Book.book"><img src="themes/images/products/b1.jpg" alt=""></a>
                     <div class="caption">
-                      <h5>Product name</h5>
+                      <h5>Product name//</h5>
                     </div>
                   </div>
                 </li>

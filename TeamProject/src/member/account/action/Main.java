@@ -16,6 +16,7 @@ public class Main implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		NewBookService newBookService = new NewBookService();  
+		// main에서 새로운 책 들고옴
 		ArrayList<BookBean> bookList = newBookService.getMiddleBookList();
 		
 		request.setAttribute("bookList",bookList);

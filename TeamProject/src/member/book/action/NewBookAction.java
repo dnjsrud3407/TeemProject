@@ -18,7 +18,7 @@ public class NewBookAction implements Action {
 		NewBookService newBookService = new NewBookService();  
 		ArrayList<BookBean> bookList = newBookService.getMiddleBookList();
 		
-		// 출력 함수 - 지금은 새로운 책이지만 학원가서 1,2,3 단계로 바꾸자
+		// 출력 함수 - 지금은 새로운 책이지만 학원가서 1,2,3 단계로 바꾸자//
     	response.setContentType("text/html; charset=UTF-8");
     	PrintWriter out = response.getWriter();
     	out.print("<div class='item active'>");

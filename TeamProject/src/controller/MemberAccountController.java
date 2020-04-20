@@ -38,7 +38,7 @@ public class MemberAccountController extends HttpServlet {
 		
 		String command = request.getServletPath();
 		System.out.println(command);
-		//dddfdfd
+		
 		
 		Action action = null;
 	ActionForward forward = null;

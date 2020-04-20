@@ -64,7 +64,7 @@ public class MemberBookController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 		
-		// === 메인에서 ajax 제어
+		// === 메인에서 ajax 제어 작업
 		if(command.equals("/NewBook.book")) {
 			action = new NewBookAction();
 			try {

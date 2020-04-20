@@ -208,7 +208,7 @@
 	              	</c:forEach>
 	              </ul>
 	              </div>
-	              <div class="item">
+	              <div class="item" >
 	              <ul class="thumbnails">
 	                <c:forEach var="book" items="${bookList }" begin="4" end="7" varStatus="status">
 		                <li class="span3">

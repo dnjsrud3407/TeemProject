@@ -540,7 +540,7 @@ public class BookDAO {
 		return listCount;
 	}
 
-	// main에서 중간 배너 (신권 12권)가져오기
+	// Main에서 중간 배너 (신권 12권)가져오기
 	public ArrayList<BookBean> selectMiddleBookList() {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
 		PreparedStatement pstmt = null;

@@ -11,6 +11,7 @@ import vo.BookBean;
 
 public class NewBookService {
 
+	// Main에서 새로운 책 들고옴 
 	public ArrayList<BookBean> getMiddleBookList() {
 		ArrayList<BookBean> bookList = null;
 		Connection con = getConnection();
