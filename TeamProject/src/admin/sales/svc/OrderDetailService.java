@@ -1,12 +1,44 @@
 package admin.sales.svc;
 
+import static db.JdbcUtil.close;
+import static db.JdbcUtil.getConnection;
+
 import java.sql.Connection;
+import java.util.List;
 
 import dao.OrderDAO;
 import vo.OrderBean;
 
 public class OrderDetailService {
 
+	public List<OrderBean> selectOrder(String orderNum) {
+		System.out.println("OrderListService - orderBookTotal");
+		
+		 Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		List<OrderBean> order = orderDAO.selectOrder(orderNum);
+				
+		close(con);
+		
+		return order;
+	}
+	
+	public OrderBean orderDetaile(String orderNum) {
+		System.out.println("OrderListService - orderBookTotal");
+		
+		 Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		OrderBean orderDetaile = orderDAO.orderDetaile(orderNum);
+				
+		close(con);
+		
+		return orderDetaile;
+	}
+	
 	public OrderBean getOrder(int num) {
 System.out.println("OrderDetailService - getOrder");
 		

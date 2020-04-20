@@ -23,7 +23,7 @@ if(session.getAttribute("uID") == null){
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin 2 - sales.jsp</title>
+<title>SB Admin 2 - order_comp_list</title>
 
 <!-- Custom fonts for this template -->
 <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1"
@@ -246,7 +246,8 @@ if(session.getAttribute("uID") == null){
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									Logout
 								</a>
-							</div></li>
+							</div>
+							</li>
 
 					</ul>
 
@@ -293,12 +294,12 @@ if(session.getAttribute("uID") == null){
 											</thead>
 											<%for(int i = 0; i < orderList.size(); i++){ %>
 											<tbody>
-												<tr onclick="location.href='OrderCompDetail?uID=<%=orderList.get(i).getOrder_id()%>'">
+												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>'">
 													<td><%=orderList.get(i).getOrderTime() %></td>
 													<td><%=orderList.get(i).getOrderNum() %></td>
 													<td><%=orderList.get(i).getOrder_id() %></td>
-													<td>카드결제 - </td>
-													<td>100,000원 - </td>
+													<td><%=orderList.get(i).getPaymentType() %></td>
+													<td><%=orderList.get(i).getBookPrice() %></td>
 													<td><%=orderList.get(i).getOrderStatus() %></td>
 												</tr>
 												<%} %>

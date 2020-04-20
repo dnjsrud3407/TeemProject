@@ -1,6 +1,17 @@
+<%@page import="vo.MemberBean"%>
+<%@page import="vo.OrderBean"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+if(session.getAttribute("uID") == null){
+	response.sendRedirect("index.jsp");
+}
+	List<OrderBean> order = (List<OrderBean>)request.getAttribute("order");
+	OrderBean orderDetaile = (OrderBean)request.getAttribute("orderDetaile");
+	MemberBean memberInfo = (MemberBean)request.getAttribute("member");
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -253,26 +264,27 @@ img{
 			</div>
             <div class="card-body">
               <div class="table-responsive">
+               <form action="" method="post" id="">
                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               	 <tr>
        				<th style="width: 15%;">상품코드</th>
-     				<th style="width: 15%;">사진</th>
+<!--      				<th style="width: 15%;">사진</th> -->
      				<th style="width: 15%;">상품명</th>
      				<th style="width: 15%;">상품가격</th>
 					<th style="width: 15%;">수량</th>
-					<th style="width: 15%;">적립금</th>
-					<th style="width: 15%;">취소</th>
-     				
+					<th style="width: 15%;">적립금</th>     				
        			</tr>
+       			<%for(int i = 0; i < order.size(); i++){
+												 %>
        			<tr>
-       			    <td>2020202022</td>
-					<td><img src="#" alt="-사진-" height="30px"> </td>
-       				<td>Java </td>
-  				    <td>30,000원 </td>
-  				    <td>1 </td>
+       			    <td><%=order.get(i).getBookID() %></td>
+<!-- 					<td><img src="#" alt="-사진-" height="30px"> </td> -->
+       				<td><%=order.get(i).getBookTitle() %></td>
+  				    <td><%=order.get(i).getBookPrice() %></td>
+  				    <td><%=order.get(i).getBookEA() %></td>
   				    <td>3,000원 </td>
-  				    <td><input type="button" value="취소"> </td>
        			</tr>
+  				    <%} %>
               	</table>
               	상품합계(30,000) - 회원할인(15,000) + 배송비(3,000) = 총 결제금액 : 18,000원
               
@@ -282,36 +294,42 @@ img{
                   	<th style="width: 15%;">주문번호</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
-                  			2020111111
+                  			<%=orderDetaile.getOrderNum() %>
               			</span>
                   	</td>
                   	
-                  	<th style="width: 15%;">결제 방법</th>
+                  	<th style="width: 15%;">주문상태</th>
                   	<td>
                   	    <span class="checkbox_padding" style="width: 15%;">
-                  			카드결제
+                  			<%=orderDetaile.getOrderStatus() %>
               			</span>
                   	</td>
                   </tr>
                   
                   <tr>
                   	<th style="width: 15%;">주문일자</th>
-                  	<td colspan="3">
+                  	<td>
                   	    <span class="checkbox_padding" style="width: 15%;">
-							2020-12-12 12:12:12
+							<%=orderDetaile.getOrderTime() %>
               			</span>
-                  	
 					</td>
+					
+					<th style="width: 15%;">결제 방법</th>
+                  	<td>
+                  	    <span class="checkbox_padding" style="width: 15%;">
+                  			<%=orderDetaile.getPaymentType() %>
+              			</span>
+                  	</td>
                   </tr>
                   
-                  <tr>
-                  	<th style="width: 15%;">결제 계좌</th>
+<!--                   <tr>
+                  	<th style="width: 15%;">결제 정보 - X</th>
                   	<td>
                   		<span class="checkbox_padding">
                   			000-000-0000
                   		</span>
                   	</td>
-                  	<th style="width: 15%;">입금인</th>
+                  	<th style="width: 15%;">입금인 - X</th>
                   	<td>
                   		<span class="checkbox_padding">
                   			김북킹
@@ -320,23 +338,22 @@ img{
                   </tr>
                   
                    <tr>
-                  	<th style="width: 15%;">운송장 번호</th>
+                  	<th style="width: 15%;">운송장 번호 - X</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
-                  			<input type="text" name="" id="" value="012-456789-10"/>
+                  			012-456789-10
                   		</span>
                   	</td>
-                  	<th style="width: 15%;">발송일자</th>
+                  	<th style="width: 15%;">발송일자 - X</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
-                  			<input type="" name="" id="" value=""/>발송일자 입력형식(년월일시분)<br>
-                  			예) 2020년 12월 12일 12시 12분 = 202012121212
+                  			2020-12-12 12:12
                   		</span>
                   	</td>
                   </tr>
                   
                   <tr>
-                  	<th style="width: 15%;">처리 상태</th>
+                  	<th style="width: 15%;">처리 상태 - X</th>
                   	<td colspan="3">
                   		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   			<tr>
@@ -354,22 +371,23 @@ img{
                   			</tr>
                   		</table>
                   	</td>
-                  </tr>
+                  </tr> -->
                   </table>
+                  
                   - 주문자 정보
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                  <tr>
 	                  	<th style="width: 15%;">주문자명</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/>
+                  				<%=memberInfo.getU_name() %>
                   			</span>
 	                  	</td>
 	                  	
 	                  	<th style="width: 15%;">이메일</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="kimbooking@kimbooking.com"/><input type="button" value="발송">
+                  				<%=memberInfo.getEmail() %>
                   			</span>
 	                  	</td>
 	                  </tr>
@@ -378,34 +396,40 @@ img{
 	                  	<th style="width: 15%;">전화번호</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="051-1234-5678"/>
+                  				<%=memberInfo.getTell_num() %>
                   			</span>
 	                  	</td>
 	                  	<th style="width: 15%;">휴대폰</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송">
+                  				<%=memberInfo.getPhone_num() %>
                   			</span>
 	                  	</td>
 	                  </tr>
 	                  
-	                   <tr>
-	                  	<th style="width: 15%;">우편번호</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색">
-                  			</span>
-	                  	</td>
-	                  </tr>
+<!-- 	                   <tr> -->
+<!-- 	                  	<th style="width: 15%;">우편번호</th> -->
+<!-- 	                  	<td colspan="3"> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				12345 -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  </tr> -->
 	                  
-	                   <tr>
+	                    <tr>
 	                  	<th style="width: 15%;">주소</th>
-	                  	<td colspan="3">
+	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="부산 서면 아이티윌"/>
+                  				<%=memberInfo.getAddress() %>
                   			</span>
 	                  	</td>
-          		       </tr>
+	                  	<th style="width: 15%;">상세주소</th>
+	                  	<td>
+	                  		<span class="checkbox_padding" style="width: 15%;">
+                  				<%=memberInfo.getAddress2() %>
+                  			</span>
+	                  	</td>
+	                  </tr>
                   </table>
                   
                   - 수취인 정보
@@ -414,49 +438,49 @@ img{
                   	<th style="width: 15%;">수취인명</th>
                   	<td colspan="3">
                   		<span class="checkbox_padding" style="width: 15%;">
-                 				<input type="text" name="" id="" value="김부킹"/>
-                 			</span>
+               				<%=orderDetaile.getOrderRec() %>
+               			</span>
                   	</td>
       		       </tr>
           		   
-          		    <tr>
-	                  	<th style="width: 15%;">전화번호</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="051-1234-5678"/>
-                  			</span>
-	                  	</td>
-	                  	<th style="width: 15%;">휴대폰</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송">
-                  			</span>
-	                  	</td>
-	                  </tr>
+<!--           		    <tr> -->
+<!-- 	                  	<th style="width: 15%;">전화번호</th> -->
+<!-- 	                  	<td> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				051-1234-5678 -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  	<th style="width: 15%;">휴대폰</th> -->
+<!-- 	                  	<td> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				010-1234-5678 -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  </tr> -->
           		       
-          		       <tr>
-	                  	<th style="width: 15%;">우편번호</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색">
-                  			</span>
-	                  	</td>
-	                  </tr>
+<!--           		       <tr> -->
+<!-- 	                  	<th style="width: 15%;">우편번호</th> -->
+<!-- 	                  	<td colspan="3"> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				78945 -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  </tr> -->
 	                  
 	                   <tr>
 	                  	<th style="width: 15%;">주소</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="부산 서면 아이티윌"/>
+                  				<%=orderDetaile.getOrderAddress() %>
                   			</span>
 	                  	</td>
           		       </tr>
           		       
-          		        <tr>
-	                  	<th style="width: 15%;">요청사항</th>
+          		        <!-- <tr>
+	                  	<th style="width: 15%;">요청사항 - X </th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<textarea rows="5" cols="100"></textarea>
+                  				<textarea rows="5" cols="100" readonly="readonly">해당사항 없음</textarea>
                   			</span>
 	                  	</td>
           		       </tr>
@@ -465,7 +489,7 @@ img{
 	                  	<th style="width: 15%;">주문 취소 사유</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<textarea rows="5" cols="100"></textarea>
+                  				<textarea rows="5" cols="100" readonly="readonly">해당사항 없음</textarea>
                   			</span>
 	                  	</td>
           		       </tr>
@@ -474,54 +498,54 @@ img{
 	                  	<th style="width: 15%;">관리자 메모</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<textarea rows="5" cols="100"></textarea>
+                  				<textarea rows="5" cols="100" readonly="readonly">해당사항 없음</textarea>
                   			</span>
 	                  	</td>
-          		       </tr>
+          		       </tr> -->
                   </table>
                   
-                  - 증빙서류 정보
-                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  	<tr>
-	                  	<th style="width: 15%;">발급 여부</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-								<input type="radio" value="">발행안함
-                  			</span>
-                  			<span class="checkbox_padding" style="width: 15%;">
-								<input type="radio" value="">세금계산서 신청
-                  			</span>
-                  			<span class="checkbox_padding" style="width: 15%;">
-								<input type="radio" value="">현금영수증 신청
-                  			</span>
-	                  	</td>
-          		       </tr>
-                  </table>
-                <input type="button" value="확인" id="">
-                <input type="button" id="" value="목록" onclick="location.href='OrderCompList.adm'">
+<!--                   - 증빙서류 정보 -->
+<!--                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0"> -->
+<!--                   	<tr> -->
+<!-- 	                  	<th style="width: 15%;">발급 여부</th> -->
+<!-- 	                  	<td colspan="3"> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!-- 								<input type="radio" value="">발행안함 -->
+<!--                   			</span> -->
+<!--                   			<span class="checkbox_padding" style="width: 15%;"> -->
+<!-- 								<input type="radio" value="">세금계산서 신청 -->
+<!--                   			</span> -->
+<!--                   			<span class="checkbox_padding" style="width: 15%;"> -->
+<!-- 								<input type="radio" value="">현금영수증 신청 -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!--           		       </tr> -->
+<!--                   </table> -->
+<!--                 <input type="button" value="확인" id=""> -->
+<!--                 <input type="button" id="" value="목록" onclick="location.href='OrderCompList.adm'"> -->
               </form>
               </div>
             </div>
           </div>
 
           <!-- DataTales Example// -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h5 class="m-0 font-weight-bold text-primary">주문 내용 상세보기</h5>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
+<!--           <div class="card shadow mb-4"> -->
+<!--             <div class="card-header py-3"> -->
+<!--               <h5 class="m-0 font-weight-bold text-primary">주문 내용 상세보기</h5> -->
+<!--             </div> -->
+<!--             <div class="card-body"> -->
+<!--               <div class="table-responsive"> -->
               
-              <form action="DeleteForm.abook" id="searchBoard" method="post">
-              <input type="button" value="배송하기" onclick="location.href='OrderDeliveryDetail.adm'">
-			  <input type="button" value="주문 취소" onclick="location.href='OrderCencleDetail.adm'">
-              <input type="button" value="제품 반품" onclick="location.href='OrderRefundDetail.adm'">
-              <input type="button" value="제품 교환" onclick="location.href='OrderExchangeDetail.adm'">
+<!--               <form action="DeleteForm.abook" id="searchBoard" method="post"> -->
+<!--               <input type="button" value="배송하기" onclick="location.href='OrderDeliveryDetail.adm'"> -->
+<!-- 			  <input type="button" value="주문 취소" onclick="location.href='OrderCencleDetail.adm'"> -->
+<!--               <input type="button" value="제품 반품" onclick="location.href='OrderRefundDetail.adm'"> -->
+<!--               <input type="button" value="제품 교환" onclick="location.href='OrderExchangeDetail.adm'"> -->
 
-                </form>
-              </div>
-            </div>
-          </div>
+<!--                 </form> -->
+<!--               </div> -->
+<!--             </div> -->
+<!--           </div> -->
 
         </div>
         <!-- /.container-fluid -->

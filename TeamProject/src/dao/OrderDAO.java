@@ -531,7 +531,164 @@ public OrderDAO() {}
 			
 			return updateBookCount;
 		}
-	
+
+		public List<OrderBean> orderList() {
+			System.out.println("OrderDAO - orderList()");
+			List<OrderBean> list = new ArrayList();
+			List<OrderBean> listDetail = new ArrayList();
+			List<OrderBean> list2 = new ArrayList();
+
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ResultSet rs2 = null;
+			
+			try {
+				String sql = "select orderTime, orderNum, order_ID, paymentType, orderStatus from order_tb";
+//				String sql = "select * from order_tb";
+
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					OrderBean ob = new OrderBean();
+					ob.setOrderTime(rs.getDate("orderTime"));
+					ob.setOrderNum(rs.getString("orderNum"));
+					ob.setOrder_id(rs.getString("order_ID"));				
+//					ob.setBookPrice(rs.getInt("bookPrice")); 
+					ob.setPaymentType(rs.getString("paymentType"));
+					ob.setOrderStatus(rs.getString("orderStatus"));
+//					
+//					ob.setOrderRec(rs.getString("orderRec"));				
+//					ob.setOrderAddress(rs.getString("orderAddress"));				
+//					ob.setLastModTime(rs.getDate("lastModTime"));				
+//					ob.setCouponHistory_num(rs.getInt("couponHisstory_num"));				
+
+
+					sql = "select * from order_detail where orderNum=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, rs.getString("orderNum"));
+					rs2 = pstmt.executeQuery();
+					
+					int totalBook=0;
+					
+					while (rs2.next()) {
+						
+						totalBook+=rs2.getInt("bookPrice")*rs2.getInt("bookEA");
+						
+					}
+					ob.setBookPrice(totalBook);
+				
+					list.add(ob);
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+			
+			return list;
+		}
 		
+		//주문한 책 목록 불러오기
+		public List<OrderBean> selectOrder(String orderNum) {
+			System.out.println("OrderDAO - orderList()");
+			List<OrderBean> order = new ArrayList<OrderBean>();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select * from order_detail WHERE orderNum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, orderNum);
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					OrderBean orderBean = new OrderBean();
+					orderBean.setOrderDetailCode(rs.getInt("orderDetailCode"));
+					orderBean.setbookID(rs.getInt("bookID"));
+//					order.setBookKategorie_BKID(rs.getInt("bookKategorie_BKID"));
+					orderBean.setOrderNum(rs.getString("orderNum"));
+					orderBean.setBookTitle(rs.getString("bookTitle"));
+					orderBean.setBookPrice(rs.getInt("bookPrice"));
+					orderBean.setBookEA(rs.getInt("bookEA"));
+//					order.setPaymentType(rs.getString("paymentType"));
+					order.add(orderBean);
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+
+			return order;
+		}	
+	
+		//주문상세내용조회
+		public OrderBean orderDetaile(String orderNum) {
+			System.out.println("OrderDAO - orderList()");
+			OrderBean orderDe = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select * from order_tb WHERE orderNum=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, orderNum);
+				rs = pstmt.executeQuery();
+				
+				if (rs.next()) {
+					orderDe = new OrderBean();
+					orderDe.setOrderNum(rs.getString("orderNum"));
+					orderDe.setOrder_id(rs.getString("order_ID"));	
+					orderDe.setOrderRec(rs.getString("orderRec"));				
+					orderDe.setOrderAddress(rs.getString("orderAddress"));				
+					orderDe.setOrderTime(rs.getDate("orderTime"));
+					orderDe.setOrderStatus(rs.getString("orderStatus"));
+					orderDe.setLastModTime(rs.getDate("lastModTime"));				
+					orderDe.setPaymentType(rs.getString("paymentType"));
+					orderDe.setCouponHistory_num(rs.getInt("couponHistory_num"));				
+					orderDe.setTotalPrice(rs.getInt("totalPrice"));				
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+
+			return orderDe;
+		}
+
+		public int updateOrder(OrderBean order) {
+			int updateCount = 0;
+			
+			PreparedStatement pstmt = null;
+
+			try {
+//				String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
+				String sql = "UPDATE order_tb SET orderStatus=? WHERE order_ID=?";
+				pstmt = con.prepareStatement(sql);
+//				pstmt.setString(1, article.getBoard_name());
+				pstmt.setString(1, order.getOrderStatus());
+				pstmt.setString(2, order.getOrder_ID());
+
+				updateCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return updateCount;
+
+		}
 
 }

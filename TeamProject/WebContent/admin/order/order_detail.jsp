@@ -1,6 +1,19 @@
+<%@page import="vo.MemberBean"%>
+<%@page import="java.util.List"%>
+<%@page import="vo.OrderBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+if(session.getAttribute("uID") == null){
+	response.sendRedirect("index.jsp");
+}
+	List<OrderBean> order = (List<OrderBean>)request.getAttribute("order");
+	OrderBean orderDetaile = (OrderBean)request.getAttribute("orderDetaile");
+	MemberBean memberInfo = (MemberBean)request.getAttribute("member");
+ %>
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +24,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>SB Admin 2 - member_list.jsp</title>
+  <title>SB Admin 2 - order_detail</title>
 
   <!-- Custom fonts for this template -->
   <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
@@ -252,29 +265,30 @@ img{
 			</div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="" method="post" id="">
+              <form action="OrderModifyPro.adm" method="post" id="searchForm">
                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               	 <tr>
        				<th style="width: 15%;">상품코드</th>
-     				<th style="width: 15%;">옵션</th>
+<!--      				<th style="width: 15%;">사진</th> -->
      				<th style="width: 15%;">상품명</th>
      				<th style="width: 15%;">상품가격</th>
 					<th style="width: 15%;">수량</th>
 					<th style="width: 15%;">적립금</th>
-					<th style="width: 15%;">취소</th>
-     				
        			</tr>
+       			<%for(int i = 0; i < order.size(); i++){
+												 %>
        			<tr>
-       			    <td>2020202022</td>
-					<td><img src="#" alt="-사진-" height="30px"> </td>
-       				<td>Java </td>
-  				    <td>30,000원 </td>
-  				    <td>1 </td>
+       			    <td><%=order.get(i).getBookID() %></td>
+<!-- 					<td><img src="#" alt="-사진-" height="30px"> </td> -->
+       				<td><%=order.get(i).getBookTitle() %></td>
+  				    <td><%=order.get(i).getBookPrice() %></td>
+  				    <td><%=order.get(i).getBookEA() %></td>
   				    <td>3,000원 </td>
-  				    <td><input type="button" value="취소"> </td>
+  				    
        			</tr>
+  				    <%} %>
               	</table>
-              	상품합계(30,000) - 회원할인(15,000) + 배송비(3,000) = 총 결제금액 : 18,000원
+              	상품합계(30,000) - 회원할인(15,000) + 배송비(3,000) = 총 결제금액 : 18,000원 <br>
               
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 					
@@ -282,51 +296,70 @@ img{
                   	<th style="width: 15%;">주문번호</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
-                  			2020111111
+                  			<%=orderDetaile.getOrderNum() %>
               			</span>
                   	</td>
                   	
-                  	<th style="width: 15%;">결제 방법</th>
-                  	<td>
-                  	    <span class="checkbox_padding" style="width: 15%;">
-                  			카드결제
-              			</span>
-                  	</td>
+                  	<th style="width: 15%;">주문상태</th>
+					<td>
+						<span class="checkbox_padding" style="width: 15%;">
+	    			    <select name="orderStatus" class="size" id="orderStatus">
+		    			    <option value="0" class="size">주문접수</option>	
+		    			    <option value="0" class="size">결제완료</option>
+		    			    <option value="0" class="size">배송중</option>
+		    			    <option value="0" class="size">환불요청</option>
+		    			    <option value="0" class="size">교환요청</option>
+		    			    <option value="0" class="size">주문취소</option>
+<%-- 		    			    <option value="주문접수" <c:if test="${orderDetaile.orderStatus == 1 }">selected</c:if>>주문접수</option>				 --%>
+<%-- 							<option value="결제완료" <c:if test="${orderDetaile.orderStatus == 결제완료 }">selected</c:if>>결제완료</option> --%>
+<%-- 							<option value="배송중" <c:if test="${orderDetaile.orderStatus == 배송중 }">selected</c:if>>배송중</option> --%>
+<%-- 							<option value="환불요청" <c:if test="${orderDetaile.orderStatus == 환불요청 }">selected</c:if>>환불요청</option> --%>
+<%-- 							<option value="교환요청" <c:if test="${orderDetaile.orderStatus == 교환요청 }">selected</c:if>>교환요청</option> --%>
+<%-- 							<option value="주문취소" <c:if test="${orderDetaile.orderStatus == 주문취소 }">selected</c:if>>주문취소</option> --%>
+	 					</select>
+	 					</span>
+ 					</td>
                   </tr>
                   
                   <tr>
                   	<th style="width: 15%;">주문일자</th>
-                  	<td colspan="3">
+                  	<td>
                   	    <span class="checkbox_padding" style="width: 15%;">
-							2020-12-12 12:12:12
+							<%=orderDetaile.getOrderTime() %>
               			</span>
-                  	
 					</td>
-                  </tr>
-                  
-                  <tr>
-                  	<th style="width: 15%;">결제 계좌</th>
+					
+					<th style="width: 15%;">결제 방법</th>
                   	<td>
-                  		<span class="checkbox_padding">
-                  			000-000-0000
-                  		</span>
-                  	</td>
-                  	<th style="width: 15%;">입금인</th>
-                  	<td>
-                  		<span class="checkbox_padding">
-                  			김북킹
-                  		</span>
+                  	    <span class="checkbox_padding" style="width: 15%;">
+                  			<%=orderDetaile.getPaymentType() %>
+              			</span>
                   	</td>
                   </tr>
                   
-                   <tr>
-                  	<th style="width: 15%;">운송장 번호</th>
+<!--                   <tr> -->
+<!--                   	<th style="width: 15%;">결제 정보 - X</th> -->
+<!--                   	<td> -->
+<!--                   		<span class="checkbox_padding"> -->
+<!--                   			000-000-0000 -->
+<!--                   		</span> -->
+<!--                   	</td> -->
+<!--                   	<th style="width: 15%;">입금인 - X</th> -->
+<!--                   	<td> -->
+<!--                   		<span class="checkbox_padding"> -->
+<!--                   			김북킹 -->
+<!--                   		</span> -->
+<!--                   	</td> -->
+<!--                   </tr> -->
+                  
+                  <!--  <tr>
+                  	<th style="width: 15%;">운송장 번호 - X</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
                   			<input type="text" name="" id="" value="012-456789-10"/>
                   		</span>
                   	</td>
-                  	<th style="width: 15%;">발송일자</th>
+                  	<th style="width: 15%;">발송일자 - X</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
                   			<input type="" name="" id="" value=""/>발송일자 입력형식(년월일시분)<br>
@@ -336,7 +369,7 @@ img{
                   </tr>
                   
                   <tr>
-                  	<th style="width: 15%;">처리 상태</th>
+                  	<th style="width: 15%;">처리 상태 - X</th>
                   	<td colspan="3">
                   		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   			<tr>
@@ -354,7 +387,7 @@ img{
                   			</tr>
                   		</table>
                   	</td>
-                  </tr>
+                  </tr> -->
                   </table>
                   - 주문자 정보
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -362,14 +395,14 @@ img{
 	                  	<th style="width: 15%;">주문자명</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/>
+                  				<%=memberInfo.getU_name() %>
                   			</span>
 	                  	</td>
 	                  	
 	                  	<th style="width: 15%;">이메일</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="발송">
+                  				<%=memberInfo.getEmail() %>
                   			</span>
 	                  	</td>
 	                  </tr>
@@ -378,34 +411,42 @@ img{
 	                  	<th style="width: 15%;">전화번호</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="051-1234-5678"/>
+                  				<%=memberInfo.getTell_num() %>
                   			</span>
 	                  	</td>
 	                  	<th style="width: 15%;">휴대폰</th>
 	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송">
+                  				<%=memberInfo.getPhone_num() %>
                   			</span>
 	                  	</td>
 	                  </tr>
 	                  
-	                   <tr>
-	                  	<th style="width: 15%;">우편번호</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색">
-                  			</span>
-	                  	</td>
-	                  </tr>
+<!-- 	                   <tr> -->
+<!-- 	                  	<th style="width: 15%;">우편번호</th> -->
+<!-- 	                  	<td colspan="3"> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				12345 -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  </tr> -->
+	                  
 	                  
 	                   <tr>
 	                  	<th style="width: 15%;">주소</th>
-	                  	<td colspan="3">
+	                  	<td>
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="부산 서면 아이티윌"/>
+                  				<%=memberInfo.getAddress() %>
                   			</span>
 	                  	</td>
-          		       </tr>
+	                  	<th style="width: 15%;">상세주소</th>
+	                  	<td>
+	                  		<span class="checkbox_padding" style="width: 15%;">
+                  				<%=memberInfo.getAddress2() %>
+                  			</span>
+	                  	</td>
+	                  </tr>
+	                  
                   </table>
                   
                   - 수취인 정보
@@ -414,46 +455,46 @@ img{
                   	<th style="width: 15%;">수취인명</th>
                   	<td colspan="3">
                   		<span class="checkbox_padding" style="width: 15%;">
-                 				<input type="text" name="" id="" value="김부킹"/>
+                 				<%=orderDetaile.getOrderRec() %>
                  			</span>
                   	</td>
       		       </tr>
           		   
-          		    <tr>
-	                  	<th style="width: 15%;">전화번호</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="051-1234-5678"/>
-                  			</span>
-	                  	</td>
-	                  	<th style="width: 15%;">휴대폰</th>
-	                  	<td>
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송">
-                  			</span>
-	                  	</td>
-	                  </tr>
+<!--           		    <tr> -->
+<!-- 	                  	<th style="width: 15%;">전화번호</th> -->
+<!-- 	                  	<td> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				<input type="text" name="" id="" value="051-1234-5678"/> -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  	<th style="width: 15%;">휴대폰</th> -->
+<!-- 	                  	<td> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				<input type="text" name="" id="" value="010-1234-5678"/><input type="button" value="발송"> -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  </tr> -->
           		       
-          		       <tr>
-	                  	<th style="width: 15%;">우편번호</th>
-	                  	<td colspan="3">
-	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색">
-                  			</span>
-	                  	</td>
-	                  </tr>
-	                  
+<!--           		       <tr> -->
+<!-- 	                  	<th style="width: 15%;">우편번호</th> -->
+<!-- 	                  	<td colspan="3"> -->
+<!-- 	                  		<span class="checkbox_padding" style="width: 15%;"> -->
+<!--                   				<input type="text" name="" id="" value="김북킹"/><input type="button" value="우편번호 검색"> -->
+<!--                   			</span> -->
+<!-- 	                  	</td> -->
+<!-- 	                  </tr> -->
+
 	                   <tr>
 	                  	<th style="width: 15%;">주소</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
-                  				<input type="text" name="" id="" value="부산 서면 아이티윌"/>
+                  				<%=orderDetaile.getOrderAddress() %>
                   			</span>
 	                  	</td>
           		       </tr>
           		       
-          		        <tr>
-	                  	<th style="width: 15%;">요청사항</th>
+          		        <!-- <tr>
+	                  	<th style="width: 15%;">요청사항 - X</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
                   				<textarea rows="5" cols="100"></textarea>
@@ -462,7 +503,7 @@ img{
           		       </tr>
           		       
           		       <tr>
-	                  	<th style="width: 15%;">주문 취소 사유</th>
+	                  	<th style="width: 15%;">주문 취소 사유 - X</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
                   				<textarea rows="5" cols="100"></textarea>
@@ -471,16 +512,16 @@ img{
           		       </tr>
           		       
           		       <tr>
-	                  	<th style="width: 15%;">관리자 메모</th>
+	                  	<th style="width: 15%;">관리자 메모 - X</th>
 	                  	<td colspan="3">
 	                  		<span class="checkbox_padding" style="width: 15%;">
                   				<textarea rows="5" cols="100"></textarea>
                   			</span>
 	                  	</td>
-          		       </tr>
+          		       </tr> -->
                   </table>
                   
-                  - 증빙서류 정보
+                 <!--  - 증빙서류 정보
                   <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   	<tr>
 	                  	<th style="width: 15%;">발급 여부</th>
@@ -496,16 +537,16 @@ img{
                   			</span>
 	                  	</td>
           		       </tr>
-                  </table>
-                <input type="button" value="확인" id="" onclick="">
-                <input type="button" id="" value="목록">
+                  </table> -->
+                <input type="submit" value="수정" class="btn btn-large btn-success">
+<!--                 <input type="button" id="" value="목록"> -->
               </form>
               </div>
             </div>
           </div>
 
           <!-- DataTales Example// -->
-          <div class="card shadow mb-4">
+<!--           <div class="card shadow mb-4">
             <div class="card-header py-3">
               <h5 class="m-0 font-weight-bold text-primary">주문 내용 상세보기</h5>
             </div>
@@ -521,7 +562,7 @@ img{
                 </form>
               </div>
             </div>
-          </div>
+          </div> -->
 
         </div>
         <!-- /.container-fluid -->
