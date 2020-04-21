@@ -92,7 +92,7 @@ public class QWriteProAction implements Action {
 		HttpSession session = request.getSession();
 		if(insertCount != 0) {
 			// 답변 작성 성공 시 본 글의 lev 을 1로 올림
-			forward.setPath("./qDetail.adb?boardNum=" + boardReRef);
+			forward.setPath("./QDetail.adb?boardNum=" + boardReRef);
 			forward.setRedirect(true);
 		} else {
 			// 글 삭제 실패 시 반응

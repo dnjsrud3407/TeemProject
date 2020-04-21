@@ -293,6 +293,8 @@ public class AdminBoardDAO {
 	
 		public int deleteArticle(int boardNum, String k1) {
 			int deleteCount = 0;
+			int boardReRef = 0;
+//			System.out.println("deleteArticle  번호 : " + boardNum + " // 카테고리1 : " + k1 );
 			
 			List<FileBean> fileList = selectFileList(boardNum, k1);
 			
@@ -302,13 +304,38 @@ public class AdminBoardDAO {
 					return 0;
 				}
 			}
-			String sql = "DELETE FROM board WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
+			String sql = "";
 			
 			try {
+				sql = "SELECT boardReRef FROM board WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?) AND boardNum != boardReRef";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
+				
+				rs = pstmt.executeQuery();
+				if(rs.next()) {boardReRef = rs.getInt("boardReRef");}
+//				System.out.println(boardReRef + " : reRef");
+				
+				sql = "DELETE FROM board WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
 				
 				deleteCount = pstmt.executeUpdate();
+//				System.out.println(deleteCount + " : 삭제여부");
+				
+				if(deleteCount != 0 && boardReRef != 0) { // 삭제한 것이 답변 글 일 경우 원 질문글의 boardReLev 를 0으로 바꿔주는(미답변 글로 바꿔주는) 작업
+					sql = "UPDATE board SET boardReLev=0 WHERE boardReRef=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, boardReRef); pstmt.setString(2, k1);
+					
+					int levDown = pstmt.executeUpdate();
+//					System.out.println(levDown + " : Lev 변경 여부");
+					if(levDown != 0) {
+						
+					} else {
+						deleteCount = 0;
+					}
+				}
+				
 
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -350,10 +377,10 @@ public class AdminBoardDAO {
 		int updateCount = 0;
 		
 		int kID = get_kID(bb.getK1(), bb.getK2());
+		System.out.println(kID + " 카테고리번호");
+		if(deleteFileName != null && deleteFileName.size() > 0) { deleteFile(bb, deleteFileName, bb.getK1()); } // kID가 바뀌었을 수 있음(k2의 변경)
 		
-//		if(deleteFileName != null) { deleteFile(bb, deleteFileName, kID); } // kID가 바뀌었을 수 있음(k2의 변경)
-		
-		
+		System.out.println("글번호 : " + bb.getBoardNum() + "\n k1 : " + bb.getK1());
 		String sql = "UPDATE board SET kID=?, boardTitle=?, boardContent=? WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
 
 		try {
@@ -363,6 +390,8 @@ public class AdminBoardDAO {
 			pstmt.setInt(4, bb.getBoardNum()); pstmt.setString(5, bb.getK1());
 			
 			updateCount = pstmt.executeUpdate();
+			System.out.println(updateCount + "파일수정실행");
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -372,17 +401,17 @@ public class AdminBoardDAO {
 		return updateCount;
 	}
 
-	public int deleteFile(BoardBean bb, List<String> deleteFileName, int kID) {
+	public int deleteFile(BoardBean bb, List<String> deleteFileName, String k1) {
 		int deleteCount = 0;
 		
-		String sql = "DELETE FROM boardFile WHERE storedFileName=? ADN board_boardNum=? AND board_kID=?";
+		String sql = "DELETE FROM boardFile WHERE storedFileName=? AND board_boardNum=? AND board_kID IN (SELECT kID FROM kategorie WHERE k1=?";
 		
 		for(String delFileName : deleteFileName) {
 			try {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, delFileName);
 				pstmt.setInt(2, bb.getBoardNum());
-				pstmt.setInt(3, kID);
+				pstmt.setString(3, k1);
 				
 				deleteCount += pstmt.executeUpdate();
 			} catch (SQLException e) {

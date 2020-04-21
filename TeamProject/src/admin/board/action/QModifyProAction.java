@@ -59,7 +59,7 @@ public class QModifyProAction implements Action {
 		// DB작업을 위해 서비스 객체 생성
 		BoardService boardService = new BoardService();
 		// 카테고리 관련
-		String k1 = multi.getParameter("1:1문의");
+		String k1 = "1:1문의";
 		String k2 = multi.getParameter("k2");
 		// 글 번호 들고오기
 		int boardNum = Integer.parseInt(multi.getParameter("boardNum"));
@@ -73,7 +73,7 @@ public class QModifyProAction implements Action {
 		
 		// 삭제요청받은 파일 목록
 		List<String> deleteFileName = new ArrayList<String>();
-		for(int i = 0; request.getParameter("deleteFileName"+i) != null ; i++) {
+		for(int i = 0; multi.getParameter("deleteFileName"+i) != null ; i++) {
 			deleteFileName.add(request.getParameter("deleteFileName" + i));
 		}
 		
@@ -88,6 +88,8 @@ public class QModifyProAction implements Action {
 		//3. 기존 파일 삭제 시 삭제된 파일이름 hidden으로 넘겨서 File.delete() 실행
 		
 		String boardReRef = multi.getParameter("boardReRef");
+		
+		forward = new ActionForward();
 		if(updateCount != 0) {
 			// 수정 성공시 삭제요청받은 기존 파일을 삭제해야함
 			// 삭제된 파일들을 삭제할 코드
@@ -96,13 +98,13 @@ public class QModifyProAction implements Action {
 				df.delete();		// 파일 삭제
 			}
 			// 수정 성공 시 이동할 경로
-			forward.setPath("./qDetail.adb?boardNum=" + boardReRef);
+			forward.setPath("./QDetail.adb?boardNum=" + boardReRef);
 			forward.setRedirect(true);
 			
 			
 		} else {
 			// 수정 실패 시 이동할 경로
-			session.setAttribute("ErrorMSG", "답변 작성에 실패하였습니다.");
+			session.setAttribute("ErrorMSG", "답변 수정에 실패하였습니다.");
 			forward.setPath("failed.adb");
 			forward.setRedirect(true);
 		}

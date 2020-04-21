@@ -88,6 +88,7 @@ public class BoardService {
 		boardDAO.setConnection(con);
 		
 		int deleteCount = 0;
+		
 		deleteCount = boardDAO.deleteArticle(boardNum, k1);
 		if(deleteCount != 0) {
 			commit(con);

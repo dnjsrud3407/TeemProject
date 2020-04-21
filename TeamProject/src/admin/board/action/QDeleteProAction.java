@@ -18,15 +18,14 @@ public class QDeleteProAction implements Action {
 		BoardService boardService = new BoardService();
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		String boardReRef = request.getParameter("boardReRef");
-		String k1 = request.getParameter("1:1문의");
-		String k2 = request.getParameter("k2");
+		String k1 ="1:1문의";
 		
 		int deleteCount = boardService.deleteArticle(boardNum, k1);
 		
 		forward = new ActionForward();
 		if(deleteCount != 0) {
 			// 글 삭제 성공 시 반응 디테일로 돌아감
-			forward.setPath("/qDetail.adb?boardNum=" + boardReRef);
+			forward.setPath("./QDetail.adb?boardNum=" + boardReRef);
 			forward.setRedirect(true);
 		} else {
 			// 글 삭제 실패 시 반응
