@@ -33,7 +33,6 @@ public class OrderDetailAcion implements Action {
 
 		ActionForward forward = null;
 		String orderNum = request.getParameter("orderNum");
-//		String members = request.getParameter("uID");
 //		System.out.println("memberID : " + members);
 		
 		OrderDetailService orderDetailService = new OrderDetailService();
@@ -43,7 +42,7 @@ public class OrderDetailAcion implements Action {
 		List<OrderBean> order = orderDetailService.selectOrder(orderNum);
 		OrderBean orderDetaile = orderDetailService.orderDetaile(orderNum);
 		MemberBean member = memberDetailService.getMember(orderDetaile.getOrder_ID());
-		
+		System.out.println("status : " + orderDetaile.getOrderStatus());
 		request.setAttribute("order", order);
 //		System.out.println("ordersize : " + order.size());
 		request.setAttribute("orderDetaile", orderDetaile);
