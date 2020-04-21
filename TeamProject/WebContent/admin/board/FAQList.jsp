@@ -169,7 +169,7 @@
                 	</c:if>
                 	</section>
                 	<div style="text-align:right">
-	            	<a href='<c:url value="/FAQWrite.adb?"/>'> <input type="button" value="FAQ 작성하기"></a>
+	            	<a href='<c:url value="/FAQWrite.adb"/>'> <input type="button" value="FAQ 작성하기"></a>
 	            	</div>
 	            </div>
             </div>

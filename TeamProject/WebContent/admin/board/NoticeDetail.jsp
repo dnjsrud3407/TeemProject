@@ -74,33 +74,30 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-                <div class="container-fluid">
-                
-            <div class="card shadow mb-4">
-	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href='<c:url value="/Notice.adb"/>'>&lt; 공지사항 목록</a></h5>
-	            </div>
-        	</div>
-                
-                
+            <div class="container-fluid">
+	            <div class="card shadow mb-4">
+		            <div class="card-header py-3">
+		              <h5 class="m-0 font-weight-bold text-primary"><a href='<c:url value="/Notice.adb"/>'>&lt; 공지사항 목록</a></h5>
+		            </div>
+	        	</div>
 			<div class="row">
 
-           <!-- FAQ 작성 -->
+           <!-- 공지 보기 -->
 
-			<div style="margin-left: auto; margin-right: auto;">
+			<div style="margin-left: auto; margin-right: auto; width: 60%;">
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">공지사항 작성</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">공지사항 보기</h6>
                 </div>
                 <div class="card-body">
-	              <div class="table-responsive" width="100%">
-		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	              <div class="table-responsive">
+		                <table class="table table-bordered" id="dataTable" cellspacing="0" style="border-collapse: collapse; border:thin;">
 		                    <tr>
 		                      <th>제목</th>
 		                      <td colspan="3">${article.boardTitle }</td>
 		                    </tr>
 		                    <tr>
-		                      <th style="width:50%%">내용</th>
+		                      <th style="width:20%">내용</th>
 		                      <td colspan="3">
 		                      
 		                      <c:if test="${article.fileList.size() > 0 }">

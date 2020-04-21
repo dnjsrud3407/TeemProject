@@ -521,12 +521,13 @@ public OrderDAO() {}
 			PreparedStatement pstmt = null;
 			int updateBookCount = 0;
 			
-			String sql ="UPDATE book SET bookEA=bookEA-? WHERE bookID=?";
+			String sql ="UPDATE book SET bookEA=bookEA-?, salesVolume=salesVolume+? WHERE bookID=?";
 			
 			try {
 				for(OrderDetailBean orderDetailBean : orderList) {
 					pstmt = con.prepareStatement(sql);
-					pstmt.setInt(1, orderDetailBean.getBookEA()); pstmt.setInt(2, orderDetailBean.getBookID());
+					pstmt.setInt(1, orderDetailBean.getBookEA()); pstmt.setInt(2, orderDetailBean.getBookEA());
+					pstmt.setInt(3, orderDetailBean.getBookID());
 					
 					updateBookCount += pstmt.executeUpdate();
 				}
