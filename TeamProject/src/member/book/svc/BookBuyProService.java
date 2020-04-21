@@ -32,7 +32,7 @@ public class BookBuyProService {
 			
 			// 포인트 내역 인서트
 			// user 포인트 양 업데이트 / 사용수치 만큼 차감 / 총 금액의 5% 적립 / 최종적으로 user에 point 수치 등록
-			int setPointHistoryCount = orderDAO.setPointHistory(id, usedPoint, totalPrice);
+			int setPointHistoryCount = orderDAO.setPointHistory(id, usedPoint, totalPrice, orderBean.getOrderNum());
 			
 			
 			

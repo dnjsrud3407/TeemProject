@@ -568,7 +568,7 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 		}
 
 
-		public int setPointHistory(String id, int usedPoint, int totalPrice) {
+		public int setPointHistory(String id, int usedPoint, int totalPrice, String orderNum) {
 			PreparedStatement pstmt = null;
 			int setPointHistoryCount = 0;
 			String sql ="";
@@ -576,10 +576,12 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 			
 			// pointAction  사용은 0 / 적립은 1
 			try {
-				sql = "INSERT INTO pointHistory(ownerID, pointRegTime, pointContent, pointValue, pointAction) VALUES(?, now(), ?, ?, ?)";
+				sql = "INSERT INTO pointHistory(ownerID, pointRegTime, pointContent, pointValue, pointAction, orderNum) VALUES(?, now(), ?, ?, ?, ?)";
 				if(usedPoint != 0) { // 사용 포인트가 0이 아닐 때
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, id); pstmt.setString(2, "상품 금액 차감"); pstmt.setInt(3, usedPoint); pstmt.setInt(4, 0); // 사용
+					pstmt.setString(5, orderNum);
+				
 					setPointHistoryCount = pstmt.executeUpdate();
 					if(setPointHistoryCount > 0) {
 						changedPoint = -usedPoint;
