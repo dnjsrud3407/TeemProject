@@ -27,7 +27,7 @@ public class OrderDetailAcion implements Action {
 //		if(book != null) {
 //			reviewDetailService.plusReadcount(board_num);
 //		}
-		 
+		
 //		request.setAttribute("book", book);
 //		request.setAttribute("page", page);
 

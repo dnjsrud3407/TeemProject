@@ -22,7 +22,7 @@ public class OrderModifyProAcion implements Action {
 		String orderNum = request.getParameter("orderNum");
 
 		OrderModifyProService orderModifyProService = new OrderModifyProService();
- 
+
 		OrderBean order = new OrderBean();
 		order.setOrderNum(orderNum);
 		order.setOrderStatus(request.getParameter("orderStatus"));
