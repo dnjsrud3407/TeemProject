@@ -3,7 +3,7 @@
 /* #srchFld {background: url(../images/search.png) no-repeat 4px center #fff;} */
 .list-center{text-align: center;}
 .blue{color: #0000ff;}
-.tag {background:url(../images/new.png) no-repeat 0 0; position: absolute; display:block; top: -4px;right: -18px; height:48px; width:48px;}
+.tag {background:url(../images/new.png) no-repeat 0 0; position: absolute; display:block; top: -4px; height:48px; width:48px;}
 .clr{clear:both;}
 .cntr{text-align:center}
 .marginLess{margin:0}

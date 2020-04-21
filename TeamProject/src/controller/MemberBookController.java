@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import action.Action;
+import member.account.action.MiddleBookAction;
 import member.book.action.BookBuyAction;
 import member.book.action.BookBuyProAction;
 import member.book.action.CartAddAction;
@@ -33,7 +34,6 @@ import member.book.action.ReviewListAcion;
 import member.book.action.ReviewModifyFormAction;
 import member.book.action.ReviewModifyProAcion;
 import member.book.action.ReviewWriteProAcion;
-import member.book.action.NewBookAction;
 //import member.book.action.BookBuyProAction;
 //import member.book.action.BookCartProAction;
 //import member.book.action.BookLikeProAction;
@@ -65,8 +65,8 @@ public class MemberBookController extends HttpServlet {
 		ActionForward forward = null;
 		
 		// === 메인에서 ajax 제어 작업
-		if(command.equals("/NewBook.book")) {
-			action = new NewBookAction();
+		if(command.equals("/MiddleBook.book")) {
+			action = new MiddleBookAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

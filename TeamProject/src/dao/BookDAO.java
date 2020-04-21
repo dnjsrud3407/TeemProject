@@ -539,8 +539,8 @@ public class BookDAO {
         
 		return listCount;
 	}
-
-	// Main에서 중간 배너 (신권 12권)가져오기
+	
+	// Main에서 중간 배너 (신권 8권)가져오기
 	public ArrayList<BookBean> selectMiddleBookList() {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
 		PreparedStatement pstmt = null;
@@ -553,7 +553,7 @@ public class BookDAO {
         	// 페이징 처리////
 			pstmt = con.prepareStatement(sql);
 			pstmt.setBoolean(1, true);
-			pstmt.setInt(2, 1);
+			pstmt.setInt(2, 0);
 			pstmt.setInt(3, 8);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
@@ -577,7 +577,78 @@ public class BookDAO {
 		return bookList;
 	}
 
+	// Main에서 중간 배너 (1,2,3 단계 8권)가져오기
+	public ArrayList<BookBean> selectMiddleBookList(String bK2) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book join bookkategorie "
+        		+ "ON book.bookKategorie_BKID = bookkategorie.BKID WHERE BK2=? AND bookisView=? "
+        		+ "ORDER BY bookID DESC LIMIT ?,?";
+        BookBean book = null;
 
+        try {
+        	// 페이징 처리////
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, bK2);
+			pstmt.setBoolean(2, true);
+			pstmt.setInt(3, 0);
+			pstmt.setInt(4, 8);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice")
+                        );
+				bookList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+		return bookList;
+	}
+
+	// main에서 베스트셀러 5개 들고옴
+	public ArrayList<BookBean> selectBestBookList() {
+		ArrayList<BookBean> bestList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT bookID, bookTitle, bookImage FROM book "
+        		+ "WHERE bookisView=? "
+        		+ "ORDER BY salesVolume DESC, bookID DESC LIMIT ?,?";
+        BookBean book = null;
+
+        try {
+        	// 페이징 처리////
+			pstmt = con.prepareStatement(sql);
+			pstmt.setBoolean(1, true);
+			pstmt.setInt(2, 0);
+			pstmt.setInt(3, 5);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookImage")
+                        );
+				bestList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+		return bestList;
+	}
 	
 
 
