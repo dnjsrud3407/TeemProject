@@ -76,21 +76,23 @@ public class QWriteProAction implements Action {
 		// 작성일, 그룹번호, 글 레벨(답글 확인), 글 순서(답글 순서), 조회수, 상품 ID(상품 문의, 후기용)
 		Timestamp boardRegTime = new Timestamp(System.currentTimeMillis());
 		int boardReRef = Integer.parseInt(multi.getParameter("boardReRef"));
-		int boardReLev = Integer.parseInt(multi.getParameter("boardReLev"));
-		int boardReSeq = Integer.parseInt(multi.getParameter("boardReSeq"));
+		int boardReLev = 2;
+		int boardReSeq = 1;
 		int boardReadcount = 0;
-		int bookID = Integer.parseInt(multi.getParameter("bookID"));
+		
 		// BoardBean 에 파라미터 저장 및 생성
-		bb = new BoardBean(boardNum, k1, k2, boardWriter, boardTitle, boardContent, boardRegTime, boardReRef, boardReLev, boardReSeq, boardReadcount, bookID, fileList);
+		bb = new BoardBean(boardNum, k1, k2, boardWriter, boardTitle, boardContent, boardRegTime, boardReRef, boardReLev, boardReSeq, boardReadcount, fileList);
 		
 		// BoardBean 객체를 전달하여 서비스의 writeArticle() 메서드를 실행하여  DB에 글을 삽입하고, 성공 시 1을 반환받는다, 실패시 0을 반환
-		int insertCount = boardService.writeArticle(bb);
+		int insertCount = boardService.writeReply(bb);
+		
+		
 		
 		forward = new ActionForward();
 		HttpSession session = request.getSession();
 		if(insertCount != 0) {
-			// 글 삭제 성공 시 반응 디테일로 돌아감
-			forward.setPath("/qDetail.adb?boardNum=" + boardReRef);
+			// 답변 작성 성공 시 본 글의 lev 을 1로 올림
+			forward.setPath("./qDetail.adb?boardNum=" + boardReRef);
 			forward.setRedirect(true);
 		} else {
 			// 글 삭제 실패 시 반응

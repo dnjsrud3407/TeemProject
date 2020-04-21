@@ -30,8 +30,14 @@ public class BookBuyProAction implements Action {
 		ActionForward forward = null;
 		String cID = request.getParameter("couponList");
 		String point = request.getParameter("point");
+		
+		int usedPoint = 0;
+		if(point != null && !point.equals("")) {
+			usedPoint = Integer.parseInt(request.getParameter("point"));
+		}
+		
 		System.out.println("사용한 쿠폰 id" + cID);
-		System.out.println("사용한  point" + point);
+		System.out.println("사용한  point" + usedPoint);
 		System.out.println("결제 완료"); 
 		
 		HttpSession session = request.getSession();
@@ -55,9 +61,9 @@ public class BookBuyProAction implements Action {
 		String paymentType = "Card";
 		
 		// 주문번호 생성
-		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-mm-dd-hh-mm-ss"); // 시간 형식
-		timeFormat.format(orderTime);							  // 시간 집어넣음
-		String[] timeArray = timeFormat.toString().split("-");					  // 시간을 문자열로 변경 후 연,월,일,시,분,초 추출
+		SimpleDateFormat timeFormat = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss"); // 시간 형식
+		
+		String[] timeArray = timeFormat.format(orderTime).toString().split("-");					  // 시간을 문자열로 변경 후 연,월,일,시,분,초 추출
 		
 		String orderNum = "";
 		
@@ -114,15 +120,22 @@ public class BookBuyProAction implements Action {
 		
 		BookBuyProService bookBuyProService = new BookBuyProService();
 		
-		int successOrder = bookBuyProService.insertOrder(orderBean);
+		int successOrder = bookBuyProService.insertOrder(orderBean, usedPoint);
+		
+		
+		// 쿠폰 사용 (업데이트 구문)
+		
+		// 포인트 사용 기록 및 user 접근
+		
 		
 		forward = new ActionForward();
 		if(successOrder != 0) {
-			forward.setPath("/");
+			forward.setPath("./Main");
 			forward.setRedirect(true);
 			
 		} else {
-			
+			forward.setPath("./Main");
+			forward.setRedirect(true);
 		}
 		
 		
