@@ -35,7 +35,7 @@ public class QListService {
 		BoardDAO dao = BoardDAO.getInstance();
 		dao.setConnection(con);
 		
-		dao.getOneonOneQListCount(uID);
+		count=dao.getOneonOneQListCount(uID);
 		
 
 		close(con);

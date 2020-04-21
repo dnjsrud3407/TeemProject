@@ -15,12 +15,13 @@ public class NoticeListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 //		System.out.println("Notice 문의 내역 보기");
+//		이벤트
 		
 		NoticeListService notice_ListService = new NoticeListService();
 		ArrayList list = notice_ListService.getList();
 		
 		forward = new ActionForward();
-		forward.setPath("./board/NoticeList.jsp");
+		forward.setPath("board/EventBoard.jsp");
 		
 		return forward;
 	}
