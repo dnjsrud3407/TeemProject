@@ -747,7 +747,6 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 					orderDe.setCouponHistory_num(rs.getInt("couponHistory_num"));				
 					orderDe.setTotalPrice(rs.getInt("totalPrice"));				
 				}
-
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -766,13 +765,17 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 
 			try {
 //				String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
-				String sql = "UPDATE order_tb SET orderStatus=? WHERE order_ID=?";
+				String sql = "UPDATE order_tb SET orderStatus=? WHERE orderNum=?";
 				pstmt = con.prepareStatement(sql);
 //				pstmt.setString(1, article.getBoard_name());
+				System.out.println("updateOrder의 orderStatus :" + order.getOrderStatus());
+				System.out.println("updateOrder의 orderNum :" + order.getOrderNum());
 				pstmt.setString(1, order.getOrderStatus());
-				pstmt.setString(2, order.getOrder_ID());
+				pstmt.setString(2, order.getOrderNum());
 
 				updateCount = pstmt.executeUpdate();
+				System.out.println("updateCount DAO : " + updateCount);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
