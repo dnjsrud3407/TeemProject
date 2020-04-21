@@ -767,6 +767,7 @@ public class BoardDAO {
 	}
 
 	// 상품 문의, 후기 게시글 들고오기
+	// & 메인에서 상품문의, 상품후기, 1:1문의 가져오기
 	public ArrayList<BoardBean> selectList(int kID, int page, int limit) {
 		ArrayList<BoardBean> qList = new ArrayList<BoardBean>();
         // 답변 안 된 글(boardReSeq=0)이 우선적으로 보여지고
@@ -1714,6 +1715,7 @@ public class BoardDAO {
 		return deleteCount;
 	}
 
+
 	// 상품후기 조회수 증가
 	public int updateReadcount(int boardNum, int kID, String boardWriter) {
 		// 게시물 조회 수 1 증가 후 결과(updateCount) 리턴
@@ -1735,6 +1737,14 @@ public class BoardDAO {
 		}
 		
 		return updateCount;
+	}
+	// 메인에서 상품문의, 상품후기, 1:1문의 가져오기
+	public ArrayList<BoardBean> selectBoardList(int kID) {
+		ArrayList<BoardBean> boardList = null;
+		String sql = "SE";
+		
+		return boardList;
+
 	}
 
 }

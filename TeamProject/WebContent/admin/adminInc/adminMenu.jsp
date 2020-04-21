@@ -8,7 +8,7 @@
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href='<c:url value="/AdminMain.adm"/>'>
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+          <i class="fas fa-book"></i>
         </div>
         <div class="sidebar-brand-text mx-3">BookShop</div>
       </a>
@@ -21,6 +21,7 @@
 <!--         <a class="nav-link" href="tables.html"> -->
         <a class="nav-link" href="MemberList.adm">
           <i class="fas fa-fw fa-table"></i>
+<!--           <i class=material-icons style="font-size:20px">person_add</i> -->
           <span>회원관리</span></a>
       </li>
 
@@ -36,12 +37,20 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
+<!--           <i class="material-icons" style="font-size:20px">library_books</i> -->
           <span>주문/매출조회</span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="OrderList.adm">주문관리</a>
-            <a class="collapse-item" href="OrderCompList.adm">매출관리</a>
+            <h6 class="collapse-header">주문관리</h6>
+            <a class="collapse-item" href="OrderList.adm">주문진행조회</a>
+            
+            <h6 class="collapse-header">매출관리</h6>
+            <a class="collapse-item" href="OrderCompList.adm">주문완료내역</a>
+            <a class="collapse-item" href="OrderCencleList.adm">취소완료내역</a>
+            <a class="collapse-item" href="OrderRefundList.adm">반품완료내역</a>
+            <a class="collapse-item" href="OrderExchangeList.adm">교환완료내역</a>
+            
           </div>
         </div>
       </li>
@@ -58,6 +67,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
+<!--            <i class="material-icons" style="font-size:20px">laptop_chromebook</i> -->
           <span>상품관리</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
@@ -84,6 +94,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
           <i class="fas fa-fw fa-folder"></i>
+<!--            <i class="material-icons" style="font-size:20px">dashboard</i> -->
           <span>게시판 관리</span>
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">

@@ -103,7 +103,7 @@
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
 	<h4> ${bookTitle } 검색결과 - ${listCount }건 </h4><small class="pull-right"></small>	
-	<hr class="soft"/><hr class="soft"/>  
+	<hr class="soft"/>
 <br class="clr"/>
 <div class="tab-content">
 	<div id="listView">

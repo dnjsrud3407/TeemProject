@@ -101,6 +101,14 @@ public class BookBean {
 		this.bookPublishedDate = bookPublishedDate;
 		this.bookPrice = bookPrice;
 	}
+	
+	// 메인에서 베스트 셀러 사용할 때
+	public BookBean(int bookID, String bookTitle, String bookImage) {
+		super();
+		this.bookID = bookID;
+		this.bookTitle = bookTitle;
+		this.bookImage = bookImage;
+	}
 
 	public int getBookID() {
         return bookID;

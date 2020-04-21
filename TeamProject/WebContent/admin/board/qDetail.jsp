@@ -51,10 +51,10 @@
 
 <script type="text/javascript">
 	
-	function checkOK(boardNum) {
+	function checkOK(boardNum,boardReRef) {
 		r = confirm("정말로 삭제하시겠습니까?");
 		if(r){
-			location.href="./QDelete.adb?boardNum="+boardNum;
+			location.href="./QDelete.adb?boardNum="+boardNum+"&boardReRef="+boardReRef;
 		}
 	}
 		
@@ -155,16 +155,16 @@
                     <input type="hidden" name="k2" value="${answer.k2 }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <thstyle="width:60%">답변제목</th>
-	                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${answer.boardTitle }"></td>
+	                      <th style="width:60%">답변제목</th>
+	                      <td colspan="3"><input type="text" name="boardTitle" size="60" value="${answer.boardTitle }"></td>
 	                    </tr>
 	                    <tr>
 	                      <th style="width:60%">답변 수정</th>
-	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${answer.boardContent }</textarea></td>
+	                      <td colspan="3"><textarea name="boardContent" rows="23" cols="60" required="required">${answer.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
 	                <input type="submit" class="custom_button" value="답변 수정" />
-	                <input type="button" class="custom_button" value="답변 삭제" onclick="CheckOK(${answer.boardNum})"/>
+	                <input type="button" class="custom_button" value="답변 삭제" onclick="checkOK(${answer.boardNum}, ${question.boardReRef})"  />
 	                </form>
 	              </div>
 	            </div>
@@ -189,12 +189,8 @@
 	                	<tr>
 	                	  <th>카테고리</th>
 	                	  <td>
-	                	  	<select name="k2">
-	                	  		<c:forEach var="k2" items="${k2List }" varStatus="varStatus">
-	                	  			<c:if test="${k2 eq question.k2 }"><option selected="selected">${k2 }</option></c:if>
-	                	  			<option>${k2 }</option>
-	                	  		</c:forEach>
-	                	  	</select>
+	                	  	<input type="hidden" name="k2" value="${question.k2  }">
+	                	  	${question.k2 }
 	                	  <td>
 	                	</tr>
 	                    <tr>
@@ -203,7 +199,7 @@
 	                    </tr>
 	                    <tr>
 	                      <th style="width:60%">답변 작성</th>
-	                      <td colspan="3"><textarea name="boardContent" rows="20" cols="40" required="required"></textarea></td>
+	                      <td colspan="3"><textarea name="boardContent" rows="23" cols="60" required="required"></textarea></td>
 	                    </tr>
 	                </table>
 	                <input type="submit" class="custom_button" value="답변 작성" />

@@ -1,13 +1,9 @@
 package admin.sales.svc;
 
-import static db.JdbcUtil.close;
-import static db.JdbcUtil.commit;
-import static db.JdbcUtil.getConnection;
-import static db.JdbcUtil.rollback;
+import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
-import dao.MemberDAO;
 import dao.OrderDAO;
 import vo.OrderBean;
 
@@ -23,7 +19,7 @@ public class OrderModifyProService {
 		dao.setConnection(con);
 		
 		updateCount = dao.updateOrder(order);
-				
+		System.out.println("updateCount service : " + updateCount);
 		if(updateCount > 0) {
 			commit(con);
 			isModifySuccess = true;

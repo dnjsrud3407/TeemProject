@@ -102,7 +102,7 @@
 		                      
 		                      <c:if test="${article.fileList.size() > 0 }">
 		                      	<c:forEach var="image" items="${article.fileList}" varStatus="index">
-		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/>
+		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/><br>
 		                      	</c:forEach>
 		                      </c:if>
 		                      ${article.boardContent }

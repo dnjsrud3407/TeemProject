@@ -33,7 +33,7 @@ public class ReviewModifyFormAction implements Action {
 		int kID = 103;
 		
 		ReviewModifyProService reviewModify = new ReviewModifyProService();
-		BoardBean boardBean = reviewModify.getReviews(boardNum, boardWriter, kID);
+		BoardBean boardBean = reviewModify.getReviews(boardNum, kID, boardWriter);
 		
 		
 		ActionForward forward = new ActionForward();

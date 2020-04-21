@@ -25,18 +25,20 @@ public class OrderCompListAcion implements Action {
 		
 		ActionForward action = new ActionForward();
 		String orderNum = request.getParameter("order_ID");
-		
+		String orderStatus = request.getParameter("orderStatus");
+
 		//삭제필요한지확인
 //		admin.sales.svc.OrderListService mind = null;
 		
 	
 		OrderListService orderListService = new OrderListService();
 		List<OrderBean> orderList = orderListService.orderList();
- 
+//		OrderBean order = new OrderBean();
 		request.setAttribute("orderList", orderList);
-		
+//		request.setAttribute("order", order);
+
 		forward = new ActionForward();
-		forward.setPath("/admin/order/order_comp_list.jsp");
+		forward.setPath("/admin/order/order_comp_list.jsp?type=" + orderStatus);
 		
 		return forward;
 	}

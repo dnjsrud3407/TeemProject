@@ -568,7 +568,7 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 		}
 
 
-		public int setPointHistory(String id, int usedPoint, int totalPrice) {
+		public int setPointHistory(String id, int usedPoint, int totalPrice, String orderNum) {
 			PreparedStatement pstmt = null;
 			int setPointHistoryCount = 0;
 			String sql ="";
@@ -576,10 +576,12 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 			
 			// pointAction  사용은 0 / 적립은 1
 			try {
-				sql = "INSERT INTO pointHistory(ownerID, pointRegTime, pointContent, pointValue, pointAction) VALUES(?, now(), ?, ?, ?)";
+				sql = "INSERT INTO pointHistory(ownerID, pointRegTime, pointContent, pointValue, pointAction, orderNum) VALUES(?, now(), ?, ?, ?, ?)";
 				if(usedPoint != 0) { // 사용 포인트가 0이 아닐 때
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, id); pstmt.setString(2, "상품 금액 차감"); pstmt.setInt(3, usedPoint); pstmt.setInt(4, 0); // 사용
+					pstmt.setString(5, orderNum);
+				
 					setPointHistoryCount = pstmt.executeUpdate();
 					if(setPointHistoryCount > 0) {
 						changedPoint = -usedPoint;
@@ -745,7 +747,6 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 					orderDe.setCouponHistory_num(rs.getInt("couponHistory_num"));				
 					orderDe.setTotalPrice(rs.getInt("totalPrice"));				
 				}
-
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -764,13 +765,17 @@ public OrderBean orderVeryDetail(int orderDetailNum) {
 
 			try {
 //				String sql = "UPDATE board SET board_name=?,board_subject=?,board_content=? WHERE board_num=?";
-				String sql = "UPDATE order_tb SET orderStatus=? WHERE order_ID=?";
+				String sql = "UPDATE order_tb SET orderStatus=? WHERE orderNum=?";
 				pstmt = con.prepareStatement(sql);
 //				pstmt.setString(1, article.getBoard_name());
+				System.out.println("updateOrder의 orderStatus :" + order.getOrderStatus());
+				System.out.println("updateOrder의 orderNum :" + order.getOrderNum());
 				pstmt.setString(1, order.getOrderStatus());
-				pstmt.setString(2, order.getOrder_ID());
+				pstmt.setString(2, order.getOrderNum());
 
 				updateCount = pstmt.executeUpdate();
+				System.out.println("updateCount DAO : " + updateCount);
+
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {

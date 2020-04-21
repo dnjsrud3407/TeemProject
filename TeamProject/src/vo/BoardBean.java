@@ -27,6 +27,29 @@ public class BoardBean {
 	private String bookTitle;
 	private String score; // 상품후기 평점
 	
+	
+	
+	public BoardBean(int boardNum, String k1, String k2, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount,
+			List<FileBean> fileList) {
+		super();
+		this.boardNum = boardNum;
+		this.k1 = k1;
+		this.k2 = k2;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.fileList = fileList;
+	}
+
+
+
+
 	public BoardBean(int boardNum, int kID, String k1, String k2, String boardWriter, String boardTitle,
 			String boardContent, Timestamp boardRegTime, Timestamp boardAnswerRegTime, int boardReRef, int boardReLev,
 			int boardReSeq, int boardReadcount, int bookID, String bookTitle, String score, int fileNum,
@@ -58,16 +81,7 @@ public class BoardBean {
 
 
 
-	public String getScore() {
-		return score;
-	}
 
-
-
-
-	public void setScore(String score) {
-		this.score = score;
-	}
 
 
 
@@ -81,27 +95,6 @@ public class BoardBean {
 	
 
 	
-	public BoardBean(int boardNum, String k1, String k2, String boardWriter, String boardTitle, String boardContent,
-			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount,
-			List<FileBean> fileList) {
-		super();
-		this.boardNum = boardNum;
-		this.k1 = k1;
-		this.k2 = k2;
-		this.boardWriter = boardWriter;
-		this.boardTitle = boardTitle;
-		this.boardContent = boardContent;
-		this.boardRegTime = boardRegTime;
-		this.boardReRef = boardReRef;
-		this.boardReLev = boardReLev;
-		this.boardReSeq = boardReSeq;
-		this.boardReadcount = boardReadcount;
-		this.fileList = fileList;
-	}
-
-
-
-
 	// 상품후기 작성에 사용
 	public BoardBean(int boardNum, String k1, String boardWriter, String boardTitle, String boardContent,
 			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount, int bookID,
@@ -261,51 +254,50 @@ public class BoardBean {
 	}	
 	
 	//사용자 1:1 문의 List 목록 
-		public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
-				int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2,boolean isQResult) {
-			super();
-			this.boardNum = boardNum;
-			this.kID = kID;
-			this.boardWriter = boardWriter;
-			this.boardTitle = boarTitle;
-			this.boardContent = boardContent;
-			this.boardReRef = boardReRef;
-			this.boardReLev = boardReLev;
-			this.boardReSeq = boardReSeq;
-			this.boardReadcount = boardReadcount;
-			this.boardRegTime = boardRegTime;
-			this.bookID = bookID;
-			this.storedFileName = storedFileName;
-			this.originFileName = originFileName;
-			this.k1 = k1;
-			this.k2 = k2;
-			this.isQResult=isQResult;
-		}
+	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2,boolean isQResult) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boarTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.boardRegTime = boardRegTime;
+		this.bookID = bookID;
+		this.storedFileName = storedFileName;
+		this.originFileName = originFileName;
+		this.k1 = k1;
+		this.k2 = k2;
+		this.isQResult=isQResult;
+	}
 	
 		
-		//사용자 1:1 상세 내용
-		public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
-				int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2) {
-			super();
-			this.boardNum = boardNum;
-			this.kID = kID;
-			this.boardWriter = boardWriter;
-			this.boardTitle = boarTitle;
-			this.boardContent = boardContent;
-			this.boardReRef = boardReRef;
-			this.boardReLev = boardReLev;
-			this.boardReSeq = boardReSeq;
-			this.boardReadcount = boardReadcount;
-			this.boardRegTime = boardRegTime;
-			this.bookID = bookID;
-			this.storedFileName = storedFileName;
-			this.originFileName = originFileName;
-			this.k1 = k1;
-			this.k2 = k2;
-		}
+	//사용자 1:1 상세 내용
+	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
+			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boarTitle;
+		this.boardContent = boardContent;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+		this.boardReadcount = boardReadcount;
+		this.boardRegTime = boardRegTime;
+		this.bookID = bookID;
+		this.storedFileName = storedFileName;
+		this.originFileName = originFileName;
+		this.k1 = k1;
+		this.k2 = k2;
+	}
 		
-		
-		
+
 	//사용자 1:1 문의 답변 목록 
 	public BoardBean(int boardNum, int kID,String boardWriter,String boardTitle,String boardContent,
 			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID) {
@@ -324,13 +316,9 @@ public class BoardBean {
 	}
 	
 	
-	
-
 
 	// fAQ 작성시 사용될 생성자
 	
-
-
 
 	public int getBoardNum() {
 		return boardNum;
@@ -387,13 +375,9 @@ public class BoardBean {
 		return kID;
 	}
 
-
-
 	public void setkID(int kID) {
 		this.kID = kID;
 	}
-
-
 
 //	public String getK3() {
 //		return k3;
@@ -500,53 +484,44 @@ public class BoardBean {
 		this.bookTitle = bookTitle;
 	}
 
-
-
 	public int getFileNum() {
 		return fileNum;
 	}
-
-
 
 	public void setFileNum(int fileNum) {
 		this.fileNum = fileNum;
 	}
 
-
-
 	public String getOriginFileName() {
 		return originFileName;
 	}
-
-
 
 	public void setOriginFileName(String originFileName) {
 		this.originFileName = originFileName;
 	}
 
-
-
 	public String getStoredFileName() {
 		return storedFileName;
 	}
-
-
 
 	public void setStoredFileName(String storedFileName) {
 		this.storedFileName = storedFileName;
 	}
 
-
-
 	public String getFileType() {
 		return fileType;
 	}
-
-
 
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
 	}
 	
+	public String getScore() {
+		return score;
+	}
+
+	public void setScore(String score) {
+		this.score = score;
+	}
 }	
 
