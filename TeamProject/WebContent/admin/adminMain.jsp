@@ -28,7 +28,21 @@ if(session.getAttribute("uID") == null){
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
 
 </head>
-
+<script src="./js/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+function getBoard(type) {
+	  // type = 102 -> 상품문의
+	  // type = 103 -> 상품후기
+	  // type = 109 -> 1:1문의
+	  $.ajax({
+		  type:"POST",
+		  url:"MainBoard.adm?type=" + type,
+		  success: function(msg2){	// 베스트셀러
+		  	  $(".ajaxBoard").html(msg2);
+		  }
+	  });
+}
+</script>
 <body id="page-top">
 
   <!-- Page Wrapper -->
@@ -112,7 +126,7 @@ if(session.getAttribute("uID") == null){
                       <div class="font-weight text-dark mb-1 iconText">수정중 상품</div><div class="iconText2">0건</div><div class="clear"></div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x_custom text-gray-300"></i>
+                      <i class="fas fa-calendar fa-2x_custom text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -196,15 +210,15 @@ if(session.getAttribute("uID") == null){
                 </div>
                 <!-- Card Body -->
                 <div class="card-body text-center text-dark" style="padding-top: 0px;">
-                	<table class="boardTr">
+                	<table class="boardTr ajaxBoard">
                 		<tr>
-                			<td class="boardTitle">상품문의</td>
-                			<td class="boardTitle">상품후기</td>
-                			<td class="boardTitle">1:1문의</td>
+                			<td class="boardTitle" onclick="getBoard(102)">상품문의</td>
+                			<td class="boardTitle" onclick="getBoard(103)">상품후기</td>
+                			<td class="boardTitle" onclick="getBoard(109)">1:1문의</td>
                 		</tr>
                 		<tr></tr>
                 		<c:forEach begin="1" end="4" varStatus="status">
-	                		<tr style="border: 1px solid;">
+	                		<tr>
 	                			<td colspan="2">게시글 최신꺼부터 가져오기</td>
 	                			<td>2020.04.21</td>
 	                		</tr>                		

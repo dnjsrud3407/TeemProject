@@ -193,9 +193,9 @@
             <div class="well2 well-small">
             <div class="row-fluid">
             <div id="featured" class="carousel slide">
-              <div class="carousel-inner middle_banner">
+              <div class="carousel-inner">
               	<!-- 여기 이후에 새로 고침 -->
-	              <div class="carousel-inner">
+	              <div class="carousel-inner middle_banner">
 	              <div class="item active">
 	              <ul class="thumbnails">
 	              	<c:forEach var="book" items="${bookList }" begin="0" end="3" varStatus="status">
