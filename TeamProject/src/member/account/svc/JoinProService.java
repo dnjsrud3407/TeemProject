@@ -35,22 +35,24 @@ public class JoinProService {
 		return isJoinSuccess;
 	}
 
-	public boolean deleteMember(MemberBean member) {
+	public boolean isSuccessMember(String uID) {
 		// TODO Auto-generated method stub
-		boolean isDeleteUser = false;
-		int loginResult = 1;
+		boolean useuID = false;
+		int loginResult = -1;
 		
 		Connection con = getConnection();
 		
 		MemberDAO mDAO = MemberDAO.getInstance();
 		
-		loginResult = mDAO.deleteMember(member);
+		loginResult = mDAO.isSuccessMember(uID);
 		
-		if(loginResult == -1) {
-			isDeleteUser = true;
+		if(loginResult == 1) {
+			useuID = true;
 		}
 		
-		return isDeleteUser;
+		close(con);
+		
+		return useuID;
 	}
 }	
 	

@@ -69,24 +69,26 @@ public MemberDAO() {}
 		return insertCount;
 	}
 	
-	// 삭제된 회원인지 판별 메서드
-	public int deleteMember(MemberBean member) {
-		int loginResult = 1;
+	// 회원가입 판별 메서드
+	public int isSuccessMember(String uID) {
+		int loginResult = -1;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			String sql = "select * from user where uID=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getuID());
+			pstmt.setString(1, uID);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				if(rs.getString("withdrawal").equalsIgnoreCase("y")) {
-					loginResult = -1;
+					loginResult = -1; // 중복된 아이디(회원탈퇴 포함)
 					return loginResult;
-				}
-			}	
+				} 
+			} else {
+				loginResult = 1; // 아이디 사용가능
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
