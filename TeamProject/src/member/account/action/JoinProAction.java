@@ -16,7 +16,6 @@ public class JoinProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		boolean isJoinSuccess = false;
 		
 		response.setContentType("text/html; charset=UTF-8");
     	PrintWriter out = response.getWriter();
@@ -44,35 +43,23 @@ public class JoinProAction implements Action {
 		
 		JoinProService joinService = new JoinProService();
 		
-		String message = "";
-		boolean useuID = joinService.isSuccessMember(uID);
-		System.out.println("useuID:"+useuID);
-		if(useuID) {
-				message ="사용 가능한 아이디입니다";
-				isJoinSuccess = joinService.joinMember(member);
-				out.print(message);
-		} else {
-				message ="중복된 아이디입니다";
-				out.print(message);
-		}
+		boolean isJoinSuccess = joinService.joinMember(member);
+	
+		if(!isJoinSuccess) {
+			response.setContentType("text/html; charset=UTF-8");
+			out = response.getWriter(); // HTML 태그 출력을 위한 Writer 객체 가져오기
+			// out 객체의 println() 메서드를 호출하여 HTML 태그 작성
+			out.println("<script>"); // 자바스크립트 실행을 위한 <script> 시작 태그
+			out.println("alert('회원 가입 실패!')"); // alert dialog 출력
+			out.println("history.back()"); // 또는 out.println("history.go(-1)");  // 이전 페이지로 돌아가기
+			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
+		} else {		
+			forward = new ActionForward();
+			forward.setPath("");
+			forward.setRedirect(true);
 		
-//		request.setAttribute("message", message);
-//		
-//		if(!isJoinSuccess) {
-//			response.setContentType("text/html; charset=UTF-8");
-//			out = response.getWriter(); // HTML 태그 출력을 위한 Writer 객체 가져오기
-//			// out 객체의 println() 메서드를 호출하여 HTML 태그 작성
-//			out.println("<script>"); // 자바스크립트 실행을 위한 <script> 시작 태그
-//			out.println("alert('회원 가입 실패!')"); // alert dialog 출력
-//			out.println("history.back()"); // 또는 out.println("history.go(-1)");  // 이전 페이지로 돌아가기
-//			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
-//		} else {		
-//			forward = new ActionForward();
-//			forward.setPath("");
-//			forward.setRedirect(true);
-//			return forward;
-//		}
-		return null;
+		}
+		return forward;
 	}
 
 }

@@ -25,7 +25,7 @@ public class CartListService {
 
 		bookDAO.setConnection(con);
 
-		BookBean bookBean = bookDAO.selectBook(bookID);
+		BookBean bookBean = bookDAO.selectUserBook(bookID);
 		
 
 		close(con);

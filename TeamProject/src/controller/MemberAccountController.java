@@ -14,6 +14,7 @@ import member.account.action.CouponInfoAction;
 import member.account.action.DeleteProAction;
 import member.account.action.FindIdProAction;
 import member.account.action.FindPassProAction;
+import member.account.action.JoinCheckAction;
 import member.account.action.JoinProAction;
 import member.account.action.LoginProAction;
 import member.account.action.LogoutProAction;
@@ -32,8 +33,6 @@ public class MemberAccountController extends HttpServlet {
 	
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
 		
-		
-		
 		request.setCharacterEncoding("utf-8");
 		
 		String command = request.getServletPath();
@@ -50,9 +49,20 @@ public class MemberAccountController extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}else if(command.equals("/JoinCheck.me")){
+		action = new JoinCheckAction();
+			try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 	}else if (command.equals("/Login.me")) {//
 		forward = new ActionForward();
 		forward.setPath("/member/login.jsp");
+	}else if (command.equals("/Login2.me")) {//
+		forward = new ActionForward();
+		forward.setPath("/member/login2.jsp");
 		
 	}else if(command.equals("/LoginPro.me")) {//
 		

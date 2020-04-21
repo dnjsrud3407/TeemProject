@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -174,47 +173,52 @@
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Login</li>
+		<li><a href="Main.me">Home</a> <span class="divider">/</span></li>
+		<li class="active"><a href="Login.me">Login</a></li>
     </ul>
-	<h3> Find Id</h3>	
+	<h3> Login</h3>	
 	<hr class="soft"/>
 	
 	<div class="row">
-		
+		<div class="span4">
+			<div class="well">
+			<h5>CREATE YOUR ACCOUNT</h5><br/>
+			Enter your e-mail address to create an account.<br/><br/><br/>
+			<form action="./JoinForm.me" name="loginForm">
+			  <div class="control-group">
+				<label class="control-label" for="inputEmail0">E-mail address</label>
+				<div class="controls">
+				  <input class="span3"  type="text" id="inputEmail0" placeholder="Email">
+				</div>
+			  </div>
+			  <div class="controls">
+			  <button type="submit" class="btn block">Create Your Account</button>
+			  </div>
+			</form>
+		</div>
+		</div>
 		<div class="span1"> &nbsp;</div>
 		<div class="span4">
-			<div class="well" style="width: 500px;height: 285px;margin: 100px; padding: 20px;">
-			<h3 style="margin-top: 10px;">Find Id</h3>
-			<form action="./FindIdPro.me" name="LoginForm" method="post">
+			<div class="well">
+			<h5>ALREADY REGISTERED ?</h5>
+			<form action="./LoginPro.me" name="LoginForm">
 			  <div class="control-group">
-				<label class="control-label" for="inputId">Name</label>
+				<label class="control-label" for="inputId"></label>
 				<div class="controls">
-				  <input class="span3"  type="text" id="u_name" name="u_name" placeholder="Name">
+				  <input class="span3"  type="text" id="uID" name="uID" placeholder="Id">
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="inputMobilePhone">Mobile Phone</label>
+				<label class="control-label" for="inputPassword">Password</label>
 				<div class="controls">
-				  <input type="text" class="span3"  id="phone_num" name="phone_num" placeholder="Mobile Phone">
+				  <input type="password" class="span3"  id="pw" name="pw" placeholder="Password">
 				</div>
 			  </div>
 			  <div class="control-group">
 				<div class="controls">
-				  <button type="submit" class="btn" style="margin-right: 15px;">Next</button> 
+				  <button type="submit" class="btn" style="margin-right: 15px;">Sign in</button> <a href="FindId.me" style="margin-right: 15px;">Forget ID?</a><a href="FindPass.me">Forget password?</a>
+				 	
 				</div>
-				  <div style="margin-top: 15px;">
-				  	<c:if test="${idOk == 1}">
-						<c:if test="${findId ne null }">
-						${u_name} 님의 아이디는 <b>${findId}</b>입니다.
-						</c:if>
-					</c:if>
-					<c:if test="${idOk == -1 }">
-						<c:if test="${findId eq null}">
-						Name 또는 Mobile Phone 번호가 틀렸습니다.
-						</c:if>
-					</c:if>
-				 </div>
 			  </div>
 			</form>
 		</div>

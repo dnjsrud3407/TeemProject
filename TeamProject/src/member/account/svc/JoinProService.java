@@ -35,25 +35,6 @@ public class JoinProService {
 		return isJoinSuccess;
 	}
 
-	public boolean isSuccessMember(String uID) {
-		// TODO Auto-generated method stub
-		boolean useuID = false;
-		int loginResult = -1;
-		
-		Connection con = getConnection();
-		
-		MemberDAO mDAO = MemberDAO.getInstance();
-		
-		loginResult = mDAO.isSuccessMember(uID);
-		
-		if(loginResult == 1) {
-			useuID = true;
-		}
-		
-		close(con);
-		
-		return useuID;
-	}
 }	
 	
 	

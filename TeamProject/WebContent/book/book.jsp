@@ -70,16 +70,16 @@ boolean isLogin = false;
     })
     
     $(document).on("click",".open-AddReview", function (){
-    	var Title = $('rv_img').data('id');
+    	var Title = $(".rv_img").data('id');
     	$(".rv_main ")
-    	var reviewImg = $('.rv_img').attr("src");
+    	var reviewImg = $(".rv_img").attr("src");
     	console.log(reviewImg);
 //     	var review_t = $('#rv_title').text();
 //     	var review_c = $('#rv_content').text();
 //     	var review_time = $('#rv_regtime').text();
 //     	var readcount = $('#rv_count').text();
    
-    	$('#cont_img').attr("src",reviewImg);
+    	
 //     	$('#rv_readcount').html(readcount + '<br>');
 //     	$('#review_regtime').html(review_time+'<br>');
 //     	$('#detail_title').html(review_t);
@@ -192,39 +192,7 @@ boolean isLogin = false;
 		
 	}
 	
-function readcountUp() {
-		
-	}
-$(document).ready(function() {
-    
-	$.ajax({
-		type: "post",
-		url: $(form).attr('action'),
-		data: formData,
-		success: function(msg)
-		{	
-			
-			
-		},
-		error: function(xhr, ajaxSettings, thrownError)
-		{
-			alert("등록 실패");
-			opener.location.reload();
-			window.close();
-			}
-		
-			
-		});
-	
-	$.ajax({
-		type:"POST",
-		url:"BK1.abook",
-		success: function(msg1){	// 대분류 innerHTML
-			$("select[name='BK1Category']").html(msg1);
-		}
-	});
-	
-	
+
 	
 </script>
 	<style type="text/css" id="enject">
@@ -381,7 +349,7 @@ overflow-x: hidden;
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-    <li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
+    <li><a href="Main.me">Home</a> <span class="divider">/</span></li>
     <li><a href="products.jsp">Products</a> <span class="divider">/</span></li>
     <li class="active">product Details</li>
     </ul>
@@ -456,10 +424,7 @@ overflow-x: hidden;
 				</form>
 				<hr class="soft clr"/>
 				<p>
-				14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. 
-				Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. 
-				Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
-				
+					${book.bookIntroduce }
 				</p>
 				<a class="btn btn-small pull-right" href="#detail">More Details</a>
 				<br class="clr"/>
@@ -813,7 +778,7 @@ overflow-x: hidden;
 					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
 						<div class="row">	  
 							<div class="span2">
-								<img id="rv_img" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
+								<img id="rv_img${status.index }" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
 							</div>
 							<div class="span4">
 								
@@ -1077,7 +1042,7 @@ overflow-x: hidden;
 				</div>
 				<div class="scroll_area" style="max-height: 415px;">
 					<div class="cont_box">
-					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img"></p>
+					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img" class="modal_img"></p>
 					<p class="cont_text" style="margin: 10px;" id="detail_content"></p>
 					<hr>
 					</div>

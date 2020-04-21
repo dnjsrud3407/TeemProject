@@ -38,7 +38,7 @@ public class ReviewListService {
 		int kID = boardDAO.get_kID(k1);
 
 		if (kID == 103) {
-			listCount = boardDAO.reviewListCount(bookID, kID);
+			listCount = boardDAO.reviewUserListCount(bookID, kID);
 		} 
 		
 		close(con);
@@ -57,7 +57,7 @@ public class ReviewListService {
 		
 		boardDAO.setConnection(con);
 		
-		articleReviewList = boardDAO.selectReviewList(pageInfoReview, bookID);
+		articleReviewList = boardDAO.selectUserReviewList(pageInfoReview, bookID);
 		
 		for(int i=0; i<articleReviewList.size(); i++) {
 			System.out.println("Reivewboard"+articleReviewList.get(i).getBoardNum());

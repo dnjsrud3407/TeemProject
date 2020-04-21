@@ -20,7 +20,7 @@ public class BookListService {
 		
 		bookDAO.setConnection(con);
 		
-		bookList = bookDAO.selectBookList(page, limit);
+		bookList = bookDAO.selectUserBookList(page, limit);
 		
 		close(con);
 		
@@ -38,7 +38,7 @@ public class BookListService {
 		
 		bookDAO.setConnection(con);
 		
-		bookList = bookDAO.selectBookList(page, limit, bk2);
+		bookList = bookDAO.selectUserBookList(page, limit, bk2);
 		
 		close(con);
 		
@@ -52,7 +52,7 @@ public class BookListService {
 		BookDAO bookDAO = BookDAO.getInstance();
 		bookDAO.setConnection(con);
 		
-		listCount = bookDAO.selectListCount();
+		listCount = bookDAO.selectUserListCount();
 		
 		close(con);
 		

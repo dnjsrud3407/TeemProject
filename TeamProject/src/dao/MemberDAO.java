@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static db.JdbcUtil.*;
@@ -70,8 +71,8 @@ public MemberDAO() {}
 	}
 	
 	// 회원가입 판별 메서드
-	public int isSuccessMember(String uID) {
-		int loginResult = -1;
+	public boolean idCheck(String uID) {
+		boolean idCheck = true;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -80,23 +81,21 @@ public MemberDAO() {}
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, uID);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
-				if(rs.getString("withdrawal").equalsIgnoreCase("y")) {
-					loginResult = -1; // 중복된 아이디(회원탈퇴 포함)
-					return loginResult;
-				} 
+				 // 중복된 아이디(회원탈퇴 포함)	
+				
 			} else {
-				loginResult = 1; // 아이디 사용가능
+				idCheck = false; // 아이디 사용가능
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rs);
 			close(pstmt);
+			
 		}
 		
-		return loginResult;
+		return idCheck;
 	}
 	
 	
@@ -805,6 +804,68 @@ public MemberDAO() {}
 		}
 		
 		return point;
-	}	
+	}
+
+	public String findPass(HashMap hash) {
+		String findPass = null;
+		String uID = (String)hash.get("uID");
+		String phone_num = (String)hash.get("phone_num");
+		System.out.println("123: "+ uID);
+		System.out.println("456: " + phone_num);
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql ="select pw from user where uID=? and phone_num=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, uID);
+			pstmt.setString(2, phone_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				findPass = rs.getString("pw");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return findPass;
+	}
+
+	public String findId(HashMap hash) {
+		String findId = null;
+		String u_name = (String)hash.get("u_name");
+		String phone_num = (String)hash.get("phone_num");
+		System.out.println("123: "+ u_name);
+		System.out.println("456: " + phone_num);
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql ="select uID from user where u_name=? and phone_num=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, u_name);
+			pstmt.setString(2, phone_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				findId = rs.getString("uID");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return findId;
+	}
 
 }

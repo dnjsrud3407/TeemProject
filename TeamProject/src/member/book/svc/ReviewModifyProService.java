@@ -10,14 +10,14 @@ import vo.BoardBean;
 import vo.BookBean;
 
 public class ReviewModifyProService {
-	public BoardBean getReviews(int boardNum, String boardWriter, int kID) throws Exception {
+	public BoardBean getReviews(int boardNum, int kID, String boardWriter) throws Exception {
 		System.out.println("ReviewModifyProService - getReviews()");
 		
 		Connection con = getConnection();
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
-		BoardBean boardBean = boardDAO.getReviews(boardNum, boardWriter, kID);
+		BoardBean boardBean = boardDAO.getReviews(boardNum, kID, boardWriter);
 
 		close(con);
 		

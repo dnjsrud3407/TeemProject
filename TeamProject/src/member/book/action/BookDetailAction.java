@@ -122,7 +122,7 @@ public class BookDetailAction implements Action {
 		request.setAttribute("articleQnaList", articleQnaList);
 		request.setAttribute("articleReviewList", articleReviewList);
 		request.setAttribute("pageInfoQna", pageInfoQna);
-		request.setAttribute("pageInfoReviw", pageInfoReview);
+		request.setAttribute("pageInfoReview", pageInfoReview);
 
 		forward = new ActionForward();
 		forward.setPath("./book/book.jsp");

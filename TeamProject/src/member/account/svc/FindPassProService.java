@@ -5,13 +5,13 @@ import java.util.HashMap;
 
 import dao.MemberDAO;
 
-import static db.JdbcUtil.*; 
+import static db.JdbcUtil.*;
 
-public class FindIdProService {
 
-	public String findId(HashMap hash) {
-		// TODO Auto-generated method stub
-		String findId = null;
+public class FindPassProService {
+
+	public String findPass(HashMap hash) {
+		String findPass = null;
 		
 		Connection con = getConnection();
 		
@@ -19,14 +19,11 @@ public class FindIdProService {
 		
 		mDAO.setConnection(con);
 		
-		findId = mDAO.findId(hash);
+		findPass = mDAO.findPass(hash);
 		
 		close(con);
 		
-	
-		
-		return findId;
+		return findPass;
 	}
-
 
 }

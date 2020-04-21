@@ -509,8 +509,8 @@ public class BoardDAO {
 	}
 
 	
-	// 상품문의  게시판 불러 올 때 사용
-	public ArrayList<BoardBean> selectQnaList(PageInfo pageInfoQna, int bookID) {
+	// 사용자 상품문의  게시판 불러 올 때 사용
+	public ArrayList<BoardBean> selectUserQnaList(PageInfo pageInfoQna, int bookID) {
 		// 게시물 목록 조회 후 리턴
 		ArrayList<BoardBean> articleQnaList = new ArrayList<BoardBean>();
 		
@@ -577,8 +577,8 @@ public class BoardDAO {
 		return articleQnaList;
 	}
 
-	// 상품후기  게시판 불러 올 때 사용
-	public ArrayList<BoardBean> selectReviewList(PageInfo pageInfoReview, int bookID) {
+	// 사용자 상품후기  게시판 불러 올 때 사용
+	public ArrayList<BoardBean> selectUserReviewList(PageInfo pageInfoReview, int bookID) {
 		// 게시물 목록 조회 후 리턴
 		ArrayList<BoardBean> articleReviewList = new ArrayList<BoardBean>();
 		FileBean file = null;
@@ -652,8 +652,8 @@ public class BoardDAO {
 		return articleReviewList;
 	}
 	
-	// 하나의 책 상품에 대한 문의 글 전체 갯수
-	public int qnaListCount(int bookID, int kID) {
+	// 사용자 하나의 책 상품에 대한 문의 글 전체 갯수
+	public int qnaUserListCount(int bookID, int kID) {
 		int listCount = 0;
 		String sql = "";
 
@@ -680,7 +680,7 @@ public class BoardDAO {
 	}
 	
 	// 하나의 책 상품에 대한 후기 글 전체 갯수
-		public int reviewListCount(int bookID, int kID) {
+		public int reviewUserListCount(int bookID, int kID) {
 			int listCount = 0;
 			String sql = "";
 
@@ -1592,17 +1592,16 @@ public class BoardDAO {
 	}
 
 	// 상품후기 들고오기
-	public BoardBean getReviews(int boardNum, String boardWriter, int kID) {
+	public BoardBean getReviews(int boardNum, int kID, String boardWriter) {
 		BoardBean boardBean = null;
 		
-		
-		String sql="select * from board where boardNum=? and boardWriter=? and kID=?";
+		String sql="select * from board where boardNum=? and kID=? and boardWriter=?";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);
-			pstmt.setString(2, boardWriter);
-			pstmt.setInt(3, kID);
+			pstmt.setInt(2, kID);
+			pstmt.setString(3, boardWriter);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -1651,7 +1650,6 @@ public class BoardDAO {
 
 			if (rs.next()) {
 				if (boardBean.getBoardWriter().equals(rs.getString("boardWriter"))) {
-					System.out.println("여기까지 들어와짐" + updateCount);
 					FileBean file = boardBean.getFileList().get(0);
 					sql = "update board as b join boardfile as bf on b.boardNum = bf.board_boardNum set b.boardTitle=?, "
 							+ "b.boardContent=?, b.score=?, b.boardRegTime=now(), bf.originFileName=?, bf.storedFileName=?, "
@@ -1714,6 +1712,29 @@ public class BoardDAO {
 		}
 		
 		return deleteCount;
+	}
+
+	// 상품후기 조회수 증가
+	public int updateReadcount(int boardNum, int kID, String boardWriter) {
+		// 게시물 조회 수 1 증가 후 결과(updateCount) 리턴
+		// UPDATE 문을 사용하여 게시물 조회수(readcount) 를 1 증가시킴
+		PreparedStatement pstmt = null;
+		
+		int updateCount = 0;
+		
+		// board_num 에 해당하는 board_readcount 값을 1 증가
+		try {
+			String sql = "update board set boardReadcount= boardReadcount+1 where boardNum=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, boardNum);
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
 	}
 
 }

@@ -36,7 +36,7 @@ public class QListService {
 		int kID = boardDAO.get_kID(k1);
 
 		if (kID == 102) {
-			listCount = boardDAO.qnaListCount(bookID, kID);
+			listCount = boardDAO.qnaUserListCount(bookID, kID);
 		} 
 		
 		close(con);
@@ -55,7 +55,7 @@ public class QListService {
 		
 		boardDAO.setConnection(con);
 		
-		articleQnaList = boardDAO.selectQnaList(pageInfoQna, bookID);
+		articleQnaList = boardDAO.selectUserQnaList(pageInfoQna, bookID);
 		
 		for(int i=0; i<articleQnaList.size(); i++) {
 			System.out.println("qnaboard"+articleQnaList.get(i).getBoardNum());

@@ -17,7 +17,7 @@ public class BookDetailService {
 	    BookDAO bookDAO = BookDAO.getInstance();
 	    bookDAO.setConnection(con);
 	    
-	    BookBean book = bookDAO.selectBook(bookID);
+	    BookBean book = bookDAO.selectUserBook(bookID);
 	    
 	    close(con);
 
