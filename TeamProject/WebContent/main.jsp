@@ -22,7 +22,7 @@
     
 <!-- Bootstrap style --> 
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
-    <link href="themes/css/base.css?ver=1" rel="stylesheet" media="screen"/>
+    <link href="themes/css/base.css?ver=2" rel="stylesheet" media="screen"/>
 <!-- Bootstrap style responsive --> 
     <link href="themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
     <link href="themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
@@ -124,58 +124,22 @@
         <div class="carousel-inner">
           <div class="item active">
           <div class="container">
-            <a href="NoticeDetail.bo"><img style="width:100%" src="themes/images/carousel/1.png" alt="special offers"/></a>
-            <div class="carousel-caption">
-                  <h4>Second Thumbnail label</h4>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
+            <a href="NoticeDetail.bo"><img style="width:100%" src="themes/images/carousel/banner1.png" alt="special offers"/></a>
           </div>
           </div>
           <div class="item">
           <div class="container">
-            <a href="NoticeDetail.bo"><img style="width:100%" src="themes/images/carousel/2.png" alt=""/></a>
-                <div class="carousel-caption">
-                  <h4>Second Thumbnail label</h4>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
+            <a href="NoticeDetail.bo"><img style="width:100%" src="themes/images/carousel/banner2.png" alt=""/></a>
           </div>
           </div>
           <div class="item">
           <div class="container">
-            <a href="NoticeDetail.bo"><img src="themes/images/carousel/3.png" alt=""/></a>
-            <div class="carousel-caption">
-                  <h4>Second Thumbnail label</h4>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-            
+            <a href="NoticeDetail.bo"><img src="themes/images/carousel/banner3.png" alt=""/></a>
           </div>
           </div>
            <div class="item">
            <div class="container">
-            <a href="NoticeDetail.bo"><img src="themes/images/carousel/4.png" alt=""/></a>
-            <div class="carousel-caption">
-                  <h4>Second Thumbnail label</h4>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
-           
-          </div>
-          </div>
-           <div class="item">
-           <div class="container">
-            <a href="NoticeDetail.bo"><img src="themes/images/carousel/5.png" alt=""/></a>
-            <div class="carousel-caption">
-                  <h4>Second Thumbnail label</h4>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </div>
-          </div>
-          </div>
-           <div class="item">
-           <div class="container">
-            <a href="NoticeDetail.bo"><img src="themes/images/carousel/6.png" alt=""/></a>
-            <div class="carousel-caption">
-                  <h4>Second Thumbnail label</h4>
-                  <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-                </div>
+            <a href="NoticeDetail.bo"><img src="themes/images/carousel/banner4.png" alt=""/></a>
           </div>
           </div>
         </div>
