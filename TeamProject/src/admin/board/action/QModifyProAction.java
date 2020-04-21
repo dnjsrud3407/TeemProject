@@ -96,7 +96,7 @@ public class QModifyProAction implements Action {
 				df.delete();		// 파일 삭제
 			}
 			// 수정 성공 시 이동할 경로
-			forward.setPath("/qDetail.adb?boardNum=" + boardReRef);
+			forward.setPath("./qDetail.adb?boardNum=" + boardReRef);
 			forward.setRedirect(true);
 			
 			

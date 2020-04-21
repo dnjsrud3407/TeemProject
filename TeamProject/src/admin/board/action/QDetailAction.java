@@ -34,6 +34,11 @@ public class QDetailAction implements Action {
 		
 		// 
 		// 
+		ArrayList<String> k2List = boardService.getk2List(k1);
+		
+		// FAQ 카테고리 목록
+		request.setAttribute("k2List", k2List);
+		
 		forward = new ActionForward();
 		HttpSession session = request.getSession();
 		if(QDeatails.size() > 0) {

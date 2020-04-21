@@ -90,7 +90,7 @@
         <div class="container-fluid">
         	<div class="card shadow mb-4">
 	            <div class="card-header py-3">
-	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook?page=${page }">&lt; 1:1 문의 목록</a></h5>
+	              <h5 class="m-0 font-weight-bold text-primary"><a href="QList.abook">&lt; 1:1 문의 목록</a></h5>
 	            </div>
         	</div>
 			<div class="row">
@@ -115,7 +115,9 @@
 	                      <th>고객ID</th>
 	                      <td>${question.boardWriter }</td>
 	                      <th style="width:60%">처리상태</th>
-	                      <td>답변완료</td>
+	                      <c:if test="${question.boardReLev eq 1 }"><td>답변완료</td></c:if>
+	                      <c:if test="${question.boardReLev eq 0 }"><td>답변대기</td></c:if>
+	                      
 	                    </tr>
 	                    <tr>
 	                      <th>카테고리</th>
@@ -138,7 +140,7 @@
 
             <!-- 판매자 답변 처리 -->
             <!-- 답변이 있을 떄! -->
-            <c:if test="${question.boardReSeq > 0 }">
+            <c:if test="${question.boardReLev > 0 }">
             <div class="col-lg-6 heightM">
 
               <div class="card position-relative">
@@ -147,16 +149,17 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	                <form action="QModify.adb" method="post">
+	                <form action="QModify.adb" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="boardReRef" value="${answer.boardReRef }">
                     <input type="hidden" name="boardNum" value="${answer.boardNum }">
+                    <input type="hidden" name="k2" value="${answer.k2 }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                    <tr>
-	                      <th>답변제목</th>
+	                      <thstyle="width:60%">답변제목</th>
 	                      <td colspan="3"><input type="text" name="boardTitle" size="70" value="${answer.boardTitle }"></td>
 	                    </tr>
 	                    <tr>
-	                      <th style="width:15%">답변 수정</th>
+	                      <th style="width:60%">답변 수정</th>
 	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${answer.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
@@ -170,7 +173,7 @@
             </div>
             </c:if>
              <!-- 답변이 없을 떄! -->
-            <c:if test="${question.boardReSeq eq 0 }">
+            <c:if test="${question.boardReLev eq 0 }">
             <div class="col-lg-6 heightM">
 
               <div class="card position-relative">
@@ -179,16 +182,28 @@
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	                <form action="QWrite.adb" method="post">
+	                <form action="QWrite.adb" method="post" enctype="multipart/form-data">
+	                <input type="hidden" name="boardWriter" value="${sessionScope.uID }">
                     <input type="hidden" name="boardReRef" value="${question.boardReRef }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+	                	<tr>
+	                	  <th>카테고리</th>
+	                	  <td>
+	                	  	<select name="k2">
+	                	  		<c:forEach var="k2" items="${k2List }" varStatus="varStatus">
+	                	  			<c:if test="${k2 eq question.k2 }"><option selected="selected">${k2 }</option></c:if>
+	                	  			<option>${k2 }</option>
+	                	  		</c:forEach>
+	                	  	</select>
+	                	  <td>
+	                	</tr>
 	                    <tr>
-	                      <th>답변제목</th>
-	                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
+	                      <th style="width:60%">답변제목</th>
+	                      <td colspan="3"><input type="text" name="boardTitle" size="40"></td>
 	                    </tr>
 	                    <tr>
-	                      <th style="width:15%">답변 수정</th>
-	                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
+	                      <th style="width:60%">답변 작성</th>
+	                      <td colspan="3"><textarea name="boardContent" rows="20" cols="40" required="required"></textarea></td>
 	                    </tr>
 	                </table>
 	                <input type="submit" class="custom_button" value="답변 작성" />

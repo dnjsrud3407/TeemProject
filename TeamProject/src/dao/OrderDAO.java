@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -469,12 +470,13 @@ public OrderDAO() {}
 			try {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, orderBean.getOrderNum()); pstmt.setString(2, orderBean.getOrder_ID());
-				pstmt.setString(3, orderBean.getOrderRec()); pstmt.setString(4, orderBean.getOrderAddress());
+				pstmt.setString(3, orderBean.getOrderRec()); pstmt.setString(4, orderBean.getAddress2());
 				pstmt.setTimestamp(5, new Timestamp(orderBean.getOrderTime().getTime()));
 				pstmt.setString(6, orderBean.getOrderStatus());
 				pstmt.setTimestamp(7, new Timestamp(orderBean.getLastModTime().getTime()));
 				pstmt.setString(8, orderBean.getPaymentType());
-				pstmt.setInt(9, orderBean.getCoupon_num()); pstmt.setInt(10, orderBean.getTotalPrice());
+				if(orderBean.getCoupon_num() > 0) {pstmt.setInt(9, orderBean.getCoupon_num());} else {pstmt.setNull(9, Types.INTEGER); } 
+				pstmt.setInt(10, orderBean.getTotalPrice());
 				
 				int order_tb_count = pstmt.executeUpdate();
 				
@@ -495,6 +497,14 @@ public OrderDAO() {}
 						insertCount = 1;
 					}
 				
+				}
+				
+				if(insertCount > 0) {
+					sql = "UPDATE user SET address2=? WHERE uID=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, orderBean.getAddress2()); pstmt.setString(2, orderBean.getOrder_ID());
+					
+					insertCount = pstmt.executeUpdate();
 				}
 				
 			} catch (SQLException e) {
@@ -530,6 +540,81 @@ public OrderDAO() {}
 			}
 			
 			return updateBookCount;
+		}
+
+		public int couponUpdate(int coupon_num, String id) {
+			PreparedStatement pstmt = null;
+			int couponUpdateCount = 0;
+			
+			String sql ="UPDATE couponHistory SET couponStatus=? WHERE cID=? AND uID=?";
+			
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "used"); pstmt.setInt(2, coupon_num); pstmt.setString(3, id);
+				
+				couponUpdateCount = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return couponUpdateCount;
+		}
+
+
+		public int setPointHistory(String id, int usedPoint, int totalPrice) {
+			PreparedStatement pstmt = null;
+			int setPointHistoryCount = 0;
+			String sql ="";
+			int changedPoint = 0;
+			
+			// pointAction  사용은 0 / 적립은 1
+			try {
+				sql = "INSERT INTO pointHistory(ownerID, pointRegTime, pointContent, pointValue, pointAction) VALUES(?, now(), ?, ?, ?)";
+				if(usedPoint != 0) { // 사용 포인트가 0이 아닐 때
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, id); pstmt.setString(2, "상품 금액 차감"); pstmt.setInt(3, usedPoint); pstmt.setInt(4, 0); // 사용
+					setPointHistoryCount = pstmt.executeUpdate();
+					if(setPointHistoryCount > 0) {
+						changedPoint = -usedPoint;
+						setPointHistoryCount = 0;
+					} else {
+						return 0;
+					}
+					
+				}
+				
+				int savedPoint = (int)(totalPrice * 0.05);
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, id); pstmt.setString(2, "상품 구매 적립"); pstmt.setInt(3, savedPoint); // 일괄 5퍼센트 적립
+				pstmt.setInt(4, 1); // 적립
+				setPointHistoryCount = pstmt.executeUpdate();
+				if(setPointHistoryCount > 0) {
+					changedPoint += savedPoint;
+					setPointHistoryCount = 0;
+				} else {
+					return 0;
+				}
+				
+				sql = "UPDATE user SET point=point+? WHERE uID=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, changedPoint); pstmt.setString(2, id);
+				
+				setPointHistoryCount = pstmt.executeUpdate();
+				if(setPointHistoryCount > 0) {
+				} else {
+					return 0;
+				}
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			
+			return setPointHistoryCount;
 		}
 
 		public List<OrderBean> orderList() {
