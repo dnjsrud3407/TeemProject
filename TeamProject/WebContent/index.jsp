@@ -34,9 +34,13 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
+    <!--Constom styles -->
+    <link href="css/main.css?ver=1" rel="stylesheet" type="text/css">
     <style type="text/css" id="enject"></style>
   </head>
-  <script type="text/javascript">
+<script src="./js/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+  // 책 검색하는 작업
   function checkSearch() {
 	if($("#srchFld").val() == "") {
 		alert('검색어를 입력하세요');
@@ -45,7 +49,17 @@
 		return true;
 	}
   }
-  </script>
+  
+//   $(document).ready(function() {
+// 	  $.ajax({
+// 		  type:"POST",
+// 		  url:"NewBook.book",
+// 		  success: function(msg2){	// 베스트셀러
+// 		  	  $(".middle_banner").html(msg2);
+// 		  }
+// 	  });
+//   });
+</script>
 <body>
 <div id="header">
 <div class="container">
@@ -87,7 +101,7 @@
 <div id="logoArea" class="navbar">
   <div class="navbar-inner">
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-<!--    검색하는 창 -->
+	<!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
@@ -95,7 +109,7 @@
     <ul id="topMenu" class="nav">
      <li><a href="">로드맵</a></li>
      <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="NoticeList.bo">이벤트</a></li>
+     <li><a href="Event.adb">이벤트</a></li>
     </ul>
   </div>
 </div>
@@ -176,21 +190,54 @@
             <div class="well well-small">
             <div class="row-fluid">
             <div id="featured" class="carousel slide">
-              <!-- main 중간 페이지 작업해야함!!! -->
-              <jsp:include page="./inc/middle_banner.jsp"></jsp:include>
+              <div class="carousel-inner middle_banner">
+	              <div class="carousel-inner">
+	              <div class="item active">
+	              <ul class="thumbnails">
+	              	<c:forEach var="book" items="${bookList }" begin="0" end="3" varStatus="status">
+		                <li class="span3">
+		                  <div class="thumbnail" style="height: 250px">
+		                  <i class="tag"></i>
+		                    <a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage}" alt="${book.bookTitle }"></a>
+		                    <div class="caption">
+		                      <h5>${book.bookTitle }</h5>
+		                      ${book.bookPublisher } | ${book.bookPrice }
+		                    </div>
+		                  </div>
+		                </li>
+	              	</c:forEach>
+	              </ul>
+	              </div>
+	              <div class="item" >
+	              <ul class="thumbnails">
+	                <c:forEach var="book" items="${bookList }" begin="4" end="7" varStatus="status">
+		                <li class="span3">
+		                  <div class="thumbnail" style="height: 250px">
+		                  <i class="tag"></i>
+		                    <a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage}" alt="${book.bookTitle }"></a>
+		                    <div class="caption">
+		                      <h5>${book.bookTitle }</h5>
+		                      ${book.bookPublisher } | ${book.bookPrice }
+		                    </div>
+		                  </div>
+		                </li>
+	              	</c:forEach>
+	              </ul>
+	              </div>
+	              </div>
+              </div>
               <a class="left carousel-control" href="#featured" data-slide="prev">‹</a>
               <a class="right carousel-control" href="#featured" data-slide="next">›</a>
               </div>
               <div style="margin-left: 145px;">
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">새로나온 책</a></h4>
-                  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">베스트셀러</a></h4>
+              	  <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">새로나온책</a></h4>
                   <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">1단계</a></h4>
                   <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">2단계</a></h4>
                   <h4 style="float: left; display: inline-block; margin: 15px;"><a href="BookList.book">3단계</a></h4>
               </div>
               </div>
         </div>
-        <h4>새로나온 책 </h4>
+        <h4>베스트셀러 </h4>
               <ul class="thumbnails">
                 <li class="span3">
                   <div class="thumbnail">

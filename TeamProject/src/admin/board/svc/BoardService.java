@@ -265,7 +265,7 @@ public class BoardService {
 		int insertCount = boardDAO.insertArticle(bb);
 		
 		if(insertCount != 0) {
-			int updateSeq = boardDAO.updateSeq(bb.getK1(), bb.getBoardReRef());
+			int updateSeq = boardDAO.updateLev(bb.getK1(), bb.getBoardReRef());
 			if(updateSeq != 0) {
 				commit(con);	// 삽입된 글 정보 적용(커밋)
 			} else {
@@ -279,6 +279,21 @@ public class BoardService {
 		
 		return insertCount; // 가져온 최신글의 글 번호 반환
 	}
+
+//	public void updateLev(String k1, String k2, int boardReRef) {
+//		Connection con = null;
+//		// BoardDAO 객체 생성(싱글톤 패턴)
+//		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+//		// DB 연결
+//		con = getConnection();
+//		boardDAO.setConnection(con);
+//		int updateCount = 0;
+//		
+//		updateCount = boardDAO.updateLev(k1,k2,boardReRef);
+//		
+//		// DB 연결 종료
+//		close(con);
+//	}
 	
 	
 }

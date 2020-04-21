@@ -21,6 +21,7 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
@@ -98,7 +99,7 @@ ja(document).ready(function () {
 		
 	function comma() {
 // 		numb = String(hell);
-	    alert(hell);
+// 	    alert(hell);
 	    return hell.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
 	    
 	}
@@ -202,7 +203,7 @@ ja(document).ready(function () {
 				   </c:if>
 <c:if test="${orderList!=null}">
 	<c:forEach var="list" items="${orderList}" varStatus="status">
-<%-- 			  <c:if test="${list.orderNum eq list.order_ID}"></c:if> --%>
+	
 			<table class="table table-bordered" style="vertical-align: middle;">
 			 <c:if test="${orderNum != list.orderNum}">
               <thead>
@@ -216,11 +217,16 @@ ja(document).ready(function () {
             			  <c:set value="${list.orderNum}" var="orderNum"></c:set>
 			</c:if>
                 <tr>
-                
-                
+              
+ 							
+
                   <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
                   <td style="border-left: none;">상품명:${list.bookTitle}<br>상품옵션:어쩌구<br>주문번호:${list.orderNum}<br>주문일시:${list.orderTime}</td>
-                  <td><span class="label">쿠폰</span> ${list.coupon_name} <br> <span class="label">포인트</span>  ${list.pointValue} <br><span class="label">총금액</span>${total}</td>
+                  <td><span class="label">쿠폰</span> ${list.coupon_name} <br> <span class="label">포인트</span>
+                   	 <c:forEach var="list2" items="${orderList2}" varStatus="status">
+                    	<c:if test="${list2.orderNum eq list.orderNum}">${list2.pointValue}</c:if>
+                     </c:forEach>
+                    <br><span class="label">총금액</span>${(list.bookPrice*list.bookEA)-list.volume}원</td>
 				 <!--  <td> -->
 				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
 				 <!--  </td> -->
@@ -230,7 +236,7 @@ ja(document).ready(function () {
                 <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin(${list.orderDetailCode})">반품신청</a></div></c:if>
                 <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin2(${list.orderDetailCode})">교환신청</a></div></c:if>  
 																					<!--                 연결할것 -->
-                <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="ReviewWriteForm.book?bookID=${list.bookID}" id="orderConFrim">상품후기쓰기</a></div></c:if>  
+                <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="" id="orderConFrim">상품후기쓰기</a></div></c:if>  
                   </td>
                   
                  <td>
@@ -303,7 +309,6 @@ ja(document).ready(function () {
 			  </tr>
             </table>		 -->
 <!-- 	<a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a> -->
-	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	
 </div>
 </div></div>

@@ -21,11 +21,13 @@ public class QDetailAction implements Action {
 		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
 		
 		
-		
 		QDetailService q_DetailService = new QDetailService();
 		
 		BoardBean boardBean=q_DetailService.getOneonOnegetArticle(boardNum); //1:1문의내역 상세
 		BoardBean boardBean2=q_DetailService.getOneonOnegetAnswer(boardNum); //1:1문의 답변
+		q_DetailService.updateReadCount(boardNum);
+		
+		
 		
 		request.setAttribute("boardBean",boardBean);
 		request.setAttribute("boardBean2",boardBean2);

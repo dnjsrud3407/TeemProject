@@ -111,12 +111,17 @@ public class OrderBean {
 //	tell_num
 //	email
 //	coupon_name
-	String couponStatus;
-	Boolean pointAction;
+	private String couponStatus;
+	private int pointAction;
 //	pointContent
-	Date pointRegTime;
+	private Date pointRegTime;
+	private int pID;
+	private String ownerID;
 //	pointValue
-	String volume;
+	private int volume; //string->int 변경
+	private int couponAction;  // coupon 기간 만료 2
+					   // coupon 사용 1
+					   // coupon 사용가능 0
 	
 	//mypage(orderList)
 	public OrderBean(String orderNum, String order_id,String bookTitle,int bookID, int orderEA, String orderAddress, Date orderTime,
@@ -140,17 +145,33 @@ public class OrderBean {
 	
 	//수정후 mypage 의 orderlist 포인트는 아직 ㄴㄴ
 	
-	public OrderBean(String orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
-			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
-			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
-			String couponStatus,String orderRec,
+	public OrderBean(
+			String orderNum,
+			String order_ID,
+			int bookEA,
+			Date orderTime,
+			String orderStatus,
+			String orderAddress,
+			int bookID,
+			String bookTitle,
+			String bookOriginImage,
+			String bookPublisher,
+			int bookPrice,
+			String u_name,
+			String address2,
+			String phone_num,
+			String tell_num,
+			String email,
+			String coupon_name,
+			String couponStatus,
+			String orderRec,
 			int orderDetailCode,
 			int bookKategorie_BKID,
 			String paymentType,
 			String bookIntroduce,
 			Float saveRatio,
-			String volume
-			)
+			int volume,
+			int couponAction)
 	     {
 		super();
 		this.orderNum = orderNum;
@@ -181,21 +202,40 @@ public class OrderBean {
 		this.bookIntroduce = bookIntroduce;
 		this.saveRatio = saveRatio;
 		this.volume = volume;
-		
+		this.couponAction = couponAction;
 	}
 	
 	
-	// orderDetail
+	
+	
+	
+	
+	
+	//포인트조회
+		public OrderBean(int pID,String ownerID,Date pointRegTime,String pointContent,int pointValue,int pointAction,String orderNum) {
+			super();
+			this.pID = pID;
+			this.ownerID = ownerID;
+			this.pointRegTime = pointRegTime;
+			this.pointContent = pointContent;
+			this.pointValue = pointValue;
+			this.pointAction = pointAction;
+			this.orderNum = orderNum;
+			}
+
+		// orderDetail
 	public OrderBean(String orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
 			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
 			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
-			String couponStatus,Boolean pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec,
+			String couponStatus,int pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec,
 			int orderDetailCode,
 			int bookKategorie_BKID,
 			String paymentType,
 			String bookIntroduce,
 			Float saveRatio,
-			String volume
+			int volume,
+			int couponAction,
+			int totalPrice
 			)
 	     
 	{
@@ -232,9 +272,15 @@ public class OrderBean {
 		this.bookIntroduce = bookIntroduce;
 		this.saveRatio = saveRatio;
 		this.volume = volume;
+		this.couponAction = couponAction;
+		this.totalPrice = totalPrice;
 		
 	}
 	
+
+			
+			
+	
 	
 	
 	
@@ -251,11 +297,37 @@ public class OrderBean {
 	
 	
 
-	public String getVolume() {
+	public int getpID() {
+		return pID;
+	}
+	public void setpID(int pID) {
+		this.pID = pID;
+	}
+	public String getOwnerID() {
+		return ownerID;
+	}
+	public void setOwnerID(String ownerID) {
+		this.ownerID = ownerID;
+	}
+
+	public int getCouponAction() {
+		return couponAction;
+	}
+
+	public void setCouponAction(int couponAction) {
+		this.couponAction = couponAction;
+	}
+
+	public void setPointAction(int pointAction) {
+		this.pointAction = pointAction;
+	}
+
+
+	public int getVolume() {
 		return volume;
 	}
 
-	public void setVolume(String volume) {
+	public void setVolume(int volume) {
 		this.volume = volume;
 	}
 
@@ -331,13 +403,10 @@ public class OrderBean {
 		this.couponStatus = couponStatus;
 	}
 
-	public Boolean getPointAction() {
+	public int getPointAction() {
 		return pointAction;
 	}
 
-	public void setPointAction(Boolean pointAction) {
-		this.pointAction = pointAction;
-	}
 
 	public Date getPointRegTime() {
 		return pointRegTime;

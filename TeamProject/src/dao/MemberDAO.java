@@ -510,7 +510,7 @@ public MemberDAO() {}
 		
 		try {
 			
-			String sql="select cp.coupon_name,ch.couponStatus,cp.couponReg_date,cp.couponEnd_date"
+			String sql="select cp.coupon_name,ch.couponStatus,ch.couponContent,cp.couponReg_date,cp.couponEnd_date,ch.couponAction,cp.volume"
 					+ " from couponhistory ch join user user on ch.uID=user.uID join coupon cp on ch.cID=cp.cID"
 					+ " where user.uID=?";
 
@@ -527,9 +527,12 @@ public MemberDAO() {}
 				memberBean = new MemberBean(
 						rs.getString("coupon_name"),
 						rs.getString("couponStatus"),
+						rs.getString("couponContent"),
 						rs.getDate("couponReg_date"),
-						rs.getDate("couponEnd_date"));
-
+						rs.getDate("couponEnd_date"),
+						rs.getInt("couponAction"),
+						rs.getInt("volume")
+						);
 				couponInfo.add(memberBean);
 			}
 		
@@ -545,7 +548,6 @@ public MemberDAO() {}
 		return couponInfo;
 	}
 
-	
 	//포인트 
 	public ArrayList<MemberBean> getPointInfo(String uID) {
 		System.out.println("memberDAO.getPointInfo(String uID)");
@@ -595,6 +597,151 @@ public MemberDAO() {}
 		return pointInfo;
 		
 	}
+	
+	//포인트 검색
+	public ArrayList<MemberBean> getPointInfo(String uID,String startDate, String endDate) {
+		System.out.println("memberDAO.getPointInfo(String uID,String startDate, String endDate)");
+		
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberBean memberBean = null;
+		ArrayList<MemberBean> pointInfo = null;
+		
+		try {
+			String sql="select * from pointhistory where ownerID=? and pointRegTime >=? and pointRegTime <= date_add(?,interval 1 day)";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,uID);
+			pstmt.setString(2,startDate);
+			pstmt.setString(3,endDate);
+			rs=pstmt.executeQuery();
+			
+			
+			System.out.println("포인트날짜검색 DAO    : "+startDate+","+endDate);
+			
+			pointInfo = new ArrayList<MemberBean>();
+			while (rs.next()) {
+			memberBean = new MemberBean(
+					rs.getInt("pID"),
+					rs.getString("ownerID"),
+					rs.getDate("pointRegTime"),
+					rs.getString("pointContent"),
+					rs.getInt("pointValue"),
+					rs.getInt("pointAction")
+				
+					);
+			pointInfo.add(memberBean);
+			
+			}//while문
+			
+			for (MemberBean memberBean2 : pointInfo) {
+				System.out.println(memberBean2.getPointContent());
+			}
+					
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return pointInfo;
+		
+	}
+	
+	
+	//쿠폰페이징을 위한 전체 카운트
+	public int getCouponInfoListCount(String uID) {
+		int count=0;
+		System.out.println("쿠폰총개수가져오기)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			String sql="select cp.coupon_name,ch.couponStatus,cp.couponReg_date,cp.couponEnd_date"
+					+ " from couponhistory ch join user user on ch.uID=user.uID join coupon cp on ch.cID=cp.cID"
+					+ " where user.uID=?";
+
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,uID);
+			rs=pstmt.executeQuery();
+			
+			while (rs.next()) {
+				
+							count+=1;
+			}
+		
+			 System.out.println("멤버디에이오 쿠폰 카운트 ; "+count);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+//			close(pstmt);
+//			close(rs);
+		}
+		
+		return count;
+	}
+	
+	
+	//쿠폰날짜검색
+	public ArrayList<MemberBean> getCouponInfo(String uID, String startDate2, String endDate2) {
+		System.out.println("memberDAO.getCouponInfo(String uID)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberBean memberBean = null;
+		ArrayList<MemberBean> couponInfo = null;
+		
+		
+		try {
+			
+			String sql="select cp.coupon_name,ch.couponStatus,ch.couponContent,cp.couponReg_date,cp.couponEnd_date,ch.couponAction,cp.volume"
+					+ " from couponhistory ch join user user on ch.uID=user.uID join coupon cp on ch.cID=cp.cID"
+					+ " where user.uID=? and couponReg_date >=? and couponReg_date <= date_add(?,interval 1 day)";
+
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1,uID);
+			pstmt.setString(2,startDate2);
+			pstmt.setString(3,endDate2);
+			rs=pstmt.executeQuery();
+			
+			couponInfo = new ArrayList<MemberBean>();
+			
+			while (rs.next()) {
+				
+				memberBean = new MemberBean(
+						rs.getString("coupon_name"),
+						rs.getString("couponStatus"),
+						rs.getString("couponContent"),
+						rs.getDate("couponReg_date"),
+						rs.getDate("couponEnd_date"),
+						rs.getInt("couponAction"),
+						rs.getInt("volume")
+						
+						);
+				System.out.println(	memberBean.getCoupon_name());
+				
+				couponInfo.add(memberBean);
+
+			}
+			 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return couponInfo;
+	}
+	
+	
+	
+	
 
 	// ===================== 주문할 때 사용하는 메서드
 	// 사용 가능한 쿠폰 리스트 불러온다

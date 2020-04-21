@@ -1,9 +1,11 @@
 package member.order.action;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import member.order.svc.OrderDetailService;
@@ -17,14 +19,18 @@ public class OrderDetailAction implements Action {
 		ActionForward forward = null;
 		System.out.println("OrderDetailAction");
 		
+		HttpSession session=request.getSession();
+		String uId=(String) session.getAttribute("uID");
 		int orderNum=Integer.parseInt(request.getParameter("orderNum"));
 		
-		System.out.println("가져온 주문번호"+orderNum);
+//		System.out.println("가져온 주문번호"+orderNum);
 		
 		OrderDetailService orderDetailService = new OrderDetailService();
 		
 		
 		ArrayList<OrderBean> orderDetailList=orderDetailService.orderDetail(orderNum);
+		List<OrderBean> orderDetailList2 = new ArrayList<OrderBean>();
+		orderDetailList2=orderDetailService.getMypagePointInfo(uId);
 		
 
 //		int bookPrice=orderBean.getBookPrice();
@@ -32,7 +38,6 @@ public class OrderDetailAction implements Action {
 //		int pointValue=orderBean.getPointValue();
 //		int deliveryCost=2500; //배송비 고정
 
-		//만원이상 결제시 배송비 무료?
 		
 //		int total=bookPrice*orderEA-pointValue+deliveryCost;
 		
@@ -44,25 +49,44 @@ public class OrderDetailAction implements Action {
 		//쿠폰에 대해 지정된게 없으므로,
 		//여기서 if (각 쿠폰이름) {총 금액에서 -} 따로 지정
 		//지금은 포인트만 했음
-		
+		String pointOrderNum="";
+		int point=0;
 		int total = 0;
 		int ea=0;
 		int price=0;
 		int couponsale=0;
+	
 		//총 금액을 계산하기 위해서
 		for (OrderBean orderBean : orderDetailList) {
+			
+			for (OrderBean orderBean2 : orderDetailList2) {
+//				System.out.println("orderBean2    : "+orderBean2.getOrderNum());
+//				System.out.println("orderBean     : "+orderBean.getOrderNum());
+						
+				if(orderBean2.getOrderNum().equals(orderBean.getOrderNum())) {
+					point=orderBean2.getPointValue();
+					System.out.println("포인트사용함"+point);
+				}else {
+					System.out.println("포인트사용안함"+point);
+					point=0;
+				} 
+				
+			};	
+			
 			ea=orderBean.getBookEA();
 			price=orderBean.getBookPrice();
 			//쿠폰 volum를 가져오지않았음 수정할것
-			//saveRatio 이거는 뭐지? 
-			couponsale=Integer.parseInt(orderBean.getVolume());
-			total+=(ea*price)+2500-couponsale;
+			couponsale=orderBean.getVolume();
+			System.out.println("쿠폰금액가져오기"+couponsale);
+			System.out.println("포인트금액가져오기"+point);
+			total+=(ea*price)-point-couponsale;
 			System.out.println(total);
 		};
 		
 		
 		request.setAttribute("orderDetailList",orderDetailList);
 		request.setAttribute("total", total);
+		request.setAttribute("orderDetailList2", orderDetailList2);
 		
 		
 		

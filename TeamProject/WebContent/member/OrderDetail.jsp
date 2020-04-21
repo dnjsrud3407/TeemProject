@@ -149,6 +149,8 @@
 		  </tr>
 	</table>	
 	 -->
+ <c:set value="1" var="point"></c:set>
+<c:set value="1" var="total"></c:set>
 <c:set value="1" var="volume"></c:set>
 <c:set value="1" var="eaPrice"></c:set>
 <c:set value="-1" var="orderNum"></c:set>
@@ -222,7 +224,9 @@
                   상품옵션:${list.bookTitle}  <b style="color: red;">${list.bookEA}개</b><br>
                                            출판사: ${list.bookPublisher}<br>
 <!--                  가격 -->
-                 <c:set value="${list.volume}" var="volume"></c:set> 
+                 	<c:set value="${list.volume}" var="volume"></c:set> 
+                    <c:set value="${list.totalPrice}" var="total"></c:set> 
+                    <c:set value="${list.pointValue}" var="point"></c:set> 
 <%--              		 <input type="hidden" id="volume" value="${list.volume}"> --%>
 <%--                    <input type="hidden" id="bookEA" value="${list.bookEA}"> --%>
                   </td>
@@ -237,8 +241,8 @@
                   <td><b>${list.bookEA * list.bookPrice} 원</b>
 <!--                    이자리에 쿠폰사용금액 추가할것 -->
 <!--                    //포인트 가져오는거 안했음 왜냐하면 답이없어  -->
-                   ${list.pointValue} 
-                   ${list.paymentType}
+<%--                    ${list.pointValue}  --%>
+                   ${list.paymentType}결제
                   </td>
                 </tr>
                   <tr>
@@ -269,7 +273,7 @@
                    </td>
                  
                     <td><br>
-				          <span class="label">포인트</span>    ${list.volume} <br>
+				          <span class="label">포인트</span>    ${point} <br>
 				          <span class="label">쿠폰할인</span>   ${volume} <br>
 				          <span class="label">배송비</span>    2500원 <br>
                    </td>
@@ -279,7 +283,7 @@
                 </tr>
                 
                  <tr>
-                  <td colspan="3" style="text-align: right; background-color:#D9D4D4; font: 1.5em" >총 주문금액 : <b style="color: red;"> ${total}원</b>
+                  <td colspan="3" style="text-align: right; background-color:#D9D4D4; font: 1.5em" >총 주문금액 : <b style="color: red;">  ${total}</b>
                   </td>
                   
                 </tr>

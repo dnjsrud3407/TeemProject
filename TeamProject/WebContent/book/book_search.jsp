@@ -81,7 +81,7 @@
 	</a>
   <div class="navbar-inner">
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-<!--    검색하는 창 -->
+<!--    검색하는 창  -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>

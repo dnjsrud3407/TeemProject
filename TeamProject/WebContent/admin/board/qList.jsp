@@ -116,8 +116,8 @@
 		                    <tr>
 		                      <th>${articleList.boardNum }</th>
 		                      <c:choose>
-		                      <c:when test="${articleList.boardReSeq eq 0 }"><th>답변 대기</th></c:when>
-		                      <c:when test="${articleList.boardReSeq > 0 }"><th>답변 완료</th></c:when>
+		                      <c:when test="${articleList.boardReLev eq 0 }"><th>답변 대기</th></c:when>
+		                      <c:when test="${articleList.boardReLev > 0 }"><th>답변 완료</th></c:when>
 		                      </c:choose>
 		                      <th><a href="QDetail.adb?boardNum=${articleList.boardNum }" class="title">${articleList.boardTitle }</a></th>
 		                      <th>${articleList.boardRegTime}</th>

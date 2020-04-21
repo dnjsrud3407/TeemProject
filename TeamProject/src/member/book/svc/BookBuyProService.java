@@ -9,7 +9,7 @@ import vo.OrderBean;
 
 public class BookBuyProService {
 
-	public int insertOrder(OrderBean orderBean) {
+	public int insertOrder(OrderBean orderBean, int usedPoint) {
 		Connection con = null;
 		con = getConnection();
 		
@@ -19,7 +19,23 @@ public class BookBuyProService {
 		int updateCount = orderDAO.insertOrder(orderBean);
 		
 		if(updateCount > 0) {
+			// 책 재고 업데이트
 			int updateBookCount = orderDAO.updateBookEA(orderBean.getOrderList());
+			// 쿠폰 내역 업데이트
+			int coupon_num = orderBean.getCoupon_num(); // cID 이다.
+			String id = orderBean.getOrder_ID();  // 주문자 id(즉 쿠폰쓴 아이디)
+			int totalPrice = orderBean.getTotalPrice();
+			
+			if(coupon_num > 0) {
+				int couponUpdateCount = orderDAO.couponUpdate(coupon_num, id);
+			}
+			
+			// 포인트 내역 인서트
+			// user 포인트 양 업데이트 / 사용수치 만큼 차감 / 총 금액의 5% 적립 / 최종적으로 user에 point 수치 등록
+			int setPointHistoryCount = orderDAO.setPointHistory(id, usedPoint, totalPrice);
+			
+			
+			
 			if(updateBookCount > 0) {
 				commit(con);
 			} else {

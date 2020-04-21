@@ -92,7 +92,8 @@ public class AdminBoardDAO {
 		int insertCount = 0;
 		
 		int kID = get_kID(bb.getK1(), bb.getK2()); //  1:1 문의 답변 용으로 따로 체크해야함
-		String sql = "INSERT INTO board values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO board(boardNum, kID, boardWriter, boardTitle, boardContent, boardRegTime, boardReRef, boardReLev, boardReSeq, boardReadcount) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -100,9 +101,9 @@ public class AdminBoardDAO {
 			pstmt.setString(4, bb.getBoardTitle()); pstmt.setString(5, bb.getBoardContent());
 			pstmt.setTimestamp(6, bb.getBoardRegTime()); pstmt.setInt(7, bb.getBoardReRef()); 
 			pstmt.setInt(8, bb.getBoardReLev()); pstmt.setInt(9, bb.getBoardReSeq()); 
-			pstmt.setInt(10, bb.getBoardReadcount()); pstmt.setInt(11, bb.getBookID());
+			pstmt.setInt(10, bb.getBoardReadcount());
 			int update = pstmt.executeUpdate();
-			if(update != 0 && (bb.getFileList() != null ||  bb.getFileList().size() != 0)) {
+			if(update != 0 && (bb.getFileList() != null && bb.getFileList().size() != 0)) {
 				if(bb.getFileList().size() != 0) {
 					insertCount = insertFile(bb, kID);
 				} else {
@@ -418,11 +419,11 @@ public class AdminBoardDAO {
 		
 		try {
 			if(k2 != null) {
-				sql = "SELECT count(*) FROM board WHERE kID=? AND boardReLev>=0";
+				sql = "SELECT count(*) FROM board WHERE kID=? AND boardReLev<=1";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, kID);
 			} else {
-				sql = "SELECT count(*) FROM board WHERE kID IN (SELECT kID FROM kategorie WHERE k1=?) AND boardReLev>=0";
+				sql = "SELECT count(*) FROM board WHERE kID IN (SELECT kID FROM kategorie WHERE k1=?) AND boardReLev<=1";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, k1);
 			}
@@ -465,12 +466,12 @@ public class AdminBoardDAO {
 			// 반복문을 사용하여 1개 게시물 정보(패스워드 제외한 나머지)를 BoardBean 객체에 저장하고
 			// BoardBean 객체를 ArrayList<BoardBean> 객체에 저장 반복
 			if(k2 != null) {
-				sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.kID=? AND boardReLev>=0 ORDER BY boardReRef DESC, boardReSeq ASC LIMIT ?,?";
+				sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.kID=? AND boardReLev<=1 ORDER BY boardReRef DESC, boardReSeq ASC LIMIT ?,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, kID);
 				System.out.println(k2);
 			} else {
-				sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.kID IN (SELECT kID FROM kategorie WHERE k1=?) AND boardReLev>=0 "
+				sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.kID IN (SELECT kID FROM kategorie WHERE k1=?) AND boardReLev<=1 "
 						+ "ORDER BY boardReRef DESC, boardReSeq ASC LIMIT ?,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, k1);
@@ -647,7 +648,8 @@ public class AdminBoardDAO {
 		int insertCount = 0;
 		
 		int kID = get_kID(bb.getK1(), bb.getK2()); //  1:1 문의 답변 용으로 따로 체크해야함
-		String sql = "INSERT INTO board values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO board(boardNum, kID, boardWriter, boardTitle, boardContent, boardRegTime, boardReRef, boardReLev, boardReSeq, boardReadcount) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -655,7 +657,7 @@ public class AdminBoardDAO {
 			pstmt.setString(4, bb.getBoardTitle()); pstmt.setString(5, bb.getBoardContent());
 			pstmt.setTimestamp(6, bb.getBoardRegTime()); pstmt.setInt(7, bb.getBoardReRef()); 
 			pstmt.setInt(8, bb.getBoardReLev()); pstmt.setInt(9, bb.getBoardReSeq()); 
-			pstmt.setInt(10, bb.getBoardReadcount()); pstmt.setInt(11, bb.getBookID());
+			pstmt.setInt(10, bb.getBoardReadcount());
 			int update = pstmt.executeUpdate();
 			if(update != 0 && (bb.getFileList() != null ||  bb.getFileList().size() != 0)) {
 				insertCount = insertFile(bb, kID);
@@ -677,7 +679,7 @@ public class AdminBoardDAO {
 		ArrayList<BoardBean> QDeatails = new ArrayList<BoardBean>();
 		
 		try {
-			sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.boardNum=? AND k.k1=?";
+			sql = "SELECT b.*, k.k1, k.k2 FROM board b JOIN kategorie k ON b.kID=k.kID WHERE b.boardReRef=? AND k.k1=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardNum); pstmt.setString(2, k1);
 			rs = pstmt.executeQuery();
@@ -703,22 +705,40 @@ public class AdminBoardDAO {
 		return QDeatails;
 	}
 
-	public int updateSeq(String k1, int boardReRef) {
-		int updateSeq = 0;
-		String sql = "UPDATE board SET boardReSeq = 1 WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
+//	public int updateSeq(String k1, int boardReRef) {
+//		int updateSeq = 0;
+//		String sql = "UPDATE board SET boardReSeq = 1 WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
+//		
+//		try {
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.setInt(1, boardReRef); pstmt.setString(2, k1);
+//			
+//			updateSeq = pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//		}
+//		
+//		return updateSeq;
+//	}
+
+	public int updateLev(String k1, int boardReRef) {
+		int updateLev = 0;
+		String sql = "UPDATE board SET boardReLev = 1 WHERE boardNum=? AND kID IN (SELECT kID FROM kategorie WHERE k1=?)";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardReRef); pstmt.setString(2, k1);
 			
-			updateSeq = pstmt.executeUpdate();
+			updateLev = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 		
-		return updateSeq;
+		return updateLev;
 	}
 	
 	
