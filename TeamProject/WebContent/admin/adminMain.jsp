@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <%
 if(session.getAttribute("uID") == null){
@@ -217,10 +218,12 @@ function getBoard(type) {
                 			<td class="boardTitle" onclick="getBoard(109)">1:1문의</td>
                 		</tr>
                 		<tr></tr>
-                		<c:forEach begin="1" end="4" varStatus="status">
+                		<jsp:useBean id="date" class="java.util.Date" />
+<%-- <fmt:formatDate value="${date }" type="date"/> --%>
+                		<c:forEach var="board" items="${qboardList }" varStatus="status">
 	                		<tr>
-	                			<td colspan="2">게시글 최신꺼부터 가져오기</td>
-	                			<td>2020.04.21</td>
+	                			<td colspan="2">${board.boardTitle }</td>
+	                			<td>${board.boardRegTime }</td>
 	                		</tr>                		
                 		</c:forEach>
                 	</table>
