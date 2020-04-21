@@ -22,11 +22,25 @@ public class OrderDetailService {
 		ArrayList<OrderBean> list = dao.orderDetail(orderNum);
 		
 		
-		
 		close(con);
-	
 		return list;
 				
 		
 	}
+
+	public List<OrderBean> getMypagePointInfo(String uId) {
+		System.out.println("OrderDetailService.getMypagePointInfo");
+		 Connection con = getConnection();
+		OrderDAO dao = OrderDAO.getInstance();
+		dao.setConnection(con);
+		
+		ArrayList<OrderBean> list2=dao.getMypagePointInfo(uId);
+		
+		
+		
+		
+		close(con);
+		return list2;
+	}
+
 }

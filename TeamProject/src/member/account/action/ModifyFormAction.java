@@ -16,23 +16,11 @@ public class ModifyFormAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("ModifyFormAction");
-		
-		//여기는 원래 해당유저의 아이디를 가지고가서 수정폼에 정보를 출력 할 수 있게 만든 곳이다
-		
-		//근데 비밀번호 맞는지부터 체크해야한다고
-		
-		//그럼 비밀번호 passCheck부터 실행 후 int든 boolean이든 성공여부를 반환받아서 
-		//성공시 if문을 사용하여 폼을 보여주는게 2번째가 된다
-		
-	
+		System.out.println("ModifyFormActionddddddddddddddddddddddddddd");
 		
 		String pw=request.getParameter("pw");
 		HttpSession session = request.getSession();
 		String uID=(String) session.getAttribute("uID");
-		
-		
-		//modifyFormService 에 체크패스 메서드를 넣는다
 		
 		
 		ModifyFormService modifyFormService =new ModifyFormService();
@@ -57,13 +45,6 @@ public class ModifyFormAction implements Action {
 		}
 		
 		
-		
-		
-	
-		
-		
-	
-	
 		
 		
 		return forward;

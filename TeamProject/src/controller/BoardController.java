@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import board.action.EventDetailAction;
+import board.action.EventListAction;
 import board.action.FAQDeleteProAction;
 import board.action.FAQDetailAction;
 import board.action.FAQListAction;
@@ -223,6 +225,20 @@ public class BoardController extends HttpServlet {
         } else if(command.equals("/NoticeList.bo")) { // --- Notice
             // Notice 목록 NoticeListAction()
             action = new NoticeListAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(command.equals("/EventList.bo")) { //----------Event List
+            action = new EventListAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(command.equals("/EventDetail.bo")) { //------------Event Detail
+            action = new EventDetailAction(); 
             try {
                 forward = action.execute(request, response);
             } catch (Exception e) {

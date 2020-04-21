@@ -33,37 +33,20 @@ public class OrderListService {
 		
 		
 	}
-//
-//	public List<OrderBean> getOrderCP(String uId) {
-//		System.out.println("OrderListService.getOrderCP");
-//
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		ArrayList<OrderBean> orderListCP= null;
-//		
-//		
-//		
-//	
-//		
-//		 Connection con = getConnection();
-//		OrderDAO dao = OrderDAO.getInstance();
-//		dao.setConnection(con);
-//		return dao.getOrderListCP(uId);
-//	}
-//	
-//	
 
-	public List<OrderBean> orderList() {
-		System.out.println("OrderListService - orderList");
-		
+
+	public List<OrderBean> getMypagePointInfo(String uId) {
+		System.out.println("OrderListService.getMypagePointInfo");
 		 Connection con = getConnection();
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		orderDAO.setConnection(con);
+		OrderDAO dao = OrderDAO.getInstance();
+		dao.setConnection(con);
 		
-		List<OrderBean> orderList = orderDAO.orderList();
-//		System.out.println("orderList : " + orderList);
+		ArrayList<OrderBean> list2=dao.getMypagePointInfo(uId);
+		
 		close(con);
-		return orderList;		
+		return list2;
 	}
+	
+	
 
 }

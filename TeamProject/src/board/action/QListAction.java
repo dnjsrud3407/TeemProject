@@ -37,24 +37,31 @@ public class QListAction implements Action {
 		}
 	
 		int listCount=q_ListService.getOneonOneQListCount(uID);
+		System.out.println("1 리스트카운트"+listCount);
 
 		int maxPage = (int)((double)listCount / limit + 0.95);
+		System.out.println("2 maxPAge"+maxPage);
+		
 		// 2. 시작 페이지 번호 계산
 		int startPage = (((int)((double)page / 10 + 0.9)) - 1) * 10 + 1;
+		System.out.println("3 startPage"+startPage);
 		// 3. 마지막 페이지 번호 계산
 		int endPage = startPage + 10 - 1;
+		System.out.println("4 endPage"+endPage);
 		
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
-		
+		System.out.println("4 endPage강제설정"+endPage);
 		
 		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
 		int startRow=((page-1)*limit)+1;
 		
 		
 		
-		
+		System.out.println("시작페이지"+pageInfo.getStartPage());
+		System.out.println("끝페이지"+pageInfo.getEndPage());
+		System.out.println("멕스페이지"+pageInfo.getMaxPage());
 		
 		
 		//-----------1:1문의내역 불러오기----------

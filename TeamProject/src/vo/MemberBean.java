@@ -27,7 +27,11 @@ public class MemberBean {
 	private String couponStatus;
 	private Date couponReg_date;
 	private Date couponEnd_date;
+	private String couponContent;
 	private int volume;
+	int couponAction;  // coupon 기간 만료 2
+						// coupon 사용 1
+						// coupon 사용가능 0
 	
 //	포인트조회
 	private int pointValue;
@@ -136,12 +140,15 @@ public class MemberBean {
 	}
 	
 	//쿠폰조회
-	public MemberBean(String coupon_name,String couponStatus,Date couponReg_date,Date couponEnd_date) {
+	public MemberBean(String coupon_name,String couponStatus,String couponContent, Date couponReg_date,Date couponEnd_date,int couponAction,int volume) {
 		super();
 		this.coupon_name = coupon_name;
 		this.couponStatus = couponStatus;
 		this.couponReg_date = couponReg_date;
 		this.couponEnd_date = couponEnd_date;
+		this.couponContent = couponContent;
+		this.couponAction = couponAction;
+		this.volume = volume;
 			
 		}
 	
@@ -166,6 +173,22 @@ public class MemberBean {
 			
 		}
 		
+
+	public String getCouponContent() {
+		return couponContent;
+	}
+
+	public void setCouponContent(String couponContent) {
+		this.couponContent = couponContent;
+	}
+
+	public int getCouponAction() {
+		return couponAction;
+	}
+
+	public void setCouponAction(int couponAction) {
+		this.couponAction = couponAction;
+	}
 
 	public String getuID() {
 		return uID;

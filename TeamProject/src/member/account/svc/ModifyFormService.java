@@ -1,7 +1,7 @@
 package member.account.svc;
 
 import static db.JdbcUtil.getConnection;
-
+import static db.JdbcUtil.close;
 import java.sql.Connection;
 
 import dao.MemberDAO;
@@ -16,10 +16,12 @@ public class ModifyFormService {
 		MemberDAO dao = MemberDAO.getInstance();
 		dao.setConnection(con);
 		
+		MemberBean memberBean = new MemberBean();
+		memberBean=dao.getMemberInfo(uID);
 		
+		close(con);
 		
-		
-		return dao.getMemberInfo(uID);
+		return memberBean;
 		
 		
 	}
@@ -43,8 +45,8 @@ public class ModifyFormService {
 		 
 		 
 		 
-		 
-		
+			close(con);
+			
 		return pwCheck;
 	}
 

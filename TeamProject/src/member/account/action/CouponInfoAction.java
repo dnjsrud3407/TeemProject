@@ -98,15 +98,16 @@ public class CouponInfoAction implements Action {
 			//compareTo 앞에있는 오늘날짜가 끝나는 날짜보다 크 다면 result는 0보다 큰 숫자가 된다
 			int result = today.compareTo(endDate);
 			
-			if (memberBean.getCouponStatus()=="사용") {//쿠폰사용시
+			if (memberBean.getCouponAction()==1) {//쿠폰사용시
 				memberBean.setCouponStatus("사용");
 				
-			}else if(memberBean.getCouponStatus()=="사용안함"){ //사용하지 않고 만료되지않은 살아있는 쿠폰
+			}else if(memberBean.getCouponAction()==0){ //사용하지 않고 만료되지않은 살아있는 쿠폰
 				memberBean.setCouponStatus("사용안함");
 			}
 			
 			if (result>0) { //쿠폰기한 지났을때
 				memberBean.setCouponStatus("만료");
+				memberBean.setCouponAction(2);
 			}
 			
 			
