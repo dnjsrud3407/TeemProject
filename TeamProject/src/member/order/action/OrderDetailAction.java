@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import member.order.svc.OrderDetailService;
 import vo.ActionForward;
+import vo.MemberBean;
 import vo.OrderBean;
 
 public class OrderDetailAction implements Action {
@@ -21,7 +22,7 @@ public class OrderDetailAction implements Action {
 		
 		HttpSession session=request.getSession();
 		String uId=(String) session.getAttribute("uID");
-		int orderNum=Integer.parseInt(request.getParameter("orderNum"));
+		String orderNum=request.getParameter("orderNum");
 		
 //		System.out.println("가져온 주문번호"+orderNum);
 		
@@ -29,9 +30,9 @@ public class OrderDetailAction implements Action {
 		
 		
 		ArrayList<OrderBean> orderDetailList=orderDetailService.orderDetail(orderNum);
-		List<OrderBean> orderDetailList2 = new ArrayList<OrderBean>();
+		List<OrderBean> orderDetailList2 = new ArrayList<OrderBean>();//포인트가져오는 
 		orderDetailList2=orderDetailService.getMypagePointInfo(uId);
-		
+		MemberBean memberBean = orderDetailService.getCouponInfo(uId,orderNum);
 
 //		int bookPrice=orderBean.getBookPrice();
 //		int orderEA=orderBean.getBookEA(); 
@@ -60,16 +61,16 @@ public class OrderDetailAction implements Action {
 		for (OrderBean orderBean : orderDetailList) {
 			
 			for (OrderBean orderBean2 : orderDetailList2) {
-//				System.out.println("orderBean2    : "+orderBean2.getOrderNum());
-//				System.out.println("orderBean     : "+orderBean.getOrderNum());
-						
-				if(orderBean2.getOrderNum().equals(orderBean.getOrderNum())) {
-					point=orderBean2.getPointValue();
-					System.out.println("포인트사용함"+point);
-				}else {
-					System.out.println("포인트사용안함"+point);
-					point=0;
-				} 
+				System.out.println("orderBean2    : "+orderBean2.getOrderNum()); //포인트
+				System.out.println("orderBean     : "+orderBean.getOrderNum());
+//						
+//				if(orderBean2.getOrderNum().equals(orderBean.getOrderNum())) {
+//					point=orderBean2.getPointValue();
+//					System.out.println("포인트사용함"+point);
+//				}else {
+//					System.out.println("포인트사용안함"+point);
+//					point=0;
+//				} 
 				
 			};	
 			
@@ -83,10 +84,10 @@ public class OrderDetailAction implements Action {
 			System.out.println(total);
 		};
 		
-		
+		request.setAttribute("couponInfo",memberBean);//쿠폰
 		request.setAttribute("orderDetailList",orderDetailList);
 		request.setAttribute("total", total);
-		request.setAttribute("orderDetailList2", orderDetailList2);
+		request.setAttribute("orderDetailList2", orderDetailList2); //포인트표시
 		
 		
 		

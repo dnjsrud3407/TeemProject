@@ -18,7 +18,7 @@ public class OrderConFirmProAction implements Action {
 		
 		System.out.println("OrderConFirmProAction");
 		
-		int orderNum=Integer.parseInt(request.getParameter("orderNum"));
+		String orderNum=request.getParameter("orderNum");
 		
 
 		OrderConFirmProService orderConFirmProService = new OrderConFirmProService();

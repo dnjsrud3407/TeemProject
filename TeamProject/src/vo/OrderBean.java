@@ -208,37 +208,31 @@ public class OrderBean {
 	
 	
 	
-	
-	
-	
-	//포인트조회
-		public OrderBean(int pID,String ownerID,Date pointRegTime,String pointContent,int pointValue,int pointAction,String orderNum) {
-			super();
-			this.pID = pID;
-			this.ownerID = ownerID;
-			this.pointRegTime = pointRegTime;
-			this.pointContent = pointContent;
-			this.pointValue = pointValue;
-			this.pointAction = pointAction;
-			this.orderNum = orderNum;
-			}
-
-		// orderDetail
-	public OrderBean(String orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
-			String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
-			int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,String coupon_name,
-			String couponStatus,int pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec,
+	public OrderBean(
+			String orderNum,
+			String order_ID,
+			int bookEA,
+			Date orderTime,
+			String orderStatus,
+			String orderAddress,
+			int bookID,
+			String bookTitle,
+			String bookOriginImage,
+			String bookPublisher,
+			int bookPrice,
+			String u_name,
+			String address2,
+			String phone_num,
+			String tell_num,
+			String email,
+			String orderRec,
 			int orderDetailCode,
 			int bookKategorie_BKID,
 			String paymentType,
 			String bookIntroduce,
-			Float saveRatio,
-			int volume,
-			int couponAction,
-			int totalPrice
-			)
-	     
-	{
+			Float saveRatio
+		)
+	     {
 		super();
 		this.orderNum = orderNum;
 		this.order_ID = order_ID;
@@ -258,25 +252,85 @@ public class OrderBean {
 		this.tell_num = tell_num;
 		this.email = email;
 		
-		this.coupon_name = coupon_name;
-		this.couponStatus = couponStatus;
-		this.pointAction = pointAction;
-		this.pointContent = pointContent;
-		this.pointRegTime = pointRegTime;
-		this.pointValue = pointValue;
 		this.orderRec = orderRec;
-		
+	
 		this.orderDetailCode = orderDetailCode;
 		this.bookKategorie_BKID = bookKategorie_BKID;
 		this.paymentType = paymentType;
 		this.bookIntroduce = bookIntroduce;
 		this.saveRatio = saveRatio;
-		this.volume = volume;
-		this.couponAction = couponAction;
-		this.totalPrice = totalPrice;
-		
 	}
+		
 	
+	
+	
+	
+	//포인트조회
+		public OrderBean(int pID,String ownerID,Date pointRegTime,String pointContent,int pointValue,int pointAction,String orderNum) {
+			super();
+			this.pID = pID;
+			this.ownerID = ownerID;
+			this.pointRegTime = pointRegTime;
+			this.pointContent = pointContent;
+			this.pointValue = pointValue;
+			this.pointAction = pointAction;
+			this.orderNum = orderNum;
+			}
+
+		// orderDetail
+		public OrderBean(String orderNum, String order_ID, int bookEA,Date orderTime,String orderStatus,
+				String orderAddress,int bookID,String bookTitle,String bookOriginImage,String bookPublisher,
+				int bookPrice,String u_name,String address2,String phone_num,String tell_num,String email,
+				int pointAction,String pointContent,Date pointRegTime,int pointValue,String orderRec,
+				int orderDetailCode,
+				int bookKategorie_BKID,
+				String paymentType,
+				String bookIntroduce,
+				Float saveRatio,
+//				int volume,
+//				int couponAction,
+				int totalPrice
+				)
+		     
+		{
+			super();
+			this.orderNum = orderNum;
+			this.order_ID = order_ID;
+			this.bookEA = bookEA;
+			this.orderTime = orderTime;
+			this.orderStatus = orderStatus;
+			this.orderAddress = orderAddress;
+			this.bookID = bookID;
+			this.bookTitle = bookTitle;
+			this.bookOriginImage = bookOriginImage;
+			this.bookPublisher = bookPublisher;
+			this.bookPrice = bookPrice;
+			this.u_name = u_name;
+			
+			this.address2 = address2;
+			this.phone_num = phone_num;
+			this.tell_num = tell_num;
+			this.email = email;
+			
+//			this.coupon_name = coupon_name;
+//			this.couponStatus = couponStatus;
+			this.pointAction = pointAction;
+			this.pointContent = pointContent;
+			this.pointRegTime = pointRegTime;
+			this.pointValue = pointValue;
+			this.orderRec = orderRec;
+			
+			this.orderDetailCode = orderDetailCode;
+			this.bookKategorie_BKID = bookKategorie_BKID;
+			this.paymentType = paymentType;
+			this.bookIntroduce = bookIntroduce;
+			this.saveRatio = saveRatio;
+//			this.volume = volume;
+//			this.couponAction = couponAction;
+			this.totalPrice = totalPrice;
+			
+		}
+		
 
 			
 			

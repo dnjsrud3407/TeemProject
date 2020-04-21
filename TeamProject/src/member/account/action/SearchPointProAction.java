@@ -31,28 +31,26 @@ public class SearchPointProAction implements Action {
 		
 		
 		SearchPointProService searchPointProService= new SearchPointProService();
-		
-		
-		
 		List<MemberBean> pointInfo=searchPointProService.getPointInfo(uID,startDate,endDate);
 		
-	int totalPoint =0;
-	
+		PointInfoService pointInfoService= new PointInfoService();
+		List<MemberBean> pointInfoTotal=pointInfoService.getPointInfo(uID);
 		
-		
-			for (MemberBean pointInfo2 : pointInfo) {
-				
-				if (pointInfo2.getPointAction()==1) {
-					System.out.println("포인트 획득");
-					totalPoint+=pointInfo2.getPointValue();
-					System.out.println(totalPoint);
-	
-				}
-				else {
-					System.out.println("포인트 사용");
-				}
+		int totalPoint =0;
+		for (MemberBean pointInfo2 : pointInfoTotal) {
+			if (pointInfo2.getPointAction()==1) {
+				System.out.println("포인트 획득");
+				totalPoint+=pointInfo2.getPointValue();
+				System.out.println(totalPoint);
+			}else {
+				System.out.println("포인트 사용");
 			}
+		}
+	
+	
 		
+		
+
 		
 		
 		request.setAttribute("pointInfo",pointInfo);

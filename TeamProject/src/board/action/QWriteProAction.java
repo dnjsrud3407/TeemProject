@@ -55,7 +55,7 @@ public class QWriteProAction implements Action {
 		System.out.println("테스트");
 		
 		//파일업로드
-		String saveFolder = "/upload";
+		String saveFolder = "/boardFile";
 		ServletContext context = request.getServletContext();
 		String realFolder = context.getRealPath(saveFolder);
 		int fileSize = 1024 * 1024 * 5;
@@ -103,7 +103,7 @@ public class QWriteProAction implements Action {
 			out.println("</script>");
 			
 			forward = new ActionForward();
-			forward.setPath("index.jsp"); 
+			forward.setPath("QList.bo"); 
 			forward.setRedirect(true); 
 		}else {
 			response.setContentType("text/html; charset=UTF-8");

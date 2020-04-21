@@ -97,7 +97,9 @@ if(uID==null){%>
 		    <c:if test="${sessionScope.uID eq null}">
 		        <a href="Login.me">로그인</a> |
 		    </c:if>
+		     <c:if test="${sessionScope.uID eq null}">
 	        <a href="JoinForm.me">회원가입</a> |
+	         </c:if>
 	        <a href="OrderList.mo">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
 		<a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
@@ -126,11 +128,7 @@ if(uID==null){%>
 		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
     </form>
     <ul id="topMenu" class="nav pull-right">
-	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
-	 <li class=""><a href="normal.html">Delivery</a></li>
-	 <li class=""><a href="contact.html">Contact</a></li>
 	 <li class="">
-	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
 	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>

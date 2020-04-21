@@ -12,7 +12,7 @@ import vo.OrderBean;
 
 public class OrderConFirmProService {
 
-	public int updateOrderStatus(int orderNum, String changeOrderStatus) {
+	public int updateOrderStatus(String orderNum, String changeOrderStatus) {
 		
 		int right=0;
 			

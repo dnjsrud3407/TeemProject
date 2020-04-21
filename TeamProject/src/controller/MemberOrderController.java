@@ -19,6 +19,7 @@ import member.order.action.OrderDeliveryAction;
 import member.order.action.OrderDeliveryFormAction;
 import member.order.action.OrderDetailAction;
 import member.order.action.OrderListAction;
+import member.order.action.OrderListCanCelAction;
 import member.order.action.OrderQListAction;
 import member.order.action.OrderRefundFormAction;
 import member.order.action.OrderRefundFormActionPro;
@@ -44,6 +45,13 @@ public class MemberOrderController extends HttpServlet {
 	if (command.equals("/OrderList.mo")) {//상품구매리스트
 		action = new OrderListAction();
 		
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/OrderListCanCel.mo")) {// orderCanCel List
+		action = new OrderListCanCelAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {

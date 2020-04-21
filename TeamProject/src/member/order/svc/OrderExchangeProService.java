@@ -9,7 +9,7 @@ import dao.OrderDAO;
 
 public class OrderExchangeProService {
 
-	public int updateOrderStatus(int orderNum, String changeOrderStatus) {
+	public int updateOrderStatus(String orderNum, String changeOrderStatus) {
 		int right=0;
 		
 		Connection con = getConnection();

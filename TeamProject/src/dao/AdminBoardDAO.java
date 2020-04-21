@@ -473,7 +473,7 @@ public class AdminBoardDAO {
 	public ArrayList<BoardBean> selectArticleList(PageInfo pageInfo) {
 		// 게시물 목록 조회 후 리턴
 		ArrayList<BoardBean> articleList = new ArrayList<BoardBean>();
-		
+		int boardNum=0;
 		int page = pageInfo.getPage();
 		int limit = pageInfo.getLimit();
 		String k1 = pageInfo.getK1();
@@ -512,6 +512,7 @@ public class AdminBoardDAO {
             while(rs.next()) {
                 BoardBean boardBean = new BoardBean();
                 boardBean.setBoardNum(rs.getInt("b.boardNum"));
+                boardNum=rs.getInt("b.boardNum");
                 boardBean.setK1(rs.getString("k.k1"));
                 boardBean.setK2(rs.getString("k.k2"));
                 boardBean.setBoardWriter(rs.getString("b.boardWriter"));
@@ -522,7 +523,7 @@ public class AdminBoardDAO {
                 boardBean.setBoardReLev(rs.getInt("b.boardReLev"));
                 boardBean.setBoardReSeq(rs.getInt("b.boardReSeq"));
                 boardBean.setBoardReadcount(rs.getInt("b.boardReadcount"));
-                
+                boardBean.setFileList(selectFileList(boardNum, k1));
                 articleList.add(boardBean);
             }
 			

@@ -22,7 +22,7 @@ public class ExchangeProAction implements Action {
 		
 		System.out.println("ExchangeProAction");
 		
-		int orderNum=Integer.parseInt(request.getParameter("orderNum"));
+		String orderNum=request.getParameter("orderNum");
 		
 		
 		System.out.println("ExchangeProAction"+orderNum);

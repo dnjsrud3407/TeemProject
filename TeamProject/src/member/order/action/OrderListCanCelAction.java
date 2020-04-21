@@ -16,33 +16,33 @@ import action.Action;
 import member.account.svc.CouponInfoService;
 import member.account.svc.ModifyFormService;
 import member.account.svc.PointInfoService;
+import member.order.svc.OrderListCanCelService;
 import member.order.svc.OrderListService;
 import vo.ActionForward;
 import vo.MemberBean;
 import vo.OrderBean;
 
-public class OrderListAction implements Action {
+public class OrderListCanCelAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		//주문목록 액션 페이지
-		//마이페이지를 누르면 주문목록페이지가 뜬다
-		System.out.println("ddddddddddddOrderListAction");
-		OrderBean orderBean = new OrderBean();
+		
+		
+		System.out.println("OrderListCanCelAction");
 		MemberBean memberinfo = new MemberBean();
 		
 		HttpSession session=request.getSession();
 		String uId=(String) session.getAttribute("uID");
 
-		OrderListService orderListService= new OrderListService();
+		OrderListCanCelService orderListService= new OrderListCanCelService();
 		ModifyFormService modifyFormService =new ModifyFormService();
 		 memberinfo=modifyFormService.getMemberInfo(uId);
 		 
 		List<MemberBean> couponList = new ArrayList<MemberBean>();
 		List<OrderBean> orderList = new ArrayList<OrderBean>();
 		List<OrderBean> orderList2 = new ArrayList<OrderBean>();
-		orderList=orderListService.getOrderList(uId);//주문목록
+		orderList=orderListService.getOrderCanCelList(uId);//주문목록
 		orderList2=orderListService.getMypagePointInfo(uId);//포인트
 		couponList=orderListService.getCouponList(uId);//쿠폰
 		
@@ -138,25 +138,18 @@ public class OrderListAction implements Action {
 		int deliveryCost=2500; //배송비 고정
 		int total = 0;
 		
-
-		
-		
-			
 			for (int i = 0; i < orderList.size(); i++) {
 				 bookPrice=orderList.get(i).getBookPrice();
 				 orderEA=orderList.get(i).getBookEA();
 				 couponValue=orderList.get(i).getVolume();
 //				 System.out.println("책금액+책갯수+사용한 쿠폰금액"+bookPrice+","+orderEA+","+couponValue);
 				 
-				 // 만약 couponAction == 0 이라면  -하면안된다
 				 if (orderList.get(i).getCouponAction()==0) {
 					 orderList.get(i).setVolume(0);
 					 orderList.get(i).setCoupon_name("");
 				}else {
 					total=bookPrice*orderEA-couponValue+deliveryCost;
 				}//if문 끝
-//				 System.out.println("총금액"+total);
-//				 request.setAttribute("total", total);
 			}//for 문 끝
 			request.setAttribute("orderList",orderList); //주문정보
 			request.setAttribute("couponList",couponList); //쿠폰

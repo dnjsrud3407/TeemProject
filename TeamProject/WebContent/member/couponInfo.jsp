@@ -370,9 +370,9 @@
 		 <c:forEach var="couponInfo" items="${couponInfo}" varStatus="status">  
 		 	 <c:if test="${couponInfo.couponStatus eq '사용안함'}">
                 <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
+                  <td> <img width="80px" height="100px" src="img/20-207112_coupon-by-user-role-for-woocommerce-coupon-icon.png" alt=""/></td>
                   <td style="border-left: none;"><span class="label">쿠폰</span>${couponInfo.coupon_name}<br>쿠폰상태:${couponInfo.couponStatus}<br>
-                  <td><span class="label">쿠폰내용</span> ${couponInfo.coupon_name} <br></td>
+                  <td><span class="label">쿠폰내용</span> ${couponInfo.couponContent} <br></td>
 				 <!--  <td> -->
 				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
 				 <!--  </td> -->
@@ -443,9 +443,9 @@
 		 <c:forEach var="couponInfo" items="${couponInfo}" varStatus="status">  
 		     <c:if test="${couponInfo.couponStatus eq '사용' or couponInfo.couponStatus eq '만료'}">
                 <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
+                  <td> <img width="80px" height="100px" src="img/20-207112_coupon-by-user-role-for-woocommerce-coupon-icon.png" alt=""/></td>
                   <td style="border-left: none;"><span class="label">쿠폰</span>${couponInfo.coupon_name}<br>쿠폰상태:${couponInfo.couponStatus}<br>
-                  <td><span class="label">쿠폰내용</span> ${couponInfo.coupon_name}</td>
+                  <td><span class="label">쿠폰내용</span> ${couponInfo.couponContent}</td>
 				 <!--  <td> -->
 				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
 				 <!--  </td> -->

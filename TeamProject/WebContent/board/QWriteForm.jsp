@@ -88,7 +88,7 @@
 	<div class="span9">
     <ul class="breadcrumb">
     </ul>
-	<h3>  1:1문의 하기 <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  1:1문의 하기  <a href="QList.bo?uID=${sessionScope.uID}" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> 목록으로 </a></h3>	
 	<hr class="soft"/>
 	
 <!-- 	enctype="multipart/form-data" -->

@@ -43,12 +43,6 @@
 	</style>
 	
 	
-	
-
-
-
-	
-	
   </head>
 <body>
 	
@@ -71,7 +65,7 @@
 	<div class="span9">
     <ul class="breadcrumb">
     </ul>
-	<h3> 1:1문의 내역 <a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3> 1:1문의 내역 </h3>	
 	<hr class="soft"/>
 	<!-- <table class="table table-bordered"> -->
 		<!-- <tr><th> I AM ALREADY REGISTERED  </th></tr>
@@ -122,10 +116,10 @@
 			        </thead>
 	<c:if test="${QList!=null}">
 	 <c:forEach var="QList" items="${QList}" varStatus="status">
-	 <c:if test="${QList.boardReLev>0}">
+	 <c:if test="${QList.boardReSeq>0}">
 	 <%status="답변완료" ;%>
 	 </c:if>
-	  <c:if test="${QList.boardReLev==0}">
+	  <c:if test="${QList.boardReSeq==0}">
 	 <%status="대기중" ;%>
 	 </c:if>
 		 			 <tbody>

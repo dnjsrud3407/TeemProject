@@ -42,86 +42,188 @@ public OrderDAO() {}
 
 
 	//mypage
-		public ArrayList<OrderBean> getOrderList(String uId) { // 아이디별 주문목록 가져오기
-			System.out.println("OrderDAO.getOrderList(uId)");
+			public ArrayList<OrderBean> getOrderList(String uId) { // 아이디별 주문목록 가져오기
+				System.out.println("OrderDAO.getOrderList(uId)");
 
-			PreparedStatement pstmt = null;
-			ResultSet rs = null;
-			ArrayList<OrderBean> orderList = null;
-			String orderNum="";
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				ArrayList<OrderBean> orderList = null;
+				String orderNum="";
 
-			try {
-				String sql = 
-								  "select * from order_detail orderD join book book \n"+ 
-								  "on orderD.bookID = book.bookID\n"+ 
-								  "join order_tb tb\n"+ 
-								  "on tb.orderNum = orderD.orderNum\n"+ 
-								  "join user user\n"+ 
-								  "on tb.order_ID = user.uID\n"+ 
-								  "join couponhistory coponH\n"+ 
-								  "on coponH.num = tb.couponHistory_num \n" + 
-								  "join coupon cp\n"+ 
-								  "on coponH.cID = cp.cID\n"+ 
-								  "where tb.order_ID=?";
+				try {
+					String sql = 
+
+							"select * \n" + 
+							"from order_detail orderD join book book\n" + 
+							"on orderD.bookID = book.bookID\n" + 
+							"join order_tb tb\n" + 
+							"on tb.orderNum = orderD.orderNum\n" + 
+							"join user user\n" + 
+							"on tb.order_ID = user.uID\n" + 
+							"where tb.order_ID=?";
+					
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1, uId);
+							rs = pstmt.executeQuery();
+							
+							OrderBean orderBean = null;
+							orderList = new ArrayList<OrderBean>();
+
+					while (rs.next()) {
+
+						 orderBean = new OrderBean(
+								rs.getString("orderNum"),
+								rs.getString("order_ID"),
+								rs.getInt("bookEA"),
+								rs.getDate("orderTime"),
+								rs.getString("orderStatus"),
+								rs.getString("orderAddress"),
+								rs.getInt("bookID"),
+								rs.getString("bookTitle"),
+								rs.getString("bookOriginImage"),
+								rs.getString("bookPublisher"),
+								rs.getInt("bookPrice"),
+								rs.getString("u_name"),
+								rs.getString("address2"),
+								rs.getString("phone_num"),
+								rs.getString("tell_num"),
+								rs.getString("email"),
+								rs.getString("orderRec"),
+								rs.getInt("orderDetailCode"),
+								rs.getInt("bookKategorie_BKID"),
+								rs.getString("paymentType"),
+								rs.getString("bookIntroduce"),
+								rs.getFloat("saveRatio")
+								 );
+						orderList.add(orderBean);
+					}
+					
+					for (int i = 0; i < orderList.size(); i++) {
+						System.out.println(orderList.get(i).getOrderNum());
+					}
 
 						
-						pstmt = con.prepareStatement(sql);
-						pstmt.setString(1, uId);
-						rs = pstmt.executeQuery();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+				return orderList;
+			}
+			
+			
+			//mypage 주문취소가져오기
+			public ArrayList<OrderBean> getOrderListCanCel(String uId) { // 아이디별 주문목록 가져오기
+				System.out.println("OrderDAO.getOrderList(uId)");
+
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				ArrayList<OrderBean> orderList = null;
+				String orderNum="";
+
+				try {
+					String sql = 
+
+							"select * \n" + 
+							"from order_detail orderD join book book\n" + 
+							"on orderD.bookID = book.bookID\n" + 
+							"join order_tb tb\n" + 
+							"on tb.orderNum = orderD.orderNum\n" + 
+							"join user user\n" + 
+							"on tb.order_ID = user.uID\n" + 
+							"where tb.order_ID=? and tb.orderStatus='취소완료'";
+					
+							pstmt = con.prepareStatement(sql);
+							pstmt.setString(1, uId);
+							rs = pstmt.executeQuery();
+							
+							OrderBean orderBean = null;
+							orderList = new ArrayList<OrderBean>();
+
+					while (rs.next()) {
+
+						 orderBean = new OrderBean(
+								rs.getString("orderNum"),
+								rs.getString("order_ID"),
+								rs.getInt("bookEA"),
+								rs.getDate("orderTime"),
+								rs.getString("orderStatus"),
+								rs.getString("orderAddress"),
+								rs.getInt("bookID"),
+								rs.getString("bookTitle"),
+								rs.getString("bookOriginImage"),
+								rs.getString("bookPublisher"),
+								rs.getInt("bookPrice"),
+								rs.getString("u_name"),
+								rs.getString("address2"),
+								rs.getString("phone_num"),
+								rs.getString("tell_num"),
+								rs.getString("email"),
+								rs.getString("orderRec"),
+								rs.getInt("orderDetailCode"),
+								rs.getInt("bookKategorie_BKID"),
+								rs.getString("paymentType"),
+								rs.getString("bookIntroduce"),
+								rs.getFloat("saveRatio")
+								 );
+						orderList.add(orderBean);
+					}
+					
+					for (int i = 0; i < orderList.size(); i++) {
+						System.out.println(orderList.get(i).getOrderNum());
+					}
+
 						
-						OrderBean orderBean = null;
-						orderList = new ArrayList<OrderBean>();
-
-				while (rs.next()) {
-
-					 orderBean = new OrderBean(
-							rs.getString("orderNum"),
-							rs.getString("order_ID"),
-							rs.getInt("bookEA"),
-							rs.getDate("orderTime"),
-							rs.getString("orderStatus"),
-							rs.getString("orderAddress"),
-							rs.getInt("bookID"),
-							rs.getString("bookTitle"),
-							rs.getString("bookOriginImage"),
-							rs.getString("bookPublisher"),
-							rs.getInt("bookPrice"),
-							rs.getString("u_name"),
-							rs.getString("address2"),
-							rs.getString("phone_num"),
-							rs.getString("tell_num"),
-							rs.getString("email"),
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+				return orderList;
+			}		
+			
+			
+			//주문 디테일 쿠폰 가져올거
+			public MemberBean getCouponInfo(String uId, String orderNum) {
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				MemberBean memberBean =null;
+				
+				try {
+					
+					String sql ="select *\n" + 
+							"from order_tb tb join couponhistory ch\n" + 
+							"on tb.couponHistory_num = ch.num\n" + 
+							"join coupon coupon\n" + 
+							"on ch.cID = coupon.cID\n" + 
+							"where tb.order_ID =? and tb.orderNum=?;";
+					
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1,uId);
+					pstmt.setString(2,orderNum);
+					rs = pstmt.executeQuery();
+					
+					if (rs.next()) {
+					memberBean = new MemberBean(
 							rs.getString("coupon_name"),
 							rs.getString("couponStatus"),
-							rs.getString("orderRec"),
-							rs.getInt("orderDetailCode"),
-							rs.getInt("bookKategorie_BKID"),
-							rs.getString("paymentType"),
-							rs.getString("bookIntroduce"),
-							rs.getFloat("saveRatio"),
-							rs.getInt("volume"),
-							rs.getInt("couponAction")
-							 );
-					orderList.add(orderBean);
-				}
-				
-				
-				for (int i = 0; i < orderList.size(); i++) {
+							rs.getString("couponContent"),
+							rs.getDate("couponReg_date"),
+							rs.getDate("couponEnd_date"),
+							rs.getInt("couponAction"),
+							rs.getInt("volume"));
+					}
 					
-					System.out.println(orderList.get(i).getOrderNum());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}finally {
+					close(pstmt);
+					close(rs);
 				}
-
-					
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rs);
-				close(pstmt);
-			}
-			return orderList;
-			
-		
-		}
+				return memberBean;
+			}	
 	
 		//mypage에 표시할 포인트를 따로 조회
 		public ArrayList<OrderBean> getMypagePointInfo(String uId) {
@@ -161,168 +263,202 @@ public OrderDAO() {}
 			return orderList2;
 	    }
 
-
-	
-	//주문상세
-public ArrayList<OrderBean> orderDetail(int orderNum) {
-	System.out.println("OrderDAO.orderDetail(orderNum)");
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	ArrayList<OrderBean> orderList = null;
-	OrderBean orderBean = null;
-	String uID=null;
-	
-	try {
-		String sql=
-				 "select *\n" + 
-						  "from order_detail orderD join book book\n" + 
-						  "on orderD.bookID = book.bookID\n" + 
-						  "join order_tb tb\n" + 
-						  "on tb.orderNum = orderD.orderNum\n" + 
-						  "join user user\n" + 
-						  "on tb.order_ID = user.uID\n" + 
-						  "join couponhistory coponH\n" + 
-						  "on coponH.num = tb.couponHistory_num\n" + 
-						  "join coupon cp\n" + 
-						  "on coponH.cID = cp.cID\n" + 
-						  "join pointhistory point\n" + 
-						  "on point.ownerID = user.uID\n" + 
-						  "where tb.orderNum=? group by orderD.orderDetailCode";
 		
-							pstmt=con.prepareStatement(sql);
-							pstmt.setInt(1,orderNum);
-							rs = pstmt.executeQuery();
-		
-							orderList = new ArrayList<OrderBean>();
+		//mypage 쿠폰정보 가져오기
+		public ArrayList<MemberBean> getCouponList(String uId) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<MemberBean> getCouponList = null;
+			
+			try {
+				String sql=
+						"select *\n" + 
+						"from order_tb tb join couponhistory ch\n" + 
+						"on tb.couponHistory_num = ch.num\n" + 
+						"join coupon coupon\n" + 
+						"on ch.cID = coupon.cID\n" + 
+						"where tb.order_ID =?";
+				pstmt=con.prepareStatement(sql);
+				pstmt.setString(1,uId);
+				rs = pstmt.executeQuery();
 
-		while(rs.next()) {
-			orderBean=new OrderBean(
-
-					rs.getString("orderNum"),
-					rs.getString("order_ID"),
-					rs.getInt("bookEA"),
-					rs.getDate("orderTime"),
-					rs.getString("orderStatus"),
-					rs.getString("orderAddress"),
-					rs.getInt("bookID"),
-					rs.getString("bookTitle"),
-					rs.getString("bookOriginImage"),
-					rs.getString("bookPublisher"),
-					rs.getInt("bookPrice"),
-					rs.getString("u_name"),
-					rs.getString("address2"),
-					rs.getString("phone_num"),
-					rs.getString("tell_num"),
-					rs.getString("email"),
-					rs.getString("coupon_name"),
-					rs.getString("couponStatus"),
-					rs.getInt("pointAction"),
-					rs.getString("pointContent"),
-					rs.getDate("pointRegTime"),
-					rs.getInt("pointValue"),
-					rs.getString("orderRec"),
-					rs.getInt("orderDetailCode"),
-					rs.getInt("bookKategorie_BKID"),
-					rs.getString("paymentType"),
-					rs.getString("bookIntroduce"),
-					rs.getFloat("saveRatio"),
-					rs.getInt("volume"),
-					rs.getInt("couponAction"),
-					rs.getInt("totalPrice")
-					);
-					
-			orderList.add(orderBean);
-			for (OrderBean orderBean2 : orderList) {
-		
-				System.out.println(		"결제타입 가져오기"+orderBean2.getPaymentType());
+				getCouponList = new ArrayList<MemberBean>();
+				MemberBean memberBean = null;
+				
+				while(rs.next()) {
+					memberBean=new MemberBean(
+							rs.getString("coupon_name"),
+							rs.getString("couponStatus"),
+							rs.getString("couponContent"),
+							rs.getDate("couponReg_date"),
+							rs.getDate("couponEnd_date"),
+							rs.getInt("couponAction"),
+							rs.getInt("volume"),
+							rs.getString("orderNum")
+							);
+					getCouponList.add(memberBean);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
+			return getCouponList;
+			
 		}
-		
-	} catch (Exception e) {
-		e.printStackTrace();
-	}finally {
-		close(pstmt);
-		close(rs);
-	}
-	return orderList;
-
-}	
 
 	
-	
-	
-//OrderDetail 테이블의 OrderDetailNum으로 판별하는 주문상세
-public OrderBean orderVeryDetail(int orderDetailNum) {
-	System.out.println("OrderDAO.orderDetail(orderNum)");
-	PreparedStatement pstmt = null;
-	ResultSet rs = null;
-	
-	OrderBean orderBean = null;
-	
-	try {
-		String sql=
-				 "select *\n"+ 
-				 "from order_detail orderD join book book\n"+ 
-				 "on orderD.bookID = book.bookID\n"+ 
-				 "join order_tb tb\n" + 
-				 "on tb.orderNum = orderD.orderNum\n"+ 
-				 "join user user\n"+ 
-				 "on tb.order_ID = user.uID\n"+ 
-				 "join couponhistory coponH\n"+ 
-				 "on coponH.num = tb.couponHistory_num \n"+ 
-				 "join coupon cp\n"+ 
-				 "on coponH.cID = cp.cID\n"+ 
-				 "join pointhistory point\n"+ 
-				 "on point.ownerID = user.uID\n"+ 
-				 "where orderD.orderDetailCode=?";
 		
-							pstmt=con.prepareStatement(sql);
-							pstmt.setInt(1,orderDetailNum);
-							rs = pstmt.executeQuery();
-		while(rs.next()) {
-			orderBean=new OrderBean(
-					rs.getString("orderNum"),
-					rs.getString("order_ID"),
-					rs.getInt("bookEA"),
-					rs.getDate("orderTime"),
-					rs.getString("orderStatus"),
-					rs.getString("orderAddress"),
-					rs.getInt("bookID"),
-					rs.getString("bookTitle"),
-					rs.getString("bookOriginImage"),
-					rs.getString("bookPublisher"),
-					rs.getInt("bookPrice"),
-					rs.getString("u_name"),
-					rs.getString("address2"),
-					rs.getString("phone_num"),
-					rs.getString("tell_num"),
-					rs.getString("email"),
-					rs.getString("coupon_name"),
-					rs.getString("couponStatus"),
-					rs.getInt("pointAction"),
-					rs.getString("pointContent"),
-					rs.getDate("pointRegTime"),
-					rs.getInt("pointValue"),
-					rs.getString("orderRec"),
-					rs.getInt("orderDetailCode"),
-					rs.getInt("bookKategorie_BKID"),
-					rs.getString("paymentType"),
-					rs.getString("bookIntroduce"),
-					rs.getFloat("saveRatio"),
-					rs.getInt("volume"),
-					rs.getInt("couponAction"),
-					rs.getInt("totalPrice")
-					);
+		//주문상세
+	public ArrayList<OrderBean> orderDetail(String orderNum) {
+		System.out.println("OrderDAO.orderDetail(orderNum)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<OrderBean> orderList = null;
+		OrderBean orderBean = null;
+		String uID=null;
+		
+		try {
+			String sql=
+					
+					"select *\n" + 
+					"from order_detail orderD join book book\n" + 
+					"on orderD.bookID = book.bookID\n" + 
+					"join order_tb tb\n" + 
+					"on tb.orderNum = orderD.orderNum\n" + 
+					"join user user\n" + 
+					"on tb.order_ID = user.uID\n" + 
+					"join pointhistory point\n" + 
+					"on point.ownerID = user.uID\n" + 
+					"where tb.orderNum=? group by orderD.orderDetailCode";
+			
+								pstmt=con.prepareStatement(sql);
+								pstmt.setString(1,orderNum);
+								rs = pstmt.executeQuery();
+			
+								orderList = new ArrayList<OrderBean>();
+
+			while(rs.next()) {
+				orderBean=new OrderBean(
+
+						rs.getString("orderNum"),
+						rs.getString("order_ID"),
+						rs.getInt("bookEA"),
+						rs.getDate("orderTime"),
+						rs.getString("orderStatus"),
+						rs.getString("orderAddress"),
+						rs.getInt("bookID"),
+						rs.getString("bookTitle"),
+						rs.getString("bookOriginImage"),
+						rs.getString("bookPublisher"),
+						rs.getInt("bookPrice"),
+						rs.getString("u_name"),
+						rs.getString("address2"),
+						rs.getString("phone_num"),
+						rs.getString("tell_num"),
+						rs.getString("email"),
+						rs.getInt("pointAction"),
+						rs.getString("pointContent"),
+						rs.getDate("pointRegTime"),
+						rs.getInt("pointValue"),
+						rs.getString("orderRec"),
+						rs.getInt("orderDetailCode"),
+						rs.getInt("bookKategorie_BKID"),
+						rs.getString("paymentType"),
+						rs.getString("bookIntroduce"),
+						rs.getFloat("saveRatio"),
+						rs.getInt("totalPrice")
+						);
+						
+				orderList.add(orderBean);
+				for (OrderBean orderBean2 : orderList) {
+			
+					System.out.println(		"결제타입 가져오기"+orderBean2.getPaymentType());
+				}
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
 		}
-	} catch (Exception e) {
-		e.printStackTrace();
-	}finally {
-		close(pstmt);
-		close(rs);
-	}
-	return orderBean;
+		return orderList;
 
-}	
+	}	
+
+
+	
+	
+	
+	//OrderDetail 테이블의 OrderDetailNum으로 판별하는 주문상세
+	public OrderBean orderVeryDetail(int orderDetailNum) {
+		System.out.println("OrderDAO.orderDetail(orderNum)");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		OrderBean orderBean = null;
+		
+		try {
+			String sql=
+					 "select *\n"+ 
+					 "from order_detail orderD join book book\n"+ 
+					 "on orderD.bookID = book.bookID\n"+ 
+					 "join order_tb tb\n" + 
+					 "on tb.orderNum = orderD.orderNum\n"+ 
+					 "join user user\n"+ 
+					 "on tb.order_ID = user.uID\n"+ 
+					 "join couponhistory coponH\n"+ 
+					 "on coponH.num = tb.couponHistory_num \n"+ 
+					 "join coupon cp\n"+ 
+					 "on coponH.cID = cp.cID\n"+ 
+					 "join pointhistory point\n"+ 
+					 "on point.ownerID = user.uID\n"+ 
+					 "where orderD.orderDetailCode=?";
+			
+								pstmt=con.prepareStatement(sql);
+								pstmt.setInt(1,orderDetailNum);
+								rs = pstmt.executeQuery();
+			while(rs.next()) {
+				orderBean=new OrderBean(
+
+						rs.getString("orderNum"),
+						rs.getString("order_ID"),
+						rs.getInt("bookEA"),
+						rs.getDate("orderTime"),
+						rs.getString("orderStatus"),
+						rs.getString("orderAddress"),
+						rs.getInt("bookID"),
+						rs.getString("bookTitle"),
+						rs.getString("bookOriginImage"),
+						rs.getString("bookPublisher"),
+						rs.getInt("bookPrice"),
+						rs.getString("u_name"),
+						rs.getString("address2"),
+						rs.getString("phone_num"),
+						rs.getString("tell_num"),
+						rs.getString("email"),
+						rs.getInt("pointAction"),
+						rs.getString("pointContent"),
+						rs.getDate("pointRegTime"),
+						rs.getInt("pointValue"),
+						rs.getString("orderRec"),
+						rs.getInt("orderDetailCode"),
+						rs.getInt("bookKategorie_BKID"),
+						rs.getString("paymentType"),
+						rs.getString("bookIntroduce"),
+						rs.getFloat("saveRatio"),
+						rs.getInt("totalPrice")
+						);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		return orderBean;
+
+	}	
 
 	
 	

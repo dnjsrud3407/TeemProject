@@ -1185,7 +1185,7 @@ public class BoardDAO {
 				}
 				
 				
-				sql="insert into board value(?,?,?,?,?,now(),?,?,?,0,null)";
+				sql="insert into board value(?,?,?,?,?,now(),?,?,?,0,null,null)";
 				pstmt=con.prepareStatement(sql);
 				
 				pstmt.setInt(1,num); 
@@ -1242,7 +1242,7 @@ public class BoardDAO {
 				String sql="select *\r\n" + 
 						"from board b left outer join boardfile f\r\n" + 
 						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
-						"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardNum limit ?,?";
+						"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardNum desc limit ?,?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, uID);
@@ -1337,7 +1337,21 @@ public class BoardDAO {
 			}
 		
 		
-		
+		//1:1문의 클릭시 readCount update
+		public int updateReadCount(int boardNum) {
+			int result=0;
+			String sql = "update board SET boardReadcount=boardReadcount+1 where boardNum=?";
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, boardNum);
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+			return result;
+		}
 
 		//1:1문의  상세내용보기
 		public BoardBean getOneonOnegetArticle(int boardNum) {

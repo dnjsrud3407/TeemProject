@@ -75,6 +75,11 @@ function openWin3(orderNum){
 }  
 
 
+function orderCanCel(){  
+
+	alert("주문취소 하시겠습니까?");
+}  
+
 
 
 var ja = jQuery.noConflict();
@@ -89,8 +94,13 @@ ja(document).ready(function () {
 	
 	ja('#orderConFirm').click(function(){
 		alert("구매확정 하시겠습니까?")
-// 		ja("#orderConFirm").attr("href", "OrderConFirmPro.mo?orderNum="+);
 	    });
+	
+	ja('#').click(function(){
+		alert("구매취소 하시겠습니까?")
+	    });
+	
+	
 })
 
 
@@ -187,75 +197,114 @@ ja(document).ready(function () {
                 <tr style="border-top: none;">
                    <td style="text-align: center;">보유포인트<br><b style="font-size: 3em; line-height: 2em; color: blue;"><a href="PointInfoAction.me?uID=${sessionScope.uID}" id="hel"><b onmouseup="comma()" id="hel2">${totalPoint}</b></a></b>원
                    <td style="text-align: center;">  사용가능 쿠폰<br> <b style="font-size: 3em; line-height: 2em; color: blue;">
-                  <c:forEach var="couponCount" items="${couponInfo}" varStatus="status">
-	                   <c:if test="${couponCount.couponStatus eq '사용안함'}">
-	                  		<c:set value="${count + $count}" var="countfinal"></c:set>
-	                   </c:if>
-                  </c:forEach>
-                  <a href="CouponInfoAction.me?uID=${sessionScope.uID}">${countfinal}</a> </b>개</td>
+                  <a href="CouponInfoAction.me?uID=${sessionScope.uID}">${couponRealCount}</a> </b>개</td>
                 </tr>
         </table>
 	<jsp:include page="search.jsp"></jsp:include>
 	
-								<c:set value="-1" var="orderNum"></c:set>
+<c:set value="-1" var="orderNum"></c:set>
+<c:set value="0" var="pointValue"></c:set>
                    <c:if test="${empty orderList}">
 						<h5>검색결과가 없습니다</h5>
 				   </c:if>
+<!-- //--------------ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------------------------------------------------    -->
 <c:if test="${orderList!=null}">
 	<c:forEach var="list" items="${orderList}" varStatus="status">
 	
 			<table class="table table-bordered" style="vertical-align: middle;">
 			 <c:if test="${orderNum != list.orderNum}">
               <thead>
-			  
                 <tr>
-                  <th colspan="4" id="orderTable">주문번호  ${list.orderNum}${list.orderTime}</th>
+                  <th colspan="4" id="orderTable">주문번호  ${list.orderNum}
+                  
+<%-- 	 					 <c:forEach var="list2" items="${orderList2}" varStatus="status"> --%>
+<%--                      		 <c:if test="${list2.orderNum eq list.orderNum}"> --%>
+<%--                      		  <c:if test="${list2.pointAction==0}"> --%>
+<%--                      	   			사용 포인트	 ${list2.pointValue} --%>
+<%--             			  <c:set value="${list2.pointValue}" var="pointValue"></c:set> --%>
+<%--                      	    </c:if> --%>
+<%--                      	 	</c:if> --%>
+<%-- 			  			 </c:forEach> --%>
+
+<%-- 						 <c:forEach var="couponList" items="${couponList}" varStatus="status"> --%>
+<%--                     		 <c:if test="${couponList.orderNum eq list.orderNum}"> --%>
+<%--                     		  <c:if test="${couponList.couponAction==0}"> --%>
+<%--                     	   			사용한 쿠폰금액  ${couponList.volume} --%>
+<%--                     	    </c:if> --%>
+<%--                     	 	</c:if> --%>
+<%-- 		  			 	</c:forEach> --%>
+
+                   </th>
                   <th id="orderTable">상태</th>
 				</tr>
               </thead> 
               <tbody>
-            			  <c:set value="${list.orderNum}" var="orderNum"></c:set>
+<%--             			  <c:set value="${list.orderNum}" var="orderNum"></c:set> --%>
 			</c:if>
                 <tr>
-              
- 							
+<!--ㅡㅡ--------------ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------------------------------------------------    -->
+        	 <c:if test="${orderNum != list.orderNum}">  
+            <tr>
+            <td></td>
+            <td  style="border-left: none;"></td>
+            <td style="border-bottom: none;">
+            
+            	 <c:forEach var="list2" items="${orderList2}" varStatus="status"> 
+                     		 <c:if test="${list2.orderNum eq list.orderNum}">
+                     		  <c:if test="${list2.pointAction==0}">
+                     	   		<span class="label">사용포인트</span>	 ${list2.pointValue}
+            			  <c:set value="${list2.pointValue}" var="pointValue"></c:set>
+                     	    </c:if>
+                     	 	</c:if>
+			  			 </c:forEach>
+						<br>
+						 <c:forEach var="couponList" items="${couponList}" varStatus="status">
+                    		 <c:if test="${couponList.orderNum eq list.orderNum}">
+                    		  <c:if test="${couponList.couponAction==0}">
+                    	   			<span class="label">사용쿠폰</span>  ${couponList.volume}
+                    	    </c:if>
+                    	 	</c:if>
+		  			 	</c:forEach>
+            
+            
+            </td>
+            <td style="border-bottom: none;"></td>
+            <td  style="border-left: none;"></td>
+            	  <c:set value="${list.orderNum}" var="orderNum"></c:set>
+            </tr>
+            	</c:if>
 
                   <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/></td>
-                  <td style="border-left: none;">상품명:${list.bookTitle}<br>상품옵션:어쩌구<br>주문번호:${list.orderNum}<br>주문일시:${list.orderTime}</td>
-                  <td><span class="label">쿠폰</span> ${list.coupon_name} <br> <span class="label">포인트</span>
-                   	 <c:forEach var="list2" items="${orderList2}" varStatus="status">
-                    	<c:if test="${list2.orderNum eq list.orderNum}">${list2.pointValue}</c:if>
-                     </c:forEach>
+                  <td style="border-left: none;">상품명:${list.bookTitle}<br>상품옵션:어쩌구<br>번호:${list.orderNum}<br>주문일시:${list.orderTime}</td>
+                  
+                  <td style="border-top:none;">
                     <br><span class="label">총금액</span>${(list.bookPrice*list.bookEA)-list.volume}원</td>
-				 <!--  <td> -->
-				<!-- 	<div class="input-append"><input class="span1" style="max-width:34px" placeholder="1" id="appendedInputButtons" size="16" type="text"><button class="btn" type="button"><i class="icon-minus"></i></button><button class="btn" type="button"><i class="icon-plus"></i></button><button class="btn btn-danger" type="button"><i class="icon-remove icon-white"></i></button>				</div> -->
-				 <!--  </td> -->
+                    
                   <td>
-                   <div class="btn2"><a href="OrderDetail.mo?orderNum=${list.orderNum}">주문내역</a></div>
+                   <div class="btn2"><a href="OrderDetail.mo?orderNum=${list.orderNum}&point=${pointValue}">주문내역</a></div>
                 <c:if test="${list.orderStatus != '구매완료'}"><div class="btn2"><a href="" onClick="javascript:openWin3(${list.orderDetailCode})">배송조회</a></div></c:if>  
                 <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin(${list.orderDetailCode})">반품신청</a></div></c:if>
                 <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin2(${list.orderDetailCode})">교환신청</a></div></c:if>  
-																					<!--                 연결할것 -->
                 <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="" id="orderConFrim">상품후기쓰기</a></div></c:if>  
                   </td>
                   
                  <td>
                  <div class="btn2" style="background-color: #9988;">${list.orderStatus}</div>
 															<!--                  결제취소 아직 구현안함 -->
-                  <c:if test="${list.orderStatus eq '구매완료'}"><div class="btn2">결제취소</div> </c:if>  
-                  <c:if test="${list.orderStatus eq '배송완료'}"><div class="btn2"><a href="OrderConFirmPro.mo?orderNum=${list.orderNum}" id="orderConFirm">구매확정완료</a></div> </c:if>
+                  <c:if test="${list.orderStatus eq '결제 완료'}"><div class="btn2"  onClick="javascript:orderCanCel()"><a href="OrderCancelPro.mo?orderNum=${list.orderNum}" id="orderCanCel">결제취소</a></div> </c:if>  
+                  <c:if test="${list.orderStatus eq '배송완료'}"><div class="btn2" ><a href="OrderConFirmPro.mo?orderNum=${list.orderNum}" >구매확정완료</a></div> </c:if>
                   <c:if test="${list.orderStatus eq '반품'}"><div class="btn2">반품처리중</div> </c:if>   
                   <c:if test="${list.orderStatus eq '교환'}"><div class="btn2">교환처리중</div> </c:if>
                   <c:if test="${list.orderStatus eq '취소'}"><div class="btn2">결제취소처리중</div> </c:if>    
-                   <c:if test="${list.orderStatus eq '교환처리완료'}"><div class="btn2">교환처리완료</div> </c:if>    
-                   <c:if test="${list.orderStatus eq '반품처리완료'}"><div class="btn2">반품처리완료</div> </c:if>    
-                   <c:if test="${list.orderStatus eq '취소처리완료'}"><div class="btn2">취소처리완료</div> </c:if>    
                  </td>
                 </tr>
+              
+      
+            
             
 				</tbody>
             </table>
-		
+             
 		</c:forEach>
 </c:if>
 

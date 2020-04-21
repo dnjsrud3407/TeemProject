@@ -150,6 +150,14 @@ public class MemberAccountController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+	}else if(command.equals("/ModifyFormAction.me")) {//
+		action = new ModifyFormAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}else if(command.equals("/PwCheckBeforeModifyForm.me")) {//
 		forward=new ActionForward();
 		forward.setPath("/member/pwCheckBeforeModify.jsp");

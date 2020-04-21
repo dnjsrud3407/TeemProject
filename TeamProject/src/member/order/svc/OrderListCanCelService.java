@@ -10,21 +10,19 @@ import vo.MemberBean;
 import vo.OrderBean;
 
 
-public class OrderListService {
+public class OrderListCanCelService {
 
-	public ArrayList<OrderBean> getOrderList(String uId) {
+	public ArrayList<OrderBean> getOrderCanCelList(String uId) {
 		
-		System.out.println("OrderListService.getOrderList");
-		
+		System.out.println("OrderListCanCelService.getOrderList");
 		
 		
 		 Connection con = getConnection();
 		OrderDAO dao = OrderDAO.getInstance();
 		dao.setConnection(con);
 		
-		ArrayList<OrderBean> list = dao.getOrderList(uId);
+		ArrayList<OrderBean> list = dao.getOrderListCanCel(uId);
 		
-	
 		
 		close(con);
 		

@@ -32,7 +32,7 @@ public class MemberBean {
 	int couponAction;  // coupon 기간 만료 2
 						// coupon 사용 1
 						// coupon 사용가능 0
-	
+	private String orderNum;
 //	포인트조회
 	private int pointValue;
 	private int pointAction; // tinyint 형 0 =false 1 = true
@@ -139,7 +139,9 @@ public class MemberBean {
 
 	}
 	
-	//쿠폰조회
+	
+	
+	//쿠폰조회 mypage list타입
 	public MemberBean(String coupon_name,String couponStatus,String couponContent, Date couponReg_date,Date couponEnd_date,int couponAction,int volume) {
 		super();
 		this.coupon_name = coupon_name;
@@ -149,8 +151,21 @@ public class MemberBean {
 		this.couponContent = couponContent;
 		this.couponAction = couponAction;
 		this.volume = volume;
-			
 		}
+	
+	//주문디테일에 bean 타입
+		public MemberBean(String coupon_name,String couponStatus,String couponContent, Date couponReg_date,Date couponEnd_date,int couponAction,int volume,String orderNum) {
+			super();
+			this.coupon_name = coupon_name;
+			this.couponStatus = couponStatus;
+			this.couponReg_date = couponReg_date;
+			this.couponEnd_date = couponEnd_date;
+			this.couponContent = couponContent;
+			this.couponAction = couponAction;
+			this.volume = volume;
+			this.orderNum = orderNum;	
+			}
+		
 	
 	// 주문할 때 사용하는 쿠폰 조회
 	public MemberBean(int num, int cID, String coupon_name, int volume) {
@@ -173,6 +188,14 @@ public class MemberBean {
 			
 		}
 		
+
+	public String getOrderNum() {
+		return orderNum;
+	}
+
+	public void setOrderNum(String orderNum) {
+		this.orderNum = orderNum;
+	}
 
 	public String getCouponContent() {
 		return couponContent;

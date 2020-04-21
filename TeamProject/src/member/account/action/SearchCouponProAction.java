@@ -28,6 +28,8 @@ public class SearchCouponProAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String uID=(String) session.getAttribute("uID");
+		
+		
 		String startDate2 = request.getParameter("searchStartDate");
 		String endDate2 = request.getParameter("searchEndDate");
 		
@@ -40,44 +42,50 @@ public class SearchCouponProAction implements Action {
 		
 		
 		
-		for (MemberBean memberBean : couponInfo) {
+		  int couponCount=0;
 			
-			
-			//쿠폰의 시작날짜와 끝나는 날짜를 가져온다
-			stardateDate=memberBean.getCouponReg_date();
-			enddateDate=memberBean.getCouponEnd_date();
-			
-			//현제 시스템 날짜를 가져온다
-			Calendar calendar = Calendar.getInstance();
-			java.util.Date date = calendar.getTime();
-			
-			//가져온 현재 날짜를 String으로 변환,format으로 형식맞춰줌
-			String today = (new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss").format(date));
-			
-			
-			//쿠폰의 시작날짜와 끝나는 날짜를 String으로 변환 format으로 형식 맞춰줌
-			String startDate = new SimpleDateFormat("yyyy-mm-dd-hh:mm:ss").format(stardateDate);
-			String endDate = new SimpleDateFormat("yyyy-mm-dd-hh:mm:ss").format(enddateDate);
-			
-			
-			//compareTo 앞에있는 오늘날짜가 끝나는 날짜보다 크 다면 result는 0보다 큰 숫자가 된다
-			int result = today.compareTo(endDate);
-			
-
-			
-			if (memberBean.getCouponStatus()=="사용") {
-				memberBean.setCouponStatus("사용");
+			for (MemberBean memberBean : couponInfo) {
 				
-			}else if(memberBean.getCouponStatus()=="사용안함"){
-				memberBean.setCouponStatus("사용안함");
-//				couponInfo2.add(memberBean); //여기까지함 만약 사용안함이라면 grid one에 따로 뿌려주어야 하기 때문에 이름을 다르게..함?
-			}
+				
+				//쿠폰의 시작날짜와 끝나는 날짜를 가져온다
+				stardateDate=memberBean.getCouponReg_date();
+				enddateDate=memberBean.getCouponEnd_date();
+				
+				//현제 시스템 날짜를 가져온다
+				Calendar calendar = Calendar.getInstance();
+				java.util.Date date = calendar.getTime();
+				
+				//가져온 현재 날짜를 String으로 변환,format으로 형식맞춰줌
+				String today = (new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss").format(date));
+				
+				
+				//쿠폰의 시작날짜와 끝나는 날짜를 String으로 변환 format으로 형식 맞춰줌
+				String startDate = new SimpleDateFormat("yyyy-mm-dd-hh:mm:ss").format(stardateDate);
+				String endDate = new SimpleDateFormat("yyyy-mm-dd-hh:mm:ss").format(enddateDate);
+				
+				
+				//compareTo 앞에있는 오늘날짜가 끝나는 날짜보다 크 다면 result는 0보다 큰 숫자가 된다
+				int result = today.compareTo(endDate);
+				
+				if (memberBean.getCouponAction()==1) {///사용
+					memberBean.setCouponStatus("사용");
+				
+					
+				}else if(memberBean.getCouponAction()==0){ //사용가능
+					memberBean.setCouponStatus("사용안함");
+					couponCount+=1;
+				}
+				
+				if (result>0) { //쿠폰기한 지났을때
+					memberBean.setCouponStatus("만료");
+					memberBean.setCouponAction(2);
+				}
+				
+			}//for 문 끝
 			
-			if (result>0) { //쿠폰기한 지났을때
-				memberBean.setCouponStatus("만료");
-			}
-			
-		}//for 문 끝
+			System.out.println("쓸 수 있는 쿠폰 수"+couponCount);
+			request.setAttribute("couponInfo",couponInfo); //상단에 표시되는 개수 
+			request.setAttribute("couponRealCount",couponCount); //상단에 표시되는 개수 
 		
 		
 		

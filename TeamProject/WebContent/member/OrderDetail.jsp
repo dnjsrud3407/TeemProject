@@ -91,15 +91,13 @@
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	</script>
   </head>
 <body>
+<%
+
+int point=Integer.parseInt(request.getParameter("point"));
+%>
 
 <!-- header -->
 <jsp:include page="top.jsp"></jsp:include>
@@ -171,7 +169,7 @@
                 </tr>
                 <tr>
                   <td>주문번호</td>
-                  <td>${list.orderNum}${list.orderTime}</td>
+                  <td>${list.orderNum}</td>
                 </tr> 
                 <tr>
                   <td id="neamam2">주문자</td>
@@ -224,8 +222,9 @@
                   상품옵션:${list.bookTitle}  <b style="color: red;">${list.bookEA}개</b><br>
                                            출판사: ${list.bookPublisher}<br>
 <!--                  가격 -->
+                               <c:set value="<%=point%>" var="point2"></c:set> 
                  	<c:set value="${list.volume}" var="volume"></c:set> 
-                    <c:set value="${list.totalPrice}" var="total"></c:set> 
+                    <c:set value="${list.totalPrice-point2-couponInfo.volume}" var="total"></c:set> 
                     <c:set value="${list.pointValue}" var="point"></c:set> 
 <%--              		 <input type="hidden" id="volume" value="${list.volume}"> --%>
 <%--                    <input type="hidden" id="bookEA" value="${list.bookEA}"> --%>
@@ -233,7 +232,7 @@
                   
                   <td><br>
           <span class="label">금액</span><b>  ${list.bookPrice} 원</b><br>        
-          <span class="label">쿠폰</span>    ${list.coupon_name} <br>
+          <span class="label">쿠폰</span>    ${couponInfo.coupon_name} <br>
 <%--           <span class="label">포인트</span>    ${list.pointValue} <br> --%>
 <!--           <span class="label">배송비</span>    2500원 <br> -->
                
@@ -242,7 +241,8 @@
 <!--                    이자리에 쿠폰사용금액 추가할것 -->
 <!--                    //포인트 가져오는거 안했음 왜냐하면 답이없어  -->
 <%--                    ${list.pointValue}  --%>
-                   ${list.paymentType}결제
+					<br>
+                     <span class="label">결제수단</span> ${list.paymentType}결제
                   </td>
                 </tr>
                   <tr>
@@ -255,7 +255,7 @@
        </c:if>  
 		
 		
-			<table class="table" style="border-top: none; table-layout: fixed;">
+			<table class="table" style="border-top: none; table-layout: fixed; height: 200px;">
               <thead style="border-right: none;">
                  <tr style="border-top: none;">
                   <th  id="neamam" colspan="2">결제 정보</th>
@@ -263,30 +263,33 @@
               </thead>
               	<tbody>
               	  <tr>
-                     <td id="neamam2">결제수단</td><td id="neamam2"></td> <td id="neamam2"></td>
+                     <td id="neamam2"></td><td id="neamam2"></td> <td id="neamam2"></td> <td id="neamam2"></td> <td id="neamam2"></td>
                  </tr>
                  
                  <tr>
-                     <td colspan="">
-                     <b>${list.paymentType}</b><br>
-<!--                      결제수단 표시할자리 -->
+                     <td colspan="" id="" style="vertical-align: middle; ">
+				       <c:forEach var="list2" items="${orderDetailList2}" varStatus="status">
+                     		 <c:if test="${list2.orderNum eq orderNum}">
+                     		  <c:if test="${list2.pointAction==0}">
+				          <span class="label">포인트</span>  
+                     	   		${list2.pointValue}<br>
+                     	   	   </c:if>
+                     	   	   </c:if>
+                     </c:forEach>
+                      <span class="label">쿠폰할인</span> ${couponInfo.volume} <br>
+				      <span class="label">배송비</span>    2500원 <br>
                    </td>
                  
-                    <td><br>
-				          <span class="label">포인트</span>    ${point} <br>
-				          <span class="label">쿠폰할인</span>   ${volume} <br>
-				          <span class="label">배송비</span>    2500원 <br>
+                    <td>
                    </td>
-                   <td></td>
                    
+                    <td colspan="3" style="text-align: center; vertical-align: middle; background-color:#D9D4D4; font: 1.5em" >총 주문금액 : <b style="color: red;">  ${total} </b>원
+                  </td>
 <!--                    <td style="text-align: center; vertical-align: middle;"><b></b></td> -->
                 </tr>
                 
-                 <tr>
-                  <td colspan="3" style="text-align: right; background-color:#D9D4D4; font: 1.5em" >총 주문금액 : <b style="color: red;">  ${total}</b>
-                  </td>
+                 
                   
-                </tr>
                 
 				</tbody>
             </table>

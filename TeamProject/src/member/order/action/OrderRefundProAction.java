@@ -18,7 +18,7 @@ public class OrderRefundProAction implements Action {
 		String changeOrderStatus = "교환";
 		
 		
-		int orderNum=Integer.parseInt(request.getParameter("orderNum"));
+		String orderNum=request.getParameter("orderNum");
 		
 		System.out.println("OrderRefundProAction"+orderNum);
 		

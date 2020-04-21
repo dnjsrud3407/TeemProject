@@ -74,23 +74,18 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-            <div class="container-fluid">
-                <div class="card shadow mb-4">
-		            <div class="card-header py-3">
-		              <h5 class="m-0 font-weight-bold text-primary"><a href='<c:url value="/Event.adb"/>'>&lt; 이벤트 목록</a></h5>
-		            </div>
-        		</div>
+                <div class="container-fluid">
 			<div class="row">
 
-           <!-- 이벤트 보기 -->
+           <!-- FAQ 작성 -->
 
-			<div style="margin-left: auto; margin-right: auto; width: 60%;">
+			<div style="margin-left: auto; margin-right: auto;">
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">이벤트 보기</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">이벤트 작성</h6>
                 </div>
                 <div class="card-body">
-	              <div class="table-responsive">
+	              <div class="table-responsive" width="100%">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                    <tr>
 		                      <th>제목</th>
@@ -102,7 +97,7 @@
 		                      
 		                      <c:if test="${article.fileList.size() > 0 }">
 		                      	<c:forEach var="image" items="${article.fileList}" varStatus="index">
-		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/><br>
+		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/>
 		                      	</c:forEach>
 		                      </c:if>
 		                      ${article.boardContent }

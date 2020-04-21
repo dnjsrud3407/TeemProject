@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dao.OrderDAO;
+import vo.MemberBean;
 import vo.OrderBean;
 
 public class OrderDetailService {
 
-	public ArrayList<OrderBean> orderDetail(int orderNum) {
+	public ArrayList<OrderBean> orderDetail(String orderNum) {
 		
 		//디비연결
 		System.out.println("OrderDetailService.orderDetail(int orderNum)");
@@ -43,4 +44,19 @@ public class OrderDetailService {
 		return list2;
 	}
 
+	
+	
+	public MemberBean getCouponInfo(String uId, String orderNum) {
+		System.out.println("OrderDetailService.getMypagePointInfo");
+		 Connection con = getConnection();
+		OrderDAO dao = OrderDAO.getInstance();
+		dao.setConnection(con);
+		
+		MemberBean memberBean = dao.getCouponInfo(uId,orderNum);
+		close(con);
+		return memberBean;
+	}
+	
+	
+	
 }

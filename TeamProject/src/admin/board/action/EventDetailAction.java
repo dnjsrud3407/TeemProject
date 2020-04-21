@@ -18,6 +18,10 @@ public class EventDetailAction implements Action {
 		
 		HttpSession session = request.getSession();
 		
+		request.setCharacterEncoding("UTF-8");
+		HttpSession session2=request.getSession();
+		String uId=(String) session.getAttribute("uID");
+		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정
 		String k1 = "이벤트";
@@ -34,8 +38,14 @@ public class EventDetailAction implements Action {
 		if(bb != null) {
 			// 받아온 글 정보가 있다면 해당 글 정보를 표시할 jsp 파일로 이동
 			//
-			request.setAttribute("article", bb);
-			forward.setPath("/admin/board/EventDetail.jsp");
+			if (!uId.equals("admin")) {
+				request.setAttribute("article", bb);
+				forward.setPath("board/EventBoardDetail.jsp");
+			}else {
+				
+				request.setAttribute("article", bb);
+				forward.setPath("/admin/board/EventDetail.jsp");
+			}
 		} else {
 			// 받아온 글 정보가 없다면 메시지 호출 후 글 목록으로 보내기
 			//

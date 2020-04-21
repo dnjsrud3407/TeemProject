@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.board.svc.BoardService;
@@ -18,6 +19,8 @@ public class EventListAction implements Action {
 		ActionForward forward = null;
 		System.out.println("이벤트 보기");
 		request.setCharacterEncoding("UTF-8");
+		HttpSession session=request.getSession();
+		String uId=(String) session.getAttribute("uID");
 		
 		// PageInfo 객체 선언
 		PageInfo pageInfo = new PageInfo();
@@ -76,7 +79,13 @@ public class EventListAction implements Action {
 		
 		forward = new ActionForward();
 		// 이벤트로 고칠것
-		forward.setPath("/admin/board/EventList.jsp");
+		System.out.println(uId);
+		if (!uId.equals("admin")) {
+			forward.setPath("board/EventBoard.jsp");
+		}else {
+			forward.setPath("/admin/board/EventList.jsp");
+		}
+		
 		
 		return forward;
 	}
