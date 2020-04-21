@@ -207,7 +207,7 @@
         </div>
         <!-- 로드맵 배너 -->
         <div class="roadMap">
-          로드맵
+          <img src="themes/images/roadMap.png" alt=""/>
         </div>
         
         <!-- 베스트 셀러 시작 -->
