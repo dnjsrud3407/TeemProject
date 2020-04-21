@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.action.EventDetailAction;
-import board.action.EventListAction;
+import admin.board.action.EventDetailAction;
+import admin.board.action.EventListAction;
 import board.action.FAQDeleteProAction;
 import board.action.FAQDetailAction;
 import board.action.FAQListAction;
@@ -238,7 +238,7 @@ public class BoardController extends HttpServlet {
                 e.printStackTrace();
             }
         }else if(command.equals("/EventDetail.bo")) { //------------Event Detail
-            action = new EventDetailAction(); 
+            action = new EventDetailAction();
             try {
                 forward = action.execute(request, response);
             } catch (Exception e) {
