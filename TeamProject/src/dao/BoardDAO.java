@@ -844,13 +844,15 @@ public class BoardDAO {
 	}
 	
 	// 사용자 문의, 후기글 가져오기
-	public BoardBean selectBoard(int boardNum) {
+	public BoardBean selectBoard(int boardNum, int kID) {
 		BoardBean board = null;
         String sql = "SELECT board.*, book.bookTitle FROM board" + 
-        		" JOIN book ON board.bookID = book.bookID WHERE boardNum=?";
+        		" JOIN book ON board.bookID = book.bookID"
+        		+ " WHERE boardNum=? AND kID=?";
         try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardNum);
+			pstmt.setInt(2, kID);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				board = new BoardBean(
@@ -922,14 +924,13 @@ public class BoardDAO {
 	}
 
 	// 상품 문의, 후기 답변 등록 성공 시 문의 글 Seq+1 시키기
-	public int updateReSeqPlus(BoardBean board, String boardWriter) {
+	public int updateReSeqPlus(BoardBean board) {
 		int insertCount = 0;
-		String sql = "UPDATE board SET boardReSeq=boardReSeq+1 WHERE boardNum=? AND kID=? AND boardWriter=?";
+		String sql = "UPDATE board SET boardReSeq=boardReSeq+1 WHERE boardNum=? AND kID=?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, board.getBoardReRef());
 			pstmt.setInt(2, board.getkID());
-			pstmt.setString(3, boardWriter);
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -941,13 +942,14 @@ public class BoardDAO {
 	}
 	
 	// 상품 문의, 후기 글과, 관리자가 답변한 글 모두 가져옴 - 답변 작성 후 수정시에 사용
-	public ArrayList<BoardBean> selectqnaList(int boardReRef) {
+	public ArrayList<BoardBean> selectqnaList(int boardReRef, int kID) {
 		ArrayList<BoardBean> qnaList = new ArrayList<BoardBean>();
 	    String sql = "SELECT board.*, book.bookTitle FROM board" + 
-        		" JOIN book ON board.bookID = book.bookID WHERE boardReRef=?";
+        		" JOIN book ON board.bookID = book.bookID WHERE boardReRef=? AND kID=?";
 	    try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardReRef);
+			pstmt.setInt(2, kID);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoardBean board = new BoardBean(
@@ -975,15 +977,17 @@ public class BoardDAO {
 	}
 
 	// 상품 문의, 후기 답변 수정 하기
-	public int updateAnswerBoard(BoardBean board) {
+	public int updateAnswerBoard(BoardBean board, int kID) {
 		int updateCount = 0;
-		String sql = "UPDATE board SET boardWriter=?, boardTitle=?, boardContent=?, boardRegTime=now() WHERE boardNum=?";
+		String sql = "UPDATE board SET boardWriter=?, boardTitle=?, boardContent=?, boardRegTime=now() "
+				+ "WHERE boardNum=? AND kID=?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, board.getBoardWriter());
 			pstmt.setString(2, board.getBoardTitle());
 			pstmt.setString(3, board.getBoardContent());
 			pstmt.setInt(4, board.getBoardNum());
+			pstmt.setInt(5, kID);
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1067,13 +1071,14 @@ public class BoardDAO {
 	}
 	
 	// 상품 문의, 후기 답변 글 삭제하기
-	public int deleteBoard(int boardReref) {
+	public int deleteBoard(int boardReref, int kID) {
 		int deleteCount = 0;
-		String sql = "DELETE FROM board WHERE boardReref=? AND boardReLev=?";
+		String sql = "DELETE FROM board WHERE boardReref=? AND boardReLev=? AND kID=?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardReref);
 			pstmt.setInt(2, 1);
+			pstmt.setInt(3, kID);
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1085,13 +1090,14 @@ public class BoardDAO {
 	}
 	
 	// 상품 문의, 후기 답변 등록 성공 시 문의 글 Seq-1 시키기 (단, 답변이 달린경우만 삭제(oardReSeq=1))
-	public int updateReSeqMinus(int boardReRef) {
+	public int updateReSeqMinus(int boardReRef, int kID) {
 		int insertCount = 0;
-		String sql = "UPDATE board SET boardReSeq=boardReSeq-1 WHERE boardNum=? AND boardReSeq=?";
+		String sql = "UPDATE board SET boardReSeq=boardReSeq-1 WHERE boardNum=? AND boardReSeq=? AND kID=?";
 		try {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, boardReRef);
 			pstmt.setInt(2, 1);
+			pstmt.setInt(3, kID);
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -19,8 +19,9 @@ public class ReviewWriteFormAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자 상품 후기 글을 불러옴
+		int kID = 103;
 		QnReWriteService reviewWriteService = new QnReWriteService();
-		BoardBean board = reviewWriteService.getBoard(boardNum);
+		BoardBean board = reviewWriteService.getBoard(boardNum, kID);
 
 		request.setAttribute("board", board);
 		request.setAttribute("page", page);

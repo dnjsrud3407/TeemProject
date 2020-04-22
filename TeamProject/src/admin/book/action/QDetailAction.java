@@ -21,8 +21,9 @@ public class QDetailAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자가 문의 작성한 것을 불러옴 and 관리자가 작성한 것도 불러옴
+		int kID = 102;
 		QnReWriteService qDetailService = new QnReWriteService();
-		ArrayList<BoardBean> qList = qDetailService.getqnaList(boardReRef);
+		ArrayList<BoardBean> qList = qDetailService.getqnaList(boardReRef, kID);
 		
 		// i = 0   =>   사용자 문의 글
 		// i = 1   =>   관리자 문의 답변 글

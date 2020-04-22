@@ -43,7 +43,7 @@ public class ReviewWriteProAction implements Action {
 				1, 
 				bookID);
 		
-		int updateCount = reviewWriteProService.writeAnswerBoard(board, boardWriter);
+		int updateCount = reviewWriteProService.writeAnswerBoard(board);
 		
 		// 포인트 올리는 작업
 		if(updateCount > 0) {

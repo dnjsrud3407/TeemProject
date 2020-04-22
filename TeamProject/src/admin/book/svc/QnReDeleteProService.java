@@ -9,7 +9,7 @@ import dao.BoardDAO;
 public class QnReDeleteProService {
 
 	// 관리자 답변 게시글 삭제
-	public boolean deleteBoard(String[] boardRe_refList) {
+	public boolean deleteBoard(String[] boardRe_refList, int kID) {
 		Connection con = getConnection();
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
@@ -20,11 +20,11 @@ public class QnReDeleteProService {
 		if(boardRe_refList.length > 1) {	// 여러개 삭제하는 경우
 			for(int i = 0; i < boardRe_refList.length; i++) {
 				boardReref = Integer.parseInt(boardRe_refList[i]);
-        		deleteCount = boardDAO.deleteBoard(boardReref);
+        		deleteCount = boardDAO.deleteBoard(boardReref, kID);
         	}
 		} else {	// 한개 삭제하는 경우
 			boardReref = Integer.parseInt(boardRe_refList[0]);
-        	deleteCount = boardDAO.deleteBoard(boardReref);
+        	deleteCount = boardDAO.deleteBoard(boardReref, kID);
         }
 		
 		int updateCount = 0;
@@ -34,11 +34,11 @@ public class QnReDeleteProService {
 			if(boardRe_refList.length > 1) {	// 여러개 삭제하는 경우
 				for(int i = 0; i < boardRe_refList.length; i++) {
 					boardReref = Integer.parseInt(boardRe_refList[i]);
-					updateCount = boardDAO.updateReSeqMinus(boardReref);
+					updateCount = boardDAO.updateReSeqMinus(boardReref, kID);
 	        	}
 			} else {	// 한개 삭제하는 경우
 				boardReref = Integer.parseInt(boardRe_refList[0]);
-				updateCount = boardDAO.updateReSeqMinus(boardReref);
+				updateCount = boardDAO.updateReSeqMinus(boardReref, kID);
 	        }
 			
 			if(updateCount > 0) {

@@ -21,8 +21,9 @@ public class ReviewDetailAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자가 후기 작성한 것을 불러옴 and 관리자가 작성한 것도 불러옴
+		int kID = 103;
 		QnReWriteService reviewDetailService = new QnReWriteService();
-		ArrayList<BoardBean> qnaList = reviewDetailService.getqnaList(boardReRef);
+		ArrayList<BoardBean> qnaList = reviewDetailService.getqnaList(boardReRef, kID);
 		
 		// i = 0   =>   사용자 후기 글
 		// i = 1   =>   관리자 후기 답변 글

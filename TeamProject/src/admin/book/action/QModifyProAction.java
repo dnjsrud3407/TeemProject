@@ -28,6 +28,7 @@ public class QModifyProAction implements Action {
 		String boardWriter = (String)session.getAttribute("uID");
 		
 		// 문의 답변 글 수정하기
+		int kID = 102;
 		QnReModifyProService qModifyProService = new QnReModifyProService();
 		BoardBean board = new BoardBean(
 				boardNum,
@@ -35,7 +36,7 @@ public class QModifyProAction implements Action {
 				boardTitle, 
 				boardContent);
 		
-		qModifyProService.modifyAnswerBoard(board);
+		qModifyProService.modifyAnswerBoard(board, kID);
 		
 		forward = new ActionForward();
 		

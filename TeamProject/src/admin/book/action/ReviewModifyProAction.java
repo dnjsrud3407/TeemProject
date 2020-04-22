@@ -28,6 +28,7 @@ public class ReviewModifyProAction implements Action {
 		String boardWriter = (String)session.getAttribute("uID");
 		
 		// 후기 답변 글 수정하기
+		int kID = 103;
 		QnReModifyProService reviewModifyProService = new QnReModifyProService();
 		BoardBean board = new BoardBean(
 				boardNum,
@@ -35,7 +36,7 @@ public class ReviewModifyProAction implements Action {
 				boardTitle, 
 				boardContent);
 		
-		reviewModifyProService.modifyAnswerBoard(board);
+		reviewModifyProService.modifyAnswerBoard(board, kID);
 		
 		forward = new ActionForward();
 		

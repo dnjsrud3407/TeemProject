@@ -17,7 +17,6 @@ public class QWriteProAction implements Action {
 
 		// 페이지, 문의글 ReRef, bookID 파라미터와 답변 제목,내용 불러오기
 		String page = request.getParameter("page");
-		String boardWriter = request.getParameter("boardWriter");
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");
 		int boardReRef = Integer.parseInt(request.getParameter("boardReRef"));
@@ -26,24 +25,25 @@ public class QWriteProAction implements Action {
 		
 		// 관리자 id 가져오기
 		HttpSession session = request.getSession();
-		String uID = (String)session.getAttribute("uID");
+		String boardWriter = (String)session.getAttribute("uID");
 		
 		QnReWriteProService qWriteProService = new QnReWriteProService();
 		
 		// 게시글 번호 생성
+		int kID = 102;
 		int boardNum = qWriteProService.getBoardNum();
 		
 		BoardBean board = new BoardBean(
 				boardNum, 
-				102, 
-				uID, 
+				kID, 
+				boardWriter, 
 				boardTitle, 
 				boardContent, 
 				boardReRef, 
 				1, 
 				bookID);
 		
-		qWriteProService.writeAnswerBoard(board, boardWriter);
+		qWriteProService.writeAnswerBoard(board);
 		
 		forward = new ActionForward();
 		

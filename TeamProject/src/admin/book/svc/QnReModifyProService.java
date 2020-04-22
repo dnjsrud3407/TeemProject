@@ -10,12 +10,12 @@ import dao.BoardDAO;
 public class QnReModifyProService {
 
 	// 상품 문의 답변 수정
-	public void modifyAnswerBoard(BoardBean board) {
+	public void modifyAnswerBoard(BoardBean board, int kID) {
 		BoardDAO boardDAO = new BoardDAO();
         Connection con = getConnection();
         boardDAO.setConnection(con);
 		
-        int updateCount = boardDAO.updateAnswerBoard(board);
+        int updateCount = boardDAO.updateAnswerBoard(board, kID);
         
         if(updateCount > 0) {
         	commit(con);

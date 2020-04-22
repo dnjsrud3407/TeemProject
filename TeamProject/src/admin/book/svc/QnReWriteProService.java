@@ -26,7 +26,7 @@ public class QnReWriteProService {
 	
 
 	// 답변 글 적기
-	public int writeAnswerBoard(BoardBean board, String boardWriter) {
+	public int writeAnswerBoard(BoardBean board) {
 		BoardDAO boardDAO = new BoardDAO();
         Connection con = getConnection();
         boardDAO.setConnection(con);
@@ -36,7 +36,7 @@ public class QnReWriteProService {
         
         // 답변 글 작성 성공 시 문의, 답변글 boardReSeq 를 1로 바꿔야함
         if(insertCount > 0) {
-        	updateCount = boardDAO.updateReSeqPlus(board, boardWriter);
+        	updateCount = boardDAO.updateReSeqPlus(board);
         	if(updateCount > 0) {
         		commit(con);
         	} else {
