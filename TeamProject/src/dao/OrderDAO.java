@@ -828,7 +828,7 @@ public OrderDAO() {}
 		//완료된 주문들만 불러오기
 		public List<OrderBean> orderComplList(OrderBean orderStatus) {
 			System.out.println("OrderDAO - orderComplList()");
-			List<OrderBean> complList = new ArrayList();
+			List<OrderBean> complList = new ArrayList(); 
 			List<OrderBean> listDetail = new ArrayList();
 			
 			System.out.println("orderDAO orderbean's status: " + orderStatus.getOrderStatus());
