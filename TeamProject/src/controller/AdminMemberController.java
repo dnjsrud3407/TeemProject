@@ -51,7 +51,7 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/MainBoard.adm")) { //------------------
+		} else if(command.equals("/MainBoard.adm")) { //-------- adminMain에서 ajax으로 들고오기
 			action = new MainBoardAction();
 			try {
 				forward = action.execute(request, response);

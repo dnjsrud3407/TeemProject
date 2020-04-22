@@ -180,6 +180,20 @@ public class BoardBean {
 		this.bookID = bookID;
 	}
 	
+	// 메인에서 1:1 불러올때 사용
+	public BoardBean(int boardNum, int kID, String boardWriter, String boardTitle, String boardContent,
+			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq) {
+		super();
+		this.boardNum = boardNum;
+		this.kID = kID;
+		this.boardWriter = boardWriter;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.boardRegTime = boardRegTime;
+		this.boardReRef = boardReRef;
+		this.boardReLev = boardReLev;
+		this.boardReSeq = boardReSeq;
+	}
 	
 
 	// 문의 내역 불러올때 사용

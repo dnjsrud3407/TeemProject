@@ -1,6 +1,7 @@
 package admin.member.action;
 
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +25,14 @@ public class MainBoardAction implements Action {
 		int page = 1; int limit = 5;
 		MainBoardService mainBoardService = new MainBoardService();
 		ArrayList<BoardBean> boardList = null;
-		boardList = mainBoardService.getBoardList(kID, page, limit);
+		
+		if(kID == 109) {	// 1:1문의일 경우
+			boardList = mainBoardService.getBoardList(kID, page, limit);
+			System.out.println("kID==109");
+			System.out.println("boardList.size()" + boardList.size());
+		} else {	// 상품문의, 상품후기일 경우
+			boardList = mainBoardService.getBoardList(kID, page, limit);
+		}
 		
 		// 출력 함수 
     	response.setContentType("text/html; charset=UTF-8");
@@ -35,11 +43,20 @@ public class MainBoardAction implements Action {
     	out.print("<td class=\"boardTitle\" onclick=\"getBoard(109)\">1:1문의</td>");
     	out.print("</tr>");
     	out.print("<tr></tr>");
+
     	
     	for (int i = 0; i < boardList.size(); i++) {
+    		//가져온 현재 날짜를 String으로 변환,format으로 형식맞춰줌
+    		String date = (new SimpleDateFormat("yyyy-MM-dd").format(boardList.get(i).getBoardRegTime()));
     		out.print("<tr>");
-    		out.print("<td colspan=\"2\">"+boardList.get(i).getBoardTitle()+"</td>");
-    		out.print("<td>"+boardList.get(i).getBoardRegTime()+"</td>");
+    		if(kID == 102) {	// 상품문의일 경우
+    			out.print("<td colspan=\"2\"><a href='QWriteForm.abook?boardNum="+ boardList.get(i).getBoardNum() +"&page=1'>"+boardList.get(i).getBoardTitle()+"</a></td>");
+    		} else if(kID == 102) {	// 상품후기일 경우
+    			out.print("<td colspan=\"2\"><a href='ReviewWriteForm.abook?boardNum="+ boardList.get(i).getBoardNum() +"&page=1'>"+boardList.get(i).getBoardTitle()+"</a></td>");
+    		} else {	// 1:1문의일 경우
+    			out.print("<td colspan=\"2\"><a href='QDetail.adb?boardNum="+ boardList.get(i).getBoardNum() +"'>"+boardList.get(i).getBoardTitle()+"</a></td>");
+    		}
+    		out.print("<td>"+date+"</td>");
     		out.print("</tr>");
 		}
     	

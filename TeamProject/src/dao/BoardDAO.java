@@ -767,15 +767,14 @@ public class BoardDAO {
 	}
 
 	// 상품 문의, 후기 게시글 들고오기
-	// & 메인에서 상품문의, 상품후기, 1:1문의 가져오기
 	public ArrayList<BoardBean> selectList(int kID, int page, int limit) {
 		ArrayList<BoardBean> qList = new ArrayList<BoardBean>();
         // 답변 안 된 글(boardReSeq=0)이 우선적으로 보여지고
         // 다음에는 최근글 부터 보여짐
-        String sql = "SELECT board.*, book.bookTitle FROM board"
-        		+ " JOIN book ON board.bookID = book.bookID"
-        		+ " WHERE kID=? AND boardReLev=?"
-        		+ " ORDER BY boardReSeq asc, boardReRef desc LIMIT ?,?";
+		String sql = "SELECT board.*, book.bookTitle FROM board"
+				+ " JOIN book ON board.bookID = book.bookID"
+				+ " WHERE kID=? AND boardReLev=?"
+				+ " ORDER BY boardReSeq asc, boardReRef desc LIMIT ?,?";
 		int startRow = (page - 1) * limit;
         try {
 			pstmt = con.prepareStatement(sql);
@@ -1752,12 +1751,56 @@ public class BoardDAO {
 		
 		return updateCount;
 	}
+	
+
 	// 메인에서 상품문의, 상품후기, 1:1문의 가져오기
-	public ArrayList<BoardBean> selectBoardList(int kID) {
-		ArrayList<BoardBean> boardList = null;
-		String sql = "SE";
+	public ArrayList<BoardBean> selectBoardList(int kID, int page, int limit) {
+		ArrayList<BoardBean> qList = new ArrayList<BoardBean>();
+		String sql = "";
+
+		if(kID == 109) {	// 1:1문의
+			sql = "SELECT * FROM board"
+	        		+ " WHERE kID>=? AND boardReLev=? AND boardReSeq=?"
+	        		+ " ORDER BY boardReRef desc LIMIT ?,?";			
+		} else {			// 상품문의, 상품후기
+			sql = "SELECT * FROM board"
+					+ " WHERE kID=? AND boardReLev=? AND boardReSeq=?"
+					+ " ORDER BY boardReRef desc LIMIT ?,?";
+		}
+		int startRow = (page - 1) * limit;
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, kID);
+			pstmt.setInt(2, 0);	// 문의글만 보기
+			pstmt.setInt(3, 0); // 답변 안된 글만 보기
+			pstmt.setInt(4, startRow);
+			pstmt.setInt(5, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardBean board = new BoardBean(
+						rs.getInt("boardNum"), 
+						rs.getInt("kID"),
+						rs.getString("boardWriter"), 
+						rs.getString("boardTitle"), 
+						rs.getString("boardContent"), 
+						rs.getTimestamp("boardRegTime"), 
+						rs.getInt("boardReRef"), 
+						rs.getInt("boardReLev"), 
+						rs.getInt("boardReSeq")
+						);
+				
+				qList.add(board);
+			}
+			
+			setAnswerRegTime(qList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
 		
-		return boardList;
+		return qList;
 
 	}
 

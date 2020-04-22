@@ -18,7 +18,7 @@ public class MainBoardService {
 		BoardDAO boardDAO = BoardDAO.getInstance();
 		boardDAO.setConnection(con);
 		
-		boardList = boardDAO.selectList(kID, page, limit);
+		boardList = boardDAO.selectBoardList(kID, page, limit);
 		
 		close(con);
 		

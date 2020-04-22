@@ -219,11 +219,10 @@ function getBoard(type) {
                 		</tr>
                 		<tr></tr>
                 		<jsp:useBean id="date" class="java.util.Date" />
-<%-- <fmt:formatDate value="${date }" type="date"/> --%>
                 		<c:forEach var="board" items="${qboardList }" varStatus="status">
 	                		<tr>
-	                			<td colspan="2">${board.boardTitle }</td>
-	                			<td>${board.boardRegTime }</td>
+	                			<td colspan="2"><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=1">${board.boardTitle }</a></td>
+	                			<td><fmt:formatDate value="${board.boardRegTime }" type="date"/></td>
 	                		</tr>                		
                 		</c:forEach>
                 	</table>
