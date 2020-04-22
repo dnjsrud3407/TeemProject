@@ -820,6 +820,46 @@ public OrderDAO() {}
 			return list;
 		}
 		
+		public ArrayList<OrderBean> orderTotal(String orderNum) {
+			System.out.println("OrderDAO - orderList()");
+			ArrayList<OrderBean> total = new ArrayList();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "select * from order_detail";
+
+//				String sql = "select * from order_detail WHERE orderNum=?";
+				pstmt = con.prepareStatement(sql);
+//				pstmt.setString(1, orderNum);
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					OrderBean ob = new OrderBean();
+					ob.setOrderDetailCode(rs.getInt("orderDetailCode"));
+					ob.setbookID(rs.getInt("bookID"));
+					ob.setBookKategorie_BKID(rs.getInt("bookKategorie_BKID"));
+					ob.setOrderNum(rs.getString("orderNum"));
+					ob.setBookTitle(rs.getString("bookTitle"));
+					ob.setBookPrice(rs.getInt("bookPrice"));
+					ob.setBookEA(rs.getInt("bookEA"));
+					ob.setPaymentType(rs.getString("paymentType"));
+				
+					total.add(ob);
+
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+
+			return total;
+		}	
+		
 		//주문한 책 목록 불러오기
 		public List<OrderBean> selectOrder(String orderNum) {
 			System.out.println("OrderDAO - orderList()");
@@ -892,7 +932,48 @@ public OrderDAO() {}
 			}
 
 			return orderDe;
-		}
+		}		
+		//주문금액 가져오기
+//		public ArrayList<OrderBean> orderTotal(String orderNum) {
+//			System.out.println("OrderDAO - orderList()");
+//			ArrayList<OrderBean> total = new ArrayList();
+//			PreparedStatement pstmt = null;
+//			ResultSet rs = null;
+//			
+//			try {
+//				String sql = "select * from order_detail";
+//
+////				String sql = "select * from order_detail WHERE orderNum=?";
+//				pstmt = con.prepareStatement(sql);
+////				pstmt.setString(1, orderNum);
+//				rs = pstmt.executeQuery();
+//				
+//				while (rs.next()) {
+//					OrderBean ob = new OrderBean();
+//					ob.setOrderDetailCode(rs.getInt("orderDetailCode"));
+//					ob.setbookID(rs.getInt("bookID"));
+//					ob.setBookKategorie_BKID(rs.getInt("bookKategorie_BKID"));
+//					ob.setOrderNum(rs.getString("orderNum"));
+//					ob.setBookTitle(rs.getString("bookTitle"));
+//					ob.setBookPrice(rs.getInt("bookPrice"));
+//					ob.setBookEA(rs.getInt("bookEA"));
+//					ob.setPaymentType(rs.getString("paymentType"));
+//				
+//					total.add(ob);
+//
+//				}
+//
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} finally {
+//				close(pstmt);
+//				close(rs);
+//			}
+//
+//			return total;
+//		}	
+		
 
 		public int updateOrder(OrderBean order) {
 			int updateCount = 0;

@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import dao.OrderDAO;
 import vo.MemberBean;
 import vo.OrderBean;
@@ -60,7 +62,32 @@ public class OrderListService {
 		close(con);
 		return couponList;
 	}
+
+
+	public List<OrderBean> orderList() {
+		System.out.println("OrderListService - orderList");
+		
+		 Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		List<OrderBean> orderList = orderDAO.orderList();
+//		System.out.println("orderList : " + orderList);
+		close(con);
+		return orderList;	
+	}
 	
-	
+		public ArrayList<OrderBean> orderBookTotal(HttpServletRequest request, String orderNum) {
+		
+		System.out.println("OrderListService - orderBookTotal");
+		
+		 Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		System.out.println("orderNum : " + orderNum);
+		ArrayList<OrderBean> orderTotal = orderDAO.orderTotal(orderNum);
+		return orderTotal;
+	}
 
 }
