@@ -683,15 +683,19 @@ public OrderDAO() {}
 			return updateBookCount;
 		}
 
-		public int couponUpdate(int coupon_num, String id) {
+		public int couponUpdate(int cHistory_num, String id) {
 			PreparedStatement pstmt = null;
 			int couponUpdateCount = 0;
 			
-			String sql ="UPDATE couponHistory SET couponStatus=? WHERE cID=? AND uID=?";
+			String sql ="UPDATE couponHistory SET couponHistoryDate=now(),couponStatus=?,couponContent=?,couponAction=? "
+					+ "WHERE num=? AND uID=?";
 			
 			try {
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, "used"); pstmt.setInt(2, coupon_num); pstmt.setString(3, id);
+				pstmt.setString(1, "사용함");
+				pstmt.setString(2, "결제완료");
+				pstmt.setBoolean(3, true);
+				pstmt.setInt(4, cHistory_num); pstmt.setString(5, id);
 				
 				couponUpdateCount = pstmt.executeUpdate();
 			} catch (SQLException e) {

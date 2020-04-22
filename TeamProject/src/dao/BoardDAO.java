@@ -1762,7 +1762,7 @@ public class BoardDAO {
 			sql = "SELECT * FROM board"
 	        		+ " WHERE kID>=? AND boardReLev=? AND boardReSeq=?"
 	        		+ " ORDER BY boardReRef desc LIMIT ?,?";			
-		} else {			// 상품문의, 상품후기
+		} else {	// 상품문의, 상품후기
 			sql = "SELECT * FROM board"
 					+ " WHERE kID=? AND boardReLev=? AND boardReSeq=?"
 					+ " ORDER BY boardReRef desc LIMIT ?,?";
@@ -1804,6 +1804,46 @@ public class BoardDAO {
 
 	}
 
+	// 메인에서 공지사항, 이벤트 가져오기
+	public ArrayList<BoardBean> selectNaEBoardList(int kID, int page, int limit) {
+		ArrayList<BoardBean> qList = new ArrayList<BoardBean>();
+		String sql = "SELECT * FROM board"
+					+ " WHERE kID=?"
+					+ " ORDER BY boardReRef desc LIMIT ?,?";			
+		int startRow = (page - 1) * limit;
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, kID);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardBean board = new BoardBean(
+						rs.getInt("boardNum"), 
+						rs.getInt("kID"),
+						rs.getString("boardWriter"), 
+						rs.getString("boardTitle"), 
+						rs.getString("boardContent"), 
+						rs.getTimestamp("boardRegTime"), 
+						rs.getInt("boardReRef"), 
+						rs.getInt("boardReLev"), 
+						rs.getInt("boardReSeq")
+						);
+				
+				qList.add(board);
+			}
+			
+			setAnswerRegTime(qList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+		
+		return qList;
+
+	}
 }
 	
 

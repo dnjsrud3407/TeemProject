@@ -123,8 +123,16 @@ function getBoard(type) {
                       <div class="font-weight-bold text-xl text-primary text-uppercase mb-1">상품</div>
                     </div>
                     <div class="col mr-2">
-                      <div class="font-weight text-dark mb-1 iconText">판매중 상품</div><div class="iconText2">0건</div><div class="clear"></div>
-                      <div class="font-weight text-dark mb-1 iconText">수정중 상품</div><div class="iconText2">0건</div><div class="clear"></div>
+                      <c:forEach var="ea" items="${bookEAList }" varStatus="status">
+                        <c:choose>
+                          <c:when test="${status.index == 1 }">
+		                    <div class="font-weight text-dark mb-1 iconText">판매중 상품</div><div class="iconText2">${ea }건</div><div class="clear"></div>
+                          </c:when>
+                          <c:otherwise>
+		                    <div class="font-weight text-dark mb-1 iconText">수정중 상품</div><div class="iconText2">${ea }건</div><div class="clear"></div>
+                          </c:otherwise>
+                        </c:choose>
+                      </c:forEach>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x_custom text-gray-300"></i>
@@ -171,10 +179,11 @@ function getBoard(type) {
                 <!-- Card Body -->
                 <div class="card-body text-center text-dark">
                 	<table class="boardTr">
-                		<c:forEach begin="1" end="5" varStatus="status">
-	                		<tr style="border: 1px solid;">
-	                			<td colspan="2">게시글 최신꺼부터 가져오기</td>
-	                			<td>2020.04.21</td>
+                		<jsp:useBean id="date" class="java.util.Date" />
+                		<c:forEach var="board" items="${noticeList }" varStatus="status">
+	                		<tr>
+	                			<td colspan="2"><a href="NoticeDetail.adb?boardNum=${board.boardNum }&page=1">${board.boardTitle }</a></td>
+	                			<td><fmt:formatDate value="${board.boardRegTime }" type="date"/></td>
 	                		</tr>                		
                 		</c:forEach>
                 	</table>
@@ -191,10 +200,10 @@ function getBoard(type) {
                 <!-- Card Body -->
                 <div class="card-body text-center text-dark">
                 	<table class="boardTr">
-                		<c:forEach begin="1" end="5" varStatus="status">
+                		<c:forEach var="board" items="${eventList }" varStatus="status">
 	                		<tr>
-	                			<td colspan="2">게시글 최신꺼부터 가져오기</td>
-	                			<td>2020.04.21</td>
+	                			<td colspan="2"><a href="EventDetail.adb?boardNum=${board.boardNum }&page=1">${board.boardTitle }</a></td>
+	                			<td><fmt:formatDate value="${board.boardRegTime }" type="date"/></td>
 	                		</tr>                		
                 		</c:forEach>
                 	</table>
@@ -218,8 +227,7 @@ function getBoard(type) {
                 			<td class="boardTitle" onclick="getBoard(109)">1:1문의</td>
                 		</tr>
                 		<tr></tr>
-                		<jsp:useBean id="date" class="java.util.Date" />
-                		<c:forEach var="board" items="${qboardList }" varStatus="status">
+                		<c:forEach var="board" items="${qList }" varStatus="status">
 	                		<tr>
 	                			<td colspan="2"><a href="QWriteForm.abook?boardNum=${board.boardNum }&page=1">${board.boardTitle }</a></td>
 	                			<td><fmt:formatDate value="${board.boardRegTime }" type="date"/></td>

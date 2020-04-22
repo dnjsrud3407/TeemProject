@@ -674,145 +674,177 @@ public class BookDAO {
 	}
 
 	
-		// 사용자 책 상세보기에서 사용하는 selectBook
-		public BookBean selectUserBook(int bookID) {
-		    BookBean book = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    String sql = "SELECT * FROM book JOIN bookkategorie ON book.bookKategorie_BKID = bookkategorie.BKID WHERE bookID=? and bookisView=true";
-		    try {
-	            pstmt = con.prepareStatement(sql);
-	            pstmt.setInt(1, bookID);
-	            rs = pstmt.executeQuery();
-	            if(rs.next()) {
-	                book = new BookBean(
-	                        rs.getInt("bookID"), 
-	                        rs.getString("bookTitle"), 
-	                        rs.getString("bookOriginImage"), 
-	                        rs.getString("bookImage"), 
-	                        rs.getString("bookPublisher"), 
-	                        rs.getDate("bookPublishedDate"), 
-	                        rs.getInt("bookPrice"), 
-	                        rs.getInt("bookEA"), 
-	                        rs.getInt("salesVolume"), 
-	                        rs.getString("bookIntroduce"), 
-	                        rs.getBoolean("bookisView"), 
-	                        rs.getFloat("saveRatio"),
-	                        rs.getInt("bookKategorie_BKID"),
-	                        rs.getString("BK1"),
-	                        rs.getString("BK2"),
-	                        rs.getString("BK3")
-	                        );
-	            }
-		    } catch (SQLException e) {
-	            e.printStackTrace();
-	        } finally {
-	            if(rs != null) {close(rs);}
-	            if(pstmt != null) {close(pstmt);}
-	        }
-		    
-		    return book;
-		}
+	// 사용자 책 상세보기에서 사용하는 selectBook
+	public BookBean selectUserBook(int bookID) {
+	    BookBean book = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = "SELECT * FROM book JOIN bookkategorie ON book.bookKategorie_BKID = bookkategorie.BKID WHERE bookID=? and bookisView=true";
+	    try {
+            pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, bookID);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+                book = new BookBean(
+                        rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"), 
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID"),
+                        rs.getString("BK1"),
+                        rs.getString("BK2"),
+                        rs.getString("BK3")
+                        );
+            }
+	    } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+	    
+	    return book;
+	}
 
 		
-		// 사용자 책 목록 전체 가져오기 (페이징처리 갯수만큼)
-		public ArrayList<BookBean> selectUserBookList(int page, int limit) {
-			ArrayList<BookBean> bookList = new ArrayList<BookBean>();
-			PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        String sql = "SELECT * FROM book join bookkategorie "
-	        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bookisView=true ORDER BY bookID DESC LIMIT ?,?";
-	        BookBean book = null;
-	        
-	        int startRow = (page - 1) * limit;
-	        
-	        try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, startRow);
-				pstmt.setInt(2, limit);
-				rs = pstmt.executeQuery();
-				while(rs.next()) {
-					book = new BookBean(
-							rs.getInt("bookID"), 
-	                        rs.getString("bookTitle"), 
-	                        rs.getString("bookOriginImage"), 
-	                        rs.getString("bookImage"), 
-	                        rs.getString("bookPublisher"), 
-	                        rs.getDate("bookPublishedDate"), 
-	                        rs.getInt("bookPrice"), 
-	                        rs.getInt("bookEA"), 
-	                        rs.getInt("salesVolume"),
-	                        rs.getString("bookIntroduce"), 
-	                        rs.getBoolean("bookisView"), 
-	                        rs.getFloat("saveRatio"),
-	                        rs.getInt("bookKategorie_BKID"),
-	                        rs.getString("BK1"),
-	                        rs.getString("BK2"),
-	                        rs.getString("BK3")
-	                        );
-					bookList.add(book);
-					
-				}
-	        } catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-	            if(rs != null) {close(rs);}
-	            if(pstmt != null) {close(pstmt);}
-	        }
-	        
-			return bookList;
-		}
-		
-		
+	// 사용자 책 목록 전체 가져오기 (페이징처리 갯수만큼)
+	public ArrayList<BookBean> selectUserBookList(int page, int limit) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book join bookkategorie "
+        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bookisView=true ORDER BY bookID DESC LIMIT ?,?";
+        BookBean book = null;
+        
+        int startRow = (page - 1) * limit;
+        
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"),
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID"),
+                        rs.getString("BK1"),
+                        rs.getString("BK2"),
+                        rs.getString("BK3")
+                        );
+				bookList.add(book);
+				
+			}
+        } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return bookList;
+	}
 	
-		// 사용자 단계별 책 목록 가져오기 
-		public ArrayList<BookBean> selectUserBookList(int page, int limit, int bk2) {
-			ArrayList<BookBean> bookList = new ArrayList<BookBean>();
-			PreparedStatement pstmt = null;
-	        ResultSet rs = null;
-	        String sql = "SELECT * FROM book join bookkategorie "
-	        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bk2=? and bookisView=true ORDER BY bookID DESC LIMIT ?,?";
-	        BookBean book = null;
-	        
-	        int startRow = (page - 1) * limit;
-	        
-	        try {
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, bk2);
-				pstmt.setInt(2, startRow);
-				pstmt.setInt(3, limit);
-				rs = pstmt.executeQuery();
-				while(rs.next()) {
-					book = new BookBean(
-							rs.getInt("bookID"), 
-	                        rs.getString("bookTitle"), 
-	                        rs.getString("bookOriginImage"), 
-	                        rs.getString("bookImage"), 
-	                        rs.getString("bookPublisher"), 
-	                        rs.getDate("bookPublishedDate"), 
-	                        rs.getInt("bookPrice"), 
-	                        rs.getInt("bookEA"), 
-	                        rs.getInt("salesVolume"),
-	                        rs.getString("bookIntroduce"), 
-	                        rs.getBoolean("bookisView"), 
-	                        rs.getFloat("saveRatio"),
-	                        rs.getInt("bookKategorie_BKID"),
-	                        rs.getString("BK1"),
-	                        rs.getString("BK2"),
-	                        rs.getString("BK3")
-	                        );
-					bookList.add(book);
-					
-				}
-	        } catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-	            if(rs != null) {close(rs);}
-	            if(pstmt != null) {close(pstmt);}
-	        }
-	        
-			return bookList;
+	
+
+	// 사용자 단계별 책 목록 가져오기 
+	public ArrayList<BookBean> selectUserBookList(int page, int limit, int bk2) {
+		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "SELECT * FROM book join bookkategorie "
+        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bk2=? and bookisView=true ORDER BY bookID DESC LIMIT ?,?";
+        BookBean book = null;
+        
+        int startRow = (page - 1) * limit;
+        
+        try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, bk2);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				book = new BookBean(
+						rs.getInt("bookID"), 
+                        rs.getString("bookTitle"), 
+                        rs.getString("bookOriginImage"), 
+                        rs.getString("bookImage"), 
+                        rs.getString("bookPublisher"), 
+                        rs.getDate("bookPublishedDate"), 
+                        rs.getInt("bookPrice"), 
+                        rs.getInt("bookEA"), 
+                        rs.getInt("salesVolume"),
+                        rs.getString("bookIntroduce"), 
+                        rs.getBoolean("bookisView"), 
+                        rs.getFloat("saveRatio"),
+                        rs.getInt("bookKategorie_BKID"),
+                        rs.getString("BK1"),
+                        rs.getString("BK2"),
+                        rs.getString("BK3")
+                        );
+				bookList.add(book);
+				
+			}
+        } catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+            if(rs != null) {close(rs);}
+            if(pstmt != null) {close(pstmt);}
+        }
+        
+		return bookList;
+	}
+
+	// 메인에서 판매중, 수정중 상품 개수 구하기
+	public ArrayList<Integer> selectBookEA() {
+		ArrayList<Integer> bookEAList = new ArrayList<Integer>();
+		PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int eaAll = 0, ea = 0;
+        
+        String sql = "SELECT COUNT(*) FROM book";
+        try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {	// 전체 상품 개수
+				eaAll = rs.getInt(1);
+			}
+			
+			sql = "SELECT COUNT(*) FROM book WHERE bookisView=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setBoolean(1, true);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {	// 판매 중 책 개수
+				ea = rs.getInt(1);
+			}
+			bookEAList.add(ea);
+			bookEAList.add(eaAll-ea);
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
+		
+		return bookEAList;
+	}
 
 	
 
