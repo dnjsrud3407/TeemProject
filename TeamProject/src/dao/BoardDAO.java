@@ -922,12 +922,14 @@ public class BoardDAO {
 	}
 
 	// 상품 문의, 후기 답변 등록 성공 시 문의 글 Seq+1 시키기
-	public int updateReSeqPlus(int boardReRef) {
+	public int updateReSeqPlus(BoardBean board, String boardWriter) {
 		int insertCount = 0;
-		String sql = "UPDATE board SET boardReSeq=boardReSeq+1 WHERE boardNum=?";
+		String sql = "UPDATE board SET boardReSeq=boardReSeq+1 WHERE boardNum=? AND kID=? AND boardWriter=?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, boardReRef);
+			pstmt.setInt(1, board.getBoardReRef());
+			pstmt.setInt(2, board.getkID());
+			pstmt.setString(3, boardWriter);
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1101,12 +1103,12 @@ public class BoardDAO {
 	}
 	
 	// 후기 답변 시 유저 포인트 올리기
-	public int updateMemberPoint(String uID) {
+	public int updateMemberPoint(String boardWriter) {
 		int updateCount = 0;
 		String sql = "UPDATE user SET point=point+500 WHERE uID=?";
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, uID);
+			pstmt.setString(1, boardWriter);
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -1139,17 +1141,18 @@ public class BoardDAO {
 	}
 	
 	// 포인트 히스토리 insert 
-	public int insertPointHistory(int pID, String uID) {
+	public int insertPointHistory(int pID, String boardWriter) {
 		int insertPointHistory = 0;
-		String sql = "INSERT INTO pointhistory VALUES(?,?,now(),?,?,?)";
+		String sql = "INSERT INTO pointhistory VALUES(?,?,now(),?,?,?,?)";
 		try {
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, pID);
-			pstmt.setString(2, uID);
+			pstmt.setString(2, boardWriter);
 			pstmt.setString(3, "책 후기 적립금");
 			pstmt.setInt(4, 500);
 			pstmt.setBoolean(5, true);
+			pstmt.setString(6, null);
 			
 			insertPointHistory = pstmt.executeUpdate();
 		} catch (SQLException e) {

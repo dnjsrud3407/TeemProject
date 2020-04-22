@@ -26,7 +26,7 @@ public class QnReWriteProService {
 	
 
 	// 답변 글 적기
-	public int writeAnswerBoard(BoardBean board) {
+	public int writeAnswerBoard(BoardBean board, String boardWriter) {
 		BoardDAO boardDAO = new BoardDAO();
         Connection con = getConnection();
         boardDAO.setConnection(con);
@@ -36,7 +36,7 @@ public class QnReWriteProService {
         
         // 답변 글 작성 성공 시 문의, 답변글 boardReSeq 를 1로 바꿔야함
         if(insertCount > 0) {
-        	updateCount = boardDAO.updateReSeqPlus(board.getBoardReRef());
+        	updateCount = boardDAO.updateReSeqPlus(board, boardWriter);
         	if(updateCount > 0) {
         		commit(con);
         	} else {
@@ -52,20 +52,20 @@ public class QnReWriteProService {
 	}
 
 
-	public void plusMemberPoint(String uID) {
+	public void plusMemberPoint(String boardWriter) {
 		BoardDAO boardDAO = new BoardDAO();
         Connection con = getConnection();
         boardDAO.setConnection(con);
         int updateCount = 0;
         int insertPointHistory = 0;
         
-        updateCount = boardDAO.updateMemberPoint(uID);
+        updateCount = boardDAO.updateMemberPoint(boardWriter);
         
         if(updateCount > 0) {
         	
         	// pointhistory 테이블의 식별자 최대값 가져오기
-        	int pID = boardDAO.selectpIDMaxNum();
-        	insertPointHistory = boardDAO.insertPointHistory(pID, uID);
+        	int pID = boardDAO.selectpIDMaxNum()+1;
+        	insertPointHistory = boardDAO.insertPointHistory(pID, boardWriter);
         	if(insertPointHistory > 0) {
         		commit(con);
         	} else {

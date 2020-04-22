@@ -116,6 +116,7 @@
 	              <div class="table-responsive">
 	              <form action="QWritePro.abook" method="post">
                     <input type="hidden" name="page" value="${page }">
+                    <input type="hidden" name="boardWriter" value="${board.boardWriter }">
                     <input type="hidden" name="boardReRef" value="${board.boardReRef }">
                     <input type="hidden" name="bookID" value="${board.bookID }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
