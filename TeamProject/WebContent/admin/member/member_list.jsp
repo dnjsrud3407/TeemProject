@@ -8,6 +8,7 @@ if(session.getAttribute("uID") == null){
 	response.sendRedirect("index.jsp");
 }
  List<MemberBean> memberList = (List<MemberBean>) request.getAttribute("memberList");
+ String gradeName = "선택요망";
  %>
 
 
@@ -263,6 +264,43 @@ if(session.getAttribute("uID") == null){
                   </thead>
                   <tbody>
 						<%for(int i = 0; i < memberList.size(); i++){
+							
+						switch(memberList.get(i).getGrade()){
+						case 0 :
+							gradeName = "선택해주세요";
+							break;
+						case 1 :
+							gradeName = "ADMIN";
+							break;
+						case 2 :
+							gradeName = "ADMIN1";
+							break;
+						case 3 :
+							gradeName = "ADMIN2";
+							break;
+						case 4 :
+							gradeName = "ADMIN3";
+							break;
+						case 5 :
+							gradeName = "ADMIN4";
+							break;
+						case 6 :
+							gradeName = "BRONZE";
+							break;
+						case 7 :
+							gradeName = "SILVER";
+							break;
+						case 8 :
+							gradeName = "GOLD";
+							break;
+						case 9 :
+							gradeName = "VIP";
+							break;
+						case 10 :
+							gradeName = "VVIP";
+							break;
+						}
+						
 						//MemberBean mb = (MemberBean)memberList.get(i); //e다운캐스팅 %>
 <%--                     <%if(memberList != null & memListCount > 0) {%> --%>
 <%--                     	<% for(int i = 0; i < memberList.size(); i++) {%> --%>
@@ -275,7 +313,7 @@ if(session.getAttribute("uID") == null){
                       <td><%=memberList.get(i).getPhone_num() %></td>
                       <td><%=memberList.get(i).getEmail() %></td>
                       <td><%=memberList.get(i).getPoint() %></td>
-                      <td><%=memberList.get(i).getGrade() %></td>
+                      <td><%=gradeName%> </td>
                     </tr>
                    		<%}%>
 <%--                    <% }%> --%>
