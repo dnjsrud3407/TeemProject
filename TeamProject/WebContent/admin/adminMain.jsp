@@ -80,9 +80,19 @@ function getBoard(type) {
                     </div>
                     <div class="col-xl-6">
                       <div class="col mr-2">
-                        <div class="font-weight text-dark mb-1 iconText">신규주문</div><div class="iconText2">0건</div><div class="clear"></div>
-                        <div class="font-weight text-dark mb-1 iconText">배송중</div><div class="iconText2">0건</div><div class="clear"></div>
-                        <div class="font-weight text-dark mb-1 iconText">배송완료</div><div class="iconText2">0건</div><div class="clear"></div>
+                      <c:forEach var="order" items="${orderList }" varStatus="status">
+                      	<c:choose>
+                      	  <c:when test="${status.index == 0 }">
+	                        <div class="font-weight text-dark mb-1 iconText">신규주문</div><div class="iconText2">${order }건</div><div class="clear"></div>
+                      	  </c:when>
+                      	  <c:when test="${status.index == 1 }">
+	                        <div class="font-weight text-dark mb-1 iconText">배송중</div><div class="iconText2">${order }건</div><div class="clear"></div>
+                      	  </c:when>
+                      	  <c:when test="${status.index == 2 }">
+	                        <div class="font-weight text-dark mb-1 iconText">배송완료</div><div class="iconText2">${order }건</div><div class="clear"></div>
+                      	  </c:when>                      	  
+                      	</c:choose>
+                      </c:forEach>
                       </div>
                     </div>
                     <div class="col-auto">
@@ -102,9 +112,19 @@ function getBoard(type) {
                       <div class="font-weight-bold text-xl text-success text-uppercase mb-1">이번달 매출현황</div>
                     </div>
                     <div class="col mr-2">
-                      <div class="font-weight text-dark mb-1 iconText">결제완료</div><div class="iconText2">0원</div><div class="clear"></div>
-                      <div class="font-weight text-dark mb-1 iconText">취소/반품</div><div class="iconText2">0원</div><div class="clear"></div>
-                      <div class="font-weight text-dark mb-1 iconText">총매출</div><div class="iconText2">0원</div><div class="clear"></div>
+                      <c:forEach var="salesCashe" items="${salesCasheList }" varStatus="status">
+                      	<c:choose>
+                      	  <c:when test="${status.index == 0 }">
+	                        <div class="font-weight text-dark mb-1 iconTextS">총 주문</div><div class="iconTextS2">${salesCashe }원</div><div class="clear"></div>
+                      	  </c:when>
+                      	  <c:when test="${status.index == 1 }">
+	                        <div class="font-weight text-dark mb-1 iconTextS">취소/반품</div><div class="iconTextS2">${salesCashe }원</div><div class="clear"></div>
+                      	  </c:when>
+                      	  <c:when test="${status.index == 2 }">
+	                        <div class="font-weight text-dark mb-1 iconTextS">매출</div><div class="iconTextS2">${salesCashe }원</div><div class="clear"></div>
+                      	  </c:when>                      	  
+                      	</c:choose>
+                      </c:forEach>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x_custom text-gray-300"></i>

@@ -32,6 +32,14 @@
 	display: inline-block;
 	width: 20%;
 }
+.iconTextS {
+	display: inline-block;
+	width: 50%;
+}
+.iconTextS2 {
+	display: inline-block;
+	width: 50%;
+}
 .clear {
 	clear: both;
 }

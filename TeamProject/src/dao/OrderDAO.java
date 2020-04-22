@@ -903,6 +903,79 @@ public OrderDAO() {}
 			return complList;
 		}
 		
+		// 메인에서 주문현황 가져오기
+		public int getOrderCount(String orderStatus) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int orderCount = 0;
+			String sql = "";
+			try {
+				if(orderStatus.equals("결제완료")) {
+					sql = "select count(*) from order_tb WHERE orderStatus=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "결제완료");
+					rs = pstmt.executeQuery();
+				} else if(orderStatus.equals("배송중")) {
+					sql = "select count(*) from order_tb WHERE orderStatus=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "배송중");
+					rs = pstmt.executeQuery();
+				} else if(orderStatus.equals("배송완료")) {
+					sql = "select count(*) from order_tb WHERE orderStatus=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "배송완료");
+					rs = pstmt.executeQuery();
+				}
+					
+				if (rs.next()) {
+					orderCount = rs.getInt(1);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+			
+			return orderCount;
+		}		
+		
+		// 메인에서 매출현황 가져오기
+		public int orderComplList(String orderStatus) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			int cashe = 0;
+			String sql = "";
+			try {
+				if(orderStatus.equals("")) {
+					sql = "select sum(totalPrice) from order_tb";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+				} else if(orderStatus.equals("취소완료")) {
+					sql = "select sum(totalPrice) from order_tb WHERE orderStatus=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "취소완료");
+					rs = pstmt.executeQuery();
+				} else if(orderStatus.equals("반품완료")) {
+					sql = "select sum(totalPrice) from order_tb WHERE orderStatus=?";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setString(1, "반품완료");
+					rs = pstmt.executeQuery();
+				}
+					
+				if (rs.next()) {
+					cashe = rs.getInt(1);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+			
+			return cashe;
+		}
+		
 		public ArrayList<OrderBean> orderTotal(String orderNum) {
 			System.out.println("OrderDAO - orderList()");
 			ArrayList<OrderBean> total = new ArrayList();
