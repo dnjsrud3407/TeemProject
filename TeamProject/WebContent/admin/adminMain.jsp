@@ -109,7 +109,7 @@ function getBoard(type) {
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="font-weight-bold text-xl text-success text-uppercase mb-1">이번달 매출현황</div>
+                      <div class="font-weight-bold text-xl text-success text-uppercase mb-1">매출현황</div>
                     </div>
                     <div class="col mr-2">
                       <c:forEach var="salesCashe" items="${salesCasheList }" varStatus="status">
