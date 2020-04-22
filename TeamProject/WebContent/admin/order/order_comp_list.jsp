@@ -88,8 +88,9 @@ if(session.getAttribute("uID") == null){
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">거래완료 진행리스트</h6>
-							<input type="button" value="세일즈 파일 다운" onclick="location.href='Sales.adm'"/>&nbsp;&nbsp;
-						</div>
+							<br>
+							<input type="button" class="btn btn-large btn-success" value="세일즈 파일 다운" onclick="location.href='Sales.adm'"/>&nbsp;&nbsp;
+						</div> 
 						<div class="card-body">
 							<!-- DataTales Example -->
 <!-- 							<div class="card shadow mb-4"> -->

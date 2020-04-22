@@ -8,7 +8,7 @@ import java.util.List;
 import dao.OrderDAO;
 import vo.OrderBean;
 
-public class OrderCompListService {
+public class OrderCompListService { 
 
 
 	public List<OrderBean> orderComplList(OrderBean orderStatus) {
