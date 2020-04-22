@@ -77,6 +77,21 @@ public class OrderListService {
 		return orderList;	
 	}
 	
+		public List<OrderBean> orderComplList(String orderStatus) {
+		System.out.println("OrderListService - orderList");
+		
+		 Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		List<OrderBean> orderList = orderDAO.orderComplList(orderStatus);
+	//	System.out.println("orderList : " + orderList);
+		close(con);
+		return orderList;	
+	}
+
+
+	
 		public ArrayList<OrderBean> orderBookTotal(HttpServletRequest request, String orderNum) {
 		
 		System.out.println("OrderListService - orderBookTotal");

@@ -101,7 +101,7 @@ if(session.getAttribute("uID") == null){
 								<div class="card-body">
 <!-- 									<div class="table-responsive"> -->
 										<form action="" method="post" id="searchForm">
-<!-- 										<input type="hidden" name="orderStatus" value="주문완료" /> -->
+										<input type="hidden" name="orderStatus" value="<%=orderDetail.getOrderStatus() %>">
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
 											<thead>
@@ -117,7 +117,7 @@ if(session.getAttribute("uID") == null){
 <%-- 										<%if(orderDetail.getOrderStatus().equals("주문완료")) {%> --%>
 											<%for(int i = 0; i < orderList.size(); i++){ %>
 											<tbody>
-												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&type=<%=orderList.get(i).getOrderStatus()%>'">
+												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>'">
 													<td><%=orderList.get(i).getOrderTime() %></td>
 													<td><%=orderList.get(i).getOrderNum() %></td>
 													<td><%=orderList.get(i).getOrder_id() %></td>

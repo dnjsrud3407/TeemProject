@@ -113,6 +113,8 @@
      <li><a href="">로드맵</a></li>
      <li><a href="BookList.book">교재구매</a></li>
      <li><a href="Event.adb">이벤트</a></li>
+     <li><a href="NoticeList.bo">공지사항</a></li>
+     
     </ul>
   </div>
 </div>
