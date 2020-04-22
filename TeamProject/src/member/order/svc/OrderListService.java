@@ -70,7 +70,7 @@ public class OrderListService {
 		 Connection con = getConnection();
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
-		 
+		  
 		List<OrderBean> orderList = orderDAO.orderList();
 //		System.out.println("orderList : " + orderList);
 		close(con);

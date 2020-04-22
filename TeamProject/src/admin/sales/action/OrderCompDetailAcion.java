@@ -20,7 +20,7 @@ public class OrderCompDetailAcion implements Action {
 		System.out.println("OrderCompDetailAcion");
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");
-//				 
+//				  
 //		OrderCompDetailService orderCompDetailService = new OrderCompDetailService();
 //		OrderBean order = orderCompDetailService.getOrder(num);
 ////		

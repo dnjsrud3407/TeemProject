@@ -43,7 +43,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">주문관리</h6>
-            <a class="collapse-item" href="OrderList.adm">주문내역</a> 
+            <a class="collapse-item" href="OrderList.adm">주문내역</a>  
             
             <h6 class="collapse-header">매출관리</h6> 
             <!-- orderStatus 이름 내가 마마대로지정가능 -->

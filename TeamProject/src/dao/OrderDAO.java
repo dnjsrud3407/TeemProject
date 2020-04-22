@@ -835,7 +835,7 @@ public OrderDAO() {}
 			ResultSet rs2 = null;
 			String sql = "";
 			try {
-				 
+				  
 				if(orderStatus.getOrderStatus().equals("취소내역")) {
 				sql = "select * from order_tb WHERE orderStatus='취소내역' ORDER BY orderTime DESC";
 				pstmt = con.prepareStatement(sql);

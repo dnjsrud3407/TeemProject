@@ -13,7 +13,7 @@ public class OrderDetailService {
 
 	public List<OrderBean> selectOrder(String orderNum) {
 		System.out.println("OrderListService - orderBookTotal");
-		 
+		  
 		 Connection con = getConnection();
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
