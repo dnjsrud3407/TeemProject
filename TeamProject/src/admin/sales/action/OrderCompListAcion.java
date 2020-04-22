@@ -16,33 +16,38 @@ public class OrderCompListAcion implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// 한글처리
+		request.setCharacterEncoding("UTF-8");
 		System.out.println("OrderCompListAcion");
 		ActionForward forward = null;
 //		int num = Integer.parseInt(request.getParameter("num"));
 ////
 //		OrderListService orderListService = new OrderListService();
 //		OrderBean order = orderListService.getOrder(num);
-		
+
 		ActionForward action = new ActionForward();
-		String orderNum = request.getParameter("order_ID");
-		String orderStatus = request.getParameter("orderStatus");
-		//삭제필요한지확인
+//		String orderNum = request.getParameter("order_ID");
+//		String orderStatus = request.getParameter("orderStatus");
+		OrderBean orderStatus = new OrderBean();
+		// 담아오기 - 리퀘스트받아온거 페이지 위에 오더빈에 저장하기위함 셋 - 아래없으면 값은 비어있음
+		orderStatus.setOrderStatus(request.getParameter("orderStatus"));
+
+		// 삭제필요한지확인
 //		admin.sales.svc.OrderListService mind = null;
-		
-	
-		OrderListService orderListService = new OrderListService();
+
+		OrderCompListService orderCompListService = new OrderCompListService();
+//		OrderListService orderListService = new OrderListService();
 //		List<OrderBean> orderList = orderListService.orderList();
-		List<OrderBean> orderList = orderListService.orderComplList(orderStatus);
+		List<OrderBean> orderList = orderCompListService.orderComplList(orderStatus);
 
 //		OrderBean order = new OrderBean();
 		request.setAttribute("orderList", orderList);
 //		request.setAttribute("order", order);
-		System.out.println("orderStatus : " + orderStatus);
+//		System.out.println("orderStatus : " + orderStatus);
 		forward = new ActionForward();
-		forward.setPath("/admin/order/order_comp_list.jsp?orderStatus='");
+		forward.setPath("/admin/order/order_comp_list.jsp");
 //		forward.setPath("/admin/order/order_comp_list.jsp?type=" + orderStatus);
 
-		
 		return forward;
 	}
 

@@ -101,7 +101,7 @@ if(session.getAttribute("uID") == null){
 								<div class="card-body">
 <!-- 									<div class="table-responsive"> -->
 										<form action="" method="post" id="searchForm">
-										<input type="hidden" name="orderStatus" value="<%=orderDetail.getOrderStatus() %>">
+<%-- 										<input type="hidden" name="orderStatus" value="<%=orderDetail.getOrderStatus() %>"> --%>
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
 											<thead>

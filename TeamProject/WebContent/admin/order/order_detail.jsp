@@ -159,10 +159,10 @@ img{
 							<option value="반품요청" <c:if test="${orderDetaile.orderStatus eq '반품요청' }">selected</c:if>>반품요청</option>
 							<option value="교환요청" <c:if test="${orderDetaile.orderStatus eq '교환요청' }">selected</c:if>>교환요청</option>
 							<option value="" class="size">---------</option>				
-							<option value="배송완료" <c:if test="${orderDetaile.orderStatus eq '배송완료' }">selected</c:if>>배송완료</option>
-<%-- 							<option value="교환완료" <c:if test="${orderDetaile.orderStatus eq '교환완료' }">selected</c:if>>교환완료</option> --%>
-							<option value="취소완료" <c:if test="${orderDetaile.orderStatus eq '취소완료' }">selected</c:if>>취소완료</option>
-							<option value="반품완료" <c:if test="${orderDetaile.orderStatus eq '반품완료' }">selected</c:if>>반품완료</option>
+							<option value="배송내역" <c:if test="${orderDetaile.orderStatus eq '배송내역' }">selected</c:if>>배송내역</option>
+<%-- 							<option value="교환내역" <c:if test="${orderDetaile.orderStatus eq '교환내역' }">selected</c:if>>교환내역</option> --%>
+							<option value="취소내역" <c:if test="${orderDetaile.orderStatus eq '취소내역' }">selected</c:if>>취소내역</option>
+							<option value="반품내역" <c:if test="${orderDetaile.orderStatus eq '반품내역' }">selected</c:if>>반품내역</option>
 	 					</select>
 	 					</span>
  					</td>

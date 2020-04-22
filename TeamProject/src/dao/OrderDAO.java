@@ -822,12 +822,13 @@ public OrderDAO() {}
 		}
 		
 		//완료된 주문들만 불러오기
-		public List<OrderBean> orderComplList(String orderStatus) {
+		public List<OrderBean> orderComplList(OrderBean orderStatus) {
 			System.out.println("OrderDAO - orderComplList()");
 			List<OrderBean> complList = new ArrayList();
 			List<OrderBean> listDetail = new ArrayList();
-//			System.out.println("orderDAO orderbean's status: " + orderStatus.getOrderStatus());
-//			System.out.println("orderDAO if cencel status : " + orderStatus.getOrderStatus());
+			
+			System.out.println("orderDAO orderbean's status: " + orderStatus.getOrderStatus());
+			System.out.println("orderDAO if cencel status : " + orderStatus.getOrderStatus());
 
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -835,27 +836,27 @@ public OrderDAO() {}
 			String sql = "";
 			try {
 				
-//				if(orderStatus.getOrderStatus().equals("취소완료")) {
-//				sql = "select * from order_tb WHERE orderStatus='취소완료' ORDER BY orderTime DESC";
-//				pstmt = con.prepareStatement(sql);
-//				rs = pstmt.executeQuery();
-//				
-//			} else if(orderStatus.getOrderStatus().equals("반품완료")) {
-//				sql = "select * from order_tb WHERE orderStatus='반품완료' ORDER BY orderTime DESC";
-//				pstmt = con.prepareStatement(sql);
-//				rs = pstmt.executeQuery();
-//				
-//			}else if(orderStatus.getOrderStatus().equals("교환완료")) {
-//				sql = "select * from order_tb WHERE orderStatus='교환완료' ORDER BY orderTime DESC";
-//				pstmt = con.prepareStatement(sql);
-//				rs = pstmt.executeQuery();
-//
-//			}else if(orderStatus.getOrderStatus().equals("주문완료")) {
-//				sql = "select * from order_tb WHERE orderStatus='주문완료' ORDER BY orderTime DESC";
-//				pstmt = con.prepareStatement(sql);
-//				rs = pstmt.executeQuery();
-//
-//			} 
+				if(orderStatus.getOrderStatus().equals("취소내역")) {
+				sql = "select * from order_tb WHERE orderStatus='취소내역' ORDER BY orderTime DESC";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+			} else if(orderStatus.getOrderStatus().equals("반품내역")) {
+				sql = "select * from order_tb WHERE orderStatus='반품내역' ORDER BY orderTime DESC";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+			}else if(orderStatus.getOrderStatus().equals("교환내역")) {
+				sql = "select * from order_tb WHERE orderStatus='교환내역' ORDER BY orderTime DESC";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+			}else if(orderStatus.getOrderStatus().equals("배송내역")) {
+				sql = "select * from order_tb WHERE orderStatus='배송내역' ORDER BY orderTime DESC";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+
+			} 
 //			
 			while (rs.next()) {
 				OrderBean ob = new OrderBean();
@@ -865,7 +866,6 @@ public OrderDAO() {}
 				//					ob.setBookPrice(rs.getInt("bookPrice")); 
 				ob.setPaymentType(rs.getString("paymentType"));
 				ob.setOrderStatus(rs.getString("orderStatus"));
-				//					
 				//					ob.setOrderRec(rs.getString("orderRec"));				
 				//					ob.setOrderAddress(rs.getString("orderAddress"));				
 				//					ob.setLastModTime(rs.getDate("lastModTime"));				
