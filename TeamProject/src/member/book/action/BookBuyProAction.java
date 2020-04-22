@@ -51,7 +51,7 @@ public class BookBuyProAction implements Action {
 		int totalPrice = Integer.parseInt(request.getParameter("totalPrice"));
 		
 		String address2 = request.getParameter("orderAddress");
-		String orderStatus = "결제 완료";
+		String orderStatus = "결제완료";
 		Date orderTime = new Date(System.currentTimeMillis());
 		Date lastModTime = orderTime;
 		

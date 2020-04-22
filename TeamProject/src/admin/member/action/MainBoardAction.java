@@ -26,21 +26,26 @@ public class MainBoardAction implements Action {
 		MainBoardService mainBoardService = new MainBoardService();
 		ArrayList<BoardBean> boardList = null;
 		
-		if(kID == 109) {	// 1:1문의일 경우
-			boardList = mainBoardService.getBoardList(kID, page, limit);
-			System.out.println("kID==109");
-			System.out.println("boardList.size()" + boardList.size());
-		} else {	// 상품문의, 상품후기일 경우
-			boardList = mainBoardService.getBoardList(kID, page, limit);
-		}
-		
 		// 출력 함수 
     	response.setContentType("text/html; charset=UTF-8");
     	PrintWriter out = response.getWriter();
     	out.print("<tr>");
-    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(102)\">상품문의</td>");
-    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(103)\">상품후기</td>");
-    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(109)\">1:1문의</td>");
+    	
+    	boardList = mainBoardService.getBoardList(kID, page, limit);
+    	if(kID == 102) {	// 상품문의일 경우
+			out.print("<td class=\"selectColor\" onclick=\"getBoard(102)\">상품문의</td>");
+	    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(103)\">상품후기</td>");
+	    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(109)\">1:1문의</td>");
+		} else if(kID == 103) {	// 상품후기일 경우
+			out.print("<td class=\"boardTitle\" onclick=\"getBoard(102)\">상품문의</td>");
+	    	out.print("<td class=\"selectColor\" onclick=\"getBoard(103)\">상품후기</td>");
+	    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(109)\">1:1문의</td>");
+		} else {	// 1:1문의일 경우
+			out.print("<td class=\"boardTitle\" onclick=\"getBoard(102)\">상품문의</td>");
+	    	out.print("<td class=\"boardTitle\" onclick=\"getBoard(103)\">상품후기</td>");
+	    	out.print("<td class=\"selectColor\" onclick=\"getBoard(109)\">1:1문의</td>");
+		}
+		
     	out.print("</tr>");
     	out.print("<tr></tr>");
 

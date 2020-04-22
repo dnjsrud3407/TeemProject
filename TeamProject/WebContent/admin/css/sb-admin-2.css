@@ -11,6 +11,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /* main 에서 사용 */
+
 .margin_row {
   margin-left: 20%;
 }
@@ -53,6 +54,12 @@
 .boardTitle {
 	border: 1px solid #ffffff;
 	background-color: #f4f4f4;
+	padding: 2% 5% 2% 5%;
+	width: 33%;
+}
+.selectColor {
+	background-color: #e4e4e4;
+	border: 1px solid #ffffff;
 	padding: 2% 5% 2% 5%;
 	width: 33%;
 }

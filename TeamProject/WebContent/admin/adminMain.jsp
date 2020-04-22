@@ -222,7 +222,7 @@ function getBoard(type) {
                 <div class="card-body text-center text-dark" style="padding-top: 0px;">
                 	<table class="boardTr ajaxBoard">
                 		<tr>
-                			<td class="boardTitle" onclick="getBoard(102)">상품문의</td>
+                			<td class="selectColor" onclick="getBoard(102)">상품문의</td>
                 			<td class="boardTitle" onclick="getBoard(103)">상품후기</td>
                 			<td class="boardTitle" onclick="getBoard(109)">1:1문의</td>
                 		</tr>
