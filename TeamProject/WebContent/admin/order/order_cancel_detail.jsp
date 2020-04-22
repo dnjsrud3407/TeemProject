@@ -134,7 +134,7 @@ img{
                   	<th style="width: 15%;">주문상태</th>
                   	<td>
                   	    <span class="checkbox_padding" style="width: 15%;">
-	    			    <select name="orderStatus" class="size" id="orderStatus">   
+	    			    <select name="orderStatus" class="size" id="orderStatus">    
 <!-- 	    			    	<option value="선택해주세요" class="size">선택해주세요.</option>				 -->
 <!-- 		    			    <option value="주문접수" class="size">주문접수</option>	 -->
 <!-- 		    			    <option value="결제완료" class="size">결제완료</option> -->

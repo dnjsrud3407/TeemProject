@@ -28,7 +28,7 @@ public class OrderModifyProAcion implements Action {
 		order.setOrderStatus(request.getParameter("orderStatus"));
 		System.out.println("getOrderNum : " + order.getOrderNum());
 		System.out.println("DetailForm에서 가져온 getOrderStatus : " + order.getOrderStatus());
-//   
+//    
 		boolean isModifySuccess = orderModifyProService.modifyOrder(order);
 		System.out.println("isModifySuccess : " + isModifySuccess);
 		if(!isModifySuccess) {

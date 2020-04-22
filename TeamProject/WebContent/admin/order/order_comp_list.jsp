@@ -81,7 +81,7 @@ if(session.getAttribute("uID") == null){
 					<h1 class="h3 mb-2 text-gray-800">거래완료 리스트</h1>
 	 				<p class="mb-4">
 						완료된 거래내역확인할수있습니다
-					</p> 
+					</p>  
 
 					<!-- DataTales Example -->
 					<!-- Approach -->

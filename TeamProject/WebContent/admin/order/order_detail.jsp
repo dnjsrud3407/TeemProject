@@ -150,7 +150,7 @@ img{
 <!-- 		    			    <option value="배송중" class="size">배송중</option> --> 
 <!-- 		    			    <option value="환불요청" class="size">환불요청</option> -->
 <!-- 		    			    <option value="교환요청" class="size">교환요청</option> -->
-<!-- 		    			    <option value="주문취소" class="size">주문취소</option> -->  
+<!-- 		    			    <option value="주문취소" class="size">주문취소</option> -->   
 		    			    <option value="null" class="size" <c:if test="${orderDetaile.orderStatus eq '선택해주세요' }">selected</c:if>>선택해주세요.</option>				
 <%-- 		    			    <option value="주문접수" <c:if test="${orderDetaile.orderStatus eq '주문접수' }">selected</c:if>>주문접수</option>				 --%>
 							<option value="결제완료" <c:if test="${orderDetaile.orderStatus eq '결제완료' }">selected</c:if>>결제완료 </option>
