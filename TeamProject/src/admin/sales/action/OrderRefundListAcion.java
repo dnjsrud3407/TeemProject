@@ -33,7 +33,7 @@ System.out.println("OrderRefundListAcion");
 	
 		OrderListService orderListService = new OrderListService();
 		List<OrderBean> orderList = orderListService.orderList();
-//		OrderBean order = new OrderBean();
+//		OrderBean order = new OrderBean(); 
 		request.setAttribute("orderList", orderList);
 //		request.setAttribute("order", order);
 
