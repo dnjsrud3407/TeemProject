@@ -219,6 +219,7 @@ function pointDis(finalPrice, memberPoint){
              </thead>
              <tbody>
              <c:forEach var="cart" items="${cartList }" varStatus="status">
+             	<input type="hidden" name="cartNum${status.index }" value="${cart.cartNum }">
              	<input type="hidden" name="bookID${status.index }" value="${cart.bookID }">
              	<input type="hidden" name="bookTitle${status.index }" value="${cart.bookTitle }">
              	<input type="hidden" name="bookPrice${status.index }" value="${cart.bookPrice }">

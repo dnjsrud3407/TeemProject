@@ -736,6 +736,7 @@ public OrderDAO() {}
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, id); pstmt.setString(2, "상품 구매 적립"); pstmt.setInt(3, savedPoint); // 일괄 5퍼센트 적립
 				pstmt.setInt(4, 1); // 적립
+				pstmt.setString(5, orderNum);
 				setPointHistoryCount = pstmt.executeUpdate();
 				if(setPointHistoryCount > 0) {
 					changedPoint += savedPoint;

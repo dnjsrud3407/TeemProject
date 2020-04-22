@@ -17,6 +17,7 @@ import member.account.svc.CouponInfoService;
 import member.account.svc.ModifyFormService;
 import member.book.svc.BookBuyProService;
 import member.book.svc.CartListService;
+import member.book.svc.CartRemoveService;
 import vo.ActionForward;
 import vo.CartBean;
 import vo.MemberBean;
@@ -28,17 +29,15 @@ public class BookBuyProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		String cID = request.getParameter("couponList");
+		
+		
+		
 		String point = request.getParameter("point");
 		
 		int usedPoint = 0;
 		if(point != null && !point.equals("")) {
 			usedPoint = Integer.parseInt(request.getParameter("point"));
 		}
-		
-		System.out.println("사용한 쿠폰 id" + cID);
-		System.out.println("사용한  point" + usedPoint);
-		System.out.println("결제 완료"); 
 		
 		HttpSession session = request.getSession();
 		
@@ -80,6 +79,7 @@ public class BookBuyProAction implements Action {
 		OrderDetailBean orderDetail = null;
 		List<OrderDetailBean> orderList = new ArrayList<OrderDetailBean>();
 		
+		ArrayList<Integer> cartNum = new ArrayList<Integer>();
 		ArrayList<Integer> bookID = new ArrayList<Integer>();
 		ArrayList<String> bookTitle = new ArrayList<String>();
 		ArrayList<Integer> bookPrice = new ArrayList<Integer>();
@@ -93,7 +93,9 @@ public class BookBuyProAction implements Action {
 				break;
 			}
 			
-			
+			if(paramName.contains("cartNum")) {
+				cartNum.add(Integer.parseInt(request.getParameter(paramName)));
+			}
 			if(paramName.contains("bookID")) {
 				bookID.add(Integer.parseInt(request.getParameter(paramName)));
 			}
@@ -127,6 +129,9 @@ public class BookBuyProAction implements Action {
 		
 		// 포인트 사용 기록 및 user 접근
 		
+		// 장바구니 비우기
+		CartRemoveService cartRemoveService = new CartRemoveService();
+		cartRemoveService.cartRemove(cartNum, order_ID);
 		
 		forward = new ActionForward();
 		if(successOrder != 0) {
