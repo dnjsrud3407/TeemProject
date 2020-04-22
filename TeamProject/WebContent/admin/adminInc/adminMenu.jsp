@@ -42,14 +42,16 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">주문관리</h6>
+            <a class="collapse-item" href="OrderList.adm">주문내역</a>
+            
             <h6 class="collapse-header">매출관리</h6>
             <a class="collapse-item" href="OrderCompList.adm">배송내역</a>
             <a class="collapse-item" href="OrderCencleList.adm">취소내역</a>
             <a class="collapse-item" href="OrderRefundList.adm">반품내역</a>
             <a class="collapse-item" href="OrderExchangeList.adm">교환내역</a>
             
-            <h6 class="collapse-header">주문관리</h6>
-            <a class="collapse-item" href="OrderList.adm">주문내역</a>
+
           </div>
         </div>
       </li>

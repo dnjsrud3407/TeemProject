@@ -765,34 +765,36 @@ public OrderDAO() {}
 			List<OrderBean> list = new ArrayList();
 			List<OrderBean> listDetail = new ArrayList();
 			List<OrderBean> list2 = new ArrayList();
-
+			OrderBean orderStatus = new OrderBean();
 			
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			ResultSet rs2 = null;
 			
 			try {
-				String sql = "select orderTime, orderNum, order_ID, paymentType, orderStatus from order_tb";
-//				String sql = "select * from order_tb";
-
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-
+					
+//					String sql = "select * from order_tb WHERE NOT orderStatus IN ('배송내역','반품완료','교환완료','주문완료') ORDER BY orderTime DESC;";
+					String sql = "select * from order_tb";
+					
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+	
+				
 				while (rs.next()) {
 					OrderBean ob = new OrderBean();
 					ob.setOrderTime(rs.getDate("orderTime"));
 					ob.setOrderNum(rs.getString("orderNum"));
 					ob.setOrder_id(rs.getString("order_ID"));				
-//					ob.setBookPrice(rs.getInt("bookPrice")); 
+					//					ob.setBookPrice(rs.getInt("bookPrice")); 
 					ob.setPaymentType(rs.getString("paymentType"));
 					ob.setOrderStatus(rs.getString("orderStatus"));
-//					
-//					ob.setOrderRec(rs.getString("orderRec"));				
-//					ob.setOrderAddress(rs.getString("orderAddress"));				
-//					ob.setLastModTime(rs.getDate("lastModTime"));				
-//					ob.setCouponHistory_num(rs.getInt("couponHisstory_num"));				
-
-
+					//					
+					//					ob.setOrderRec(rs.getString("orderRec"));				
+					//					ob.setOrderAddress(rs.getString("orderAddress"));				
+					//					ob.setLastModTime(rs.getDate("lastModTime"));				
+					//					ob.setCouponHistory_num(rs.getInt("couponHisstory_num"));				
+					
+					
 					sql = "select * from order_detail where orderNum=?";
 					pstmt = con.prepareStatement(sql);
 					pstmt.setString(1, rs.getString("orderNum"));
@@ -806,9 +808,8 @@ public OrderDAO() {}
 						
 					}
 					ob.setBookPrice(totalBook);
-				
+					
 					list.add(ob);
-
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -818,6 +819,83 @@ public OrderDAO() {}
 			}
 			
 			return list;
+		}
+		
+		//완료된 주문들만 불러오기
+		public List<OrderBean> orderComplList(String orderStatus) {
+			System.out.println("OrderDAO - orderComplList()");
+			List<OrderBean> complList = new ArrayList();
+			List<OrderBean> listDetail = new ArrayList();
+//			System.out.println("orderDAO orderbean's status: " + orderStatus.getOrderStatus());
+//			System.out.println("orderDAO if cencel status : " + orderStatus.getOrderStatus());
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ResultSet rs2 = null;
+			String sql = "";
+			try {
+				
+//				if(orderStatus.getOrderStatus().equals("취소완료")) {
+//				sql = "select * from order_tb WHERE orderStatus='취소완료' ORDER BY orderTime DESC";
+//				pstmt = con.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//				
+//			} else if(orderStatus.getOrderStatus().equals("반품완료")) {
+//				sql = "select * from order_tb WHERE orderStatus='반품완료' ORDER BY orderTime DESC";
+//				pstmt = con.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//				
+//			}else if(orderStatus.getOrderStatus().equals("교환완료")) {
+//				sql = "select * from order_tb WHERE orderStatus='교환완료' ORDER BY orderTime DESC";
+//				pstmt = con.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//
+//			}else if(orderStatus.getOrderStatus().equals("주문완료")) {
+//				sql = "select * from order_tb WHERE orderStatus='주문완료' ORDER BY orderTime DESC";
+//				pstmt = con.prepareStatement(sql);
+//				rs = pstmt.executeQuery();
+//
+//			} 
+//			
+			while (rs.next()) {
+				OrderBean ob = new OrderBean();
+				ob.setOrderTime(rs.getDate("orderTime"));
+				ob.setOrderNum(rs.getString("orderNum"));
+				ob.setOrder_id(rs.getString("order_ID"));				
+				//					ob.setBookPrice(rs.getInt("bookPrice")); 
+				ob.setPaymentType(rs.getString("paymentType"));
+				ob.setOrderStatus(rs.getString("orderStatus"));
+				//					
+				//					ob.setOrderRec(rs.getString("orderRec"));				
+				//					ob.setOrderAddress(rs.getString("orderAddress"));				
+				//					ob.setLastModTime(rs.getDate("lastModTime"));				
+				//					ob.setCouponHistory_num(rs.getInt("couponHisstory_num"));				
+				
+				
+				String sql2 = "select * from order_detail where orderNum=?";
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setString(1, rs.getString("orderNum"));
+				rs2 = pstmt.executeQuery();
+				
+				int totalBook=0;
+				
+				while (rs2.next()) {
+					
+					totalBook+=rs2.getInt("bookPrice")*rs2.getInt("bookEA");
+					
+				}
+				ob.setBookPrice(totalBook);
+				
+				complList.add(ob);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rs);
+		}
+			
+			return complList;
 		}
 		
 		public ArrayList<OrderBean> orderTotal(String orderNum) {
