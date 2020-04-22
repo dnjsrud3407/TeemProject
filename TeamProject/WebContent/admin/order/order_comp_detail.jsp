@@ -131,7 +131,7 @@ img{
               			</span>
                   	</td>
                   	
-                  	<th style="width: 15%;">주문상태</th>  
+                  	<th style="width: 15%;">주문상태</th>   
                   	<td>
                   	    <span class="checkbox_padding" style="width: 15%;">
 	    			    <select name="orderStatus" class="size" id="orderStatus">

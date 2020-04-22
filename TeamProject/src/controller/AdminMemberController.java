@@ -227,7 +227,7 @@ public class AdminMemberController extends HttpServlet {
 		} 
 		else if(command.equals("/OrderCompList.adm")) { //------------------
 			action = new OrderCompListAcion();
-			try {  
+			try {   
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
