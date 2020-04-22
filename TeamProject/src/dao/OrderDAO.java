@@ -565,7 +565,7 @@ public OrderDAO() {}
 
 		
 		//주문 상태변경
-		public int updateOrderStatus(int orderNum, String changeOrderStatus) {
+		public int updateOrderStatus(String orderNum, String changeOrderStatus) {
 			int right=0;
 			String sqlchange = "";
 			PreparedStatement pstmt = null;
@@ -590,7 +590,7 @@ public OrderDAO() {}
 				pstmt = con.prepareStatement(sql);
 				
 				pstmt.setString(1,sqlchange);//관리자는 반품처리해줘야함
-				pstmt.setInt(2,orderNum);
+				pstmt.setString(2,orderNum);
 				right = pstmt.executeUpdate();
 			} catch (Exception e) {
 				e.printStackTrace();
