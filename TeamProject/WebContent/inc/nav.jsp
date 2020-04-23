@@ -124,7 +124,7 @@
         
         </li>
 
-        <li><a href="#">FAQ</a>
+        <li><a href="FAQList.bo">FAQ</a>
 
 <!--             <ul class="main2"> -->
 

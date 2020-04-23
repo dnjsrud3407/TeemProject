@@ -218,14 +218,6 @@ ul{
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
 
-
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="Event.adb">이벤트</a></li>
-     <li><a href="FAQList.bo">FAQ</a></li>
-
-
 	</div>
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 
