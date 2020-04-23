@@ -140,9 +140,6 @@
 </div>
 
 
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bookshop"/></a>
-
-    
 
 </div>
 
