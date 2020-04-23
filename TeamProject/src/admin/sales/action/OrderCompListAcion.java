@@ -30,8 +30,9 @@ public class OrderCompListAcion implements Action {
 //		String orderStatus = request.getParameter("orderStatus");
 		OrderBean orderStatus = new OrderBean();
 		// 담아오기 - 리퀘스트받아온거 페이지 위에 오더빈에 저장하기위함 셋 - 아래없으면 값은 비어있음
+		String orderStatus2 = request.getParameter("orderStatus");
 		orderStatus.setOrderStatus(request.getParameter("orderStatus"));
-
+		System.out.println("OrderCompListAction ++ OrderCompListAcion : " + orderStatus2);
 		// 삭제필요한지확인
 //		admin.sales.svc.OrderListService mind = null;
 

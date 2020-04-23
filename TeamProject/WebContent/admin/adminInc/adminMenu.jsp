@@ -47,14 +47,15 @@
             
             <h6 class="collapse-header">매출관리</h6> 
             <!-- orderStatus 이름 내가 마마대로지정가능 -->
-            <a class="collapse-item" href="OrderCompList.adm?orderStatus=배송내역">배송내역</a>
-            <a class="collapse-item" href="OrderCompList.adm?orderStatus=취소내역">취소내역</a>
-            <a class="collapse-item" href="OrderCompList.adm?orderStatus=반품내역">반품내역</a>
-<!--             <a class="collapse-item" href="OrderCompList.adm?orderStatus=교환내역">교환내역</a> -->
-<!--             <a class="collapse-item" href="OrderCompList.adm?orderStatus=배송내역">배송내역</a> -->
-<!--             <a class="collapse-item" href="OrderCompList.adm?orderStatus=취소내역">취소내역</a> -->
-<!--             <a class="collapse-item" href="OrderCompList.adm?orderStatus=반품내역">반품내역</a> -->
-<!--             <a class="collapse-item" href="OrderCompList.adm?orderStatus=교환내역">교환내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=결제요청">결제내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=취소요청">취소내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=반품요청">반품내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=교환요청">교환내역</a> -->
+            
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=결제완료">결제내역</a>
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=취소요청">취소내역</a>
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=반품요청">반품내역</a>
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=교환요청">교환내역</a>
 
             
 

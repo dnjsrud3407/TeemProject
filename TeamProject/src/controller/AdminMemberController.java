@@ -18,6 +18,7 @@ import admin.member.action.MemberListAcion;
 import admin.member.action.MemberModifyProAcion;
 import admin.sales.action.OrderCencleDetailAcion;
 import admin.sales.action.OrderCompDetailAcion;
+import admin.sales.action.OrderCompDetailModifyPro;
 import admin.sales.action.OrderCompListAcion;
 import admin.sales.action.OrderCancleListAcion;
 import admin.sales.action.OrderDeliveryDetailAcion;
@@ -192,7 +193,14 @@ public class AdminMemberController extends HttpServlet {
 			}
 
 		}
-		
+		 else if(command.equals("/OrderCompDetailModifyPro.adm")) { //------------------
+				action = new OrderCompDetailModifyPro();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		// cancel / exchange / refund / delivery >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Lists>>>>>>>>>>>>
 
 //		else if(command.equals("/OrderDeliveryList.adm")) {

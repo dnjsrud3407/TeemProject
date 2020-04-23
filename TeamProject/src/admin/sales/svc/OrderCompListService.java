@@ -18,6 +18,9 @@ public class OrderCompListService {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
 		
+		orderStatus.getOrderStatus();
+		System.out.println("orderComplistService - orderComplist : " + orderStatus.getOrderStatus());
+
 		List<OrderBean> orderList = orderDAO.orderComplList(orderStatus);
 	//	System.out.println("orderList : " + orderList);
 		close(con);

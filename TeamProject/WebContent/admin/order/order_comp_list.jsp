@@ -118,7 +118,7 @@ if(session.getAttribute("uID") == null){
 <%-- 										<%if(orderDetail.getOrderStatus().equals("주문완료")) {%> --%>
 											<%for(int i = 0; i < orderList.size(); i++){ %>
 											<tbody>
-												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>'">
+												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&orderStatus=<%=orderList.get(i).getOrderStatus()%>'">
 													<td><%=orderList.get(i).getOrderTime() %></td>
 													<td><%=orderList.get(i).getOrderNum() %></td>
 													<td><%=orderList.get(i).getOrder_id() %></td>

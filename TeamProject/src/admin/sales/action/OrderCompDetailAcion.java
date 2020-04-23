@@ -33,7 +33,7 @@ public class OrderCompDetailAcion implements Action {
 
 		ActionForward forward = null;
 		String orderNum = request.getParameter("orderNum");
-		
+
 		OrderDetailService orderDetailService = new OrderDetailService();
 		MemberDetailService memberDetailService = new MemberDetailService();
 		

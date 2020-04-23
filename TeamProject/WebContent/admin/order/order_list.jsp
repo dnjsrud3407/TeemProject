@@ -121,7 +121,7 @@ if(session.getAttribute("uID") == null){
 												 %>
 											<tbody>
 <%-- 												<tr onclick="location.href='OrderDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&type=<%=orderList.get(i).getOrderStatus()%>'"> --%>
-												<tr onclick="location.href='OrderDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>'">
+												<tr onclick="location.href='OrderDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&orderStatus=<%=orderList.get(i).getOrderStatus()%>'">
 													<td><%=orderList.get(i).getOrderTime() %></td>
 													<td><%=orderList.get(i).getOrderNum() %></td>
 													<td><%=orderList.get(i).getOrder_id() %></td>

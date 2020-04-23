@@ -11,6 +11,8 @@ if(session.getAttribute("uID") == null){
 	List<OrderBean> order = (List<OrderBean>)request.getAttribute("order");
 	OrderBean orderDetaile = (OrderBean)request.getAttribute("orderDetaile");
 	MemberBean memberInfo = (MemberBean)request.getAttribute("member");
+	String statusName = "주문상태확인요망";
+
  %>
 <!DOCTYPE html>
 <html>
@@ -97,7 +99,7 @@ img{
 			</div>
             <div class="card-body">
               <div class="table-responsive">
-              <form action="OrderModifyPro.adm" method="post" id="searchForm">
+              <form action="OrderCompDetailModifyPro.adm" method="post" id="searchForm">
                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               	 <tr>
        				<th style="width: 15%;">상품코드</th>
@@ -127,7 +129,7 @@ img{
                   	<th style="width: 15%;">주문번호</th>
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
-                  			<input name="orderNum" type="hidden" value="<%=orderDetaile.getOrderNum() %>"><%=orderDetaile.getOrderNum() %>
+                  			<input name="orderNum" type="hidden" value="<%=orderDetaile.getOrderNum() %>"><%=orderDetaile.getOrderNum() %>                  			
               			</span>
                   	</td>
                   	
@@ -142,18 +144,59 @@ img{
 <!-- 		    			    <option value="환불요청" class="size">환불요청</option> -->
 <!-- 		    			    <option value="교환요청" class="size">교환요청</option> -->
 <!-- 		    			    <option value="주문취소" class="size">주문취소</option> -->
-		    			    <option value="null" class="size" <c:if test="${orderDetaile.orderStatus eq '선택해주세요' }">selected</c:if>>선택해주세요.</option>				
+<%-- 		    			    <option value="null" class="size" <c:if test="${orderDetaile.orderStatus eq '선택해주세요' }">selected</c:if>>선택해주세요.</option>				 --%>
+
+		    			   <%
+		    			   if(orderDetaile.getOrderStatus().equals("결제완료") || orderDetaile.getOrderStatus().equals("배송중") || orderDetaile.getOrderStatus().equals("배송완료")){
+		    				   %>
+		    				<option value="결제완료" <c:if test="${orderDetaile.orderStatus eq '결제완료' }">selected</c:if>>결제완료</option>		
+		    				<option value="배송중" <c:if test="${orderDetaile.orderStatus eq '배송중' }">selected</c:if>>배송중</option>		
+							<option value="배송완료" <c:if test="${orderDetaile.orderStatus eq '배송완료' }">selected</c:if>>배송완료</option>		
+		    				   
+		    				   <%
+		    			   } else if(orderDetaile.getOrderStatus().equals("취소요청") || orderDetaile.getOrderStatus().equals("취소완료")){
+ 								%>
+		    				<option value="취소요청" <c:if test="${orderDetaile.orderStatus eq '취소요청' }">selected</c:if>>취소요청</option>
+							<option value="취소완료" <c:if test="${orderDetaile.orderStatus eq '취소완료' }">selected</c:if>>취소완료</option>
+		    				   
+		    				   <%
+		    			   } else if(orderDetaile.getOrderStatus().equals("반품요청") || orderDetaile.getOrderStatus().equals("반품완료")){
+ 								%>
+		    				<option value="반품요청" <c:if test="${orderDetaile.orderStatus eq '반품요청' }">selected</c:if>>반품요청</option>
+							<option value="반품완료" <c:if test="${orderDetaile.orderStatus eq '반품완료' }">selected</c:if>>반품완료</option>
+		    				   
+		    				   <%
+		    			   } else if(orderDetaile.getOrderStatus().equals("교환요청") || orderDetaile.getOrderStatus().equals("교환완료")){
+ 								%>
+   							<option value="교환요청" <c:if test="${orderDetaile.orderStatus eq '교환요청' }">selected</c:if>>교환요청</option>
+							<option value="교환완료" <c:if test="${orderDetaile.orderStatus eq '교환완료' }">selected</c:if>>교환완료</option>
+		    				   
+		    				   <%
+		    			   } 
+// 		    			   else if(orderDetaile.getOrderStatus().equals("주문완료")){
+								%>
+<%-- 								<option value="주문완료" <c:if test="${orderDetaile.orderStatus eq '주문완료' }">selected</c:if>>주문완료 </option> --%>
+			    				   
+			    				<%
+// 			    			   }
+		    			   
+		    			   %>
+<%-- 		    			    <option value="null" class="size" <c:if test="${orderDetaile.orderStatus eq '선택해주세요' }">selected</c:if>>선택해주세요.</option>				 --%>
 <%-- 		    			    <option value="주문접수" <c:if test="${orderDetaile.orderStatus eq '주문접수' }">selected</c:if>>주문접수</option>				 --%>
-							<option value="결제완료" <c:if test="${orderDetaile.orderStatus eq '결제완료' }">selected</c:if>>결제완료 </option>
-							<option value="배송중" <c:if test="${orderDetaile.orderStatus eq '배송중' }">selected</c:if>>배송중</option>		
-							<option value="취소요청" <c:if test="${orderDetaile.orderStatus eq '취소요청' }">selected</c:if>>취소요청</option>
-							<option value="반품요청" <c:if test="${orderDetaile.orderStatus eq '반품요청' }">selected</c:if>>반품요청</option>
-							<option value="교환요청" <c:if test="${orderDetaile.orderStatus eq '교환요청' }">selected</c:if>>교환요청</option>
-							<option value="" class="size">---------</option>				
-							<option value="배송내역" <c:if test="${orderDetaile.orderStatus eq '배송내역' }">selected</c:if>>배송내역</option>
-<%-- 							<option value="교환내역" <c:if test="${orderDetaile.orderStatus eq '교환내역' }">selected</c:if>>교환내역</option> --%>
-							<option value="취소내역" <c:if test="${orderDetaile.orderStatus eq '취소내역' }">selected</c:if>>취소내역</option>
-							<option value="반품내역" <c:if test="${orderDetaile.orderStatus eq '반품내역' }">selected</c:if>>반품내역</option>
+<%-- 							<option value="결제완료" <c:if test="${orderDetaile.orderStatus eq '주문완료' }">selected</c:if>>결제완료 </option> --%>
+							
+<%-- 							<option value="배송중" <c:if test="${orderDetaile.orderStatus eq '배송중' }">selected</c:if>>배송중</option>		 --%>
+<%-- 							<option value="배송완료" <c:if test="${orderDetaile.orderStatus eq '배송완료' }">selected</c:if>>배송완료</option>		 --%>
+							
+<%-- 							<option value="취소중" <c:if test="${orderDetaile.orderStatus eq '취소진행중' }">selected</c:if>>취소요청</option> --%>
+<%-- 							<option value="취소중" <c:if test="${orderDetaile.orderStatus eq '취소완료' }">selected</c:if>>취소요청</option> --%>
+													
+<%-- 							<option value="배송내역" <c:if test="${orderDetaile.orderStatus eq '반품진행중' }">selected</c:if>>배송내역</option> --%>
+<%-- 							<option value="반품요청" <c:if test="${orderDetaile.orderStatus eq '반품완료' }">selected</c:if>>반품요청</option> --%>
+						
+<%-- 							<option value="교환요청" <c:if test="${orderDetaile.orderStatus eq '교환진행중' }">selected</c:if>>교환요청</option> --%>
+<%-- 							<option value="반품요청" <c:if test="${orderDetaile.orderStatus eq '교환완료' }">selected</c:if>>반품요청</option> --%>
+								
 	 					</select>
 	 					</span>
                   	</td>

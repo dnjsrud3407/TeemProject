@@ -841,27 +841,33 @@ public OrderDAO() {}
 			String sql = "";
 			try {
 				  
-				if(orderStatus.getOrderStatus().equals("취소내역")) {
-				sql = "select * from order_tb WHERE orderStatus='취소내역' ORDER BY orderTime DESC";
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				
-			} else if(orderStatus.getOrderStatus().equals("반품내역")) {
-				sql = "select * from order_tb WHERE orderStatus='반품내역' ORDER BY orderTime DESC";
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
-				
-			}else if(orderStatus.getOrderStatus().equals("교환내역")) {
-				sql = "select * from order_tb WHERE orderStatus='교환내역' ORDER BY orderTime DESC";
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
+				if(orderStatus.getOrderStatus().equals("취소요청")) {
+					sql = "select * from order_tb WHERE orderStatus in('취소요청','취소완료') ORDER BY orderTime DESC";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+				} else if(orderStatus.getOrderStatus().equals("반품요청")) {
+					sql = "select * from order_tb WHERE orderStatus in('반품요청','반품완료') ORDER BY orderTime DESC";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+				} else if(orderStatus.getOrderStatus().equals("교환요청")) {
+					sql = "select * from order_tb WHERE orderStatus in('교환요청','교환완료') ORDER BY orderTime DESC";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
 
-			}else if(orderStatus.getOrderStatus().equals("배송내역")) {
-				sql = "select * from order_tb WHERE orderStatus='배송내역' ORDER BY orderTime DESC";
-				pstmt = con.prepareStatement(sql);
-				rs = pstmt.executeQuery();
+				} else if(orderStatus.getOrderStatus().equals("결제완료")) {
+					sql = "select * from order_tb WHERE orderStatus in('결제완료','배송중','배송완료') ORDER BY orderTime DESC";
+					pstmt = con.prepareStatement(sql);
+					rs = pstmt.executeQuery();
 
-			} 
+				}  
+//				else if(orderStatus.getOrderStatus().equals("주문완료")) {
+//					sql = "select * from order_tb WHERE orderStatus in('결제완료','배송요청','취소요청'.'반품요청','교환요청') ORDER BY orderTime DESC";
+//					pstmt = con.prepareStatement(sql);
+//					rs = pstmt.executeQuery();
+//
+//				}  
 //			
 			while (rs.next()) {
 				OrderBean ob = new OrderBean();
