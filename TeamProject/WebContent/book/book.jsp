@@ -56,6 +56,7 @@ boolean isLogin = false;
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
   	<link rel="css/bookqna.css" rel="stylesheet">
+  	<link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
   	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
@@ -65,7 +66,7 @@ boolean isLogin = false;
     function hideAnswer(n, b) {
 		var boardNum = n;
 	    var bookID = b;
-    	alert('호출');
+//     	alert('호출');
 	      
     	
     $(document).ready(function(){
@@ -340,75 +341,17 @@ overflow-x: hidden;
 	</style>
   </head>
 <body>
-<div id="header">
-<div class="container">
-<div id="welcomeLine" class="row">
-    <!-- <div class="span6"></div> -->
-    <div class="">
-	    <span style="padding-left: 30px;font-size: 15px;">
-	    	<c:if test="${sessionScope.uID ne null}"> 
-		        welcome ${sessionScope.uID}님
-		    </c:if></span>
-	    <div class="pull-right">
-	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
-	    	<c:forEach var = "i" items="${strAdmin }">
-	    		<c:if test="${sessionScope.uID.equals(i)}">
-	    		 	<a href="AdminMain.adm">관리자</a> |
-	    		</c:if>
-	    	</c:forEach>
-	    	<c:if test="${sessionScope.uID.equals('admin')}">
-<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
-		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}">
-	        </c:if>
-	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="JoinForm.me">회원가입</a> |
-	        </c:if>
-	        <a href="member.jsp">마이페이지</a> |
-	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
-	    </div>
-    </div>
-</div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-<!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
-        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-    </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="NoticeList.bo">이벤트</a></li>
-    </ul>
-  </div>
-</div>
-</div>
-</div>
+<jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
-	<div class="row">
+	<div class="row" style="margin-left: 10%;">
 <!-- Sidebar ================================================== -->
-    <jsp:include page="../inc/menu.jsp"></jsp:include>
+<%--     <jsp:include page="../inc/menu.jsp"></jsp:include> --%>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-    <li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
+    <li><a href="Main.me">Home</a> <span class="divider">/</span></li>
     <li><a href="products.jsp">Products</a> <span class="divider">/</span></li>
     <li class="active">product Details</li>
     </ul>
@@ -418,24 +361,24 @@ overflow-x: hidden;
             <a href="upload/${book.bookImage }" title="${book.bookTitle }">
 				<img src="upload/${book.bookImage }" style="width:100%" alt="상품 이미지"/>
             </a>
-			<div id="differentview" class="moreOptopm carousel slide">
-                <div class="carousel-inner">
-                  <div class="item active">
-                   <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a>
-                   <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a>
-                   <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpg" alt=""/></a>
-                  </div>
-                  <div class="item">
-                   <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpgg" alt=""/></a>
-                   <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a>
-                   <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a>
-                  </div>
-                </div>
-              <!--  
-			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-              <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a> 
-			  -->
-              </div>
+<!-- 			<div id="differentview" class="moreOptopm carousel slide"> -->
+<!--                 <div class="carousel-inner"> -->
+<!--                   <div class="item active"> -->
+<!--                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpg" alt=""/></a> -->
+<!--                   </div> -->
+<!--                   <div class="item"> -->
+<!--                    <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpgg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                
+<!-- 			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a> -->
+<!--               <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>  -->
+<!-- 			  -->
+<!--               </div> -->
 			  
 <!-- 			 <div class="btn-toolbar"> -->
 <!-- 			  <div class="btn-group"> -->
@@ -451,11 +394,10 @@ overflow-x: hidden;
 			</div>
 			<div class="span6">
 				<h3>${book.bookTitle } </h3>
-				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
 				<form class="form-horizontal qtyFrm" method="post" name="kindFrm">
 				  <div class="control-group">
-					<label class="control-label"><span>${book.bookPrice }</span></label>
+					<label class="control-label"><span>${book.bookPrice }원</span></label>
 					<div class="controls">
 					<input type="number" class="span1" placeholder="Qty." name="qty" value="1"/>
 					<input type="hidden" name="bookID" value="${book.bookID }"/>
@@ -466,32 +408,7 @@ overflow-x: hidden;
 				  </div>
 				</form>
 				
-				<hr class="soft"/>
-				<h4>100 items in stock - </h4>
-				<form class="form-horizontal qtyFrm pull-right">
-				  <div class="control-group">
-					<label class="control-label"><span>Color</span></label>
-					<div class="controls">
-					  <select class="span2">
-						  <option>Black</option>
-						  <option>Red</option>
-						  <option>Blue</option>
-						  <option>Brown</option>
-						</select>
-					</div>
-				  </div>
-				</form>
-				<hr class="soft clr"/>
-				<p>
-				14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. 
-				Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. 
-				Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
-				
-				</p>
-				<a class="btn btn-small pull-right" href="#detail">More Details</a>
 				<br class="clr"/>
-			<a href="#" name="detail"></a>
-			<hr class="soft"/>
 			</div>
 			
 			<div class="span9">
@@ -503,53 +420,13 @@ overflow-x: hidden;
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane active" id="home">
-			  <h4>Product Information</h4>
-                <table class="table table-bordered">
-				<tbody>
-				<tr class="techSpecRow"><th colspan="2">Product Details</th></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Brand: </td><td class="techSpecTD2">Fujifilm</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Model:</td><td class="techSpecTD2">FinePix S2950HD</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Released on:</td><td class="techSpecTD2"> 2011-01-28</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Dimensions:</td><td class="techSpecTD2"> 5.50" h x 5.50" w x 2.00" l, .75 pounds</td></tr>
-				<tr class="techSpecRow"><td class="techSpecTD1">Display size:</td><td class="techSpecTD2">3</td></tr>
-				</tbody>
-				</table>
-				
-				<h5>Features</h5>
-				<p>
-				14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).<br/>
-				OND363338
-				</p>
-
-				<h4>Editorial Reviews</h4>
-				<h5>Manufacturer's Description </h5>
-				<p>
-				With a generous 18x Fujinon optical zoom lens, the S2950 really packs a punch, especially when matched with its 14 megapixel sensor, large 3.0" LCD screen and 720p HD (30fps) movie capture.
-				</p>
-
-				<h5>Electric powered Fujinon 18x zoom lens</h5>
-				<p>
-				The S2950 sports an impressive 28mm – 504mm* high precision Fujinon optical zoom lens. Simple to operate with an electric powered zoom lever, the huge zoom range means that you can capture all the detail, even when you're at a considerable distance away. You can even operate the zoom during video shooting. Unlike a bulky D-SLR, bridge cameras allow you great versatility of zoom, without the hassle of carrying a bag of lenses.
-				</p>
-				<h5>Impressive panoramas</h5>
-				<p>
-				With its easy to use Panoramic shooting mode you can get creative on the S2950, however basic your skills, and rest assured that you will not risk shooting uneven landscapes or shaky horizons. The camera enables you to take three successive shots with a helpful tool which automatically releases the shutter once the images are fully aligned to seamlessly stitch the shots together in-camera. It's so easy and the results are impressive.
-				</p>
-
-				<h5>Sharp, clear shots</h5>
-				<p>
-				Even at the longest zoom settings or in the most challenging of lighting conditions, the S2950 is able to produce crisp, clean results. With its mechanically stabilised 1/2 3", 14 megapixel CCD sensor, and high ISO sensitivity settings, Fujifilm's Dual Image Stabilisation technology combines to reduce the blurring effects of both hand-shake and subject movement to provide superb pictures.
-				</p>
-				
-				<a href="ReviewList.book"><input type="button" value="리뷰리스트 + 작성"></a><br>
-<!-- 			<a href="ReviewWriteForm.book"><input type="button" value="리뷰작성"></a> -->
-		
+				${book.bookIntroduce }
 				<br>
-		
-				<a href="QList.book"><input type="button" value="문의 리스트 + 작성"></a>
+<!-- 			<a href="ReviewWriteForm.book"><input type="button" value="리뷰작성"></a> -->
+				<br>
 				
 				<c:set var="bk2" value="${book.BK2 }"/>
-				 <a href="BookList.book?bk2=${fn:substring(bk2,0,1)}" class="btn btn-large pull-right">Compair Product</a>
+				 <a href="BookList.book?bk2=${fn:substring(bk2,0,1)}" class="btn btn-large pull-right">다른 상품 보기.</a>
 				 
 				
               </div>
