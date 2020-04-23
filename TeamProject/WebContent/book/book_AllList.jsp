@@ -75,33 +75,24 @@
 	  
 		<div class="row">	  
 			<div class="span2">
-				<img src="upload/${book.bookImage }" alt="책이미지"/>
+				<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage }" alt="책이미지"/></a>
 			</div>
 			<div class="span4">
-				<h3>New | Available</h3>				
-				<hr class="soft"/>
-				<h5>${book.bookTitle } </h5>
-				<p>
-				${book.bookIntroduce }
-				</p>
-				<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-				<br class="clr"/>
+				<h4><a href="Book.book?bookID=${book.bookID }">${book.bookTitle }</a></h4>				
+				${book.bookPublisher } | ${book.bookPublishedDate }
+<%-- 				<h4>${book.bookPrice }원</h4> --%>
+<!-- 				<br class="clr"/> -->
 			</div>
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
-			<h3> ${book.bookPrice }</h3>
-			<label class="checkbox">
-				<input type="checkbox">  Adds product to compair
-			</label><br/>
-			
-			  <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-			  <a href="Book.book?bookID=${book.bookID }" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-			
-				</form>
+				<h3>${book.bookPrice }<small>원</small></h3>
+			    <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
+			    <a href="Book.book?bookID=${book.bookID }" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+			</form>
 			</div>
 		</div>
-	</c:forEach>
 		<hr class="soft"/>
+	</c:forEach>
 	</div>
 
 	<div class="tab-pane active" id="blockView">
