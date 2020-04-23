@@ -40,7 +40,8 @@ public class QDeleteProAction implements Action {
 		    out.println("</script>");
 		} else {
 			// 답변 글 삭제하기
-			boolean isRemoveBoard = qDeleteProService.deleteBoard(boardRe_refList);
+			int kID = 102;
+			boolean isRemoveBoard = qDeleteProService.deleteBoard(boardRe_refList, kID);
 			
 			if(!isRemoveBoard) {	// 답변 삭제 실패된 경우
 				response.setContentType("text/html; charset=UTF-8");

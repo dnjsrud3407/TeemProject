@@ -12,7 +12,7 @@ import vo.ActionForward;
 import vo.OrderBean;
 
 public class OrderRefundListAcion implements Action {
-
+    
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 System.out.println("OrderRefundListAcion");
@@ -33,7 +33,7 @@ System.out.println("OrderRefundListAcion");
 	
 		OrderListService orderListService = new OrderListService();
 		List<OrderBean> orderList = orderListService.orderList();
-//		OrderBean order = new OrderBean();
+//		OrderBean order = new OrderBean(); 
 		request.setAttribute("orderList", orderList);
 //		request.setAttribute("order", order);
 

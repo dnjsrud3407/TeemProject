@@ -114,7 +114,7 @@ input.size {
 <body id="page-top">
 
   <!-- Page Wrapper -->
-  <div id="wrapper">
+  <div id="wrapper"> 
 
     <!-- Sidebar -->
 	<jsp:include page="../adminInc/adminMenu.jsp" />
@@ -454,18 +454,20 @@ input.size {
 	       	    <span class="checkbox_padding" style="width: 15%;">
 <%-- 			  <input type="text" id="grade" name="grade" value="<%=member.getGrade() %>"/>  --%>
 			  <select name="grade" class="size" id="grade">
-				<option value="0" class="size" <c:if test="${member.grade == 1 }">selected</c:if>>선택해주세요.</option>				
-				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>admin</option>
-				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>admin1</option>
-				<option value="3" <c:if test="${member.grade == 3 }">selected</c:if>>admin2</option>
-				<option value="4" <c:if test="${member.grade == 4 }">selected</c:if>>admin3</option>
-				<option value="5" <c:if test="${member.grade == 5 }">selected</c:if>>admin4</option>
-				<option value="6" <c:if test="${member.grade == 6 }">selected</c:if>>member</option>
-				<option value="7" <c:if test="${member.grade == 7 }">selected</c:if>>BRONZE</option>
-				<option value="8" <c:if test="${member.grade == 8 }">selected</c:if>>SILVER</option>
-				<option value="9" <c:if test="${member.grade == 9 }">selected</c:if>>GOLD</option>
-				<option value="10" <c:if test="${member.grade == 10 }">selected</c:if>>VIP</option>
-				<option value="11" <c:if test="${member.grade == 11 }">selected</c:if>>VVIP</option>
+				<option value="0" class="size" <c:if test="${member.grade == 1 }">selected</c:if>>선택해주세요.</option>
+				<option value="">--관리자용--</option>
+								
+				<option value="1" <c:if test="${member.grade == 1 }">selected</c:if>>ADMIN</option>
+				<option value="2" <c:if test="${member.grade == 2 }">selected</c:if>>ADMIN1</option>
+				<option value="3" <c:if test="${member.grade == 3 }">selected</c:if>>ADMIN2</option>
+				<option value="4" <c:if test="${member.grade == 4 }">selected</c:if>>ADMIN3</option>
+				<option value="5" <c:if test="${member.grade == 5 }">selected</c:if>>ADMIN4</option>
+				<option value="">--회원용--</option>
+				<option value="6" <c:if test="${member.grade == 8 }">selected</c:if>>BRONZE</option>
+				<option value="7" <c:if test="${member.grade == 7 }">selected</c:if>>SILVER</option>
+				<option value="8" <c:if test="${member.grade == 8 }">selected</c:if>>GOLD</option>
+				<option value="9" <c:if test="${member.grade == 9 }">selected</c:if>>VIP</option>
+				<option value="10" <c:if test="${member.grade == 10 }">selected</c:if>>VVIP</option>
 			
 			</select>	   			
 			</span>

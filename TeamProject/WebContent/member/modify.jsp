@@ -88,6 +88,16 @@
 			element.innerHTML = "적합하지 않은 패스워드";
 		}
 	}
+	
+	
+	
+	
+	function modify(){  
+
+		alert("수정 하시겠습니까?");
+	}  
+
+	
 </script>	
   </head>
 <body>
@@ -209,7 +219,7 @@
 			<div class="controls">
 				<input type="hidden" name="email_create" value="1">
 				<input type="hidden" name="is_new_customer" value="1">
-				<input class="btn btn-large btn-success" type="submit" value="Register" />
+				<input class="btn btn-large btn-success" onClick="javascript:modify()" type="submit" value="Register" />
 			</div>
 		</div>		
 	</form>

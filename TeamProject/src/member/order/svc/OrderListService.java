@@ -89,5 +89,39 @@ public class OrderListService {
 		ArrayList<OrderBean> orderTotal = orderDAO.orderTotal(orderNum);
 		return orderTotal;
 	}
+		public List<OrderBean> selectOrder(String orderNum) {
+			System.out.println("OrderListService - orderBookTotal");
+			
+			 Connection con = getConnection();
+			OrderDAO orderDAO = OrderDAO.getInstance();
+			orderDAO.setConnection(con);
+			
+			List<OrderBean> order = orderDAO.selectOrder(orderNum);
+					
+			close(con);
+			
+			return order;
+		}
+
+
+		//배송중만 
+		public List<OrderBean> getDeliveryList(String uId) {
+			 Connection con = getConnection();
+				OrderDAO orderDAO = OrderDAO.getInstance();
+				orderDAO.setConnection(con);
+				List<OrderBean> getDeliveryList = orderDAO.getDeliveryList(uId);
+				close(con);
+			return getDeliveryList;
+		}
+
+		//취소반품교환
+		public List<OrderBean> getorderCanCelReFundExCangeList(String uId) {
+			 Connection con = getConnection();
+			OrderDAO orderDAO = OrderDAO.getInstance();
+			orderDAO.setConnection(con);
+			List<OrderBean> getorderCanCelReFundExCangeList = orderDAO.getorderCanCelReFundExCangeList(uId);
+			close(con);
+		return getorderCanCelReFundExCangeList;
+		}
 
 }

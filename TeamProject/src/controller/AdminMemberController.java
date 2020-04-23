@@ -18,6 +18,7 @@ import admin.member.action.MemberListAcion;
 import admin.member.action.MemberModifyProAcion;
 import admin.sales.action.OrderCencleDetailAcion;
 import admin.sales.action.OrderCompDetailAcion;
+import admin.sales.action.OrderCompDetailModifyPro;
 import admin.sales.action.OrderCompListAcion;
 import admin.sales.action.OrderCancleListAcion;
 import admin.sales.action.OrderDeliveryDetailAcion;
@@ -51,7 +52,7 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/MainBoard.adm")) { //------------------
+		} else if(command.equals("/MainBoard.adm")) { //-------- adminMain에서 ajax으로 들고오기
 			action = new MainBoardAction();
 			try {
 				forward = action.execute(request, response);
@@ -192,7 +193,14 @@ public class AdminMemberController extends HttpServlet {
 			}
 
 		}
-		
+		 else if(command.equals("/OrderCompDetailModifyPro.adm")) { //------------------
+				action = new OrderCompDetailModifyPro();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		// cancel / exchange / refund / delivery >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Lists>>>>>>>>>>>>
 
 //		else if(command.equals("/OrderDeliveryList.adm")) {
@@ -210,7 +218,8 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/OrderRefundList.adm")) {//------------------
+		} 
+		else if(command.equals("/OrderRefundList.adm")) {//------------------
 			action = new OrderRefundListAcion();
 			try {
 				forward = action.execute(request, response);
@@ -221,13 +230,14 @@ public class AdminMemberController extends HttpServlet {
 			action = new OrderExchangeListAcion();
 			try {
 				forward = action.execute(request, response);
-			} catch (Exception e) {
+			} catch (Exception e) { 
 				e.printStackTrace();
 			}
 		} 
 		else if(command.equals("/OrderCompList.adm")) { //------------------
+			System.out.println("orderStatus AdminMemberControlloer : " + request.getParameter("orderStatus"));
 			action = new OrderCompListAcion();
-			try {
+			try {    
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();

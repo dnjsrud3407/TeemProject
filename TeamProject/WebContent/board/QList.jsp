@@ -114,6 +114,7 @@
 			            <th>작성일자</th>
 			          </tr>
 			        </thead>
+    <c:set var="isresult" value="<%=status%>"></c:set>
 	<c:if test="${QList!=null}">
 	 <c:forEach var="QList" items="${QList}" varStatus="status">
 	 <c:if test="${QList.boardReSeq>0}">
@@ -128,8 +129,8 @@
 			            <td><span style="font-size: -2.5em;"> [${QList.k2}]</span></td>
 			            <td>  &nbsp; &nbsp;  ${QList.boardTitle}</td>
 			            <td>${QList.boardWriter}</td>
-			 			<td><%=status%></td>
-			 			<td>${QList.boardRegTime}</td>
+			          <td><span class="label label-info"><%=status%></span><td> 
+			 			${QList.boardRegTime}</td>
 			 		  </tr>
 			 	     <tbody>
 	 </c:forEach>

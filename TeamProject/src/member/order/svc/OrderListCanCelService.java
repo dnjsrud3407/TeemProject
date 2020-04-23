@@ -23,7 +23,6 @@ public class OrderListCanCelService {
 		
 		ArrayList<OrderBean> list = dao.getOrderListCanCel(uId);
 		
-		
 		close(con);
 		
 		return list;

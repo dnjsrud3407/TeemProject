@@ -43,7 +43,14 @@
 				</form>
 			</div>
 		</li>
-
+		
+		<!-- Nav Item - gotoMain.me -->
+		<li class="nav-item no-arrow mx-1">
+		 <a class="nav-link" href="Main.me"> 
+		 <i class="fas fa-chalkboard">
+		 </i><span class="badge badge-danger badge-counter"></span>
+		</a> 
+		</li>
 		<!-- Nav Item - Alerts -->
 		<li class="nav-item dropdown no-arrow mx-1"><a
 			class="nav-link dropdown-toggle" href="#" id="alertsDropdown"
@@ -151,7 +158,7 @@
 <!-- 				</a>  -->
 <!-- 				<a class="dropdown-item text-center small text-gray-500" -->
 <!-- 					href="#">Read More Messages</a> -->
-			</div></li>
+			</div></li> 
 
 		<div class="topbar-divider d-none d-sm-block"></div>
 
@@ -160,8 +167,10 @@
 			class="nav-link dropdown-toggle" href="#" id="userDropdown"
 			role="button" data-toggle="dropdown" aria-haspopup="true"
 			aria-expanded="false"> <span
-				class="mr-2 d-none d-lg-inline text-gray-600 small">관리자</span> 
-				<i class="fas fa-unlock-alt" style="font-size:30px;"></i>
+				class="mr-2 d-none d-lg-inline text-gray-600 small">admin</span> 
+<!-- 				<i class="fas fa-unlock-alt" style="font-size:30px;"> -->
+				<img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+<!-- 				</i> -->
 
 		</a> <!-- Dropdown - User Information -->
 			<div

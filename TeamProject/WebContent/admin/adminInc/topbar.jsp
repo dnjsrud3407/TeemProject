@@ -42,6 +42,14 @@
               </div>
             </li>
 
+            <!-- Nav Item - gotoMain.me -->
+			<li class="nav-item no-arrow mx-1">
+			 <a class="nav-link" href="Main.me"> 
+			 <i class="fas fa-chalkboard">
+			 </i><span class="badge badge-danger badge-counter"></span>
+			</a> 
+			</li>
+
             <!-- Nav Item - Alerts -->
             <li class="nav-item dropdown no-arrow mx-1">
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -143,7 +151,7 @@
                     <div class="small text-gray-500">Chicken the Dog · 2w</div>
                   </div>
                 </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a> 
               </div>
             </li>
 

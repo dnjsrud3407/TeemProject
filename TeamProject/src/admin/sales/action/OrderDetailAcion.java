@@ -29,8 +29,8 @@ public class OrderDetailAcion implements Action {
 //		}
 		
 //		request.setAttribute("book", book);
-//		request.setAttribute("page", page);
-
+//		request.setAttribute("page", page); 
+    
 		ActionForward forward = null;
 		String orderNum = request.getParameter("orderNum");
 //		System.out.println("memberID : " + members);

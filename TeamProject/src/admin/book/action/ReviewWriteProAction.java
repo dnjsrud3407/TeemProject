@@ -16,7 +16,7 @@ public class ReviewWriteProAction implements Action {
 		ActionForward forward = null;
 		
 		// uID, 페이지, 후기글 ReRef, bookID 파라미터와 답변 제목,내용 불러오기
-		String uID = request.getParameter("uID");
+		String boardWriter = request.getParameter("boardWriter");
 		String page = request.getParameter("page");
 		String boardTitle = request.getParameter("boardTitle");
 		String boardContent = request.getParameter("boardContent");
@@ -26,7 +26,7 @@ public class ReviewWriteProAction implements Action {
 		
 		// 관리자 id 가져오기
 		HttpSession session = request.getSession();
-		String boardWriter = (String)session.getAttribute("uID");
+		String uID = (String)session.getAttribute("uID");
 		
 		QnReWriteProService reviewWriteProService = new QnReWriteProService();
 		
@@ -36,7 +36,7 @@ public class ReviewWriteProAction implements Action {
 		BoardBean board = new BoardBean(
 				boardNum, 
 				103, 
-				boardWriter, 
+				uID, 
 				boardTitle, 
 				boardContent, 
 				boardReRef, 
@@ -47,7 +47,7 @@ public class ReviewWriteProAction implements Action {
 		
 		// 포인트 올리는 작업
 		if(updateCount > 0) {
-			reviewWriteProService.plusMemberPoint(uID);
+			reviewWriteProService.plusMemberPoint(boardWriter);
 		}
 		
 		forward = new ActionForward();

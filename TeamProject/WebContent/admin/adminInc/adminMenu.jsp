@@ -43,14 +43,22 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">주문관리</h6>
-            <a class="collapse-item" href="OrderList.adm">주문진행조회</a>
+            <a class="collapse-item" href="OrderList.adm">주문내역</a>    
             
-            <h6 class="collapse-header">매출관리</h6>
-            <a class="collapse-item" href="OrderCompList.adm">주문완료내역</a>
-            <a class="collapse-item" href="OrderCencleList.adm">취소완료내역</a>
-            <a class="collapse-item" href="OrderRefundList.adm">반품완료내역</a>
-            <a class="collapse-item" href="OrderExchangeList.adm">교환완료내역</a>
+            <h6 class="collapse-header">매출관리</h6> 
+            <!-- orderStatus 이름 내가 마마대로지정가능 -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=결제요청">결제내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=취소요청">취소내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=반품요청">반품내역</a> -->
+<!--             <a class="collapse-item" href="OrderList.adm?orderStatus=교환요청">교환내역</a> -->
+             
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=결제완료">결제내역</a>
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=취소요청">취소내역</a>
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=반품요청">반품내역</a>
+            <a class="collapse-item" href="OrderCompList.adm?orderStatus=교환요청">교환내역</a>
+
             
+
           </div>
         </div>
       </li>

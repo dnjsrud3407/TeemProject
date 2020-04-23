@@ -115,8 +115,8 @@
                 <div class="card-body">
 	              <div class="table-responsive">
 	              <form action="ReviewWritePro.abook" method="post">
-                    <input type="hidden" name="uID" value="${board.boardWriter }">	<!-- 고객ID -->
                     <input type="hidden" name="page" value="${page }">
+                    <input type="hidden" name="boardWriter" value="${board.boardWriter }">	<!-- 고객ID -->
                     <input type="hidden" name="boardReRef" value="${board.boardReRef }">
                     <input type="hidden" name="bookID" value="${board.bookID }">
 	                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

@@ -30,11 +30,12 @@ public class QWriteProAction implements Action {
 		QnReWriteProService qWriteProService = new QnReWriteProService();
 		
 		// 게시글 번호 생성
+		int kID = 102;
 		int boardNum = qWriteProService.getBoardNum();
 		
 		BoardBean board = new BoardBean(
 				boardNum, 
-				102, 
+				kID, 
 				boardWriter, 
 				boardTitle, 
 				boardContent, 

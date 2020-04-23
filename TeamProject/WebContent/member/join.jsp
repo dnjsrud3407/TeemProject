@@ -117,33 +117,33 @@ function checkPasswd(passwd) {
 <script type="text/javascript">
 var jc = jQuery.noConflict();
 
-// jc(document).ready(function () {
+jc(document).ready(function () {
 
-// 	jc('#emailCheck').click(function() {
-// 	 var params = jc("#form-horizontal").serialize(); 
+	jc('#emailCheck').click(function() {
+	 var params = jc("#form-horizontal").serialize(); 
 // 				alert(params);
-// 		jc.ajax({
-// 		url : 'dd.send',
-// 		type : 'post',
+		jc.ajax({
+		url : 'dd.send',
+		type : 'post',
 		
-// 		 data:params,
+		 data:params,
 
-// 		success : function(data) {
-// // // 			history.back();
-// // 			location.href="member/mailcheck.jsp";
-// 			window.open('member/mailcheck.jsp','이메일 인증','width=430,height=200,location=no,status=no,scrollbars=yes');
+		success : function(data) {
+// // 			history.back();
+// 			location.href="member/mailcheck.jsp";
+			window.open('member/mailcheck.jsp','이메일 인증','width=430,height=180,location=no,status=no,scrollbars=yes');
 
-// 		}
+		}
 
-// 	});
+	});
 
-// });
+});
 	
 	
 	
 	
 
-// });
+});
 	
 	
 	
@@ -318,7 +318,7 @@ var jc = jQuery.noConflict();
 		<label class="control-label" for="input_Email">Email <sup>*</sup></label>
 		<div class="controls">
 		  <input type="text" id="email" placeholder="Email" name="email" required="required">
-		  <input id = "emailCheck" type="button" name="emailCheck" class="emailCheck"  value="인증번호발송">
+		  <input id = "emailCheck" type="button" name="emailCheck" class="btn"  value="인증번호발송">
 		  <input type="hidden" readonly="readonly" name="code_check" id="code_check" value="<%=getRandom()%>" />
 		</div>
 	  </div>	  

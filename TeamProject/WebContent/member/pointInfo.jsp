@@ -414,7 +414,7 @@
 	<table class="table" style="border: none;" id="coupontable">
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th></th>
                   <th>포인트 내용</th>
                   <th>획득 날짜 </th>
                   <th>획득 포인트</th>
@@ -435,7 +435,7 @@
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
+            <td>${pointInfo.pID}</td>
             <td>${pointInfo.pointContent}</td>
             <td>${pointInfo.pointRegTime}</td>
             <td>${pointInfo.pointValue}</td>

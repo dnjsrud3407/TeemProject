@@ -26,6 +26,7 @@ import member.account.action.PointInfoAction;
 import member.account.action.SearchCouponProAction;
 import member.account.action.SearchPointProAction;
 import member.account.action.SearchProAction;
+import member.account.action.SearchProCanCelAction;
 import vo.ActionForward;
 
 @WebServlet("*.me")
@@ -181,6 +182,14 @@ public class MemberAccountController extends HttpServlet {
 		
 	}else if(command.equals("/PointInfoAction.me")) {//
 		action = new PointInfoAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}else if(command.equals("/SearchProCanCelAction.me")) {//
+		action = new SearchProCanCelAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {

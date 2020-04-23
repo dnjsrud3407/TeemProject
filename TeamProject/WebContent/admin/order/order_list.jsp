@@ -61,7 +61,7 @@ if(session.getAttribute("uID") == null){
 			<div id="content">
 
 				<!-- Topbar -->
-				<nav
+				<nav 
 					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 					<!-- Sidebar Toggle (Topbar) -->
@@ -121,7 +121,7 @@ if(session.getAttribute("uID") == null){
 												 %>
 											<tbody>
 <%-- 												<tr onclick="location.href='OrderDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&type=<%=orderList.get(i).getOrderStatus()%>'"> --%>
-												<tr onclick="location.href='OrderDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>'">
+												<tr onclick="location.href='OrderDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&orderStatus=<%=orderList.get(i).getOrderStatus()%>'">
 													<td><%=orderList.get(i).getOrderTime() %></td>
 													<td><%=orderList.get(i).getOrderNum() %></td>
 													<td><%=orderList.get(i).getOrder_id() %></td>
@@ -164,7 +164,7 @@ if(session.getAttribute("uID") == null){
 		<a class="scroll-to-top rounded" href="#page-top"> <i
 			class="fas fa-angle-up"></i>
 		</a>
-
+    
 		<!-- Logout Modal-->
 		<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">

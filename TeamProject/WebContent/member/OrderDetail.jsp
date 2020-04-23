@@ -55,6 +55,9 @@
 	border-top:solid;
 	}
 	
+	.neamam3{
+ 	background-color: #f6f7f8;
+	}
 	
 	
 	
@@ -168,35 +171,35 @@ int point=Integer.parseInt(request.getParameter("point"));
                 <tr>
                 </tr>
                 <tr>
-                  <td>주문번호</td>
+                  <td class="neamam3">주문번호</td>
                   <td>${list.orderNum}</td>
                 </tr> 
                 <tr>
-                  <td id="neamam2">주문자</td>
+                  <td id="neamam2" class="neamam3">주문자</td>
                   <td id="neamam2">${list.u_name}</td>
                 </tr>
                 <tr>
-                  <td>주문자휴대폰</td>
+                  <td class="neamam3">주문자휴대폰</td>
                   <td>${list.phone_num}</td>
                 </tr>
                 <tr>
-                  <td>주문자 ID</td>
+                  <td class="neamam3">주문자 ID</td>
                   <td>${list.order_id}</td>
                 </tr>
                 <tr>
-                  <td>주문자이메일</td>
+                  <td class="neamam3">주문자이메일</td>
                   <td>${list.email}</td>
                 </tr>
                 <tr>
-                  <td>받으시는분</td>
+                  <td class="neamam3">받으시는분</td>
                   <td>${list.orderAddress}</td>
                 </tr>
                 <tr>
-                  <td>배송지</td>
+                  <td class="neamam3">배송지</td>
                   <td>${list.address2}</td>
                 </tr>
                 <tr>
-                  <td>요청사항</td>
+                  <td class="neamam3">요청사항</td>
                   <td>요청사항</td>
                 </tr>
    
@@ -218,7 +221,7 @@ int point=Integer.parseInt(request.getParameter("point"));
               <td id="neamam2">상품명      ${list.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
               </tr>
                 <tr>
-                  <td> <img width="80px" height="100px" src="themes/images/products/4.jpg" alt=""/><br> 
+                  <td style="vertical-align: middle; text-align: center;"> <img width="120px" height="160px" src="boardFile/${list.bookOriginImage}" alt=""/><br> 
                   상품옵션:${list.bookTitle}  <b style="color: red;">${list.bookEA}개</b><br>
                                            출판사: ${list.bookPublisher}<br>
 <!--                  가격 -->
@@ -226,20 +229,16 @@ int point=Integer.parseInt(request.getParameter("point"));
                  	<c:set value="${list.volume}" var="volume"></c:set> 
                     <c:set value="${list.totalPrice-point2-couponInfo.volume}" var="total"></c:set> 
                     <c:set value="${list.pointValue}" var="point"></c:set> 
-<%--              		 <input type="hidden" id="volume" value="${list.volume}"> --%>
-<%--                    <input type="hidden" id="bookEA" value="${list.bookEA}"> --%>
                   </td>
                   
-                  <td><br>
-          <span class="label">금액</span><b>  ${list.bookPrice} 원</b><br>        
-          <span class="label">쿠폰</span>    ${couponInfo.coupon_name} <br>
+                  <td style="text-align: center; vertical-align:middle;">
+          <span class="label label-important">금액</span><b style="font-size: 1.5em;">  ${list.bookPrice} 원</b><br>        
+          <span class="label label-success">쿠폰</span>    ${couponInfo.coupon_name} <br>
 <%--           <span class="label">포인트</span>    ${list.pointValue} <br> --%>
 <!--           <span class="label">배송비</span>    2500원 <br> -->
                
                    </td>
-                  <td><b>${list.bookEA * list.bookPrice} 원</b>
-<!--                    이자리에 쿠폰사용금액 추가할것 -->
-<!--                    //포인트 가져오는거 안했음 왜냐하면 답이없어  -->
+                  <td style="text-align: center; vertical-align:middle;"> <b style="font-size: 1.5em;">${list.bookEA * list.bookPrice} 원</b>
 <%--                    ${list.pointValue}  --%>
 					<br>
                      <span class="label">결제수단</span> ${list.paymentType}결제
@@ -271,19 +270,19 @@ int point=Integer.parseInt(request.getParameter("point"));
 				       <c:forEach var="list2" items="${orderDetailList2}" varStatus="status">
                      		 <c:if test="${list2.orderNum eq orderNum}">
                      		  <c:if test="${list2.pointAction==0}">
-				          <span class="label">포인트</span>  
+				          <span class="label  label-info">포인트</span>  
                      	   		${list2.pointValue}<br>
                      	   	   </c:if>
                      	   	   </c:if>
                      </c:forEach>
-                      <span class="label">쿠폰할인</span> ${couponInfo.volume} <br>
-				      <span class="label">배송비</span>    2500원 <br>
+                      <span class="label label-success">쿠폰할인</span> <b style="font-size: 1.5em;">${couponInfo.volume}</b>원 <br>
+<!-- 				      <span class="label">배송비</span>    2500원 <br> -->
                    </td>
                  
                     <td>
                    </td>
                    
-                    <td colspan="3" style="text-align: center; vertical-align: middle; background-color:#D9D4D4; font: 1.5em" >총 주문금액 : <b style="color: red;">  ${total} </b>원
+                    <td colspan="3" style="text-align: center; vertical-align: middle; background-color:#f6f7f8; font: 1.5em" >  <span class="label label-important">총 주문 금액</span>  : <b style="color: red; font-size: 1.5em;">  ${total} </b>원
                   </td>
 <!--                    <td style="text-align: center; vertical-align: middle;"><b></b></td> -->
                 </tr>

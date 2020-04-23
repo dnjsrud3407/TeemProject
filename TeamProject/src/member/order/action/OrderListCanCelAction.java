@@ -122,7 +122,7 @@ public class OrderListCanCelAction implements Action {
 		
 	}//for 문 끝
 	
-	System.out.println("쓸 수 있는 쿠폰 수"+couponCount);
+//	System.out.println("쓸 수 있는 쿠폰 수"+couponCount);
 	request.setAttribute("couponInfo",couponInfo); //상단에 표시되는 개수 
 	request.setAttribute("couponRealCount",couponCount); //상단에 표시되는 개수 
 	
@@ -155,11 +155,11 @@ public class OrderListCanCelAction implements Action {
 			request.setAttribute("couponList",couponList); //쿠폰
 			request.setAttribute("orderList2",orderList2); // 포인트s
 			request.setAttribute("memberinfo",memberinfo); //멤버정보
-			System.out.println("멤버등급찍기"+memberinfo.getGrade());
+//			System.out.println("멤버등급찍기"+memberinfo.getGrade());
 			
 		
 		forward = new ActionForward();
-		forward.setPath("mypage.jsp");
+		forward.setPath("member/orderCancelList.jsp");
 		return forward;
 	
 	}

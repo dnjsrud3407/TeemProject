@@ -19,8 +19,9 @@ public class QWriteFormAction implements Action {
 		String page = request.getParameter("page");
 		
 		// 사용자가 상품 문의한 것을 불러옴
+		int kID = 102;
 		QnReWriteService qWriteService = new QnReWriteService();
-		BoardBean board = qWriteService.getBoard(boardNum);
+		BoardBean board = qWriteService.getBoard(boardNum, kID);
 
 		request.setAttribute("board", board);
 		request.setAttribute("page", page);

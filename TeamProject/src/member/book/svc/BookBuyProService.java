@@ -4,6 +4,7 @@ import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 
+import dao.CartDAO;
 import dao.OrderDAO;
 import vo.OrderBean;
 
@@ -15,6 +16,10 @@ public class BookBuyProService {
 		
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
+		
+		CartDAO cartDAO = CartDAO.getInstance();
+		cartDAO.setConnection(con);
+		
 		//
 		int updateCount = orderDAO.insertOrder(orderBean);
 		
@@ -22,12 +27,13 @@ public class BookBuyProService {
 			// 책 재고 업데이트
 			int updateBookCount = orderDAO.updateBookEA(orderBean.getOrderList());
 			// 쿠폰 내역 업데이트
-			int coupon_num = orderBean.getCoupon_num(); // cID 이다.
+			int cHistory_num = orderBean.getCoupon_num(); // cHistory_num 이다.
 			String id = orderBean.getOrder_ID();  // 주문자 id(즉 쿠폰쓴 아이디)
 			int totalPrice = orderBean.getTotalPrice();
 			
-			if(coupon_num > 0) {
-				int couponUpdateCount = orderDAO.couponUpdate(coupon_num, id);
+			
+			if(cHistory_num > 0) {
+				int couponUpdateCount = orderDAO.couponUpdate(cHistory_num, id);
 			}
 			
 			// 포인트 내역 인서트

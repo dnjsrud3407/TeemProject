@@ -20,7 +20,7 @@ public class OrderCompDetailAcion implements Action {
 		System.out.println("OrderCompDetailAcion");
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");
-//				
+//				    
 //		OrderCompDetailService orderCompDetailService = new OrderCompDetailService();
 //		OrderBean order = orderCompDetailService.getOrder(num);
 ////		
@@ -33,7 +33,7 @@ public class OrderCompDetailAcion implements Action {
 
 		ActionForward forward = null;
 		String orderNum = request.getParameter("orderNum");
-		
+
 		OrderDetailService orderDetailService = new OrderDetailService();
 		MemberDetailService memberDetailService = new MemberDetailService();
 		

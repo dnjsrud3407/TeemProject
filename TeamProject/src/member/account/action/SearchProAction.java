@@ -38,12 +38,17 @@ public class SearchProAction implements Action {
 		List<MemberBean> couponList = new ArrayList<MemberBean>();
 		List<OrderBean> orderList2 = new ArrayList<OrderBean>();
 		SearchProService searchProService = new SearchProService();
-		orderList=searchProService.getSearchOrderList(startDate,endDate,uId);
+		
+		
+			
+			
+			orderList=searchProService.getSearchOrderList(startDate,endDate,uId); //그냥 주문 검색
+		
+		
+		
+		
 		orderList2=orderListService.getMypagePointInfo(uId);//포인트
 		couponList=orderListService.getCouponList(uId);//쿠폰
-		
-		
-		
 		
 		
 		//--------------------총 포인트 가져오기---------------------------------------------

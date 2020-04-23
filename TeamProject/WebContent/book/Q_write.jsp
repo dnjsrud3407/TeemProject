@@ -58,7 +58,7 @@ $(document).ready(function(){
 			{	alert("등록 완료");
 				opener.location.reload();
 				window.close();
-				
+
 			},
 			error: function(xhr, ajaxSettings, thrownError)
 			{
@@ -117,9 +117,7 @@ $(document).ready(function(){
 						<tr>
 							<th>내용</th>
 							<td id="boardContent">
-								<textarea title="내용" class="ip_viptxtarea" id="ta_content" name="boardContent">
-								
-								</textarea>
+								<textarea title="내용" class="ip_viptxtarea" id="ta_content" name="boardContent"></textarea>
 							</td>
 						</tr>
 					  </tbody>
@@ -154,9 +152,7 @@ $(document).ready(function(){
 		
 		<p class="bottom_btns">
 		<!-- "javascript:;insertQna('1766321978')" -->
-			
 			<input type="submit" class="bt_confirm bt_vipround100 hover" title="확인" value="확인" id="btnSubmit">
-				
 			<a	href="javascript:window.close();" class="bt_cancel bt_vipround100 hover2"><span>취소</span></a>
 		</p>
 		<p class="bar_close">

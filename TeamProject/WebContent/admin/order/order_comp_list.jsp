@@ -79,17 +79,18 @@ if(session.getAttribute("uID") == null){
 <%-- 				<jsp:include page="../adminInc/topEtc.jsp" /> --%>
 					<!-- Page Heading -->
 					<h1 class="h3 mb-2 text-gray-800">거래완료 리스트</h1>
-					<p class="mb-4">
+	 				<p class="mb-4">
 						완료된 거래내역확인할수있습니다
-					</p>
+					</p>  
 
 					<!-- DataTales Example -->
 					<!-- Approach -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
 							<h6 class="m-0 font-weight-bold text-primary">거래완료 진행리스트</h6>
-							<input type="button" value="세일즈 파일 다운" onclick="location.href='Sales.adm'"/>&nbsp;&nbsp;
-						</div>
+							<br>
+							<input type="button" class="btn btn-large btn-success" value="세일즈 파일 다운" onclick="location.href='Sales.adm'"/>&nbsp;&nbsp;
+						</div> 
 						<div class="card-body">
 							<!-- DataTales Example -->
 <!-- 							<div class="card shadow mb-4"> -->
@@ -101,12 +102,12 @@ if(session.getAttribute("uID") == null){
 								<div class="card-body">
 <!-- 									<div class="table-responsive"> -->
 										<form action="" method="post" id="searchForm">
-<!-- 										<input type="hidden" name="orderStatus" value="주문완료" /> -->
+<%-- 										<input type="hidden" name="orderStatus" value="<%=orderDetail.getOrderStatus() %>"> --%>
 										<table class="table table-bordered" id="dataTable"
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th>주문일</th>
+													<th>주문일</th> 
 													<th>주문번호</th>
 													<th>주문자명</th>
 													<th>결제방법</th>
@@ -117,7 +118,7 @@ if(session.getAttribute("uID") == null){
 <%-- 										<%if(orderDetail.getOrderStatus().equals("주문완료")) {%> --%>
 											<%for(int i = 0; i < orderList.size(); i++){ %>
 											<tbody>
-												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&type=<%=orderList.get(i).getOrderStatus()%>'">
+												<tr onclick="location.href='OrderCompDetail.adm?orderNum=<%=orderList.get(i).getOrderNum()%>&orderStatus=<%=orderList.get(i).getOrderStatus()%>'">
 													<td><%=orderList.get(i).getOrderTime() %></td>
 													<td><%=orderList.get(i).getOrderNum() %></td>
 													<td><%=orderList.get(i).getOrder_id() %></td>

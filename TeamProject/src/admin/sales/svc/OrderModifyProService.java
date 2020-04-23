@@ -19,7 +19,7 @@ public class OrderModifyProService {
 		dao.setConnection(con);
 		
 		updateCount = dao.updateOrder(order);
-		System.out.println("updateCount service : " + updateCount);
+		System.out.println("updateCount OrderModifyProservice : " + updateCount);
 		if(updateCount > 0) {
 			commit(con);
 			isModifySuccess = true;

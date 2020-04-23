@@ -171,7 +171,7 @@
 				<li class="span3">
 				  <div class="thumbnail">
 					<a href="Book.book?bookID=${book.bookID }">
-						<img src="upload/${book.bookImage}" alt="책 이미지" style="min-width:100px; max-width: 250px; min-height: 100px; max-height: 250px;"/>
+						<img src="boardFile/${book.bookImage}" alt="책 이미지" style="min-width:100px; max-width: 250px; min-height: 100px; max-height: 250px;"/>
 					</a>
 					<div class="caption">
 					  <h5>${book.bookTitle }</h5>
