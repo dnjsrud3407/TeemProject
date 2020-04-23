@@ -880,7 +880,7 @@ public class BoardDAO {
 	}
 
 	// 문의, 후기 답변 등록 시 게시글 번호 구하기 (게시글 중 최대값 구하기)
-	public int selectMaxNum(int kID) {
+	public int selectMaxNum(int kID) { 
 		int maxNum = 0;
 	    String sql = "SELECT MAX(boardNum) FROM board WHERE kID=?";
 	    try {

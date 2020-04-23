@@ -11,7 +11,7 @@ import vo.BoardBean;
 public class QnReWriteProService {
 
 	// boardNum 생성
-	public int getBoardNum(int kID) {
+	public int getBoardNum(int kID) { 
 		int boardNum = 0;
 		BoardDAO boardDAO = new BoardDAO();
         Connection con = getConnection();

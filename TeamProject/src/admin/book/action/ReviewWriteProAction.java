@@ -24,7 +24,7 @@ public class ReviewWriteProAction implements Action {
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		
 		
-		// 관리자 id 가져오기
+		// 관리자 id 가져오기 
 		HttpSession session = request.getSession();
 		String uID = (String)session.getAttribute("uID");
 		
