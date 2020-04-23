@@ -218,7 +218,8 @@ public class AdminMemberController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/OrderRefundList.adm")) {//------------------
+		} 
+		else if(command.equals("/OrderRefundList.adm")) {//------------------
 			action = new OrderRefundListAcion();
 			try {
 				forward = action.execute(request, response);
