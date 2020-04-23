@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.marginL { 
+	margin-left: 10%;
+}
 #menu {
 	color: #4D84AB;
     height: 50px;

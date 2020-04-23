@@ -34,76 +34,11 @@
 	<link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
 	<style type="text/css" id="enject"></style>
   </head>
-<div id="header">
-<div class="container">
-<div id="welcomeLine" class="row">
-    <!-- <div class="span6"></div> -->
-    <div class="">
-	    <span style="padding-left: 30px;font-size: 15px;">
-	    	<c:if test="${sessionScope.uID ne null}"> 
-		        welcome ${sessionScope.uID}님
-		    </c:if></span>
-	    <div class="pull-right">
-
-			<c:if test="${sessionScope.isAdmin eq true }">
-				<a href="AdminMain.adm">관리자</a> |
-			</c:if>	
-
-<!-- 		로그인 안했을 때 -->
-	        <c:if test="${sessionScope.uID eq null}">
-	        	<a href="JoinForm.me">회원가입</a> |
-	        	<a href="helpCenter.jsp">고객센터</a> |
-		        <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
-	        </c:if>
-	        
-<!-- 	        로그인 했을 때 -->
-	         <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		        <a href="OrderList.mo">마이페이지</a> |
-		        <a href="helpCenter.jsp">고객센터</a> |
-		        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i>장바구니 </span> </a>
-		    </c:if>
-		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-			<h3>Login Block</h3>
-		  </div>
-		  <div class="modal-body">
-			<form action="./LoginPro.me" class="form-horizontal loginFrm" method="post">
-			  <div class="control-group">								
-				<input type="text" id="inputId" name="uID" placeholder="Id">
-			  </div>
-			  <div class="control-group" style="margin-bottom: 20px;">
-				<input type="password" id="inputPassword" name="pw" placeholder="Password">
-			  </div>
-			 
-			<button type="submit" class="btn btn-success">로그인</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">로그인 취소</button>
-			<a href="FindId.me" class="btn">아이디 찾기</a>
-			<a href="FindPass.me" class="btn">비밀번호 찾기</a>
-			</form>		
-		  </div>
-	</div> 
-	    </div>
-    </div>
-</div>
-<!-- Navbar =================================================== -->
-<div>
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-    <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
-        <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
-        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-    </form>
-</div>
-</div>
-<div id="menu" style="position: relative; left:10px; z-index: 1;">
-    <jsp:include page="../inc/nav.jsp"></jsp:include>
-</div>
-</div>
+<jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
-	<div class="row">
+	<div class="row" style="margin-left: 10%;"> 
 <!-- Sidebar ================================================== -->
 <%-- <jsp:include page="../inc/menu.jsp"></jsp:include> --%>
 <!-- Sidebar end=============================================== -->
@@ -207,59 +142,7 @@
     <script src="themes/js/jquery.lightbox-0.5.js"></script>
 	
 	<!-- Themes switcher section ============================================================================================= -->
-<div id="secectionBox">
-<link rel="stylesheet" href="themes/switch/themeswitch.css" type="text/css" media="screen" />
-<script src="themes/switch/theamswitcher.js" type="text/javascript" charset="utf-8"></script>
-	<div id="themeContainer">
-	<div id="hideme" class="themeTitle">Style Selector</div>
-	<div class="themeName">Oregional Skin</div>
-	<div class="images style">
-	<a href="themes/css/#" name="bootshop"><img src="themes/switch/images/clr/bootshop.png" alt="bootstrap business templates" class="active"></a>
-	<a href="themes/css/#" name="businessltd"><img src="themes/switch/images/clr/businessltd.png" alt="bootstrap business templates" class="active"></a>
-	</div>
-	<div class="themeName">Bootswatch Skins (11)</div>
-	<div class="images style">
-		<a href="themes/css/#" name="amelia" title="Amelia"><img src="themes/switch/images/clr/amelia.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="spruce" title="Spruce"><img src="themes/switch/images/clr/spruce.png" alt="bootstrap business templates" ></a>
-		<a href="themes/css/#" name="superhero" title="Superhero"><img src="themes/switch/images/clr/superhero.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="cyborg"><img src="themes/switch/images/clr/cyborg.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="cerulean"><img src="themes/switch/images/clr/cerulean.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="journal"><img src="themes/switch/images/clr/journal.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png" alt="bootstrap business templates"></a>	
-		<a href="themes/css/#" name="simplex"><img src="themes/switch/images/clr/simplex.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="slate"><img src="themes/switch/images/clr/slate.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="spacelab"><img src="themes/switch/images/clr/spacelab.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="united"><img src="themes/switch/images/clr/united.png" alt="bootstrap business templates"></a>
-		<p style="margin:0;line-height:normal;margin-left:-10px;display:none;"><small>These are just examples and you can build your own color scheme in the backend.</small></p>
-	</div>
-	<div class="themeName">Background Patterns </div>
-	<div class="images patterns">
-		<a href="themes/css/#" name="pattern1"><img src="themes/switch/images/pattern/pattern1.png" alt="bootstrap business templates" class="active"></a>
-		<a href="themes/css/#" name="pattern2"><img src="themes/switch/images/pattern/pattern2.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern3"><img src="themes/switch/images/pattern/pattern3.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern4"><img src="themes/switch/images/pattern/pattern4.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern5"><img src="themes/switch/images/pattern/pattern5.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern6"><img src="themes/switch/images/pattern/pattern6.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern7"><img src="themes/switch/images/pattern/pattern7.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern8"><img src="themes/switch/images/pattern/pattern8.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern9"><img src="themes/switch/images/pattern/pattern9.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern10"><img src="themes/switch/images/pattern/pattern10.png" alt="bootstrap business templates"></a>
-		
-		<a href="themes/css/#" name="pattern11"><img src="themes/switch/images/pattern/pattern11.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern12"><img src="themes/switch/images/pattern/pattern12.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern13"><img src="themes/switch/images/pattern/pattern13.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern14"><img src="themes/switch/images/pattern/pattern14.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern15"><img src="themes/switch/images/pattern/pattern15.png" alt="bootstrap business templates"></a>
-		
-		<a href="themes/css/#" name="pattern16"><img src="themes/switch/images/pattern/pattern16.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern17"><img src="themes/switch/images/pattern/pattern17.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern18"><img src="themes/switch/images/pattern/pattern18.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern19"><img src="themes/switch/images/pattern/pattern19.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern20"><img src="themes/switch/images/pattern/pattern20.png" alt="bootstrap business templates"></a>
-		 
-	</div>
-	</div>
-</div>
+
 <span id="themesBtn"></span>
 </body>
 </html>
