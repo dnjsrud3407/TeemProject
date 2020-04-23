@@ -607,7 +607,7 @@
     <script src="themes/js/jquery.lightbox-0.5.js"></script>
 	
 	<!-- Themes switcher section ============================================================================================= -->
-<div id="secectionBox">
+<div id="secectionBox"> 
 <link rel="stylesheet" href="themes/switchthemeswitch.css" type="text/css" media="screen" />
 <script src="themes/switch/theamswitcher.js" type="text/javascript" charset="utf-8"></script>
 	<div id="themeContainer">

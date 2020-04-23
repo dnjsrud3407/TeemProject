@@ -35,6 +35,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
+    <link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
 	<style type="text/css" id="enject"></style>
 	
 	<style type="text/css">
@@ -43,7 +44,7 @@
 	
 	</style>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
 	function checkId(id) {
 		// 4 ~ 12자리 아이디 영문,숫자 조합 유효성 검사
 		// => 영문자로 시작하고 영문자 또는 숫자의 조합으로 4 ~ 12 자리
@@ -123,78 +124,7 @@ if(uID==null){%>
 
 
 
-<div id="header">
-<div class="container">
-<div id="welcomeLine" class="row">
-   <div class="">
-	    <span style="padding-left: 30px;font-size: 15px;">
-	    	<c:if test="${sessionScope.uID ne null}"> 
-		        welcome ${sessionScope.uID}님
-		    </c:if></span>
-	    <div class="pull-right">
-		    <a href="AdminMain.adm">관리자</a> |
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
-		     <c:if test="${sessionScope.uID eq null}">
-	        <a href="JoinForm.me">회원가입</a> |
-	         </c:if>
-	        <a href="OrderList.mo">마이페이지</a> |
-	        <a href="helpCenter.jsp">고객센터</a>
-		<a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
-	</div>
-	</div>
-</div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png" alt="Bookshop"/></a>
-<!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
-        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-    </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="NoticeList.bo">이벤트</a></li>
-    </ul>
-  </div>
-</div>
-</div>
-</div>
-<!-- 	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a> -->
-<!-- 	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" > -->
-<!-- 		  <div class="modal-header"> -->
-<!-- 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
-<!-- 			<h3>Login Block</h3> -->
-<!-- 		  </div> -->
-<!-- 		  <div class="modal-body"> -->
-<!-- 			<form class="form-horizontal loginFrm"> -->
-<!-- 			  <div class="control-group">								 -->
-<!-- 				<input type="text" id="inputEmail" placeholder="Email"> -->
-<!-- 			  </div> -->
-<!-- 			  <div class="control-group"> -->
-<!-- 				<input type="password" id="inputPassword" placeholder="Password"> -->
-<!-- 			  </div> -->
-<!-- 			  <div class="control-group"> -->
-<!-- 				<label class="checkbox"> -->
-<!-- 				<input type="checkbox"> Remember me -->
-<!-- 				</label> -->
-<!-- 			  </div> -->
-<!-- 			</form>		 -->
-<!-- 			<button type="submit" class="btn btn-success">Sign in</button> -->
-<!-- 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
-<!-- 		  </div> -->
-
+<jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">

@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -33,6 +33,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
+    <link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
 	<style type="text/css" id="enject"></style>
 
@@ -154,93 +155,12 @@ jc(document).ready(function () {
 
   </head>
 <body>
-<div id="header">
-<div class="container">
-<div id="welcomeLine" class="row">
-    <div class="span6"></div>
-    <div class="span6">
-    <div class="pull-right">
-    <a href="AdminMain.adm">관리자</a> | 
-        <a href="Login.me">로그인</a> |
-        <a href="JoinForm.me">회원가입</a> |
-        <a href="member.jsp">마이페이지</a> |
-        <a href="helpCenter.jsp">고객센터</a>
-        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
-    </div>
-    </div>
-</div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png" alt="Bookshop"/></a>
-<!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
-        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-    </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="NoticeList.bo">이벤트</a></li>
-    </ul>
-  </div>
-</div>
-</div>
-</div>
-<!-- 	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a> -->
-<!-- 	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" > -->
-<!-- 		  <div class="modal-header"> -->
-<!-- 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> -->
-<!-- 			<h3>Login Block</h3> -->
-<!-- 		  </div> -->
-<!-- 		  <div class="modal-body"> -->
-<!-- 			<form class="form-horizontal loginFrm"> -->
-<!-- 			  <div class="control-group">								 -->
-<!-- 				<input type="text" id="inputEmail" placeholder="Email"> -->
-<!-- 			  </div> -->
-<!-- 			  <div class="control-group"> -->
-<!-- 				<input type="password" id="inputPassword" placeholder="Password"> -->
-<!-- 			  </div> -->
-<!-- 			  <div class="control-group"> -->
-<!-- 				<label class="checkbox"> -->
-<!-- 				<input type="checkbox"> Remember me -->
-<!-- 				</label> -->
-<!-- 			  </div> -->
-<!-- 			</form>		 -->
-<!-- 			<button type="submit" class="btn btn-success">Sign in</button> -->
-<!-- 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
-<!-- 		  </div> -->
-
+<jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
-	<div class="row">
+	<div class="row" style="margin-left: 10%;">
 <!-- Sidebar ================================================== -->
-	 <div id="sidebar" class="span3">
-        <ul id="sideManu" class="nav nav-tabs nav-stacked">
-            <li class="subMenu open"><a> 단계별</a>
-                <ul>
-                <li><a class="active" href="BookList.book"><i class="icon-chevron-right"></i>1단계 </a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>2단계</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>3단계</a></li>
-                </ul>
-            </li>
-            <li class="subMenu"><a> 분야별 </a>
-            <ul style="display:none">
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JAVA</a></li>
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>JSP</a></li>                                              
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>DATABASE</a></li> 
-                <li><a href="BookList.book"><i class="icon-chevron-right"></i>HTML / CSS</a></li>
-            </ul>
-            </li>
-        </ul>
-        <br/>
-    </div>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
