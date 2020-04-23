@@ -235,6 +235,7 @@ public class AdminMemberController extends HttpServlet {
 			}
 		} 
 		else if(command.equals("/OrderCompList.adm")) { //------------------
+			System.out.println("orderStatus AdminMemberControlloer : " + request.getParameter("orderStatus"));
 			action = new OrderCompListAcion();
 			try {    
 				forward = action.execute(request, response);
