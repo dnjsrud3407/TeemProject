@@ -88,7 +88,7 @@ System.out.println("OrderModifyProAcion");
 				  System.out.println(sEncoding);
 			   }
 			    
-			    
+			     
 			    
 //			String sEncoding = new String(order.getOrderStatus().getBytes("utf-8"),"8859_1");
 

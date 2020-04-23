@@ -25,7 +25,7 @@ public class OrderCompListService {
 	//	System.out.println("orderList : " + orderList);
 		close(con);
 		return orderList;	
-	}
+	} 
 
 	// 메인에서 주문현황 들고옴
 	public int getOrderCount(String orderStatus) {

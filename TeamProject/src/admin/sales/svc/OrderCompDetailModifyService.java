@@ -1,6 +1,6 @@
 package admin.sales.svc;
 
-import static db.JdbcUtil.*;
+import static db.JdbcUtil.*; 
 
 import java.sql.Connection;
 

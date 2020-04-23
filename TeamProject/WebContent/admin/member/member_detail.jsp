@@ -114,7 +114,7 @@ input.size {
 <body id="page-top">
 
   <!-- Page Wrapper -->
-  <div id="wrapper">
+  <div id="wrapper"> 
 
     <!-- Sidebar -->
 	<jsp:include page="../adminInc/adminMenu.jsp" />

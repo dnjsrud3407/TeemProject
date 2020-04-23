@@ -18,7 +18,7 @@ public class OrderCompListAcion implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 한글처리
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("OrderCompListAcion");
+		System.out.println("OrderCompListAcion"); 
 		ActionForward forward = null;
 //		int num = Integer.parseInt(request.getParameter("num"));
 ////
