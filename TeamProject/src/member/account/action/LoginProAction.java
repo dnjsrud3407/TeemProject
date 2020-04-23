@@ -10,7 +10,7 @@ import action.Action;
 import member.account.svc.LoginProService;
 import vo.ActionForward;
 import vo.MemberBean;
-
+import static access.Access.*;
 public class LoginProAction implements Action {
 
 	@Override
@@ -20,15 +20,16 @@ public class LoginProAction implements Action {
 		
 		String uID = request.getParameter("uID");
 		String pw = request.getParameter("pw");
-//		System.out.println(uID + " , " + pw);
+//			
 		
 		MemberBean member = new MemberBean(uID, pw);
 			
 		LoginProService LoginService= new LoginProService();
 //		memberLoginProService.Login(id,pass);
 		
-		int loginResult = LoginService.isLoginMember(member);
 		
+		int loginResult = LoginService.isLoginMember(member);
+
 		if(loginResult == -1) {
 //			System.out.println("아이디 없음!");
 			response.setContentType("text/html; charset=UTF-8");
@@ -62,6 +63,7 @@ public class LoginProAction implements Action {
 			HttpSession session = request.getSession();
 			// HttpSession 객체의 setAttiribute() 메서드를 호출하여 세션 정보 저장
 			session.setAttribute("uID", uID);
+			session.setAttribute("isAdmin", isAdmin(session));
 			forward = new ActionForward();
 			forward.setPath("Main.me");
 			forward.setRedirect(true);

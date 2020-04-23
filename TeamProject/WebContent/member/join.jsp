@@ -273,6 +273,7 @@ jc(document).ready(function () {
 <!-- 			<option value="2">Mrs</option> -->
 <!-- 			<option value="3">Miss</option> -->
 <!-- 		</select> -->
+		<input type="hidden" name="grade" value="6">
 		</div>
 		</div>
 		<div class="control-group">

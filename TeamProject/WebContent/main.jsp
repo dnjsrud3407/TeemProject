@@ -235,16 +235,10 @@ ul{
 		        welcome ${sessionScope.uID}님
 		    </c:if></span>
 	    <div class="pull-right">
-	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
-	    	<c:forEach var = "i" items="${strAdmin }">
-	    		<c:if test="${sessionScope.uID.equals(i)}">
-	    		 	<a href="AdminMain.adm">관리자</a> |
-	    		</c:if>
-	    	</c:forEach>
-	    	<c:if test="${sessionScope.uID.equals('admin')}">
-<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
-		    </c:if>
-		    
+
+			<c:if test="${sessionScope.isAdmin eq true }">
+				<a href="AdminMain.adm">관리자</a> |
+			</c:if>		    
 		    <c:if test="${sessionScope.uID ne null}">
 	        </c:if>
 	        <c:if test="${sessionScope.uID eq null}">
@@ -289,13 +283,13 @@ ul{
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
-<<<<<<< HEAD
+
     <ul id="topMenu" class="nav">
      <li><a href="">로드맵</a></li>
      <li><a href="BookList.book">교재구매</a></li>
      <li><a href="Event.adb">이벤트</a></li>
      <li><a href="FAQList.bo">FAQ</a></li>
-=======
+
     </div>
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 
