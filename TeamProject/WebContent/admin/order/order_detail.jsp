@@ -151,7 +151,7 @@ img{
 <!-- 		    			    <option value="결제완료" class="size">결제완료</option> -->
 <!-- 		    			    <option value="배송중" class="size">배송중</option> --> 
 <!-- 		    			    <option value="환불요청" class="size">환불요청</option> -->
-<!-- 		    			    <option value="교환요청" class="size">교환요청</option> -->
+<!-- 		    			    <option value="교환요청" class="size">교환요청</option> --> 
 <!-- 		    			    <option value="주문취소" class="size">주문취소</option> -->   
 		    			    <option value="<%=orderDetaile.getOrderStatus() %>" class="size" <c:if test="${orderDetaile.orderStatus eq '<%=orderDetaile.getOrderStatus() %>' }">selected</c:if>><%=orderDetaile.getOrderStatus() %></option>				
 		    				   <option value="결제완료" <c:if test="${orderDetaile.orderStatus eq '결제완료' }">selected</c:if>>결제완료 </option>

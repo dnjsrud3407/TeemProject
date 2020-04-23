@@ -130,7 +130,7 @@ img{
                   	<td>
                   		<span class="checkbox_padding" style="width: 15%;">
                   			<input name="orderNum" type="hidden" value="<%=orderDetaile.getOrderNum() %>"><%=orderDetaile.getOrderNum() %>                  			
-              			</span>
+              			</span> 
                   	</td>
                   	
                   	<th style="width: 15%;">주문상태</th>    

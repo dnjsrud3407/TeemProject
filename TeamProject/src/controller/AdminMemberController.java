@@ -230,7 +230,7 @@ public class AdminMemberController extends HttpServlet {
 			action = new OrderExchangeListAcion();
 			try {
 				forward = action.execute(request, response);
-			} catch (Exception e) {
+			} catch (Exception e) { 
 				e.printStackTrace();
 			}
 		} 

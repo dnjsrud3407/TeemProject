@@ -107,7 +107,7 @@ if(session.getAttribute("uID") == null){
 											width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th>주문일</th>
+													<th>주문일</th> 
 													<th>주문번호</th>
 													<th>주문자명</th>
 													<th>결제방법</th>

@@ -713,7 +713,7 @@ public OrderDAO() {}
 			int setPointHistoryCount = 0;
 			String sql ="";
 			int changedPoint = 0;
-			
+			 
 			// pointAction  사용은 0 / 적립은 1
 			try {
 				sql = "INSERT INTO pointHistory(ownerID, pointRegTime, pointContent, pointValue, pointAction, orderNum) VALUES(?, now(), ?, ?, ?, ?)";
