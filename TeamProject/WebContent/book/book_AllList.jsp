@@ -131,7 +131,8 @@
 <br class="clr"/>
 <div class="tab-content">
 	<div class="tab-pane" id="listView">
-	  <c:forEach var="book" items="${bookList }" varStatus="status">
+	  <c:forEach var="book" items="${bookAllList}" varStatus="status">
+	  
 		<div class="row">	  
 			<div class="span2">
 				<img src="upload/${book.bookImage }" alt="책이미지"/>
@@ -165,7 +166,7 @@
 
 	<div class="tab-pane active" id="blockView">
 		<ul class="thumbnails">
-		  <c:forEach var="book" items="${bookList }" varStatus="status">
+		  <c:forEach var="book" items="${bookAllList }" varStatus="status">
 				<li class="span3">
 				  <div class="thumbnail">
 					<a href="Book.book?bookID=${book.bookID }">
@@ -194,16 +195,16 @@
 	<div class="pagination">
 			<ul>
 			<li><c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-			<a href="BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
+			<a href="BookListALL.book?&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
 			<li>
 			<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-			<a href="BookList.book?bk2=${param.bk2 }&page=${i}">${i}</a>
+			<a href="BookListALL.book?&page=${i}">${i}</a>
 			</c:forEach></li>
 			<%-- <li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li> --%>
 			
 			<li><a href="#">...</a></li>
 			<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-			<a href='<c:url value="/BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+			<a href='<c:url value="/BookListALL.book?&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
 			</ul>
 			</div>
 			<br class="clr"/>

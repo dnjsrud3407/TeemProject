@@ -21,6 +21,8 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+   <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
     <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
     <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
      <link href="themes/css/mycus.css" rel="stylesheet"/>
@@ -36,74 +38,104 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
-	<style type="text/css">
-	
-	 .btn2{border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
-	
-	</style>
 	
 	<style type="text/css">
 	
-	
-	
-	#neamam{border-top: none; 
-	border-left: none;
-	 border-right: none;}
-	
-	
-	#neamam2{
-	border-top:solid;
-	}
-	
-	.neamam3{
- 	background-color: #f6f7f8;
-	}
-	
-	
+	 .btn2 {border: 1px solid #D9D4D4; text-align: center; margin: 2px; padding: 3px;}
+	 
+	#orderTable {text-align: center; border-bottom: 2px solid #D9D4D4; border-top: hidden; height: 3.5em; background-color:#f5f5f5 }
 	
 	</style>
-	
-	
-	
 	
 	
 	<script type="text/javascript">
+
+// 	alert("정말 회원탈퇴 하시겠습니까?");
+// 	$('form').submit(function()	{
+		
+		
+// 		alert("정말 회원탈퇴 하시겠습니까?");
+		
+// 		return false;
+// 	}
+
+function openWin(orderNum){  
+
+    window.open("OrderExchange.mo?orderNum="+orderNum, "반품", "width=520, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+function openWin2(orderNum){  
+
+    window.open("OrderRefund.mo?orderNum="+orderNum, "교환", "width=520, height=600, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+function openWin3(orderNum){  
+
+    window.open("OrderDelivery.mo?orderNum="+orderNum, "배송", "width=389, height=550, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );  
+}  
+
+
+function orderCanCel(){  
+
+	alert("주문취소 하시겠습니까?");
+}  
+
+
+
+var ja = jQuery.noConflict();
+
+ja(document).ready(function () {
+	
+// 	var numb = ja('#hel').text();
+		
+// 		ja('#hel').val();
+// 	alert(numb);
+//  comma(numb);
+	
+	ja('#orderConFirm').click(function(){
+		alert("구매확정 하시겠습니까?")
+	    });
+	
+	ja('#').click(function(){
+		alert("구매취소 하시겠습니까?")
+	    });
 	
 	
+})
+
+
+// var hell = '100000';
+		var hell = document.getElementById(hel2).value;
+		
+	function comma() {
+// 		numb = String(hell);
+// 	    alert(hell);
+	    return hell.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+	    
+	}
+	 
+
+
+
+
+// window.onload = function numberWithCommas() {
+	
+// 	alert(hell.value);
+//     return hell.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+// }
+
+	
+</script>
+
+
 	
 	
-	
-	
-	
-	
-	  window.onload = function () {
-		  
-		  
-		  var ea = document.getElementById('bookEA');
-		  var price = document.getElementById('bookPrice');
-		  
-// 		  ea = Number(ea);
-// 		  Number(price);
-		  
-// 		  alert(ea.value*price.value); //갯수*가격
-		  
-		  
-		  
-	  }
-	
-	
-	
-	
-	</script>
   </head>
 <body>
-<%
 
-int point=Integer.parseInt(request.getParameter("point"));
-%>
 
 <!-- header -->
-<jsp:include page="top.jsp"></jsp:include>
+<jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
 
 <!-- Header End====================================================================== -->
@@ -111,7 +143,12 @@ int point=Integer.parseInt(request.getParameter("point"));
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-	<jsp:include page="/member/left.jsp"></jsp:include>
+
+
+<jsp:include page="/member/left.jsp"></jsp:include>
+
+
+
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
@@ -148,154 +185,185 @@ int point=Integer.parseInt(request.getParameter("point"));
 			</form>
 		  </td>
 		  </tr>
-	</table>	
-	 -->
- <c:set value="1" var="point"></c:set>
-<c:set value="1" var="total"></c:set>
-<c:set value="1" var="volume"></c:set>
-<c:set value="1" var="eaPrice"></c:set>
+	</table>		 -->
+		<c:set value="${totalPoint}" var="comma"></c:set>
+	<c:set value="1" var="count"></c:set>
+	  	<table class="table table-bordered">
+<!-- 			  	<tr  style="border-bottom: none;"> -->
+<!-- 				  	<td style="border-bottom: none;">보유포인트</td> -->
+<!-- 				  	<td>사용가능 쿠폰</td> -->
+<!-- 			  	</tr> -->
+    <tr style="border-top: none;">
+                   <td style="text-align: center;">보유포인트<br><b style="font-size: 3em; line-height: 2em; color: blue;"><a href="PointInfoAction.me?uID=${sessionScope.uID}" id="hel"><b onmouseup="comma()" id="hel2">${totalPoint}</b></a></b>원
+                   <td style="text-align: center;">  사용가능 쿠폰<br> <b style="font-size: 3em; line-height: 2em; color: blue;">
+                  <a href="CouponInfoAction.me?uID=${sessionScope.uID}">${couponRealCount}</a> </b>개</td>
+                  <td style="text-align: center;">배송중<br>
+                   <a href="OrderListDelivery.mo?uID=${sessionScope.uID}"><b style="font-size: 3em; line-height: 2em; color: ;">${delivertcount}</b></a> 개
+                  </td>
+                    <td style="text-align: center;">취소/반품/교환<br>
+                   <a href="OrderListCRE.mo?uID=${sessionScope.uID}"><b style="font-size: 3em; line-height: 2em; color: ;">${orderReFundExCangecount}</b></a> 개
+                  </td>
+                </tr>
+        </table>
+         <%String orderStatus = "취소";%>   
+	<jsp:include page="search.jsp"></jsp:include>
+	
 <c:set value="-1" var="orderNum"></c:set>
-	<c:if test="${orderDetailList!=null}">
-	<c:forEach var="list" items="${orderDetailList}" varStatus="status">
- <c:if test="${orderNum != list.orderNum}">
+<c:set value="0" var="pointValue"></c:set>
+                   <c:if test="${empty deliveryList}">
+						<h5>검색결과가 없습니다</h5>
+				   </c:if>
+<!-- //--------------ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------------------------------------------------    -->
+<c:if test="${deliveryList!=null}">
+	<c:forEach var="list" items="${deliveryList}" varStatus="status">
+	
+			<table class="table table-bordered" style="vertical-align: middle;">
+			 <c:if test="${orderNum != list.orderNum}">
+              <thead>
+                <tr>
+                  <th colspan="4" id="orderTable">주문번호  ${list.orderNum}
+                  
+<%-- 	 					 <c:forEach var="list2" items="${orderList2}" varStatus="status"> --%>
+<%--                      		 <c:if test="${list2.orderNum eq list.orderNum}"> --%>
+<%--                      		  <c:if test="${list2.pointAction==0}"> --%>
+<%--                      	   			사용 포인트	 ${list2.pointValue} --%>
+<%--             			  <c:set value="${list2.pointValue}" var="pointValue"></c:set> --%>
+<%--                      	    </c:if> --%>
+<%--                      	 	</c:if> --%>
+<%-- 			  			 </c:forEach> --%>
 
-			
-			<form>
-	<table class="table table-bordered" style="border-top: none; border-left: none;">
-              <thead style="border-top: none;">
-                <tr style="border-top: none;">
-                  <th  id="neamam" colspan="2">배송회원정보</th>
+<%-- 						 <c:forEach var="couponList" items="${couponList}" varStatus="status"> --%>
+<%--                     		 <c:if test="${couponList.orderNum eq list.orderNum}"> --%>
+<%--                     		  <c:if test="${couponList.couponAction==0}"> --%>
+<%--                     	   			사용한 쿠폰금액  ${couponList.volume} --%>
+<%--                     	    </c:if> --%>
+<%--                     	 	</c:if> --%>
+<%-- 		  			 	</c:forEach> --%>
+
+                   </th>
+                  <th id="orderTable">상태</th>
 				</tr>
-              </thead>
+              </thead> 
               <tbody>
-                <tr>
-                </tr>
-                <tr>
-                  <td class="neamam3">주문번호</td>
-                  <td>${list.orderNum}</td>
-                </tr> 
-                <tr>
-                  <td id="neamam2" class="neamam3">주문자</td>
-                  <td id="neamam2">${list.u_name}</td>
-                </tr>
-                <tr>
-                  <td class="neamam3">주문자휴대폰</td>
-                  <td>${list.phone_num}</td>
-                </tr>
-                <tr>
-                  <td class="neamam3">주문자 ID</td>
-                  <td>${list.order_id}</td>
-                </tr>
-                <tr>
-                  <td class="neamam3">주문자이메일</td>
-                  <td>${list.email}</td>
-                </tr>
-                <tr>
-                  <td class="neamam3">받으시는분</td>
-                  <td>${list.orderAddress}</td>
-                </tr>
-                <tr>
-                  <td class="neamam3">배송지</td>
-                  <td>${list.address2}</td>
-                </tr>
-                <tr>
-                  <td class="neamam3">요청사항</td>
-                  <td>요청사항</td>
-                </tr>
-   
-				</tbody>
-            </table>
-		</form>
-		  <c:set value="${list.orderNum}" var="orderNum"></c:set>
+<%--             			  <c:set value="${list.orderNum}" var="orderNum"></c:set> --%>
 			</c:if>
-			
-			
-	<table class="table table-bordered" style="border-top: none; table-layout: fixed;">
-              <thead style="border-right: none;">
-                <tr style="border-right: none;">
-<!--                   <th id="neamam" colspan="3">주문상품목록</th> -->
-				</tr>
-              </thead>
-              <tbody>
-              <tr>
-              <td id="neamam2">상품명      ${list.bookTitle}</td><td id="neamam2">가격</td><td id="neamam2">합계</td>
-              </tr>
                 <tr>
-                  <td style="vertical-align: middle; text-align: center;"> <img width="120px" height="160px" src="boardFile/${list.bookOriginImage}" alt=""/><br> 
-                  상품옵션:${list.bookTitle}  <b style="color: red;">${list.bookEA}개</b><br>
-                                           출판사: ${list.bookPublisher}<br>
-<!--                  가격 -->
-                               <c:set value="<%=point%>" var="point2"></c:set> 
-                 	<c:set value="${list.volume}" var="volume"></c:set> 
-                    <c:set value="${list.totalPrice-point2-couponInfo.volume}" var="total"></c:set> 
-                    <c:set value="${list.pointValue}" var="point"></c:set> 
-                  </td>
-                  
-                  <td style="text-align: center; vertical-align:middle;">
-          <span class="label label-important">금액</span><b style="font-size: 1.5em;">  ${list.bookPrice} 원</b><br>        
-          <span class="label label-success">쿠폰</span>    ${couponInfo.coupon_name} <br>
-<%--           <span class="label">포인트</span>    ${list.pointValue} <br> --%>
-<!--           <span class="label">배송비</span>    2500원 <br> -->
-               
-                   </td>
-                  <td style="text-align: center; vertical-align:middle;"> <b style="font-size: 1.5em;">${list.bookEA * list.bookPrice} 원</b>
-<%--                    ${list.pointValue}  --%>
-					<br>
-                     <span class="label">결제수단</span> ${list.paymentType}결제
-                  </td>
-                </tr>
-                  <tr>
-<!--                   <td colspan="3" style="text-align: right;">총 주문금액 : <b>원</b> -->
-                  </td>
-                </tr>
-				</tbody>
-            </table>
-		</c:forEach>
-       </c:if>  
-		
-		
-			<table class="table" style="border-top: none; table-layout: fixed; height: 200px;">
-              <thead style="border-right: none;">
-                 <tr style="border-top: none;">
-                  <th  id="neamam" colspan="2">결제 정보</th>
-				</tr>
-              </thead>
-              	<tbody>
-              	  <tr>
-                     <td id="neamam2"></td><td id="neamam2"></td> <td id="neamam2"></td> <td id="neamam2"></td> <td id="neamam2"></td>
-                 </tr>
-                 
-                 <tr>
-                     <td colspan="" id="" style="vertical-align: middle; ">
-				       <c:forEach var="list2" items="${orderDetailList2}" varStatus="status">
-                     		 <c:if test="${list2.orderNum eq orderNum}">
+<!--ㅡㅡ--------------ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ------------------------------------------------------    -->
+        	 <c:if test="${orderNum != list.orderNum}">  
+            <tr>
+            <td></td>
+            <td  style="border-left: none;"></td>
+            <td style="border-bottom: none;">
+            
+            	 <c:forEach var="list2" items="${orderList2}" varStatus="status"> 
+                     		 <c:if test="${list2.orderNum eq list.orderNum}">
                      		  <c:if test="${list2.pointAction==0}">
-				          <span class="label  label-info">포인트</span>  
-                     	   		${list2.pointValue}<br>
-                     	   	   </c:if>
-                     	   	   </c:if>
-                     </c:forEach>
-                      <span class="label label-success">쿠폰할인</span> <b style="font-size: 1.5em;">${couponInfo.volume}</b>원 <br>
-<!-- 				      <span class="label">배송비</span>    2500원 <br> -->
-                   </td>
-                 
-                    <td>
-                   </td>
-                   
-                    <td colspan="3" style="text-align: center; vertical-align: middle; background-color:#f6f7f8; font: 1.5em" >  <span class="label label-important">총 주문 금액</span>  : <b style="color: red; font-size: 1.5em;">  ${total} </b>원
-                  </td>
-<!--                    <td style="text-align: center; vertical-align: middle;"><b></b></td> -->
-                </tr>
-                
-                 
+                     	   		<span class="label  label-info">사용포인트</span>	 ${list2.pointValue}
+            			  <c:set value="${list2.pointValue}" var="pointValue"></c:set>
+                     	    </c:if>
+                     	 	</c:if>
+			  			 </c:forEach>
+						<br>
+						 <c:forEach var="couponList" items="${couponList}" varStatus="status">
+                    		 <c:if test="${couponList.orderNum eq list.orderNum}">
+                    		  <c:if test="${couponList.couponAction==0}">
+                    	   			<span class="label label-success">사용쿠폰</span>  ${couponList.volume}
+                    	    </c:if>
+                    	 	</c:if>
+		  			 	</c:forEach>
+            
+            
+            </td>
+            <td style="border-bottom: none;" colspan="1"></td>
+            <td  style="border-left: none;" ></td>
+            	  <c:set value="${list.orderNum}" var="orderNum"></c:set>
+            </tr>
+            	</c:if>
+
+                  <td> <img width="80px" height="100px" src="boardFile/${list.bookOriginImage}" alt=""/></td>
+                  <td style="border-left: none;">상품명:${list.bookTitle}<br>상품옵션:어쩌구<br>번호:${list.orderNum}<br>주문일시:${list.orderTime}</td>
                   
-                
+                  <td style="border-top:none;">
+                    <br><span class="label label-important">총금액</span>${(list.bookPrice*list.bookEA)-list.volume}원</td>
+                    
+                  <td>
+                   <div class="btn2"><a href="OrderDetail.mo?orderNum=${list.orderNum}&point=${pointValue}">주문내역</a></div>
+                <c:if test="${list.orderStatus != '구매완료'}"><div class="btn2"><a href="" onClick="javascript:openWin3(${list.orderDetailCode})">배송조회</a></div></c:if>  
+                <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin(${list.orderDetailCode})">반품신청</a></div></c:if>
+                <c:if test="${list.orderStatus eq '배송완료' or list.orderStatus eq '결제확정' or list.orderStatus eq '배송중'}"><div class="btn2"><a href="" onClick="javascript:openWin2(${list.orderDetailCode})">교환신청</a></div></c:if>  
+                <c:if test="${list.orderStatus eq '확정'}"><div class="btn2"><a href="" id="orderConFrim">상품후기쓰기</a></div></c:if>  
+                  </td>
+                  
+                 <td>
+                 <div class="btn2" style="background-color: #9988;">${list.orderStatus}</div>
+															<!--                  결제취소 아직 구현안함 -->
+                  <c:if test="${list.orderStatus eq '결제완료'}"><div class="btn2"  onClick="javascript:orderCanCel()"><a href="OrderCancelPro.mo?orderNum=${list.orderNum}" id="orderCanCel">결제취소</a></div> </c:if>  
+                  <c:if test="${list.orderStatus eq '배송완료'}"><div class="btn2" ><a href="OrderConFirmPro.mo?orderNum=${list.orderNum}" >구매확정완료</a></div> </c:if>
+                  <c:if test="${list.orderStatus eq '반품'}"><div class="btn2">반품처리중</div> </c:if>   
+                  <c:if test="${list.orderStatus eq '교환'}"><div class="btn2">교환처리중</div> </c:if>
+                  <c:if test="${list.orderStatus eq '취소'}"><div class="btn2">결제취소처리중</div> </c:if>    
+                 </td>
+                </tr>
+              
+      
+            
+            
 				</tbody>
             </table>
-		
-		 
+             
+		</c:forEach>
+</c:if>
+
+
+
+
+		   
+            <table class="table table-bordered">
+			<tbody>
+				<!--  <tr>
+                  <td>  -->
+			<!-- 	<form class="form-horizontal">
+				<div class="control-group">
+				<label class="control-label"><strong> VOUCHERS CODE: </strong> </label>
+				<div class="controls">
+				<input type="text" class="input-medium" placeholder="CODE">
+				<button type="submit" class="btn"> ADD </button>
+				</div>
+				</div>
+				</form> -->
+			<!-- 	</td>
+                </tr> -->
+				
+			</tbody>
+			</table>
+			
+		<!-- 	<table class="table table-bordered">
+			 <tr><th>ESTIMATE YOUR SHIPPING </th></tr>
+			 <tr> 
+			 <td>
+				<form class="form-horizontal">
+				  <div class="control-group">
+					<label class="control-label" for="inputCountry">Country </label>
+					<div class="controls">
+					  <input type="text" id="inputCountry" placeholder="Country">
+					</div>
+				  </div>
+				  <div class="control-group">
+					<label class="control-label" for="inputPost">Post Code/ Zipcode </label>
+					<div class="controls">
+					  <input type="text" id="inputPost" placeholder="Postcode">
+					</div>
+				  </div>
+				  <div class="control-group">
+					<div class="controls">
+					  <button type="submit" class="btn">ESTIMATE </button>
+					</div>
+				  </div>
+				</form>				  
+			  </td>
+			  </tr>
+            </table>		 -->
 <!-- 	<a href="products.html" class="btn btn-large"><i class="icon-arrow-left"></i> Continue Shopping </a> -->
-	<a href="login.html" class="btn btn-large pull-right">Next <i class="icon-arrow-right"></i></a>
 	
 </div>
 </div></div>

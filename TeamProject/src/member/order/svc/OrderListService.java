@@ -70,16 +70,12 @@ public class OrderListService {
 		 Connection con = getConnection();
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
-		   
+		
 		List<OrderBean> orderList = orderDAO.orderList();
 //		System.out.println("orderList : " + orderList);
 		close(con);
 		return orderList;	
-	} 
-	
-		
-
-
+	}
 	
 		public ArrayList<OrderBean> orderBookTotal(HttpServletRequest request, String orderNum) {
 		
@@ -105,6 +101,27 @@ public class OrderListService {
 			close(con);
 			
 			return order;
+		}
+
+
+		//배송중만 
+		public List<OrderBean> getDeliveryList(String uId) {
+			 Connection con = getConnection();
+				OrderDAO orderDAO = OrderDAO.getInstance();
+				orderDAO.setConnection(con);
+				List<OrderBean> getDeliveryList = orderDAO.getDeliveryList(uId);
+				close(con);
+			return getDeliveryList;
+		}
+
+		//취소반품교환
+		public List<OrderBean> getorderCanCelReFundExCangeList(String uId) {
+			 Connection con = getConnection();
+			OrderDAO orderDAO = OrderDAO.getInstance();
+			orderDAO.setConnection(con);
+			List<OrderBean> getorderCanCelReFundExCangeList = orderDAO.getorderCanCelReFundExCangeList(uId);
+			close(con);
+		return getorderCanCelReFundExCangeList;
 		}
 
 }

@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import member.order.action.ExchangeFormAction;
 import member.order.action.ExchangeProAction;
+import member.order.action.OrderCanCelReFundExCangeListAction;
 import member.order.action.OrderCancelFormAction;
 import member.order.action.OrderCancelProAction;
 import member.order.action.OrderConFirmProAction;
 import member.order.action.OrderDeliveryAction;
 import member.order.action.OrderDeliveryFormAction;
+import member.order.action.OrderDeliveryListAction;
 import member.order.action.OrderDetailAction;
 import member.order.action.OrderListAction;
 import member.order.action.OrderListCanCelAction;
@@ -45,6 +47,27 @@ public class MemberOrderController extends HttpServlet {
 	if (command.equals("/OrderList.mo")) {//상품구매리스트
 		action = new OrderListAction();
 		
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/OrderListCanCel.mo")) {// orderCanCel List
+		action = new OrderListCanCelAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/OrderListDelivery.mo")) {// orderCanCel List
+		action = new OrderDeliveryListAction();
+		try {
+			forward=action.execute(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}else if(command.equals("/OrderListCRE.mo")) {// orderCanCel List
+		action = new OrderCanCelReFundExCangeListAction();
 		try {
 			forward=action.execute(request, response);
 		} catch (Exception e) {

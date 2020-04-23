@@ -849,6 +849,54 @@ public class BookDAO {
 	
 
 
+	// 전체 책 목록을 위해 가져오기 
+			public ArrayList<BookBean> selectUserBookAllList(int page, int limit) {
+				ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+				PreparedStatement pstmt = null;
+		        ResultSet rs = null;
+		        String sql = "SELECT * FROM book join bookkategorie "
+		        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bookisView=true ORDER BY bookID DESC LIMIT ?,?";
+		        BookBean book = null;
+		        
+		        int startRow = (page - 1) * limit;
+		        
+		        try {
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, startRow);
+					pstmt.setInt(2, limit);
+					rs = pstmt.executeQuery();
+					while(rs.next()) {
+						book = new BookBean(
+								rs.getInt("bookID"), 
+		                        rs.getString("bookTitle"), 
+		                        rs.getString("bookOriginImage"), 
+		                        rs.getString("bookImage"), 
+		                        rs.getString("bookPublisher"), 
+		                        rs.getDate("bookPublishedDate"), 
+		                        rs.getInt("bookPrice"), 
+		                        rs.getInt("bookEA"), 
+		                        rs.getInt("salesVolume"),
+		                        rs.getString("bookIntroduce"), 
+		                        rs.getBoolean("bookisView"), 
+		                        rs.getFloat("saveRatio"),
+		                        rs.getInt("bookKategorie_BKID"),
+		                        rs.getString("BK1"),
+		                        rs.getString("BK2"),
+		                        rs.getString("BK3")
+		                        );
+						bookList.add(book);
+						
+					}
+		        } catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+		            if(rs != null) {close(rs);}
+		            if(pstmt != null) {close(pstmt);}
+		        }
+		        
+				return bookList;
+			}
+
 	
 
 

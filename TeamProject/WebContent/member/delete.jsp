@@ -96,6 +96,15 @@
 			element.innerHTML = "적합하지 않은 패스워드";
 		}
 	}
+	
+	
+	
+	function deleteuser(){  
+
+		alert("탈퇴 하시겠습니까?");
+	}  
+	
+	
 </script>	
   </head>
 <body>
@@ -147,7 +156,7 @@ if(uID==null){%>
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.ㅓ네"><img src="themes/images/logo.png" alt="Bookshop"/></a>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png" alt="Bookshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -233,7 +242,7 @@ if(uID==null){%>
 		 <div class="control-group">
 			<label class="control-label" for="inputPassword" style="position: relative; top: 2px; left: 90px">비밀번호 <sup></sup></label>
 			<div class="controls">
-			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)" required="required" style="position: relative; top: -18px; left: 90px"><button type="submit" id="submitButton" class="btn btn-primary" style="margin:20px; position: relative; top: -18px; left: 90px">확인</button>
+			  <input type="password" id="inputPassword"  name="pw" placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)" required="required" style="position: relative; top: -18px; left: 90px"><button onClick="javascript:deleteuser()" type="submit" id="submitButton" class="btn btn-primary" style="margin:20px; position: relative; top: -18px; left: 90px">확인</button>
 			  <span id="checkPasswdResult"></span>
 			</div>
 		 </div>

@@ -21,7 +21,7 @@ import vo.ActionForward;
 import vo.MemberBean;
 import vo.OrderBean;
 
-public class OrderListAction implements Action {
+public class OrderCanCelReFundExCangeListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -179,11 +179,8 @@ public class OrderListAction implements Action {
 			request.setAttribute("deliveryList",deliveryList); //배송중
 			request.setAttribute("orderCanCelReFundExCange",orderCanCelReFundExCange); //교환취소반품
 			
-			System.out.println("멤버등급찍기"+memberinfo.getGrade());
-			
-		
 		forward = new ActionForward();
-		forward.setPath("mypage.jsp");
+		forward.setPath("member/orderCanCelReFundExCange.jsp");
 		return forward;
 	
 	}

@@ -19,7 +19,7 @@ import vo.ActionForward;
 import vo.MemberBean;
 import vo.OrderBean;
 
-public class SearchProAction implements Action {
+public class SearchProCanCelAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -39,12 +39,9 @@ public class SearchProAction implements Action {
 		List<OrderBean> orderList2 = new ArrayList<OrderBean>();
 		SearchProService searchProService = new SearchProService();
 		
-		
+		orderList = new ArrayList<OrderBean>();
+		orderList=searchProService.getSearchOrderCanCelList(startDate, endDate, uId); //취소주문검색
 			
-			
-			orderList=searchProService.getSearchOrderList(startDate,endDate,uId); //그냥 주문 검색
-		
-		
 		
 		
 		orderList2=orderListService.getMypagePointInfo(uId);//포인트
@@ -127,15 +124,13 @@ public class SearchProAction implements Action {
 				request.setAttribute("couponRealCount",couponCount); //상단에 표시되는 개수 
 		
 		
-		
-		
 		request.setAttribute("couponList",couponList); //쿠폰
 		request.setAttribute("orderList2",orderList2); // 포인트s
 		request.setAttribute("memberinfo",memberinfo); //멤버정보
 		request.setAttribute("orderList",orderList);
 		
 		forward = new ActionForward();
-		forward.setPath("mypage.jsp");
+		forward.setPath("member/orderCancelList.jsp");
 		
 		return forward;
 	}

@@ -20,6 +20,7 @@ import member.book.action.CartQtyChangeAction;
 import member.book.action.CartRemoveAction;
 import member.book.action.BookDetailAction;
 import member.book.action.BookLikeProAction;
+import member.book.action.BookListALLAcion;
 import member.book.action.BookListAcion;
 import member.book.action.BookSearchListAcion;
 import member.book.action.QDeleteProAction;
@@ -74,6 +75,13 @@ public class MemberBookController extends HttpServlet {
 			}
 		} else if(command.equals("/BookList.book")) {
 			action = new BookListAcion();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/BookListALL.book")) {
+			action = new BookListALLAcion();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

@@ -25,11 +25,7 @@ public class SearchProService {
 		dao.setConnection(con);
 		
 		
-		
-		
 		ArrayList<OrderBean> orderList = dao.getOrderList(startDate,endDate,uId);
-		
-		
 		close(con);
 		
 		
@@ -38,7 +34,19 @@ public class SearchProService {
 		
 		
 		
+	}
+
+	public List<OrderBean> getSearchOrderCanCelList(String startDate, String endDate, String uId) {
 		
+		Connection con = getConnection();
+		OrderDAO dao = OrderDAO.getInstance();
+		dao.setConnection(con);
+
+		ArrayList<OrderBean> orderList = dao.getOrderCenCelList(startDate,endDate,uId);
+		
+		close(con);
+		
+		return orderList;
 	}
 	
 	

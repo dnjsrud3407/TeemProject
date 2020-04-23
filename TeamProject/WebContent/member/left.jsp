@@ -22,6 +22,8 @@
 				<li><a class="active" href="OrderList.mo"><i class="icon-chevron-right"></i>주문내역 </a></li>
 <!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>배송현황</a></li> -->
 				<li><a href="OrderListCanCel.mo"><i class="icon-chevron-right"></i>취소한 주문</a></li>
+				<li><a href="OrderListCRE.mo"><i class="icon-chevron-right"></i>교환/반품/취소</a></li>
+				<li><a href="OrderListDelivery.mo"><i class="icon-chevron-right"></i>배송중</a></li>
 <!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>반품한 주문</a></li> -->
 <!-- 				<li><a href="products.html"><i class="icon-chevron-right"></i>교환중인 상품</a></li> -->
 				</ul>

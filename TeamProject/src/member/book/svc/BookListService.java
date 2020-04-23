@@ -59,6 +59,20 @@ public class BookListService {
 		return listCount;
 	}
 
+//전체 책 조회
+	public ArrayList<BookBean> getAllBookList(int page, int limit) {
+	ArrayList<BookBean> bookAllList = null;
+		
+		Connection con = getConnection();
+		BookDAO bookDAO = BookDAO.getInstance();
+		bookDAO.setConnection(con);
+		
+		bookAllList=bookDAO.selectUserBookList(page,limit);
+		
+		close(con);
+		return bookAllList;
+	}
+
 	
 
 }

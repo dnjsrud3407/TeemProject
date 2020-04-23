@@ -1165,4 +1165,226 @@ public OrderDAO() {}
 
 		}
 
+		
+		public ArrayList<OrderBean> getOrderCenCelList(String startDate, String endDate, String uId) {
+			System.out.println("OrderDAO.getOrderCenCelList(String startDate, String endDate, String uId)");
+			System.out.println(startDate+","+endDate);
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<OrderBean> orderList = null;
+
+			try {
+				String sql = 
+								  "select *\n" + 
+								  "from order_detail orderD join book book\n" + 
+								  "on orderD.bookID = book.bookID\n" + 
+								  "join order_tb tb\n" + 
+								  "on tb.orderNum = orderD.orderNum\n" + 
+								  "join user user\n" + 
+								  "on tb.order_ID = user.uID\n" + 
+								  "join couponhistory coponH\n" + 
+								  "on coponH.num = tb.couponHistory_num\n" + 
+								  "join coupon cp\n" + 
+								  "on coponH.cID = cp.cID\n" + 
+								  "where tb.order_ID=? and tb.orderStatus='취소완료' and tb.orderTime >=? and tb.orderTime <= date_add(?,interval 1 day)";
+				
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, uId);
+						pstmt.setString(2, startDate);
+						pstmt.setString(3, endDate);
+						rs = pstmt.executeQuery();
+						
+						OrderBean orderBean = null;
+						orderList = new ArrayList<OrderBean>();
+
+				while (rs.next()) {
+
+					orderBean = new OrderBean(
+							rs.getString("orderNum"),
+							rs.getString("order_ID"),
+							rs.getInt("bookEA"),
+							rs.getDate("orderTime"),
+							rs.getString("orderStatus"),
+							rs.getString("orderAddress"),
+							rs.getInt("bookID"),
+							rs.getString("bookTitle"),
+							rs.getString("bookOriginImage"),
+							rs.getString("bookPublisher"),
+							rs.getInt("bookPrice"),
+							rs.getString("u_name"),
+							rs.getString("address2"),
+							rs.getString("phone_num"),
+							rs.getString("tell_num"),
+							rs.getString("email"),
+							rs.getString("coupon_name"),
+							rs.getString("couponStatus"),
+							rs.getString("orderRec"),
+							rs.getInt("orderDetailCode"),
+							rs.getInt("bookKategorie_BKID"),
+							rs.getString("paymentType"),
+							rs.getString("bookIntroduce"),
+							rs.getFloat("saveRatio"),
+							rs.getInt("volume"),
+							rs.getInt("couponAction")
+							)
+							 ;
+					orderList.add(orderBean);
+				}
+				
+				if (rs.next()==false) {
+					System.out.println("가져올 데이터 없음");
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return orderList;
+		}
+
+		
+		//배송중
+		public List<OrderBean> getDeliveryList(String uId) {
+			System.out.println("OrderDAO.getOrderList(uId)");
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<OrderBean> orderList = null;
+			String orderNum="";
+
+			try {
+				String sql = 
+
+						"select * \n" + 
+						"from order_detail orderD join book book\n" + 
+						"on orderD.bookID = book.bookID\n" + 
+						"join order_tb tb\n" + 
+						"on tb.orderNum = orderD.orderNum\n" + 
+						"join user user\n" + 
+						"on tb.order_ID = user.uID\n" + 
+						"where tb.order_ID=? and tb.orderStatus='배송중' ";
+				
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, uId);
+						rs = pstmt.executeQuery();
+						
+						OrderBean orderBean = null;
+						orderList = new ArrayList<OrderBean>();
+
+				while (rs.next()) {
+
+					 orderBean = new OrderBean(
+							rs.getString("orderNum"),
+							rs.getString("order_ID"),
+							rs.getInt("bookEA"),
+							rs.getDate("orderTime"),
+							rs.getString("orderStatus"),
+							rs.getString("orderAddress"),
+							rs.getInt("bookID"),
+							rs.getString("bookTitle"),
+							rs.getString("bookOriginImage"),
+							rs.getString("bookPublisher"),
+							rs.getInt("bookPrice"),
+							rs.getString("u_name"),
+							rs.getString("address2"),
+							rs.getString("phone_num"),
+							rs.getString("tell_num"),
+							rs.getString("email"),
+							rs.getString("orderRec"),
+							rs.getInt("orderDetailCode"),
+							rs.getInt("bookKategorie_BKID"),
+							rs.getString("paymentType"),
+							rs.getString("bookIntroduce"),
+							rs.getFloat("saveRatio")
+							 );
+					orderList.add(orderBean);
+				}
+				
+				for (int i = 0; i < orderList.size(); i++) {
+					System.out.println(orderList.get(i).getOrderNum());
+				}
+
+					
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return orderList;
+		}
+
+		
+		//반품교환
+		public List<OrderBean> getorderCanCelReFundExCangeList(String uId) {
+
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			ArrayList<OrderBean> orderList = null;
+			String orderNum="";
+
+			try {
+				String sql = 
+
+						"select * \n" + 
+						"from order_detail orderD join book book\n" + 
+						"on orderD.bookID = book.bookID\n" + 
+						"join order_tb tb\n" + 
+						"on tb.orderNum = orderD.orderNum\n" + 
+						"join user user\n" + 
+						"on tb.order_ID = user.uID\n" + 
+						"where tb.order_ID=? and tb.orderStatus='반품완료' or tb.orderStatus='반품요청' or tb.orderStatus='교환요청' or tb.orderStatus='교환완료' or tb.orderStatus='취소요청' or tb.orderStatus='취소완료'";
+				
+						pstmt = con.prepareStatement(sql);
+						pstmt.setString(1, uId);
+						rs = pstmt.executeQuery();
+						
+						OrderBean orderBean = null;
+						orderList = new ArrayList<OrderBean>();
+
+				while (rs.next()) {
+
+					 orderBean = new OrderBean(
+							rs.getString("orderNum"),
+							rs.getString("order_ID"),
+							rs.getInt("bookEA"),
+							rs.getDate("orderTime"),
+							rs.getString("orderStatus"),
+							rs.getString("orderAddress"),
+							rs.getInt("bookID"),
+							rs.getString("bookTitle"),
+							rs.getString("bookOriginImage"),
+							rs.getString("bookPublisher"),
+							rs.getInt("bookPrice"),
+							rs.getString("u_name"),
+							rs.getString("address2"),
+							rs.getString("phone_num"),
+							rs.getString("tell_num"),
+							rs.getString("email"),
+							rs.getString("orderRec"),
+							rs.getInt("orderDetailCode"),
+							rs.getInt("bookKategorie_BKID"),
+							rs.getString("paymentType"),
+							rs.getString("bookIntroduce"),
+							rs.getFloat("saveRatio")
+							 );
+					orderList.add(orderBean);
+				}
+				
+				for (int i = 0; i < orderList.size(); i++) {
+					System.out.println(orderList.get(i).getOrderNum());
+				}
+
+					
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			return orderList;
+		}
 }

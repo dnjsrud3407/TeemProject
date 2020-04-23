@@ -21,7 +21,7 @@ import vo.ActionForward;
 import vo.MemberBean;
 import vo.OrderBean;
 
-public class OrderListAction implements Action {
+public class OrderDeliveryListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -183,7 +183,7 @@ public class OrderListAction implements Action {
 			
 		
 		forward = new ActionForward();
-		forward.setPath("mypage.jsp");
+		forward.setPath("member/orderDeliveryList.jsp");
 		return forward;
 	
 	}
