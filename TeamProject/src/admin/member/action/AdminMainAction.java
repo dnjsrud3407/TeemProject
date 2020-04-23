@@ -1,6 +1,7 @@
 package admin.member.action;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,7 +39,41 @@ public class AdminMainAction implements Action {
 		orderList.add(orderCompListService.getOrderCount(orderStatus));
 		
 		
-		// ============================ 이번달 매출현황
+		// =================================달별 매출현황====================================
+		
+		// 출력할 월 정보 (12개) : 이번달-1 ~ 작년 이번달까지 (출력하는 것과 값이 거꾸로 나온다) -> jsp 에서 값 바꿔줌
+		// ex) 현재 4월
+		// 3,2,1,12,11,10,9,8,7,6,5,4
+		ArrayList<Integer> monthList = new ArrayList<Integer>();
+		Calendar cal = Calendar.getInstance();
+		for (int i = 0; i < 12; i++) {
+			if ((cal.get(cal.MONTH)-i) > 0) {
+				monthList.add((cal.get(cal.MONTH)-i));
+			} else {
+				monthList.add(12 + (cal.get(cal.MONTH)-i));
+			}
+		}
+		
+		
+		// 달별 매출 현황 (출력하는 것과 값이 거꾸로 나온다) -> jsp 에서 값 바꿔줌
+		ArrayList<Integer> monthCasheList = new ArrayList<Integer>();
+		int year = cal.get(cal.YEAR);
+		int monthTotal = 0;
+		for (int i = 0; i < monthList.size(); i++) {
+			if (monthList.get(i) == 12) {
+				year -= 1;
+			}
+			monthTotal = orderCompListService.orderComplList(year, monthList.get(i));
+			monthCasheList.add(monthTotal);
+		}
+		
+		for (int i = 0; i < monthList.size(); i++) {
+			System.out.println(monthList.get(i) + " : " + monthCasheList.get(i));
+		}
+		 	
+		
+		// ================================================================================
+		// ============================ 매출현황
 		ArrayList<Integer> salesCasheList = new ArrayList<Integer>();
 
 		// -- 총 금액 구하기
@@ -59,9 +94,7 @@ public class AdminMainAction implements Action {
 		salesCasheList.add(cashe - cancelCashe);
 		// ================================================================================
 		
-		// 달별 매출 통계
-		
-		
+			
 		// 공지사항 5개
 		kID = 100;
 		ArrayList<BoardBean> noticeList = adminMainService.getNaEBoardList(kID, page, limit);
@@ -74,6 +107,8 @@ public class AdminMainAction implements Action {
 		
 		
 		// request 파라미터 넘기기
+		request.setAttribute("monthList", monthList);
+		request.setAttribute("monthCasheList", monthCasheList);
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("salesCasheList", salesCasheList);
 		request.setAttribute("bookEAList", bookEAList);

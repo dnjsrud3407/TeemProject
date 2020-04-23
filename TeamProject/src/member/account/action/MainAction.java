@@ -17,6 +17,9 @@ public class MainAction implements Action {
 		ActionForward forward = null;
 		MiddleBookService middleBookService = new MiddleBookService();  
 		
+		// main에서 배너 뿌려줌
+		
+		
 		// main에서 새로운 책 들고옴 - 중앙 배너에 사용
 		ArrayList<BookBean> bookList = middleBookService.getMiddleBookList();
 		

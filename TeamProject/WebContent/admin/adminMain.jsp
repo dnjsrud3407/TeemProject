@@ -43,6 +43,147 @@ function getBoard(type) {
 		  }
 	  });
 }
+
+
+// =============================  
+// 매출 통계
+$(document).ready(function() {
+	// 달 정보 가져오기
+	var monthArr = new Array();
+	var id = ""; var index = 0;
+	for(var i = 11; i >= 0; i--) {
+		id = "#month" + i;
+		monthArr[index] = $(id).val();
+		index = index + 1;
+	}
+	// 달 별 매출 
+	var monthCasheArr = new Array();
+	var id = ""; var index = 0;
+	for(var i = 11; i >= 0; i--) {
+		id = "#monthCashe" + i;
+		monthCasheArr[index] = parseInt($(id).val());
+		index = index + 1;
+	}
+	
+// 	alert(monthArr[0]);
+	var ctx = document.getElementById("myAreaChart");
+	var myLineChart = new Chart(ctx, {
+	  type: 'line',
+	  data: {
+	    labels: [monthArr[0], monthArr[1], monthArr[2], monthArr[3], monthArr[4], monthArr[5], monthArr[6], monthArr[7], monthArr[8], monthArr[9], monthArr[10], monthArr[11]],
+	    datasets: [{
+	      label: "총 매출",
+	      lineTension: 0.3,
+	      backgroundColor: "rgba(78, 115, 223, 0.05)",
+	      borderColor: "rgba(78, 115, 223, 1)",
+	      pointRadius: 3,
+	      pointBackgroundColor: "rgba(78, 115, 223, 1)",
+	      pointBorderColor: "rgba(78, 115, 223, 1)",
+	      pointHoverRadius: 3,
+	      pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+	      pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+	      pointHitRadius: 10,
+	      pointBorderWidth: 2,
+	      data: [monthCasheArr[0], monthCasheArr[1], monthCasheArr[2], monthCasheArr[3], monthCasheArr[4], monthCasheArr[5], monthCasheArr[6], monthCasheArr[7], monthCasheArr[8], monthCasheArr[9], monthCasheArr[10], monthCasheArr[11]],
+	    }],
+	  },
+	  options: {
+	    maintainAspectRatio: false,
+	    layout: {
+	      padding: {
+	        left: 10,
+	        right: 25,
+	        top: 25,
+	        bottom: 0
+	      }
+	    },
+	    scales: {
+	      xAxes: [{
+	        time: {
+	          unit: 'date'
+	        },
+	        gridLines: {
+	          display: false,
+	          drawBorder: false
+	        },
+	        ticks: {
+	          maxTicksLimit: 7
+	        }
+	      }],
+	      yAxes: [{
+	        ticks: {
+	          maxTicksLimit: 5,
+	          padding: 10,
+	          // Include a dollar sign in the ticks
+	          callback: function(value, index, values) {
+	            return number_format(value) + '원';
+	          }
+	        },
+	        gridLines: {
+	          color: "rgb(234, 236, 244)",
+	          zeroLineColor: "rgb(234, 236, 244)",
+	          drawBorder: false,
+	          borderDash: [2],
+	          zeroLineBorderDash: [2]
+	        }
+	      }],
+	    },
+	    legend: {
+	      display: false
+	    },
+	    tooltips: {
+	      backgroundColor: "rgb(255,255,255)",
+	      bodyFontColor: "#858796",
+	      titleMarginBottom: 10,
+	      titleFontColor: '#6e707e',
+	      titleFontSize: 14,
+	      borderColor: '#dddfeb',
+	      borderWidth: 1,
+	      xPadding: 15,
+	      yPadding: 15,
+	      displayColors: false,
+	      intersect: false,
+	      mode: 'index',
+	      caretPadding: 10,
+	      callbacks: {
+	    	title: function (tooltipItem, chart) {
+				return ;
+			},
+	        label: function(tooltipItem, chart) {
+	          return chart['labels'][tooltipItem['index']] + "월 : " + number_format(tooltipItem.yLabel) + '원';
+	        }
+	      }
+	    }
+	  }
+	});
+	
+});
+function number_format(number, decimals, dec_point, thousands_sep) {
+	  // *     example: number_format(1234.56, 2, ',', ' ');
+	  // *     return: '1 234,56'
+	  number = (number + '').replace(',', '').replace(' ', '');
+	  var n = !isFinite(+number) ? 0 : +number,
+	    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+	    sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+	    dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+	    s = '',
+	    toFixedFix = function(n, prec) {
+	      var k = Math.pow(10, prec);
+	      return '' + Math.round(n * k) / k;
+	    };
+	  // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+	  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+	  if (s[0].length > 3) {
+	    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+	  }
+	  if ((s[1] || '').length < prec) {
+	    s[1] = s[1] || '';
+	    s[1] += new Array(prec - s[1].length + 1).join('0');
+	  }
+	  return s.join(dec);
+	}
+
+	
 </script>
 <body id="page-top">
 
@@ -179,7 +320,12 @@ function getBoard(type) {
                 <div class="card-body">
                   <div class="chart-area">
                     <canvas id="myAreaChart"></canvas>
-<!--                     <input type="hidden" id="iii" value="11111"> -->
+                    <c:forEach var="month" items="${monthList }" varStatus="status">
+                    	<input type="hidden" id="month${status.index }" value="${month }">
+                    </c:forEach>
+                    <c:forEach var="monthCashe" items="${monthCasheList }" varStatus="status">
+                    	<input type="hidden" id="monthCashe${status.index }" value="${monthCashe }">
+                    </c:forEach>
                   </div>
                 </div>
               </div>
@@ -308,21 +454,21 @@ function getBoard(type) {
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="admin/vendor/jquery/jquery.min.js?ver=1"></script>
-  <script src="admin/vendor/bootstrap/js/bootstrap.bundle.min.js?ver=1"></script>
+  <script src="./vendor/jquery/jquery.min.js"></script>
+  <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="admin/vendor/jquery-easing/jquery.easing.min.js?ver=1"></script>
+  <script src="./vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="admin/js/sb-admin-2.min.js?ver=1"></script>
+  <script src="./js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="admin/vendor/chart.js/Chart.min.js?ver=1"></script>
+  <script src="./vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="admin/js/demo/chart-area-demo.js?ver=1"></script>
-  <script src="admin/js/demo/chart-pie-demo.js?ver=1"></script>
+<!--   <script src="./js/demo/chart-area-demo.js"></script> -->
+<!--   <script src="./js/demo/chart-pie-demo.js"></script> -->
 </body>
 
 </html>
