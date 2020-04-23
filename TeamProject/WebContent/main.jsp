@@ -41,84 +41,150 @@
   <style type="text/css">
   
   #menu {
-	color: #4D84AB;
+
     height: 50px;
-	font-size: 1.1em;
-    background: #4D84AB;
-    border: 1px solid #4D84AB;
-    box-sizing: content-box;
-	}
-.main1 {
-    width: 600px;
-    height: 100%;
-    margin: 0 auto;
+
+    background: #333;
+
 }
+
+
+
+.main1 {
+
+    width: 600px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+}
+
 ul.main3 {
     position: absolute;
+    /* left: auto; */
     margin-bottom: -20px;
     margin-left: -2px;
 }
+
+
 .main1>li {
+
     float: left;
+
     width: 20%;
+
     line-height: 50px;
+
     text-align: center;
+
     position: relative;
+
 }
+
+
+
 .main1>li:hover .main2 {
+
     left: 0;
+
 }
+
+
+
 .main1>li a {
+
     display: block;
+
 }
+
+
+
 .main1>li a:hover {
-    background: #ffffff;
-    text-decoration: none;
-    color: #4D84AB;
+
+    background: #B21016;
+
+    color: #fff;
+
     font-weight: bold;
+
 }
+
 li>a{ color: #fff; }
+
 .main2 {
+
     position: absolute;
+
     top: 50px;
+
     left: -9999px;
-	color: #4D84AB;
-    background: #ffffff;
-    border: 1px solid #4D84AB;
-    width: 130%;
+
+    background: #ccc;
+
+    width: 120%;
+
 }
+
+
 .main2>li {
+
     position: relative;
+
 }
+
 .main2>li:hover .main3 {
+
     left: 100%;
+
 }
+
 .main2>li a, .main3>li a {
-	color: #4D84AB;
+
+    border-radius: 10px;
+
     margin: 10px;
+
 }
-.main2>li a:hover {
-	color: #4D84AB;
-	text-decoration: underline;
-}
+
 .main3 {
     position: absolute;
+
     top: 0;
-	border: 1px solid #4D84AB;
-    background: #ffffff;
-    color: #4D84AB;
+
+    background: #6BD089;
+
+    width: 120%;
+
     left: -9999px;
-    width: 130%;
-    margin-right: 5px;
+
+    /*left: 100%;*/
+
+    /*display: none;*/
 }
+
+
 .main3>li a:hover {
-    background: #ffffff;
-    color: #4D84AB;
+
+    background: #085820;
+
+    color: #fff;
+
 }
+
+
+
 ul{
+
     list-style:none;
+
     list-style-type:none;
-} 
+
+    } 
+
+
+
+  
   </style>
   
   
@@ -178,20 +244,42 @@ ul{
 	    	<c:if test="${sessionScope.uID.equals('admin')}">
 <!-- 		    <a href="AdminMain.adm">관리자</a> | -->
 		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
+		    
 		    <c:if test="${sessionScope.uID ne null}">
 	        </c:if>
 	        <c:if test="${sessionScope.uID eq null}">
 	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
+	         <c:if test="${sessionScope.uID ne null}"> 
+		        <a href="LogoutPro.me">로그아웃</a> |
+		    </c:if>
 	        <a href="OrderList.mo">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a>
+		    <c:if test="${sessionScope.uID eq null}">
+		       <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
+		    </c:if>
+		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3>Login Block</h3>
+		  </div>
+		  <div class="modal-body">
+			<form action="./LoginPro.me" class="form-horizontal loginFrm" method="post">
+			  <div class="control-group">								
+				<input type="text" id="inputId" name="uID" placeholder="Id">
+			  </div>
+			  <div class="control-group" style="margin-bottom: 20px;">
+				<input type="password" id="inputPassword" name="pw" placeholder="Password">
+			  </div>
+			 
+			<button type="submit" class="btn btn-success">로그인</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">로그인 취소</button>
+			<a href="FindId.me" class="btn">아이디 찾기</a>
+			<a href="FindPass.me" class="btn">비밀번호 찾기</a>
+			</form>		
+		  </div>
+	</div> 
 	    </div>
     </div>
 </div>
@@ -201,14 +289,178 @@ ul{
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
+
+    <ul id="topMenu" class="nav">
+     <li><a href="">로드맵</a></li>
+     <li><a href="BookList.book">교재구매</a></li>
+     <li><a href="Event.adb">이벤트</a></li>
+     <li><a href="FAQList.bo">FAQ</a></li>
+
     </div>
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 
     
 <div id="menu" style="position: relative; left:10px; z-index: 1;">
-    <jsp:include page="./inc/nav.jsp"></jsp:include>
+
+    <ul class="main1" >
+
+        <li><a href="BookListALL.book">전체 교재</a>
+
+            <ul class="main2">
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴1</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴2</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴3</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+<!--                 <li><a href="#">교재구매3</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴4</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴5</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴6</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+            </ul>
+
+        </li>
+
+        <li><a href="BookListALL.book">교재구매</a>
+
+            <ul class="main2">
+
+                <li><a href="BookList.book?bk2=1">1단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=1">HTML5/CSS3</a></li>
+
+<!--                         <li><a href="#">JavaScript</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴9</a></li> -->
+
+                    </ul>
+
+                </li>
+
+                <li><a href="BookList.book?bk2=2">2단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=2">JavaScript</a></li>
+
+<!--                         <li><a href="#">jsp</a></li> -->
+<!--                         <li><a href="#">MySQL</a></li> -->
+<!-- 						 <li><a href="#">Oracle</a></li>  -->
+
+                    </ul>
+
+                </li>
+
+                <li><a href="BookList.book?bk2=3">3단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=3">Jquery/Ajax/Jason/JSTL</a></li>
+
+                        <li><a href="BookList.book?bk2=3">Spring</a></li>
+
+<!--                         <li><a href="#">2단소메뉴15</a></li> -->
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </li>
+        
+     
+
+        <li><a href="Event.adb">이벤트</a>
+
+            <ul class="main2">
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a></li> -->
+
+<!--                 <li><a href="#">소메뉴3</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴16</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴17</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴18</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+            </ul>
+
+        </li>
+        
+        
+        <li><a href="#">공지사항</a>
+        
+        
+        </li>
+
+        <li><a href="#">FAQ</a>
+
+<!--             <ul class="main2"> -->
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a></li> -->
+
+<!--                 <li><a href="#">소메뉴3</a></li> -->
+
+<!--             </ul> -->
+
+        </li>
+
+    </ul>
+
 </div>
 
+
+
+<!-- <div id="logoArea" class="navbar"> -->
+<!--   <div class="navbar-inner"> -->
+<!--     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a> -->
+<!-- 	<!--    검색하는 창 --> 
+<!--     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()"> -->
+
+<!--         <button type="submit" id="submitButton" class="btn btn-primary">검색</button> -->
+<!--     </form> -->
+<!--     <ul id="topMenu" class="nav"> -->
+<!--      <li><a href="">로드맵</a></li> -->
+<!--      <li><a href="BookList.book">교재구매</a></li> -->
+<!--      <li><a href="Event.adb">이벤트</a></li> -->
+<!--     </ul> -->
+<!--   </div> -->
+<!-- </div> -->
 </div>
 </div>
 <!-- Header End====================================================================== -->
