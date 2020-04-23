@@ -1,9 +1,13 @@
 package admin.member.action;
 
+import static access.Access.deniedAccess;
+import static access.Access.isAdmin;
+
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.member.svc.MemberModifyProService;
@@ -17,7 +21,11 @@ public class MemberModifyProAcion implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("MemberModifyProAcion");
 		ActionForward forward = null;
-		
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		String uID = request.getParameter("uID");
 //		int num = Integer.parseInt(request.getParameter("num"));
 //		String page = request.getParameter("page");

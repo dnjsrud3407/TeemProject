@@ -1,9 +1,13 @@
 package admin.sales.action;
 
+import static access.Access.deniedAccess;
+import static access.Access.isAdmin;
+
 import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.member.svc.MemberModifyProService;
@@ -19,6 +23,11 @@ public class OrderModifyProAcion implements Action {
 		System.out.println("OrderModifyProAcion");
 		
 		ActionForward forward = null;
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		String orderNum = request.getParameter("orderNum");
 
 		OrderModifyProService orderModifyProService = new OrderModifyProService();

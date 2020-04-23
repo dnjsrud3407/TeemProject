@@ -1,10 +1,14 @@
 package admin.sales.action;
 
+import static access.Access.deniedAccess;
+import static access.Access.isAdmin;
+
 import java.io.PrintWriter;
 import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.sales.svc.OrderCompDetailModifyService;
@@ -19,6 +23,11 @@ public class OrderCompDetailModifyPro implements Action {
 System.out.println("OrderModifyProAcion");
 		request.setCharacterEncoding("UTF-8");
 		ActionForward forward = null;
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		String orderNum = request.getParameter("orderNum");
 		OrderCompDetailModifyService orderCompDetailModifyService = new OrderCompDetailModifyService();
 //		OrderModifyProService orderModifyProService = new OrderModifyProService();
