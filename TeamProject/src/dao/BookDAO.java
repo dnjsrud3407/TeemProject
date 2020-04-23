@@ -578,7 +578,7 @@ public class BookDAO {
 	}
 
 
-	// 사용자 책 목록 개수
+	// 사용자 전체 책 목록 개수
 		public int selectUserListCount() {
 			int listCount = 0;
 			PreparedStatement pstmt = null;
@@ -599,7 +599,51 @@ public class BookDAO {
 	        
 			return listCount;
 		}
-
+		
+		// 단계별로 카운트 갯수
+		public int userbk2ListCount(int bk2) {
+			int listCount = 0;
+			PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String sql = "SELECT COUNT(*) FROM book where bookisView=true";
+	        try {
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+	        } catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+	            if(rs != null) {close(rs);}
+	            if(pstmt != null) {close(pstmt);}
+	        }
+	        
+			return listCount;
+		}
+		// 과목별로 카운트 갯수
+				public int userbkIDListCount(int bkID) {
+					int listCount = 0;
+					PreparedStatement pstmt = null;
+			        ResultSet rs = null;
+			        String sql = "SELECT COUNT(*) FROM book where bookisView=true and bookkategorie_BKID=?";
+			        try {
+						pstmt = con.prepareStatement(sql);
+						pstmt.setInt(1, bkID);
+						rs = pstmt.executeQuery();
+						if(rs.next()) {
+							listCount = rs.getInt(1);
+						}
+			        } catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+			            if(rs != null) {close(rs);}
+			            if(pstmt != null) {close(pstmt);}
+			        }
+			        
+					return listCount;
+				}
+		
 	// Main에서 중간 배너 (1,2,3 단계 8권)가져오기
 	public ArrayList<BookBean> selectMiddleBookList(String bK2) {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
@@ -766,7 +810,7 @@ public class BookDAO {
 	
 
 	// 사용자 단계별 책 목록 가져오기 
-	public ArrayList<BookBean> selectUserBookList(int page, int limit, int bk2) {
+	public ArrayList<BookBean> userbk2BookList(int page, int limit, int bk2) {
 		ArrayList<BookBean> bookList = new ArrayList<BookBean>();
 		PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -813,7 +857,56 @@ public class BookDAO {
         
 		return bookList;
 	}
-
+	
+	// 사용자 과목별 책 목록 가져오기 
+		public ArrayList<BookBean> userbkIDBookList(int page, int limit, int bkID) {
+			ArrayList<BookBean> bookList = new ArrayList<BookBean>();
+			PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String sql = "SELECT * FROM book join bookkategorie "
+	        		+ "on book.bookKategorie_BKID = bookkategorie.BKID where bookkategorie_BKID=? and bookisView=true ORDER BY bookID DESC LIMIT ?,?";
+	        BookBean book = null;
+	        
+	        int startRow = (page - 1) * limit;
+	        
+	        try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, bkID);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, limit);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					book = new BookBean(
+							rs.getInt("bookID"), 
+	                        rs.getString("bookTitle"), 
+	                        rs.getString("bookOriginImage"), 
+	                        rs.getString("bookImage"), 
+	                        rs.getString("bookPublisher"), 
+	                        rs.getDate("bookPublishedDate"), 
+	                        rs.getInt("bookPrice"), 
+	                        rs.getInt("bookEA"), 
+	                        rs.getInt("salesVolume"),
+	                        rs.getString("bookIntroduce"), 
+	                        rs.getBoolean("bookisView"), 
+	                        rs.getFloat("saveRatio"),
+	                        rs.getInt("bookKategorie_BKID"),
+	                        rs.getString("BK1"),
+	                        rs.getString("BK2"),
+	                        rs.getString("BK3")
+	                        );
+					bookList.add(book);
+					
+				}
+	        } catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+	            if(rs != null) {close(rs);}
+	            if(pstmt != null) {close(pstmt);}
+	        }
+	        
+			return bookList;
+		}
+		
 	// 메인에서 판매중, 수정중 상품 개수 구하기
 	public ArrayList<Integer> selectBookEA() {
 		ArrayList<Integer> bookEAList = new ArrayList<Integer>();

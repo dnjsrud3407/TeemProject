@@ -193,22 +193,43 @@
 </div>
 	
 	<a href="compair.html" class="btn btn-large pull-right">Compair Product</a>
-	<div class="pagination">
-			<ul>
-			<li><c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
-			<a href="BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
-			<li>
-			<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
-			<a href="BookList.book?bk2=${param.bk2 }&page=${i}">${i}</a>
-			</c:forEach></li>
-			<%-- <li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li> --%>
+		<c:if test="${param.bk2 > 0}">
+			<div class="pagination">
+				<ul>
+				<li><c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+				<a href="BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
+				<li>
+				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+				<a href="BookList.book?bk2=${param.bk2 }&page=${i}">${i}</a>
+				</c:forEach></li>
+				<%-- <li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li> --%>
+				
+				<li><a href="#">...</a></li>
+				<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+				<a href='<c:url value="/BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+				</ul>
+				</div>
+				<br class="clr"/>
+			</c:if>
 			
-			<li><a href="#">...</a></li>
-			<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
-			<a href='<c:url value="/BookList.book?bk2=${param.bk2 }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
-			</ul>
-			</div>
+		<c:if test="${param.BKID > 0 }">
+			<div class="pagination">
+				<ul>
+				<li><c:if test="${pageInfo.startPage > pageInfo.pageBlock }">
+				<a href="BookList.book?BKID=${param.BKID }&page=${pageInfo.startPage-pageInfo.pageBlock}">&lsaquo;</a></c:if></li>
+				<li>
+				<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1">
+				<a href="BookList.book?BKID=${param.BKID }&page=${i}">${i}</a>
+				</c:forEach></li>
+				<%-- <li><a href="BookList.book?bk2=${param.bk2 }&page=2">2</a></li> --%>
+				
+				<li><a href="#">...</a></li>
+				<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }">
+				<a href='<c:url value="/BookList.book?BKID=${param.BKID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li>
+				</ul>
+				</div>
 			<br class="clr"/>
+			</c:if>
 </div>
 </div>
 </div>

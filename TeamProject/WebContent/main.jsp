@@ -138,7 +138,14 @@
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
 </div>
+
+
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bookshop"/></a>
+
+    
+
 </div>
+
 <div id="menu" style="position: relative; left:10px; z-index: 1;">
     <jsp:include page="./inc/nav.jsp"></jsp:include>
 </div>

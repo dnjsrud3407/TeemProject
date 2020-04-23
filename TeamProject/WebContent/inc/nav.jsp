@@ -48,15 +48,16 @@
 
                     <ul class="main3">
 
-                        <li><a href="BookList.book?bk2=1">HTML5/CSS3</a></li>
+                        <li><a href="BookList.book?BKID=1000">HTML5/CSS3</a></li>
 
-                        <li><a href="#">JAVA</a></li>
+                        <li><a href="BookList.book?BKID=1003">JAVA</a></li>
                         
-                        <li><a href="#">MySQL</a></li>
-						<li><a href="#">Oracle</a></li> 
+                        <li><a href="BookList.book?BKID=1006">MySQL</a></li>
+						<li><a href="BookList.book?BKID=1007">Oracle</a></li> 
+
 
 <!--                         <li><a href="#">2단소메뉴9</a></li> -->
-
+ 
                     </ul>
 
                 </li>
@@ -65,11 +66,11 @@
 
                     <ul class="main3">
 
-                        <li><a href="BookList.book?bk2=2">JavaScript</a></li>
+                        <li><a href="BookList.book?BKID=1001">JavaScript</a></li>
 
-                        <li><a href="#">JSP</a></li>
-                        <li><a href="#">MySQL</a></li>
-						<li><a href="#">Oracle</a></li>
+                        <li><a href="BookList.book?BKID=1004">JSP</a></li>
+                        <li><a href="BookList.book?BKID=1008">MySQL</a></li>
+						<li><a href="BookList.book?BKID=1009">Oracle</a></li>
 
                     </ul>
 
@@ -79,12 +80,12 @@
 
                     <ul class="main3">
 
-                        <li><a href="BookList.book?bk2=3">Jquery/Ajax/Jason/JSTL</a></li>
+                        <li><a href="BookList.book?BKID=1002">Jquery/Ajax/Jason/JSTL</a></li>
 
-                        <li><a href="BookList.book?bk2=3">Spring</a></li>
+                        <li><a href="BookList.book?BKID=1005">Spring</a></li>
 
-                        <li><a href="#">MySQL</a></li>
-						<li><a href="#">Oracle</a></li> 
+                        <li><a href="BookList.book?BKID=1010">MySQL</a></li>
+						<li><a href="BookList.book?BKID=1011">Oracle</a></li> 
 
                     </ul>
 
