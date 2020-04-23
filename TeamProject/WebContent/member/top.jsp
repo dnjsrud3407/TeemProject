@@ -101,7 +101,7 @@ ul.main3 {
     color: #4D84AB;
     font-weight: bold;
 }
-li>a{ color: #fff; }
+li>a{ color: #000000; }
 .main2 {
     position: absolute;
     top: 50px;
@@ -143,16 +143,7 @@ ul{
     list-style:none;
     list-style-type:none;
 }
-
-
-
-  
-	
-	
-	
-	
-	
-	</style>
+</style>
 	
 	  
 <script src="./js/jquery-3.4.1.js"></script>

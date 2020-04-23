@@ -137,8 +137,6 @@ ja(document).ready(function () {
 <!-- header -->
 <jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
-<div id="carouselBlk">
-</div>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
