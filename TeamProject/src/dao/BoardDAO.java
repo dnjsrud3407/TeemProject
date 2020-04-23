@@ -880,11 +880,12 @@ public class BoardDAO {
 	}
 
 	// 문의, 후기 답변 등록 시 게시글 번호 구하기 (게시글 중 최대값 구하기)
-	public int selectMaxNum() {
+	public int selectMaxNum(int kID) { 
 		int maxNum = 0;
-	    String sql = "SELECT MAX(boardNum) FROM board";
+	    String sql = "SELECT MAX(boardNum) FROM board WHERE kID=?";
 	    try {
 	        pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, kID);
 	        rs = pstmt.executeQuery();
 	        if(rs.next()) {
 	            maxNum = rs.getInt(1) + 1;  // 게시글 번호 최대값 + 1

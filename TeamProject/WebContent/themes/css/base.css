@@ -1,4 +1,4 @@
-#mainBody {/* background: url(../images/seperator.png) repeat-x 0 0; */ border-top:2px solid #dedede; padding-top: 18px;}
+#mainBody {/* background: url(../images/seperator.png) repeat-x 0 0;  border-top:2px solid #dedede;*/ padding-top: 18px;}
 .list-center{text-align: center;}
 .blue{color: #0000ff;}
 .tag {background:url(../images/new.png) no-repeat 0 0; position: absolute; display:block; top: -4px; height:48px; width:48px;}

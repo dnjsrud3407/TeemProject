@@ -31,6 +31,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="themes/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
+	<link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
 	<style type="text/css" id="enject"></style>
   </head>
 <div id="header">
@@ -43,29 +44,24 @@
 		        welcome ${sessionScope.uID}님
 		    </c:if></span>
 	    <div class="pull-right">
-	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
-	    	<c:forEach var = "i" items="${strAdmin }">
-	    		<c:if test="${sessionScope.uID.equals(i)}">
-	    		 	<a href="AdminMain.adm">관리자</a> |
-	    		</c:if>
-	    	</c:forEach>
-	    	<c:if test="${sessionScope.uID.equals('admin')}">
-<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
-		    </c:if>
-		    
-		    <c:if test="${sessionScope.uID ne null}">
-	        </c:if>
+
+			<c:if test="${sessionScope.isAdmin eq true }">
+				<a href="AdminMain.adm">관리자</a> |
+			</c:if>	
+
+<!-- 		로그인 안했을 때 -->
 	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="JoinForm.me">회원가입</a> |
+	        	<a href="JoinForm.me">회원가입</a> |
+	        	<a href="helpCenter.jsp">고객센터</a> |
+		        <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
 	        </c:if>
+	        
+<!-- 	        로그인 했을 때 -->
 	         <c:if test="${sessionScope.uID ne null}"> 
 		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-	        <a href="OrderList.mo">마이페이지</a> |
-	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a>
-		    <c:if test="${sessionScope.uID eq null}">
-		       <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
+		        <a href="OrderList.mo">마이페이지</a> |
+		        <a href="helpCenter.jsp">고객센터</a> |
+		        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i>장바구니 </span> </a>
 		    </c:if>
 		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
 		  <div class="modal-header">
@@ -91,23 +87,17 @@
 	    </div>
     </div>
 </div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-  <div class="navbar-inner">
+<!-- Navbar =================================================== -->
+<div>
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-	<!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="Event.adb">이벤트</a></li>
-     <li><a href="FAQList.bo">FAQ</a></li>
-    </ul>
-  </div>
 </div>
+</div>
+<div id="menu" style="position: relative; left:10px; z-index: 1;">
+    <jsp:include page="../inc/nav.jsp"></jsp:include>
 </div>
 </div>
 <!-- Header End====================================================================== -->
@@ -115,7 +105,7 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-<jsp:include page="../inc/menu.jsp"></jsp:include>
+<%-- <jsp:include page="../inc/menu.jsp"></jsp:include> --%>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">

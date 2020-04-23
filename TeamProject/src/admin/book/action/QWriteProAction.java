@@ -23,7 +23,7 @@ public class QWriteProAction implements Action {
 		int bookID = Integer.parseInt(request.getParameter("bookID"));
 		
 		
-		// 관리자 id 가져오기
+		// 관리자 id 가져오기 
 		HttpSession session = request.getSession();
 		String boardWriter = (String)session.getAttribute("uID");
 		
@@ -31,7 +31,7 @@ public class QWriteProAction implements Action {
 		
 		// 게시글 번호 생성
 		int kID = 102;
-		int boardNum = qWriteProService.getBoardNum();
+		int boardNum = qWriteProService.getBoardNum(kID);
 		
 		BoardBean board = new BoardBean(
 				boardNum, 
