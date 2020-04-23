@@ -182,6 +182,7 @@ protected void doProcess(HttpServletRequest request, HttpServletResponse respons
             }
         } else if(command.equals("/QModifyPro.abook")) {
             // 상품 문의 글 수정 작업 
+        	System.out.println("QModifyPro.abookcontroller");
             action = new QModifyProAction();
             try {
                 forward = action.execute(request, response);

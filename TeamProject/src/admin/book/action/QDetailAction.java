@@ -19,6 +19,7 @@ public class QDetailAction implements Action {
 		// boardReRef와 page 파라미터 불러옴
 		int boardReRef = Integer.parseInt(request.getParameter("boardReRef"));
 		String page = request.getParameter("page");
+		System.out.println("QDetailAction까지 왔음");
 		
 		// 사용자가 문의 작성한 것을 불러옴 and 관리자가 작성한 것도 불러옴
 		int kID = 102;

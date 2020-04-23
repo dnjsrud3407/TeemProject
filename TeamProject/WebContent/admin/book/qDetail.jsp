@@ -29,6 +29,7 @@
 <!-- <script src="admin/js/jquery-3.4.1.js"></script> -->
 <!-- <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script> -->
 </head>
+
 <body id="page-top">
 <!-- 관리자 id 아닌 경우 로그인창으로 이동 -->
 <c:if test="${sessionScope.uID ne 'admin' and sessionScope.uID ne 'admin1' and sessionScope.uID ne 'admin2' and sessionScope.uID ne 'admin3' and sessionScope.uID ne 'admin4'}">
@@ -98,7 +99,7 @@
 	                      <td colspan="3"><textarea rows="10" cols="70" readonly="readonly">${board_q.boardContent }</textarea></td>
 	                    </tr>
 	                </table>
-	              <form>
+	              </form>
 	              </div>
 	            </div>
               </div>
@@ -110,11 +111,11 @@
 
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">판매자 답변</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">판매자 답변모디파이폼</h6>
                 </div>
                 <div class="card-body">
 	              <div class="table-responsive">
-	                <form action="QModifyPro.abook" method="post">
+	                <form action="QModifyPro.abook" method="post" >
                     <input type="hidden" name="page" value="${page }">
                     <input type="hidden" name="boardReRef" value="${board_answer.boardReRef }">
                     <input type="hidden" name="boardNum" value="${board_answer.boardNum }">
@@ -129,6 +130,7 @@
 	                    </tr>
 	                </table>
 	                <input type="submit" class="custom_button" value="답변 수정" />
+	                
 	                <input type="button" class="custom_button" value="답변 삭제" onclick="location.href='QDeleteForm.abook?boardRe_refList=${board_answer.boardReRef }'"/>
 	                </form>
 	              </div>
