@@ -105,10 +105,10 @@ function checkPasswd(passwd) {
 				specCharRegex.exec(passwd.value)) {
 //			alert('유효성 검사 통과');	
 		// 지정된 태그 내에 메세지 표시
-		element.innerHTML = "적합한 패스워드";
+		element.innerHTML = "사용 가능한 패스워드";
 	} else { // 유효성 검사를 통과하지 못했을 경우
 //			alert('유효성 검사 탈락');
-		element.innerHTML = "적합하지 않은 패스워드";
+		element.innerHTML = "사용 불가능한  패스워드";
 	}
 }
 </script>

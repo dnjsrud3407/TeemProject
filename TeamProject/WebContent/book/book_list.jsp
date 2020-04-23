@@ -153,10 +153,8 @@
 			<label class="checkbox">
 				<input type="checkbox">  Adds product to compair
 			</label><br/>
-		
 			  <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-			
+			  <a href="BookBuy2.book" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 				</form>
 			</div>
 		</div>
@@ -178,7 +176,7 @@
 					  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
 						${book.bookIntroduce }
 					  </p>
-					    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">&euro;222.00</a></h4>
+					    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="BookBuy2.book">&euro;222.00</a></h4>
 					</div>
 				  </div>
 				</li>
