@@ -981,6 +981,35 @@ public OrderDAO() {}
 			
 			return cashe;
 		}
+
+		// 메인에서 월 별 매출현황 가져오기
+		public int orderComplList(int year, int month) {
+			int monthTotal = 0;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "";
+			try {
+					sql = "select sum(totalPrice) from order_tb "
+							+ "where year(orderTime)=? and month(orderTime)=? and orderStatus not in (?,?)";
+					pstmt = con.prepareStatement(sql);
+					pstmt.setInt(1, year);
+					pstmt.setInt(2, month);
+					pstmt.setString(3, "반품완료");
+					pstmt.setString(4, "취소완료");
+					rs = pstmt.executeQuery();
+				if (rs.next()) {
+					monthTotal = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+				close(rs);
+			}
+			
+			
+			return monthTotal;
+		}
 		
 		public ArrayList<OrderBean> orderTotal(String orderNum) {
 			System.out.println("OrderDAO - orderList()");
