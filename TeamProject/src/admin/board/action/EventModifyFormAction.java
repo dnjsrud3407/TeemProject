@@ -18,15 +18,19 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class EventModifyFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		System.out.println("이벤트 내용보기");
-		
+		// 관리자 체크
 		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정

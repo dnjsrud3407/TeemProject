@@ -116,23 +116,33 @@ boolean isLogin = false;
     	
     	
 
-    $(document).on("click",".open-AddReview", function (){
-    	var Title = $(".rv_img").data('id');
-    	$(".rv_main ")
-    	var reviewImg = $(".rv_img").src("src");
+    $(document).on("click",".open-AddReview", function (e){
+//     	alert($('#modalIndex1').val());
+	var data = $(e.relatedTarget).data('id');
+	alert(data);
+//     	var i =	$('#modalIndex').val();
+//     	alert(i);
+//     	var reviewImg= $(".rv_img").src("src");
+//     var  img =	$(".review_group").src(".rv_img");
+//     	$(".review_group").attr("src",".cont_img");
     	
-    	reviewImg.attr("src");
-    	console.log(reviewImg);
-    	var review_t = $('#rv_title').text();
-    	var review_c = $('#rv_content').text();
-    	var review_time = $('#rv_regtime').text();
-    	var readcount = $('#rv_count').text();
+//     	$('#').val();
+//     	var Title = $(".rv_img").data('id'
+//     	$(".rv_main ")
+//     	var reviewImg = $(".rv_img").src("src");
+    	
+//     	reviewImg.attr("src");
+//     	console.log(reviewImg);
+//     	var review_t = $('#rv_title').text();
+//     	var review_c = $('#rv_content').text();
+//     	var review_time = $('#rv_regtime').text();
+//     	var readcount = $('#rv_count').text();
    
     	
-    	$('#rv_readcount').html(readcount + '<br>');
-    	$('#review_regtime').html(review_time+'<br>');
-    	$('#detail_title').html(review_t);
-    	$('#detail_content').html(review_c);
+//     	$('#rv_readcount').html(readcount + '<br>');
+//     	$('#review_regtime').html(review_time+'<br>');
+//     	$('#detail_title').html(review_t);
+//     	$('#detail_content').html(review_c);
     	
     });
    
@@ -826,17 +836,18 @@ overflow-x: hidden;
 								<hr class="soft">
 					 </c:if>
 					 
-					 <c:forEach var="review" items="${articleReviewList }" varStatus="status">
+					 <c:forEach var="review" items="${articleReviewList }" varStatus="status0">
 					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
+					  <div class="review_group">
 						<div class="row">	  
 							<div class="span2">
-								<img id="rv_img" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
+								<img class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
 							</div>
 							<div class="span4">
 								
-								<a href="#viewDetail" role="button" data-toggle="modal" class="open-AddReview" onclick="readcountUp('<c:out value="${review.boardNum}"/>')"><h3>New | Available</h3>				
-									
-									<h5 id="rv_title" class="rv_title">${review.boardTitle } </h5>
+								<a href="#viewDetail?id=${status0.index }" id="modalDetail" role="button" data-toggle="modal"  class="open-AddReview"><h3>New | Available</h3>				
+									<input type="hidden" id="modalIndex${status0.index }" name="index" value="${status0.index }"/>
+									<h5 id="rv_title" class="rv_title">${status0.index}${review.boardTitle }</h5>
 									<p id="rv_content" class="rv_content">
 										${review.boardContent }
 									</p>
@@ -871,6 +882,7 @@ overflow-x: hidden;
 							</div>
 						</div>
 								<hr class="soft">
+						</div>		
 							</c:forEach>
 						</c:forEach>
 								<div style="text-align: right;"> 상품평은 구매완료 후 <a href="OrderList.mo">수취확인</a>에서 작성하실 수 있습니다.</div>

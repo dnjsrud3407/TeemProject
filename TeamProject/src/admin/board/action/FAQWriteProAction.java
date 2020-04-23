@@ -19,18 +19,22 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class FAQWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// 리퀘스트 한글처리
 		request.setCharacterEncoding("UTF-8");
 		
 		// 세션 챙기기 + 액션에서 세션값을 활용하여 관리자인지를 체크한 후 관리자가 아니면 메인 홈페이지로 보냄
-		HttpSession session = request.getSession();
 		
 		BoardBean bb = null;
 		// DB작업을 위해 서비스 객체 생성

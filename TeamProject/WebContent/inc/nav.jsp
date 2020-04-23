@@ -69,7 +69,7 @@
 
                         <li><a href="#">JSP</a></li>
                         <li><a href="#">MySQL</a></li>
-						<li><a href="#">Oracle</a></li> 
+						<li><a href="#">Oracle</a></li>
 
                     </ul>
 

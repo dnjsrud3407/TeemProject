@@ -8,7 +8,8 @@ import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
-
+import vo.CouponBean;
+import static access.Access.*;
 public class EventDetailAction implements Action {
 
 	@Override
@@ -17,11 +18,11 @@ public class EventDetailAction implements Action {
 		System.out.println("공지사항 내용보기");
 		
 		HttpSession session = request.getSession();
-		
-		request.setCharacterEncoding("UTF-8");
-		HttpSession session2=request.getSession();
-		String uId=(String) session.getAttribute("uID");
-		
+		// 관리자 체크
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정
 		String k1 = "이벤트";
@@ -30,6 +31,20 @@ public class EventDetailAction implements Action {
 		BoardBean bb = null;
 		// BoardService 객체의 getArticle() 메서드를 호출(BoardBean 객체 반환)
 		bb = boardService.getArticle(boardNum, k1);
+		String boardTitle = bb.getBoardTitle();
+		String[] splitString = boardTitle.split("@C-I-D@"); // 분리
+		
+		boardTitle = splitString[0];		// 글 제목
+		int cID = Integer.parseInt(splitString[1]);		// 쿠폰번호
+		CouponBean coupon = boardService.getCouponInfo(cID);
+		
+		request.setAttribute("coupon", coupon);
+		
+		
+		// 다시 보드빈에 세팅
+		bb.setBoardTitle(boardTitle);
+		bb.setcID(cID);
+		
 		
 		// 
 		// 
@@ -38,14 +53,8 @@ public class EventDetailAction implements Action {
 		if(bb != null) {
 			// 받아온 글 정보가 있다면 해당 글 정보를 표시할 jsp 파일로 이동
 			//
-			if (!uId.equals("admin")) {
-				request.setAttribute("article", bb);
-				forward.setPath("board/EventBoardDetail.jsp");
-			}else {
-				
-				request.setAttribute("article", bb);
-				forward.setPath("/admin/board/EventDetail.jsp");
-			}
+			request.setAttribute("article", bb);
+			forward.setPath("/admin/board/EventDetail.jsp");
 		} else {
 			// 받아온 글 정보가 없다면 메시지 호출 후 글 목록으로 보내기
 			//

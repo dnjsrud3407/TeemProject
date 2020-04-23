@@ -23,7 +23,8 @@
 
   <!-- Custom styles for this page -->
   <link href='<c:url value="/admin/vendor/datatables/dataTables.bootstrap4.min.css"/>' rel="stylesheet">
-  
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet" type="text/css">
+    
   <style type="text/css">
 	#pageList {
 		margin: auto;
@@ -103,7 +104,7 @@
 		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required">${article.boardContent }</textarea></td>
 		                    </tr>
 		                </table>
-		                <div style="text-align: right;"><input type="submit" value="FAQ 수정"></div>
+		                <div style="text-align: right;"><input type="submit" value="FAQ 수정" class="custom_button"></div>
 	                </form>
 	                
 	              </div>

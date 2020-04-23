@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -18,13 +19,18 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class FAQWriteFormAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		BoardService boardService = new BoardService();
 		
 		String k1 = "FAQ";

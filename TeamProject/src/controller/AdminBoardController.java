@@ -10,11 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import admin.board.action.CouponDeleteAction;
+import admin.board.action.CouponInsertAction;
+import admin.board.action.CouponListAction;
+import admin.board.action.CouponModifyAction;
 import admin.board.action.EventDeleteAction;
 import admin.board.action.EventDetailAction;
 import admin.board.action.EventListAction;
 import admin.board.action.EventModifyFormAction;
 import admin.board.action.EventModifyProAction;
+import admin.board.action.EventWriteAction;
 import admin.board.action.EventWriteProAction;
 import admin.board.action.FAQDeleteProAction;
 import admin.board.action.FAQModifyFormAction;
@@ -221,6 +226,8 @@ public class AdminBoardController extends HttpServlet {
             //
             // 공지사항
             
+            
+            
         } else if(command.equals("/Event.adb")) {
             // --- Notice 삭제 작업 
             action = new EventListAction();
@@ -230,10 +237,12 @@ public class AdminBoardController extends HttpServlet {
                 e.printStackTrace();
             }
         } else if(command.equals("/EventWrite.adb")) {
-            // --- Notice 삭제 작업 
-            forward = new ActionForward();
-            forward.setPath("./admin/board/EventWriteForm.jsp");
-            
+        	action = new EventWriteAction();
+        	try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if(command.equals("/EventWritePro.adb")) {
             // --- Notice 삭제 작업 
             action = new EventWriteProAction();
@@ -277,10 +286,49 @@ public class AdminBoardController extends HttpServlet {
         } else if(command.contentEquals("/failed.adb")) {
         	forward = new ActionForward();
         	forward.setPath("/admin/board/failedMSG.jsp");
+        	
+        	
+        	// 쿠폰 관리
+        } else if(command.contentEquals("/Coupon.adb")) {
+        	action = new CouponListAction();
+        	try {
+        		forward = action.execute(request, response);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+			}
+        	
+        	// 쿠폰 생성
+        } else if(command.contentEquals("/CounponInsert.adb")) {
+        	action = new CouponInsertAction();
+        	try {
+        		forward = action.execute(request, response);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+			}
+        	
+        	// 쿠폰 수정
+        } else if(command.contentEquals("/CounponModify.adb")) {
+        	action = new CouponModifyAction();
+        	try {
+        		forward = action.execute(request, response);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+			}
+        	
+        	// 쿠폰 삭제
+        } else if(command.contentEquals("/CouponDelete.adb")) {
+        	action = new CouponDeleteAction();
+        	try {
+        		forward = action.execute(request, response);
+        	} catch (Exception e) {
+        		e.printStackTrace();
+			}
+        	
+        	
         }
 	
 		
-
+		
 		//=================================================================================
         // ActionForward 객체의 포워딩 방식
 		if (forward != null) {

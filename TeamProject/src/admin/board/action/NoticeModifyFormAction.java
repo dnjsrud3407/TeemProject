@@ -9,7 +9,7 @@ import admin.board.svc.BoardService;
 import board.svc.NoticeDetailService;
 import vo.ActionForward;
 import vo.BoardBean;
-
+import static access.Access.*;
 public class NoticeModifyFormAction implements Action {
 
 	@Override
@@ -18,7 +18,11 @@ public class NoticeModifyFormAction implements Action {
 		System.out.println("공지사항 내용보기");
 		
 		HttpSession session = request.getSession();
-		
+		// 관리자 체크
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정
 		String k1 = "공지사항";

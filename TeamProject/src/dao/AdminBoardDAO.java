@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import vo.BoardBean;
+import vo.CouponBean;
 import vo.FileBean;
 import vo.PageInfo;
 
@@ -771,6 +772,181 @@ public class AdminBoardDAO {
 		return updateLev;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////				쿠폰							
+
+
+	public int getCouponCount() {
 	
-	//// DAO 의 끝
+		int couponCount = 0;
+		//WHERE couponEnd_date > now()
+		String sql = "SELECT count(*) FROM coupon"; 
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+			couponCount = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return couponCount;
+	}
+	
+	public ArrayList<CouponBean> getCouponList(int startRow, int limit) {
+		ArrayList<CouponBean> couponList = new ArrayList<CouponBean>();
+		
+		String sql = "SELECT * FROM coupon Order By couponEnd_date desc limit ?, ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow); pstmt.setInt(2, limit);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				CouponBean coupon = new CouponBean(
+					rs.getInt("cID"),
+					rs.getString("coupon_name"),
+					rs.getTimestamp("couponReg_date"),
+					rs.getTimestamp("couponEnd_date"),
+					rs.getInt("volume")
+				);
+				couponList.add(coupon);
+			}
+		} catch (SQLException e) {
+		e.printStackTrace();
+		} finally {
+		close(rs); close(pstmt);
+		}
+		
+		return couponList;
+	}
+	
+	public ArrayList<CouponBean> getCouponList() {
+		ArrayList<CouponBean> couponList = new ArrayList<CouponBean>();
+		//WHERE couponEnd_date>now() 
+		String sql = "SELECT * FROM coupon Order By couponEnd_date desc";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				CouponBean coupon = new CouponBean(
+				rs.getInt("cID"),
+				rs.getString("coupon_name"),
+				rs.getTimestamp("couponReg_date"),
+				rs.getTimestamp("couponEnd_date"),
+				rs.getInt("volume")
+			);
+			couponList.add(coupon);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs); close(pstmt);
+		}
+		
+		return couponList;
+	}
+	
+	public CouponBean getCouponInfo(int cID) {
+		CouponBean coupon = null;
+		String sql = "SELECT * FROM coupon WHERE cID=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+					coupon = new CouponBean(
+					rs.getInt("cID"),
+					rs.getString("coupon_name"),
+					rs.getTimestamp("couponReg_date"),
+					rs.getTimestamp("couponEnd_date"),
+					rs.getInt("volume")
+				);
+			}
+		} catch (SQLException e) {
+		e.printStackTrace();
+		} finally {
+		close(rs); close(pstmt);
+		}
+		
+		return coupon;
+	}
+	
+	public int insertCoupon(CouponBean coupon) {
+	
+		int insertCount = 0;
+		String sql = "INSERT INTO coupon(cID, coupon_name, couponReg_date, couponEnd_date, volume) VALUES(null, ?, ?, ?, ?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, coupon.getCoupon_name()); pstmt.setTimestamp(2, coupon.getCouponReg_date()); 
+			pstmt.setTimestamp(3, coupon.getCouponEnd_date()); pstmt.setInt(4, coupon.getVolume());
+			
+			insertCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return insertCount;
+	}
+	
+	public int updateCoupon(CouponBean coupon) {
+	
+		int updateCount = 0;
+		String sql = "UPDATE coupon SET couponEnd_date=?, volume=? WHERE cID=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setTimestamp(1, coupon.getCouponEnd_date()); pstmt.setInt(2, coupon.getVolume());
+			pstmt.setInt(3, coupon.getcID());
+			
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateCount;
+	}
+	
+	public int deleteCoupon(int cID) {
+	
+		int deleteCount = 0;
+		String sql = "DELETE FROM couponHistory WHERE cID=?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cID);
+			
+			pstmt.executeUpdate();
+			
+			sql = "DELETE FROM coupon WHERE cID=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, cID);
+			
+			deleteCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return deleteCount;
+	}
+
+
+//// DAO 의 끝
 }

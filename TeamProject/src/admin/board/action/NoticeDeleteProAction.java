@@ -7,14 +7,18 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
-
+import static access.Access.*;
 public class NoticeDeleteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
-		
+		// 관리자 체크
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		BoardService boardService = new BoardService();
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		String k1 = "공지사항";

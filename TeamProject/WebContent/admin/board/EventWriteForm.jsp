@@ -23,7 +23,8 @@
 
   <!-- Custom styles for this page -->
   <link href='<c:url value="/admin/vendor/datatables/dataTables.bootstrap4.min.css"/>' rel="stylesheet">
-  
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet" type="text/css">
+    
   <style type="text/css">
 	#pageList {
 		margin: auto;
@@ -81,6 +82,14 @@
 							
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                    <tr>
+		                      <th>쿠폰</th>
+		                      <td><select name=cID>
+		                      <c:forEach var="coupon" items="${couponList }" varStatus="varStatus">
+		                      <option value="${coupon.cID }">쿠폰명 : ${coupon.coupon_name } / 적용일 : ${coupon.couponReg_date } 만료일 : ${coupon.couponEnd_date } / 할인액 : ${coupon.volume } 원</option>
+		                      </c:forEach>
+		                      </select></td>
+		                    </tr>
+		                    <tr>
 		                      <th>제목</th>
 		                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
 		                    </tr>
@@ -92,7 +101,7 @@
 		                      <td colspan="3"><textarea name="boardContent" rows="15" cols="70" required="required"></textarea></td>
 		                    </tr>
 		                </table>
-		                <div style="text-align: right;"><input type="submit" value="이벤트 작성"></div>
+		                <div style="text-align: right;"><input type="submit" value="이벤트 작성" class="custom_button"></div>
 	                </form>
 	                
 	              </div>

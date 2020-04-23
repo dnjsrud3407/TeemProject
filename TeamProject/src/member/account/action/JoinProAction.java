@@ -33,7 +33,7 @@ public class JoinProAction implements Action {
 		String withdrawal = "n";
 		
 		int point = 0;
-		int grade = 0;
+		int grade = Integer.parseInt(request.getParameter("grade"));
 		System.out.println(uID);
 		// 파라미터 -> MemberBean 객체에 저장
 		MemberBean member = new MemberBean(uID, pw, u_name, address, phone_num, email, tell_num, address2, point, grade, withdrawal);

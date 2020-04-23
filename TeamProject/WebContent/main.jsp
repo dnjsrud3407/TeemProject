@@ -91,8 +91,9 @@
 			<c:if test="${sessionScope.isAdmin eq true }">
 				<a href="AdminMain.adm">관리자</a> |
 			</c:if>	
-		    <c:if test="${sessionScope.uID ne null}">
+			<c:if test="${sessionScope.uID ne null}">
 	        </c:if>
+
 	        <c:if test="${sessionScope.uID eq null}">
 	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
