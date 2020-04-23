@@ -241,7 +241,7 @@ boolean isLogin = false;
 			if(index == 1) {
 				document.kindFrm.action='CartAdd2.book';
 			} else if(index == 2) { 
-				alert(qty);
+// 				alert(qty);
 				document.kindFrm.action='CartAdd.book';
 			} else if (index == 3) {
 				document.kindFrm.action='BookLike.book';

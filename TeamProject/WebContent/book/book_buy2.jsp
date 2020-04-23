@@ -146,7 +146,7 @@ function pointDis(finalPrice, memberPoint){
 		<li><a href="Main.me">Home</a> <span class="divider">/</span></li>
 		<li class="active"> 주문/결제</li>
     </ul>
-	<h3>  SHOPPING CART [ <small> </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  SHOPPING CART [ <small> </small>]<a href="BookListALL.book" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	
 	<!-- 상품목록 보여주는 테이블 -->
