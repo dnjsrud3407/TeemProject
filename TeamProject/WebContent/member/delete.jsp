@@ -44,7 +44,7 @@
 	
 	</style>
 
-<script type="text/javascript">
+<script type="text/javascript"> 
 	function checkId(id) {
 		// 4 ~ 12자리 아이디 영문,숫자 조합 유효성 검사
 		// => 영문자로 시작하고 영문자 또는 숫자의 조합으로 4 ~ 12 자리

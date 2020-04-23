@@ -103,7 +103,7 @@
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
-	<div class="row" style="margin-left: 10%;">
+	<div class="row" style="margin-left: 10%;"> 
 <!-- Sidebar ================================================== -->
 <%-- <jsp:include page="../inc/menu.jsp"></jsp:include> --%>
 <!-- Sidebar end=============================================== -->

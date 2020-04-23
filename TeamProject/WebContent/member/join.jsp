@@ -217,7 +217,7 @@ jc(document).ready(function () {
     </form>
 </div>
 </div>
-<div id="menu" style="position: relative; left:10px; z-index: 1;">
+<div id="menu" style="position: relative; left:10px; z-index: 1;"> 
     <jsp:include page="../inc/nav.jsp"></jsp:include>
 </div>
 </div>

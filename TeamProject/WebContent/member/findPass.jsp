@@ -177,7 +177,7 @@
 				<a href="login.html">ORDER HISTORY</a>
 			 </div>
 			<div class="span3">
-				<h5>INFORMATION</h5>
+				<h5>INFORMATION</h5> 
 				<a href="contact.html">CONTACT</a>  
 				<a href="register.html">REGISTRATION</a>  
 				<a href="legal_notice.html">LEGAL NOTICE</a>  
