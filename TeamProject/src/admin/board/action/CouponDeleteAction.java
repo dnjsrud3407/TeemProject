@@ -1,5 +1,9 @@
 package admin.board.action;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,13 +11,14 @@ import javax.servlet.http.HttpSession;
 import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
-import vo.PageInfo;
+import vo.CouponBean;
+
 import static access.Access.*;
-public class FAQDeleteProAction implements Action {
+
+public class CouponDeleteAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("FAQ DeletePro");
 		ActionForward forward = null;
 		HttpSession session = request.getSession();
 		// 관리자 체크
@@ -21,24 +26,23 @@ public class FAQDeleteProAction implements Action {
 			forward = deniedAccess(session);
 			return forward;
 		}
+		int cID = Integer.parseInt(request.getParameter("cID"));
+		
 		BoardService boardService = new BoardService();
-		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-		String k1 = "FAQ";
 		
-		int deleteCount = boardService.deleteArticle(boardNum, k1);
-		
+		int deleteCount = boardService.deleteCoupon(cID)
+				;
 		forward = new ActionForward();
 		
 		if(deleteCount != 0) {
-			// 글 삭제 성공 시 반응
-				forward.setPath("./FAQ.adb");
+			forward.setPath("./Coupon.adb");
 			forward.setRedirect(true);
 		} else {
-			// 글 삭제 실패 시 반응
-			session.setAttribute("ErrorMSG", "게시글 삭제에 실패하였습니다.");
+			session.setAttribute("ErrorMSG", "쿠폰 삭제에 실패하였습니다.");
 			forward.setPath("failed.adb");
 			forward.setRedirect(true);
 		}
+		
 		
 		return forward;
 	}

@@ -1,9 +1,13 @@
 package admin.sales.action;
 
+import static access.Access.deniedAccess;
+import static access.Access.isAdmin;
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.member.svc.MemberDetailService;
@@ -32,6 +36,11 @@ public class OrderCompDetailAcion implements Action {
 //		request.setAttribute("page", page);
 
 		ActionForward forward = null;
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		String orderNum = request.getParameter("orderNum");
 
 		OrderDetailService orderDetailService = new OrderDetailService();

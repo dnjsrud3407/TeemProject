@@ -123,8 +123,8 @@
 
 <div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">이벤트</li>
+<!-- 		<li><a href="index.html">Home</a> <span class="divider">/</span></li> -->
+<!-- 		<li class="active">이벤트</li> -->
     </ul>
 	<h4> 이벤트 </h4>	
 	<hr class="soft"/>

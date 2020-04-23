@@ -57,39 +57,25 @@ if(session.getAttribute("uID") == null){
 			<!-- Main Content -->
 			<div id="content">
 
-				<!-- Topbar -->
-				<nav
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop"
-						class="btn btn-link d-md-none rounded-circle mr-3">
-						<i class="fa fa-bars"></i>
-					</button>
+        <!-- Topbar -->
 <!-- top 로그인 관리 부분---------------------------------------------------------------------------------------------------------------------- -->
-				<jsp:include page="../adminInc/adminTop.jsp" />
+				<jsp:include page="../adminInc/topbar.jsp" />
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
-
-				</nav>
-				<!-- End of Topbar -->
+        <!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
 <%-- 				<jsp:include page="../adminInc/topEtc.jsp" /> --%>
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">거래완료 리스트</h1>
-	 				<p class="mb-4">
-						완료된 거래내역확인할수있습니다
-					</p>  
 
 					<!-- DataTales Example -->
 					<!-- Approach -->
 					<div class="card shadow mb-4">
 						<div class="card-header py-3">
-							<h6 class="m-0 font-weight-bold text-primary">거래완료 진행리스트</h6>
-							<br>
-							<input type="button" class="btn btn-large btn-success" value="세일즈 파일 다운" onclick="location.href='Sales.adm'"/>&nbsp;&nbsp;
+							<h6 class="m-0 font-weight-bold text-primary">거래상태 진행리스트</h6>
+<!-- 							<br> -->
+<!-- 							<input type="button" class="btn btn-large btn-success" value="세일즈 파일 다운" onclick="location.href='Sales.adm'"/>&nbsp;&nbsp; -->
 						</div> 
 						<div class="card-body">
 							<!-- DataTales Example -->

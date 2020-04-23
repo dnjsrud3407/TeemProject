@@ -23,7 +23,8 @@
 
   <!-- Custom styles for this page -->
   <link href='<c:url value="/admin/vendor/datatables/dataTables.bootstrap4.min.css"/>' rel="stylesheet">
-  
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet" type="text/css">
+    
   <style type="text/css">
 	#pageList {
 		margin: auto;
@@ -127,7 +128,7 @@
                 	</c:if>
                 	</section>
                 	<div style="text-align:right">
-	            	<a href='<c:url value="/NoticeWrite.adb"/>'> <input type="button" value="공지사항 작성하기"></a>
+	            	<a href='<c:url value="/NoticeWrite.adb"/>'> <input type="button" value="공지사항 작성하기" class="custom_button"></a>
 	            	</div>
 	            </div>
             </div>

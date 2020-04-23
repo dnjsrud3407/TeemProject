@@ -158,31 +158,31 @@ public class AdminMemberController extends HttpServlet {
 //			} 
 //			
 //		} 
-		else if(command.equals("/OrderCencleDetail.adm")) {//---------------
-			action = new OrderCencleDetailAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			
-		} else if(command.equals("/OrderRefundDetail.adm")) {//---------------
-			action = new OrderRefundDetailAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-			
-		} else if(command.equals("/OrderExchangeDetail.adm")) {//---------------
-			action = new OrderExchangeDetailAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			} 
-
-		}
+//		else if(command.equals("/OrderCencleDetail.adm")) {//---------------
+//			action = new OrderCencleDetailAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} 
+//			
+//		} else if(command.equals("/OrderRefundDetail.adm")) {//---------------
+//			action = new OrderRefundDetailAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} 
+//			
+//		} else if(command.equals("/OrderExchangeDetail.adm")) {//---------------
+//			action = new OrderExchangeDetailAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} 
+//
+//		}
 		
 		 else if(command.equals("/OrderCompDetail.adm")) { //---------------
 			action = new OrderCompDetailAcion();
@@ -211,29 +211,29 @@ public class AdminMemberController extends HttpServlet {
 //				e.printStackTrace();
 //			}
 //		} 
-		else if(command.equals("/OrderCencleList.adm")) { //------------------
-			action = new OrderCancleListAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} 
-		else if(command.equals("/OrderRefundList.adm")) {//------------------
-			action = new OrderRefundListAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/OrderExchangeList.adm")) {//------------------
-			action = new OrderExchangeListAcion();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) { 
-				e.printStackTrace();
-			}
-		} 
+//		else if(command.equals("/OrderCencleList.adm")) { //------------------
+//			action = new OrderCancleListAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		} 
+//		else if(command.equals("/OrderRefundList.adm")) {//------------------
+//			action = new OrderRefundListAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		} else if(command.equals("/OrderExchangeList.adm")) {//------------------
+//			action = new OrderExchangeListAcion();
+//			try {
+//				forward = action.execute(request, response);
+//			} catch (Exception e) { 
+//				e.printStackTrace();
+//			}
+//		} 
 		else if(command.equals("/OrderCompList.adm")) { //------------------
 			System.out.println("orderStatus AdminMemberControlloer : " + request.getParameter("orderStatus"));
 			action = new OrderCompListAcion();

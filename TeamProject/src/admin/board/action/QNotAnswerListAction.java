@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.board.svc.BoardService;
@@ -11,14 +12,19 @@ import board.svc.QListService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
-
+import static access.Access.*;
 public class QNotAnswerListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		System.out.println("1:1문의 보기");
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// PageInfo 객체 선언
 		PageInfo pageInfo = null; 
 		

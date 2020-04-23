@@ -18,16 +18,20 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class EventWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// 리퀘스트 한글처리
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
 		
 		// MultipartRequest 객체생성
 		String saveFolder ="/boardFile";
@@ -72,6 +76,10 @@ public class EventWriteProAction implements Action {
 		String boardWriter = multi.getParameter("boardWriter");
 		String boardTitle = multi.getParameter("boardTitle");
 		String boardContent = multi.getParameter("boardContent");
+		String cID = multi.getParameter("cID");
+		
+		// 제목에 쿠폰 아이디 결합
+		boardTitle = boardTitle + "@C-I-D@" + cID;
 		
 		// 작성일, 그룹번호, 글 레벨(답글 확인), 글 순서(답글 순서), 조회수, 상품 ID(상품 문의, 후기용)
 		Timestamp boardRegTime = new Timestamp(System.currentTimeMillis());

@@ -1,9 +1,14 @@
 package admin.member.action;
 
+import static access.Access.deniedAccess;
+import static access.Access.isAdmin;
+
 import java.io.PrintWriter;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.member.svc.memberDeleteProService;
@@ -16,7 +21,11 @@ public class MemberDeleteProAction implements Action {
 		System.out.println("ReviewDeleteProAction");
 		
 		ActionForward forward = null;
-		
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		String uID = request.getParameter("uID");
 //		String page = request.getParameter("page");
 ////		

@@ -1,6 +1,5 @@
 package admin.board.action;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,15 +10,15 @@ import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
+import vo.CouponBean;
 import vo.PageInfo;
 import static access.Access.*;
-public class FAQListAction implements Action {
+public class CouponListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("FAQ 보기");
-		request.setCharacterEncoding("UTF-8");
+		BoardService boardService = new BoardService();
 		// 관리자 체크
 		HttpSession session = request.getSession();
 		if(!isAdmin(session)) {
@@ -35,29 +34,18 @@ public class FAQListAction implements Action {
 		}
 		pageInfo.setPage(page);	// 들고온 페이지 정보가 없을 때 기본 페이지 1
 		
-		String k1 = "FAQ";
-		String k2 = request.getParameter("k2");
+		int startRow = (page - 1) * 10;
 		
+		int couponCount = boardService.getCouponCount();
 		
-		// BoardListService 인스턴스 생성 후 게시물 목록 갯수 가져오기
-		BoardService boardService = new BoardService();
-		int listCount = boardService.getListCount(k1, k2);
-		System.out.println("listCount : " + listCount);
-		// pageInfo limit, k1, k2 담기
-		pageInfo.setLimit(limit); pageInfo.setK1(k1); pageInfo.setK2(k2);
-//		 BoardListService 객체의 getArticleList() 메서드를 호출 하여 게시물 목록 가져오기
-		// => 파라미터로 현재 페이지(page) 와 게시물 수(limit) 를 전달
-		// => ArrayList<BoardBean> 타입 객체 리턴
-		ArrayList<BoardBean> articleList = boardService.getArticleList(pageInfo);
-		
-		if(articleList != null) {
-			request.setAttribute("articleList", articleList);
-		}
-		// 가져온 게시물 목록 리퀘스트에 저장
+		ArrayList<CouponBean> couponList = boardService.getCouponList(startRow, limit);
+		// 쿠폰목록 리퀘스트 저장
+		request.setAttribute("couponList", couponList);
 		
 		// 페이지 계산
 		// 1. 총 페이지 수 계산
-		int maxPage = (int)((double)listCount / limit + 0.95);
+		 
+		int maxPage = (((double)couponCount / (double)limit ) - (couponCount / limit) > 0 ? couponCount / limit + 1 : couponCount / limit);
 		if(maxPage == 0) {
 			maxPage = 1;
 		}
@@ -75,19 +63,15 @@ public class FAQListAction implements Action {
 		pageInfo.setStartPage(startPage); 
 		pageInfo.setPage(page);
 		pageInfo.setEndPage(endPage);
-		pageInfo.setListCount(listCount);
+		pageInfo.setListCount(couponCount);
 		pageInfo.setPageBlock(10);
 		
 		request.setAttribute("pageInfo", pageInfo);
 		
-		ArrayList<String> k2List = boardService.getk2List(k1);
-		
-		// FAQ 카테고리 목록
-		request.setAttribute("k2List", k2List);
-		
 		
 		forward = new ActionForward();
-		forward.setPath("/admin/board/FAQList.jsp");
+		// 이벤트로 고칠것
+		forward.setPath("/admin/board/couponList.jsp");		
 		
 		return forward;
 	}

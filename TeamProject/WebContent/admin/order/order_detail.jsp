@@ -30,10 +30,12 @@ if(session.getAttribute("uID") == null){
 
   <!-- Custom fonts for this template -->
   <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1" rel="stylesheet" type="text/css">
+  
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
   <link href="admin/css/sb-admin-2.min.css?ver=1" rel="stylesheet">
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this page -->
   <link href="admin/vendor/datatables/dataTables.bootstrap4.min.css?ver=1" rel="stylesheet">
@@ -75,18 +77,9 @@ img{
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
 <!-- top 로그인 관리 부분---------------------------------------------------------------------------------------------------------------------- -->
-				<jsp:include page="../adminInc/adminTop.jsp" />
+				<jsp:include page="../adminInc/topbar.jsp" />
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
-
-        </nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
@@ -434,7 +427,7 @@ img{
 	                  	</td>
           		       </tr>
                   </table> -->
-                <input type="submit" value="수정" class="btn btn-large btn-success">
+                <input type="submit" value="수정" class="custom_button">
 <!--                 <input type="button" id="" value="목록"> -->
               </form>
               </div>

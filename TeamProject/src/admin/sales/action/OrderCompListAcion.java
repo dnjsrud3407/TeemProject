@@ -1,10 +1,14 @@
 package admin.sales.action;
 
+import static access.Access.deniedAccess;
+import static access.Access.isAdmin;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.sales.svc.OrderCompListService;
@@ -20,6 +24,11 @@ public class OrderCompListAcion implements Action {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("OrderCompListAcion"); 
 		ActionForward forward = null;
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 //		int num = Integer.parseInt(request.getParameter("num"));
 ////
 //		OrderListService orderListService = new OrderListService();
