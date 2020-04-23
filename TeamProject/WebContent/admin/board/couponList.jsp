@@ -28,7 +28,7 @@
 
   <!-- Custom styles for this page -->
   <link href='<c:url value="/admin/vendor/datatables/dataTables.bootstrap4.min.css"/>' rel="stylesheet">
-  
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet" type="text/css">
   
   <style type="text/css">
 	#pageList {
@@ -149,7 +149,7 @@
 					 ~ <input type="text" id="datepicker2" name="couponEnd_date" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<td colspan="4"><div style="float: right;"><input type="submit" value="쿠폰 등록"></div></td>
+					<td colspan="4"><div style="float: right;"><input type="submit" value="쿠폰 등록" class="custom_button"></div></td>
 				</tr>
 				</tbody>
 			</table>
@@ -181,8 +181,8 @@
 		                    	만료일 : <input type="text" class="mod_End_date" name="mod_End_date">&nbsp;&nbsp;
 		                    	할인액 : <input type="text" class="mod_volume" name="mod_volume" value="${coupon.volume }">
 		                    	<input type="hidden" name="cID" value="${coupon.cID }">
-			                    		<a href='#' style="margin-left: 20%;"><input type="submit" value="수정"></a>
-			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${coupon.cID})"></a>
+			                    		<a href='#' style="margin-left: 20%;"><input type="submit" value="수정" class="custom_button"></a>
+			                    		<a href="#"><input type="button" value="삭제" onclick="checkOK(${coupon.cID})" class="custom_button"></a>
 			                    </form>
 		                    	</td>
 		                    </tr>

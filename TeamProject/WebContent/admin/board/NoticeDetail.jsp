@@ -23,7 +23,8 @@
 
   <!-- Custom styles for this page -->
   <link href='<c:url value="/admin/vendor/datatables/dataTables.bootstrap4.min.css"/>' rel="stylesheet">
-  
+  <link href="admin/css/sb-admin-2.css?ver=1" rel="stylesheet" type="text/css">
+    
   <style type="text/css">
 	#pageList {
 		margin: auto;
@@ -110,8 +111,8 @@
 		                    </tr>
 		                </table>
 		                <div style="text-align: right;">
-		                <a href='<c:url value="/NoticeModify.adb?boardNum=${article.boardNum }"/>'><input type="button" value="공지사항  수정"></a>
-		                <a href="#"><input type="button" value="삭제" onclick="checkOK(${article.boardNum})"></a>
+		                <a href='<c:url value="/NoticeModify.adb?boardNum=${article.boardNum }"/>'><input type="button" value="공지사항  수정" class="custom_button"></a>
+		                <a href="#"><input type="button" value="삭제" onclick="checkOK(${article.boardNum})" class="custom_button"></a>
 		                </div>
 	                
 	              </div>
