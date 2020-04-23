@@ -40,7 +40,7 @@
     
     <!-- Cutomizing CSS -->
     <link href="css/order.css" rel="stylesheet">
-
+	<link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
   
     <!-- jQuery -->
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -128,83 +128,25 @@ function pointDis(finalPrice, memberPoint){
 </script>
   </head>
 <body>
-<div id="header">
-<div class="container">
-<div id="welcomeLine" class="row">
-    <!-- <div class="span6"></div> -->
-    <div class="">
-	    <span style="padding-left: 30px;font-size: 15px;">
-	    	<c:if test="${sessionScope.uID ne null}"> 
-		        welcome ${sessionScope.uID}님
-		    </c:if></span>
-	    <div class="pull-right">
-	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
-	    	<c:forEach var = "i" items="${strAdmin }">
-	    		<c:if test="${sessionScope.uID.equals(i)}">
-	    		 	<a href="AdminMain.adm">관리자</a> |
-	    		</c:if>
-	    	</c:forEach>
-	    	<c:if test="${sessionScope.uID.equals('admin')}">
-<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
-		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}">
-	        </c:if>
-	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="JoinForm.me">회원가입</a> |
-	        </c:if>
-	        <a href="OrderList.mo">마이페이지</a> |
-	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ ${cartList.size()} ] 장바구니 </span> </a> 
-	    </div>
-    </div>
-</div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-<!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
-        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-    </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="NoticeList.bo">이벤트</a></li>
-    </ul>
-  </div>
-</div>
-</div>
-</div>
+<jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- Header End====================================================================== -->
 
 <div id="mainBody">
 	<div class="container">
-	<div class="row">
+	<div class="row" style="margin-left: 10%;">
 
 <!-- Sidebar ================================================== -->
-    <jsp:include page="../inc/menu.jsp"></jsp:include>
+<%--     <jsp:include page="../inc/menu.jsp"></jsp:include> --%>
 <!-- Sidebar end=============================================== -->
 	<!-- 결제하는 Form -->		
 	<form class="form-horizontal" action="BookBuyPro.book" name="fr" method="post">
 	
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
+		<li><a href="Main.me">Home</a> <span class="divider">/</span></li>
 		<li class="active"> 주문/결제</li>
     </ul>
-	<h3>  SHOPPING CART [ <small>${cartList.size()} Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  SHOPPING CART [ <small>${cartList.size()} Item(s) </small>]<a onclick="" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	
 	<!-- 상품목록 보여주는 테이블 -->
@@ -386,59 +328,7 @@ function pointDis(finalPrice, memberPoint){
     <script src="themes/js/jquery.lightbox-0.5.js"></script>
 	
 	<!-- Themes switcher section ============================================================================================= -->
-<div id="secectionBox">
-<link rel="stylesheet" href="themes/switch/themeswitch.css" type="text/css" media="screen" />
-<script src="themes/switch/theamswitcher.js" type="text/javascript" charset="utf-8"></script>
-	<div id="themeContainer">
-	<div id="hideme" class="themeTitle">Style Selector</div>
-	<div class="themeName">Oregional Skin</div>
-	<div class="images style">
-	<a href="themes/css/#" name="bootshop"><img src="themes/switch/images/clr/bootshop.png" alt="bootstrap business templates" class="active"></a>
-	<a href="themes/css/#" name="businessltd"><img src="themes/switch/images/clr/businessltd.png" alt="bootstrap business templates" class="active"></a>
-	</div>
-	<div class="themeName">Bootswatch Skins (11)</div>
-	<div class="images style">
-		<a href="themes/css/#" name="amelia" title="Amelia"><img src="themes/switch/images/clr/amelia.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="spruce" title="Spruce"><img src="themes/switch/images/clr/spruce.png" alt="bootstrap business templates" ></a>
-		<a href="themes/css/#" name="superhero" title="Superhero"><img src="themes/switch/images/clr/superhero.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="cyborg"><img src="themes/switch/images/clr/cyborg.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="cerulean"><img src="themes/switch/images/clr/cerulean.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="journal"><img src="themes/switch/images/clr/journal.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="readable"><img src="themes/switch/images/clr/readable.png" alt="bootstrap business templates"></a>	
-		<a href="themes/css/#" name="simplex"><img src="themes/switch/images/clr/simplex.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="slate"><img src="themes/switch/images/clr/slate.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="spacelab"><img src="themes/switch/images/clr/spacelab.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="united"><img src="themes/switch/images/clr/united.png" alt="bootstrap business templates"></a>
-		<p style="margin:0;line-height:normal;margin-left:-10px;display:none;"><small>These are just examples and you can build your own color scheme in the backend.</small></p>
-	</div>
-	<div class="themeName">Background Patterns </div>
-	<div class="images patterns">
-		<a href="themes/css/#" name="pattern1"><img src="themes/switch/images/pattern/pattern1.png" alt="bootstrap business templates" class="active"></a>
-		<a href="themes/css/#" name="pattern2"><img src="themes/switch/images/pattern/pattern2.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern3"><img src="themes/switch/images/pattern/pattern3.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern4"><img src="themes/switch/images/pattern/pattern4.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern5"><img src="themes/switch/images/pattern/pattern5.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern6"><img src="themes/switch/images/pattern/pattern6.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern7"><img src="themes/switch/images/pattern/pattern7.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern8"><img src="themes/switch/images/pattern/pattern8.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern9"><img src="themes/switch/images/pattern/pattern9.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern10"><img src="themes/switch/images/pattern/pattern10.png" alt="bootstrap business templates"></a>
-		
-		<a href="themes/css/#" name="pattern11"><img src="themes/switch/images/pattern/pattern11.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern12"><img src="themes/switch/images/pattern/pattern12.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern13"><img src="themes/switch/images/pattern/pattern13.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern14"><img src="themes/switch/images/pattern/pattern14.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern15"><img src="themes/switch/images/pattern/pattern15.png" alt="bootstrap business templates"></a>
-		
-		<a href="themes/css/#" name="pattern16"><img src="themes/switch/images/pattern/pattern16.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern17"><img src="themes/switch/images/pattern/pattern17.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern18"><img src="themes/switch/images/pattern/pattern18.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern19"><img src="themes/switch/images/pattern/pattern19.png" alt="bootstrap business templates"></a>
-		<a href="themes/css/#" name="pattern20"><img src="themes/switch/images/pattern/pattern20.png" alt="bootstrap business templates"></a>
-		 
-	</div>
-	</div>
-</div>
+
 <span id="themesBtn"></span>
 </body>
 </html>
