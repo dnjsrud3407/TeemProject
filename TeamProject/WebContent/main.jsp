@@ -130,26 +130,17 @@
 	    </div>
     </div>
 </div>
-<!-- Navbar ================================================== -->
+<!-- Navbar =================================================== -->
 <div>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-
-    </form>
-
-	</div>
-
     </form>
 </div>
-
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-
-    
+</div>
 <div id="menu" style="position: relative; left:10px; z-index: 1;">
     <jsp:include page="./inc/nav.jsp"></jsp:include>
-</div>
-
 </div>
 </div>
 <!-- Header End====================================================================== -->
