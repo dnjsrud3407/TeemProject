@@ -30,8 +30,7 @@ if(session.getAttribute("uID") == null){
 <!-- Custom fonts for this template -->
 <link href="admin/vendor/fontawesome-free/css/all.min.css?ver=1"
 	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template -->
@@ -61,31 +60,15 @@ if(session.getAttribute("uID") == null){
 			<div id="content">
 
 				<!-- Topbar -->
-				<nav 
-					class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-					<!-- Sidebar Toggle (Topbar) -->
-					<button id="sidebarToggleTop"
-						class="btn btn-link d-md-none rounded-circle mr-3">
-						<i class="fa fa-bars"></i>
-					</button>
-
 <!-- top 로그인 관리 부분---------------------------------------------------------------------------------------------------------------------- -->
-				<jsp:include page="../adminInc/adminTop.jsp" />
+				<jsp:include page="../adminInc/topbar.jsp" />
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
-
-
-				</nav>
 				<!-- End of Topbar -->
 
 				<!-- Begin Page Content -->
 				<div class="container-fluid">
 
 					<!-- Page Heading -->
-					<h1 class="h3 mb-2 text-gray-800">거래 진행 상황</h1>
-					<p class="mb-4">
-						거래내역진행상황입니다
-					</p>
 
 					<!-- DataTales Example -->
 					            <!-- Earnings (Monthly) Card Example -->

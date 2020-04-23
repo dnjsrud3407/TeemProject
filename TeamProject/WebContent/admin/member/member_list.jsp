@@ -53,18 +53,9 @@ if(session.getAttribute("uID") == null){
       <div id="content">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
 <!-- top 로그인 관리 부분---------------------------------------------------------------------------------------------------------------------- -->
-				<jsp:include page="../adminInc/adminTop.jsp" />
+				<jsp:include page="../adminInc/topbar.jsp" />
 <!-- ---------------------------------------------------------------------------------------------------------------------------------------- -->
-
-        </nav>
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
