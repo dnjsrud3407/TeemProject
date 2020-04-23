@@ -71,33 +71,10 @@ public class BoardController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		} else if(command.equals("/QModifyPro.bo")) {//1:1문의 수정
-			
-			action = new MemberQModifyProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QDeletePro.bo")) {//1:1문의 삭제
-			
-			action = new MemberQDeleteProAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/QWriteList.bo")) {//1:1 문의내역보기
+		} 
+		 else if(command.equals("/QWriteList.bo")) {//1:1 문의내역보기
 			
 			action = new MemberQListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		} else if(command.equals("/Qdetail.bo")) {//1:1 문의내역보기
-			
-			action = new MemberQdetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

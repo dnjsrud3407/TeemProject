@@ -124,7 +124,7 @@
 	 <%status="대기중" ;%>
 	 </c:if>
 		 			 <tbody>
-			          <tr onclick="location.href='QDetail.bo?boardNum=${QList.boardNum}&status=<%=status%>'">
+			          <tr onclick="location.href='QDetail.bo?boardNum=${QList.boardNum}&status=<%=status%>&kID=${QList.kID}'">
 			            <td>${QList.boardNum}</td>
 			            <td><span style="font-size: -2.5em;"> [${QList.k2}]</span></td>
 			            <td>  &nbsp; &nbsp;  ${QList.boardTitle}</td>

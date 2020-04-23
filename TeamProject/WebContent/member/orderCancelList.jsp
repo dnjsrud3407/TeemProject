@@ -194,13 +194,20 @@ ja(document).ready(function () {
 <!-- 				  	<td>사용가능 쿠폰</td> -->
 <!-- 			  	</tr> -->
 
-                <tr style="border-top: none;">
+              
+         <tr style="border-top: none;">
                    <td style="text-align: center;">보유포인트<br><b style="font-size: 3em; line-height: 2em; color: blue;"><a href="PointInfoAction.me?uID=${sessionScope.uID}" id="hel"><b onmouseup="comma()" id="hel2">${totalPoint}</b></a></b>원
                    <td style="text-align: center;">  사용가능 쿠폰<br> <b style="font-size: 3em; line-height: 2em; color: blue;">
                   <a href="CouponInfoAction.me?uID=${sessionScope.uID}">${couponRealCount}</a> </b>개</td>
+                  <td style="text-align: center;">배송중<br>
+                   <a href="OrderListDelivery.mo?uID=${sessionScope.uID}"><b style="font-size: 3em; line-height: 2em; color: ;">${delivertcount}</b></a> 개
+                  </td>
+                    <td style="text-align: center;">취소/반품/교환<br>
+                   <a href="OrderListCRE.mo?uID=${sessionScope.uID}"><b style="font-size: 3em; line-height: 2em; color: ;">${orderReFundExCangecount}</b></a> 개
+                  </td>
                 </tr>
         </table>
-    
+         <%String orderStatus = "취소";%>   
 	<jsp:include page="search.jsp"></jsp:include>
 	
 <c:set value="-1" var="orderNum"></c:set>

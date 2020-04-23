@@ -19,10 +19,11 @@ public class QModifyFormAction implements Action {
 		// and 관리자가 작성한 것도 불러옴
 		QModifyFormService qModifyFormService = new QModifyFormService();
 		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
+		int kID=Integer.parseInt(request.getParameter("kID"));
 		
 		
 		
-		BoardBean boardBean=qModifyFormService.getOneonOnegetArticle(boardNum);
+		BoardBean boardBean=qModifyFormService.getOneonOnegetArticle(boardNum,kID);
 		
 		
 		

@@ -315,7 +315,7 @@ public class BoardBean {
 		
 	//사용자 1:1 상세 내용
 	public BoardBean(int boardNum, int kID,String boardWriter,String boarTitle,String boardContent,
-			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String storedFileName,String originFileName,String k1,String k2) {
+			int boardReRef,int boardReLev,int boardReSeq,int boardReadcount,Timestamp boardRegTime,int bookID,String k1,String k2) {
 		super();
 		this.boardNum = boardNum;
 		this.kID = kID;
@@ -328,8 +328,6 @@ public class BoardBean {
 		this.boardReadcount = boardReadcount;
 		this.boardRegTime = boardRegTime;
 		this.bookID = bookID;
-		this.storedFileName = storedFileName;
-		this.originFileName = originFileName;
 		this.k1 = k1;
 		this.k2 = k2;
 	}

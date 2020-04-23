@@ -13,7 +13,7 @@ public class QDeleteProService {
 
 
 
-	public int deleteOneOnOne(int boardNum) {
+	public int deleteOneOnOne(int boardNum, int kID) {
 		
 		
 		System.out.println("QDeleteProService 의 deleteOneOnOne()");
@@ -22,7 +22,7 @@ public class QDeleteProService {
 		int result=0;
 		BoardDAO dao = BoardDAO.getInstance();
 		dao.setConnection(con);
-		result=dao.oneOnOneDelete(boardNum);
+		result=dao.oneOnOneDelete(boardNum,kID);
 		
 		
 		if(result>0) {

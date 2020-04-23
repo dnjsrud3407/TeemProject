@@ -87,7 +87,7 @@
 	<hr class="soft"/>
 	
 <!-- 	enctype="multipart/form-data" -->
-<form method="post" id="formId" name="formId" onsubmit="kategoire()" action="QModifyPro.bo?boardNum=${boardBean.boardNum}" enctype="multipart/form-data">
+<form method="post" id="formId" name="formId" onsubmit="kategoire()" action="QModifyPro.bo?boardNum=${boardBean.boardNum}&kID=${boardBean.kID}" enctype="multipart/form-data">
 		<div class="row-fluid">
 		<div class="span12">
 		<table class="table table-bordered" style="text-align: center; margin: auto;">
