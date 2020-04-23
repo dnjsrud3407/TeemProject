@@ -143,7 +143,7 @@
     </form>
 </div>
 
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bookshop"/></a>
 
     
 <div id="menu" style="position: relative; left:10px; z-index: 1;">
