@@ -31,7 +31,8 @@ public class ReviewWriteProAction implements Action {
 		QnReWriteProService reviewWriteProService = new QnReWriteProService();
 		
 		// 게시글 번호 생성
-		int boardNum = reviewWriteProService.getBoardNum();
+		int kID = 103;
+		int boardNum = reviewWriteProService.getBoardNum(kID);
 		
 		BoardBean board = new BoardBean(
 				boardNum, 

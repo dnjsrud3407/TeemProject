@@ -11,13 +11,13 @@ import vo.BoardBean;
 public class QnReWriteProService {
 
 	// boardNum 생성
-	public int getBoardNum() {
+	public int getBoardNum(int kID) {
 		int boardNum = 0;
 		BoardDAO boardDAO = new BoardDAO();
         Connection con = getConnection();
         boardDAO.setConnection(con);
         
-        boardNum = boardDAO.selectMaxNum();
+        boardNum = boardDAO.selectMaxNum(kID);
         
         close(con);
 		
