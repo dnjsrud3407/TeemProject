@@ -51,7 +51,7 @@ function requestPay() {
     var IMP = window.IMP; // 생략가능
     IMP.init('imp39182007');
     var totalPrice = $("#finalPrice").val();
-    var bookTitle = $("#payTitle").val();
+    var bookTitle = $("#bookTitle").val();
     
     IMP.request_pay({
         pg : 'inicis', // version 1.1.0부터 지원.
@@ -197,14 +197,14 @@ function pointDis(finalPrice, memberPoint){
     <jsp:include page="../inc/menu.jsp"></jsp:include>
 <!-- Sidebar end=============================================== -->
 	<!-- 결제하는 Form -->		
-	<form class="form-horizontal" action="BookBuyPro.book" name="fr" method="post">
+	<form class="form-horizontal" action="BookBuyPro2.book" name="fr" method="post">
 	
 	<div class="span9">
     <ul class="breadcrumb">
 		<li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
 		<li class="active"> 주문/결제</li>
     </ul>
-	<h3>  SHOPPING CART [ <small>${cartList.size()} Item(s) </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
+	<h3>  SHOPPING CART [ <small> </small>]<a href="products.html" class="btn btn-large pull-right"><i class="icon-arrow-left"></i> Continue Shopping </a></h3>	
 	<hr class="soft"/>
 	
 	<!-- 상품목록 보여주는 테이블 -->
@@ -218,28 +218,21 @@ function pointDis(finalPrice, memberPoint){
 			</tr>
              </thead>
              <tbody>
-             <c:forEach var="cart" items="${cartList }" varStatus="status">
-             	<input type="hidden" name="bookID${status.index }" value="${cart.bookID }">
-             	<input type="hidden" name="bookTitle${status.index }" value="${cart.bookTitle }">
-             	<input type="hidden" name="bookPrice${status.index }" value="${cart.bookPrice }">
-             	<input type="hidden" name="bookEA${status.index }" value="${cart.bookEA }">
-             	<c:choose>
-             		<c:when test="${fn:length(cartList) > 1}">
-             			<input type="hidden" id="payTitle" value="${cart.bookTitle } 외 ${fn:length(cartList)}건">
-             		</c:when>
-            		<c:otherwise>
-             			<input type="hidden" id="payTitle" value="${cart.bookTitle }">
-             		</c:otherwise>   
-             	</c:choose>           	      	
                <tr>
-                 <td><img width="60" src="./upload/${cart.bookImage }" alt="상품이미지"/></td>
-                 <td>${cart.bookTitle}</td>
-			     <td>${cart.bookEA }</td>
-                 <td>${cart.bookPrice * cart.bookEA}</td>
+                 <td><img width="60" src="./upload/${bookBean.bookImage }" alt="상품이미지"/></td>
+                 <td>${bookBean.bookTitle}</td>
+			     <td>${qty}</td>
+                 <td>${bookBean.bookPrice * qty}</td>
                </tr>
-             </c:forEach>  
 			</tbody>
          </table>
+             	<input type="hidden" name="bookID" value="${bookBean.bookID }">
+             	<input type="hidden" id="bookTitle" name="bookTitle" value="${bookBean.bookTitle }">
+             	<input type="hidden" name="bookPrice" value="${bookBean.bookPrice }">
+             	<input type="hidden" name="bookEA" value="${bookBean.bookEA }">
+             	<input type="hidden" id="payTitle" value="${cart.bookTitle }">
+             	<input type="hidden" id="qty" name="qty" value="${qty}">
+             	
 	<hr class="soft"/>
 	<br><br>
 	<input type="hidden" name="recName" value="${memberBean.u_name }">
@@ -256,7 +249,7 @@ function pointDis(finalPrice, memberPoint){
 	   </tr>
     </table>
     <br>
-    <c:set var="finalPrice" value="${totalPrice + shipPrice }"></c:set>
+    <c:set var="finalPrice" value="${bookBean.bookPrice * qty + shipPrice }"></c:set>
     <!-- 할인 Table -->	
     <table class="table">
 	  <tr><th>할인적용 </th></tr>
@@ -299,7 +292,7 @@ function pointDis(finalPrice, memberPoint){
 		   <div class="control-group">
 			 <label class="control-label">총 상품금액 </label>
 			 <div class="controls">
-			   <input type="text" name="totalPrice" id="totalPrice" value="${totalPrice }" readonly="readonly">
+			   <input type="text" name="totalPrice" id="totalPrice" value="${bookBean.bookPrice * qty}" readonly="readonly">
 			 </div>
 		   </div>
 		   <div class="control-group">

@@ -24,7 +24,7 @@ import vo.MemberBean;
 import vo.OrderBean;
 import vo.OrderDetailBean;
 
-public class BookBuyProAction implements Action {
+public class BookBuyProAction2 implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -79,43 +79,15 @@ public class BookBuyProAction implements Action {
 		OrderDetailBean orderDetail = null;
 		List<OrderDetailBean> orderList = new ArrayList<OrderDetailBean>();
 		
-		ArrayList<Integer> cartNum = new ArrayList<Integer>();
-		ArrayList<Integer> bookID = new ArrayList<Integer>();
-		ArrayList<String> bookTitle = new ArrayList<String>();
-		ArrayList<Integer> bookPrice = new ArrayList<Integer>();
-		ArrayList<Integer> bookEA = new ArrayList<Integer>();
-
-		Enumeration<String> nameList = request.getParameterNames();
-		
-		while(nameList.hasMoreElements()) {
-			String paramName = nameList.nextElement();
-			if(paramName == null || paramName == "") {
-				break;
-			}
-			
-//			if(paramName.contains("cartNum")) {
-//				cartNum.add(Integer.parseInt(request.getParameter(paramName)));
-//			}
-			if(paramName.contains("bookID")) {
-				bookID.add(Integer.parseInt(request.getParameter(paramName)));
-			}
-			if(paramName.contains("bookTitle")) {
-				bookTitle.add(request.getParameter(paramName));
-			}
-			if(paramName.contains("bookPrice")) {
-				bookPrice.add(Integer.parseInt(request.getParameter(paramName)));
-			}
-			if(paramName.contains("bookEA")) {
-				bookEA.add(Integer.parseInt(request.getParameter(paramName)));
-			}
-			
-		}
+				int bookID=Integer.parseInt(request.getParameter("bookID"));
+				String bookTitle=request.getParameter("bookTitle");
+				int bookPrice=Integer.parseInt(request.getParameter("bookPrice"));
+				int bookEA=Integer.parseInt(request.getParameter("bookEA"));
+				int qty=Integer.parseInt(request.getParameter("qty"));
 		
 		// 주문 상세 리스트 생성
-		for(int i = 0; i < bookID.size(); i++) {
-			orderDetail = new OrderDetailBean(bookID.get(i), orderNum, bookTitle.get(i), bookPrice.get(i), bookEA.get(i));
+			orderDetail = new OrderDetailBean(bookID, orderNum, bookTitle, bookPrice, qty);
 			orderList.add(orderDetail);
-		}
 		
 		// OrderBean 완성 
 		orderBean = new OrderBean(orderNum, order_ID, totalPrice, orderRec, address2, orderTime, orderStatus, lastModTime, coupon_num, paymentType, orderList);
@@ -124,14 +96,6 @@ public class BookBuyProAction implements Action {
 		
 		int successOrder = bookBuyProService.insertOrder(orderBean, usedPoint);
 		
-		
-		// 쿠폰 사용 (업데이트 구문)
-		
-		// 포인트 사용 기록 및 user 접근
-		
-		// 장바구니 비우기
-		CartRemoveService cartRemoveService = new CartRemoveService();
-		cartRemoveService.cartRemove(cartNum, order_ID);
 		
 		forward = new ActionForward();
 		if(successOrder != 0) {

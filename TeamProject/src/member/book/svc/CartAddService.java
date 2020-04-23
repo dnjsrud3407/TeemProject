@@ -92,6 +92,8 @@ public class CartAddService {
 			}
 
 		}
+		
+		
 //		System.out.println("장바구니 :" + "," + cartList);
 //		for (int i = 0; i<cartList.size(); i++) {
 //			System.out.println("장바구니 " + cartList.get(i).getBookTitle());

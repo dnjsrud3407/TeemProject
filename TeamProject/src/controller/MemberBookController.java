@@ -13,8 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import member.account.action.MiddleBookAction;
 import member.book.action.BookBuyAction;
+import member.book.action.BookBuyAction2;
 import member.book.action.BookBuyProAction;
+import member.book.action.BookBuyProAction2;
 import member.book.action.CartAddAction;
+import member.book.action.CartAddAction2;
 import member.book.action.CartListAction;
 import member.book.action.CartQtyChangeAction;
 import member.book.action.CartRemoveAction;
@@ -232,6 +235,14 @@ public class MemberBookController extends HttpServlet {
 				e.printStackTrace();
 			}
 		// 장바구니 리스트	
+		}else if(command.equals("/CartAdd2.book")) {
+			action = new CartAddAction2();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		// 장바구니 리스트	
 		} else if(command.equals("/CartList.book")) {
 			action = new CartListAction();
 			try {
@@ -265,8 +276,24 @@ public class MemberBookController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
+		} else if(command.equals("/BookBuy2.book")) {
+			action = new BookBuyAction2();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		} else if(command.equals("/BookBuyPro.book")) {
 			action = new BookBuyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} else if(command.equals("/BookBuyPro2.book")) {
+			action = new BookBuyProAction2();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

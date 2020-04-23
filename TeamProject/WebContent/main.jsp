@@ -37,8 +37,165 @@
     <!--Constom styles -->
     <link href="css/main.css?ver=1" rel="stylesheet" type="text/css">
     <style type="text/css" id="enject"></style>
+  
+  <style type="text/css">
+  
+  #menu {
+
+    height: 50px;
+
+    background: #333;
+
+}
+
+
+
+.main1 {
+
+    width: 600px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+}
+
+ul.main3 {
+    position: absolute;
+    /* left: auto; */
+    margin-bottom: -20px;
+    margin-left: -2px;
+}
+
+
+.main1>li {
+
+    float: left;
+
+    width: 20%;
+
+    line-height: 50px;
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+
+
+.main1>li:hover .main2 {
+
+    left: 0;
+
+}
+
+
+
+.main1>li a {
+
+    display: block;
+
+}
+
+
+
+.main1>li a:hover {
+
+    background: #B21016;
+
+    color: #fff;
+
+    font-weight: bold;
+
+}
+
+li>a{ color: #fff; }
+
+.main2 {
+
+    position: absolute;
+
+    top: 50px;
+
+    left: -9999px;
+
+    background: #ccc;
+
+    width: 120%;
+
+}
+
+
+.main2>li {
+
+    position: relative;
+
+}
+
+.main2>li:hover .main3 {
+
+    left: 100%;
+
+}
+
+.main2>li a, .main3>li a {
+
+    border-radius: 10px;
+
+    margin: 10px;
+
+}
+
+.main3 {
+    position: absolute;
+
+    top: 0;
+
+    background: #6BD089;
+
+    width: 120%;
+
+    left: -9999px;
+
+    /*left: 100%;*/
+
+    /*display: none;*/
+}
+
+
+.main3>li a:hover {
+
+    background: #085820;
+
+    color: #fff;
+
+}
+
+
+
+ul{
+
+    list-style:none;
+
+    list-style-type:none;
+
+    } 
+
+
+
+  
+  </style>
+  
+  
   </head>
+  
+  
+  
 <script src="./js/jquery-3.4.1.js"></script>
+
+
+        
 <script type="text/javascript">
   // 책 검색하는 작업
   function checkSearch() {
@@ -63,6 +220,10 @@
 	  });
   }
 </script>
+
+
+
+
 <body>
 <div id="header">
 <div class="container">
@@ -101,47 +262,206 @@
     </div>
 </div>
 <!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-  <div class="navbar-inner">
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-	<!--    검색하는 창 -->
+<div>
     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
-    <ul id="topMenu" class="nav"> 
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="Event.adb">이벤트</a></li>
-     <li><a href="NoticeList.bo">공지사항</a></li>
+    </div>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+
+    
+<div id="menu" style="position: relative; left:10px; z-index: 1;">
+
+    <ul class="main1" >
+
+        <li><a href="BookListALL.book">전체 교재</a>
+
+            <ul class="main2">
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴1</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴2</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴3</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+<!--                 <li><a href="#">교재구매3</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴4</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴5</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴6</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+            </ul>
+
+        </li>
+
+        <li><a href="BookListALL.book">교재구매</a>
+
+            <ul class="main2">
+
+                <li><a href="BookList.book?bk2=1">1단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=1">HTML5/CSS3</a></li>
+
+<!--                         <li><a href="#">JavaScript</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴9</a></li> -->
+
+                    </ul>
+
+                </li>
+
+                <li><a href="BookList.book?bk2=2">2단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=2">JavaScript</a></li>
+
+<!--                         <li><a href="#">jsp</a></li> -->
+<!--                         <li><a href="#">MySQL</a></li> -->
+<!-- 						 <li><a href="#">Oracle</a></li>  -->
+
+                    </ul>
+
+                </li>
+
+                <li><a href="BookList.book?bk2=3">3단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=3">Jquery/Ajax/Jason/JSTL</a></li>
+
+                        <li><a href="BookList.book?bk2=3">Spring</a></li>
+
+<!--                         <li><a href="#">2단소메뉴15</a></li> -->
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </li>
+        
      
+
+        <li><a href="Event.adb">이벤트</a>
+
+            <ul class="main2">
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a></li> -->
+
+<!--                 <li><a href="#">소메뉴3</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴16</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴17</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴18</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+            </ul>
+
+        </li>
+        
+        
+        <li><a href="#">공지사항</a>
+        
+        
+        </li>
+
+        <li><a href="#">FAQ</a>
+
+<!--             <ul class="main2"> -->
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a></li> -->
+
+<!--                 <li><a href="#">소메뉴3</a></li> -->
+
+<!--             </ul> -->
+
+        </li>
+        
+     
+
     </ul>
-  </div>
+
+</div>
+
+
+
+<!-- <div id="logoArea" class="navbar"> -->
+<!--   <div class="navbar-inner"> -->
+<!--     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a> -->
+<!-- 	<!--    검색하는 창 --> 
+<!--     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()"> -->
+
+<!--         <button type="submit" id="submitButton" class="btn btn-primary">검색</button> -->
+<!--     </form> -->
+<!--     <ul id="topMenu" class="nav"> -->
+<!--      <li><a href="">로드맵</a></li> -->
+<!--      <li><a href="BookList.book">교재구매</a></li> -->
+<!--      <li><a href="Event.adb">이벤트</a></li> -->
+<!--     </ul> -->
+<!--   </div> -->
+<!-- </div> -->
 </div>
 </div>
-</div> 
 <!-- Header End====================================================================== -->
+
+
+
+
 <div id="carouselBlk">
     <div id="myCarousel" class="carousel slide">
         <div class="carousel-inner">
           <div class="item active">
           <div class="container">
-            <a href="NoticeDetail.bo"><img style="width:100%" src="themes/images/carousel/banner1.png" alt="special offers"/></a>
+            <a href="EventDetail.adb?boardNum=44"><img style="width:100%" href="" src="themes/images/carousel/banner1.png" alt="special offers"/></a>
           </div>
           </div>
           <div class="item">
           <div class="container">
-            <a href="NoticeDetail.bo"><img style="width:100%" src="themes/images/carousel/banner2.png" alt=""/></a>
+            <a href="EventDetail.adb?boardNum=45"><img style="width:100%" src="themes/images/carousel/banner2.png" alt=""/></a>
           </div>
           </div>
           <div class="item">
           <div class="container">
-            <a href="NoticeDetail.bo"><img src="themes/images/carousel/banner3.png" alt=""/></a>
+            <a href="EventDetail.adb?boardNum=46"><img src="themes/images/carousel/banner3.png" alt=""/></a>
           </div>
           </div>
            <div class="item">
            <div class="container">
-            <a href="NoticeDetail.bo"><img src="themes/images/carousel/banner4.png" alt=""/></a>
+            <a href="EventDetail.adb?boardNum=43"><img src="themes/images/carousel/banner4.png" alt=""/></a>
           </div>
           </div>
         </div>

@@ -21,14 +21,14 @@
 	<script src="themes/js/less.js" type="text/javascript"></script> -->
 	
 <!-- Bootstrap style --> 
-    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css" media="screen"/>
-    <link href="themes/css/base.css" rel="stylesheet" media="screen"/>
-     <link href="themes/css/mycus.css" rel="stylesheet"/>
+    <link id="callCss" rel="stylesheet" href="themes/bootshop/bootstrap.min.css?ver=1" media="screen"/>
+    <link href="themes/css/base.css?ver=1" rel="stylesheet" media="screen"/>
+     <link href="themes/css/mycus.css?ver=1" rel="stylesheet"/>
 <!-- Bootstrap style responsive -->	
-	<link href="themes/css/bootstrap-responsive.min.css" rel="stylesheet"/>
-	<link href="themes/css/font-awesome.css" rel="stylesheet" type="text/css">
+	<link href="themes/css/bootstrap-responsive.min.css?ver=1" rel="stylesheet"/>
+	<link href="themes/css/font-awesome.css?ver=1" rel="stylesheet" type="text/css">
 <!-- Google-code-prettify -->	
-	<link href="themes/js/google-code-prettify/prettify.css" rel="stylesheet"/>
+	<link href="themes/js/google-code-prettify/prettify.css?ver=1" rel="stylesheet"/>
 <!-- fav and touch icons -->
     <link rel="shortcut icon" href="themes/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="themes/images/ico/apple-touch-icon-144-precomposed.png">
@@ -55,13 +55,192 @@
 	border-top:solid;
 	}
 	
-	
+  
+/*   #menu { */
+
+/*     height: 50px; */
+
+/*     background: #333; */
+
+/* } */
+
+#menu {
+    height: 50px;
+    background: #333;
+}
+
+.main1 {
+
+    width: 600px;
+
+    height: 100%;
+
+    margin: 0 auto;
+
+}
+
+ul.main3 {
+    position: absolute;
+    /* left: auto; */
+    margin-bottom: -20px;
+    margin-left: -2px;
+}
+
+
+.main1>li {
+
+    float: left;
+
+    width: 20%;
+
+    line-height: 50px;
+
+    text-align: center;
+
+    position: relative;
+
+}
+
+
+
+.main1>li:hover .main2 {
+
+    left: 0;
+
+}
+
+
+
+.main1>li a {
+
+    display: block;
+
+}
+
+
+
+.main1>li a:hover {
+
+    background: #B21016;
+
+    color: #fff;
+
+    font-weight: bold;
+
+}
+
+li>a{ color: #fff; }
+
+.main2 {
+
+    position: absolute;
+
+    top: 50px;
+
+    left: -9999px;
+
+    background: #ccc;
+
+    width: 120%;
+
+}
+
+
+.main2>li {
+
+    position: relative;
+
+}
+
+.main2>li:hover .main3 {
+
+    left: 100%;
+
+}
+
+.main2>li a, .main3>li a {
+
+    border-radius: 10px;
+
+    margin: 10px;
+
+}
+
+.main3 {
+    position: absolute;
+
+    top: 0;
+
+    background: #6BD089;
+
+    width: 120%;
+
+    left: -9999px;
+
+    /*left: 100%;*/
+
+    /*display: none;*/
+}
+
+
+.main3>li a:hover {
+
+    background: #085820;
+
+    color: #fff;
+
+}
+
+
+
+ul{
+
+    list-style:none;
+
+    list-style-type:none;
+
+    } 
+
+
+
+  
 	
 	
 	
 	
 	
 	</style>
+	
+	  
+<script src="./js/jquery-3.4.1.js"></script>
+
+
+        
+<script type="text/javascript">
+  // 책 검색하는 작업
+  function checkSearch() {
+	if($("#srchFld").val() == "") {
+		alert('검색어를 입력하세요');
+		return false;
+	} else {
+		return true;
+	}
+  }
+  function getMiddle(type) {
+	  // type = 0 -> 베스트 셀러
+	  // type = 1 -> 1단계 책
+	  // type = 2 -> 2단계 책
+	  // type = 3 -> 3단계 책
+	  $.ajax({
+		  type:"POST",
+		  url:"MiddleBook.book?type=" + type,
+		  success: function(msg2){	// 베스트셀러
+		  	  $(".middle_banner").html(msg2);
+		  }
+	  });
+  }
+</script>
+	
   </head>
 <body>
 
@@ -105,56 +284,214 @@ if(uID==null){%>
 		<a href="BookCart.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
 	</div>
 	</div>
-</div>
+<!-- </div> -->
 <!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-	<span class="icon-bar"></span>
-	<span class="icon-bar"></span>
-	<span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-		<form class="form-inline navbar-search" method="post" action="products.html" >
-		<input id="srchFld" class="srchTxt" type="text" />
-		  <select class="srchTxt">
-			<option>All</option>
-			<option>CLOTHES </option>
-			<option>FOOD AND BEVERAGES </option>
-			<option>HEALTH & BEAUTY </option>
-			<option>SPORTS & LEISURE </option>
-			<option>BOOKS & ENTERTAINMENTS </option>
-		</select> 
-		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
+<!-- <div id="logoArea" class="navbar"> -->
+<!-- <a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar"> -->
+<!-- 	<span class="icon-bar"></span> -->
+<!-- 	<span class="icon-bar"></span> -->
+<!-- 	<span class="icon-bar"></span> -->
+<!-- </a> -->
+<div>
+    <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
+        <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
+        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
-    <ul id="topMenu" class="nav pull-right">
-	 <li class="">
-	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
-		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
-			<h3>Login Block</h3>
-		  </div>
-		  <div class="modal-body">
-			<form class="form-horizontal loginFrm">
-			  <div class="control-group">								
-				<input type="text" id="inputEmail" placeholder="Email">
-			  </div>
-			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
-			  </div>
-			  <div class="control-group">
-				<label class="checkbox">
-				<input type="checkbox"> Remember me
-				</label>
-			  </div>
-			</form>		
-			<button type="submit" class="btn btn-success">Sign in</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-		  </div>
-	</div>
-	</li>
+</div>
+
+
+
+
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+
+    
+<div id="menu" style="position: relative; left:10px; z-index: 1;">
+
+    <ul class="main1" >
+
+        <li><a href="BookListALL.book">전체 교재</a>
+
+            <ul class="main2">
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴1</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴2</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴3</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+<!--                 <li><a href="#">교재구매3</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴4</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴5</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴6</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+            </ul>
+
+        </li>
+
+        <li><a href="BookListALL.book">교재구매</a>
+
+            <ul class="main2">
+
+                <li><a href="BookList.book?bk2=1">1단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=1">HTML5/CSS3</a></li>
+
+<!--                         <li><a href="#">JavaScript</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴9</a></li> -->
+
+                    </ul>
+
+                </li>
+
+                <li><a href="BookList.book?bk2=2">2단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=2">JavaScript</a></li>
+
+<!--                         <li><a href="#">jsp</a></li> -->
+<!--                         <li><a href="#">MySQL</a></li> -->
+<!-- 						 <li><a href="#">Oracle</a></li>  -->
+
+                    </ul>
+
+                </li>
+
+                <li><a href="BookList.book?bk2=3">3단계</a>
+
+                    <ul class="main3">
+
+                        <li><a href="BookList.book?bk2=3">Jquery/Ajax/Jason/JSTL</a></li>
+
+                        <li><a href="BookList.book?bk2=3">Spring</a></li>
+
+<!--                         <li><a href="#">2단소메뉴15</a></li> -->
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </li>
+        
+     
+
+        <li><a href="Event.adb">이벤트</a>
+
+            <ul class="main2">
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a></li> -->
+
+<!--                 <li><a href="#">소메뉴3</a> -->
+
+<!--                     <ul class="main3"> -->
+
+<!--                         <li><a href="#">2단소메뉴16</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴17</a></li> -->
+
+<!--                         <li><a href="#">2단소메뉴18</a></li> -->
+
+<!--                     </ul> -->
+
+<!--                 </li> -->
+
+            </ul>
+
+        </li>
+        
+        
+        <li><a href="#">공지사항</a>
+        
+        
+        </li>
+
+        <li><a href="#">FAQ</a>
+
+<!--             <ul class="main2"> -->
+
+<!--                 <li><a href="#">소메뉴1</a></li> -->
+
+<!--                 <li><a href="#">소메뉴2</a></li> -->
+
+<!--                 <li><a href="#">소메뉴3</a></li> -->
+
+<!--             </ul> -->
+
+        </li>
+        
+     
+
     </ul>
-  </div>
+
+</div>
+<!--   <div class="navbar-inner"> -->
+<!--     <a class="brand" href="index.jsp"><img src="themes/images/logo.png" alt="Bootsshop"/></a> -->
+<!-- 		<form class="form-inline navbar-search" method="post" action="products.html" > -->
+<!-- 		<input id="srchFld" class="srchTxt" type="text" /> -->
+<!-- 		  <select class="srchTxt"> -->
+<!-- 			<option>All</option> -->
+<!-- 			<option>CLOTHES </option> -->
+<!-- 			<option>FOOD AND BEVERAGES </option> -->
+<!-- 			<option>HEALTH & BEAUTY </option> -->
+<!-- 			<option>SPORTS & LEISURE </option> -->
+<!-- 			<option>BOOKS & ENTERTAINMENTS </option> -->
+<!-- 		</select>  -->
+<!-- 		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button> -->
+<!--     </form> -->
+<!--     <ul id="topMenu" class="nav pull-right"> -->
+<!-- 	 <li class=""> -->
+<!-- 	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" > -->
+<!-- 		  <div class="modal-header"> -->
+<!-- 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button> -->
+<!-- 			<h3>Login Block</h3> -->
+<!-- 		  </div> -->
+<!-- 		  <div class="modal-body"> -->
+<!-- 			<form class="form-horizontal loginFrm"> -->
+<!-- 			  <div class="control-group">								 -->
+<!-- 				<input type="text" id="inputEmail" placeholder="Email"> -->
+<!-- 			  </div> -->
+<!-- 			  <div class="control-group"> -->
+<!-- 				<input type="password" id="inputPassword" placeholder="Password"> -->
+<!-- 			  </div> -->
+<!-- 			  <div class="control-group"> -->
+<!-- 				<label class="checkbox"> -->
+<!-- 				<input type="checkbox"> Remember me -->
+<!-- 				</label> -->
+<!-- 			  </div> -->
+<!-- 			</form>		 -->
+<!-- 			<button type="submit" class="btn btn-success">Sign in</button> -->
+<!-- 			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button> -->
+<!-- 		  </div> -->
+<!-- 	</div> -->
+<!-- 	</li> -->
+<!--     </ul> -->
+<!--   </div> -->
 </div>
 </div>
 </div>

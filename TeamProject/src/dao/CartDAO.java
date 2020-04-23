@@ -70,6 +70,7 @@ public class CartDAO {
 		return cartList;
 	}
 	
+	//달라지는 점은 카트넘이 필요없다는것
 	public ArrayList<CartBean> getCartList(String uID, String cartNumStr) {
 		ArrayList<CartBean> cartList = new ArrayList<CartBean>();
 		
