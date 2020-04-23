@@ -114,9 +114,9 @@
 	<div class="span9">
     <ul class="breadcrumb">
 		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
-		<li class="active">Registration</li>
+		<li class="active">내정보수정</li>
     </ul>
-	<h3> Registration</h3>	
+	<h3>내정보수정</h3>	
 	<div class="well">
 	<!--
 	<div class="alert alert-info fade in">
@@ -219,7 +219,7 @@
 			<div class="controls">
 				<input type="hidden" name="email_create" value="1">
 				<input type="hidden" name="is_new_customer" value="1">
-				<input class="btn btn-large btn-success" onClick="javascript:modify()" type="submit" value="Register" />
+				<input class="btn btn-large btn-success" onClick="javascript:modify()" type="submit" value="수정하기" />
 			</div>
 		</div>		
 	</form>
