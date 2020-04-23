@@ -91,20 +91,20 @@
 			<c:if test="${sessionScope.isAdmin eq true }">
 				<a href="AdminMain.adm">관리자</a> |
 			</c:if>	
-			<c:if test="${sessionScope.uID ne null}">
-	        </c:if>
 
+<!-- 		로그인 안했을 때 -->
 	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="JoinForm.me">회원가입</a> |
+	        	<a href="JoinForm.me">회원가입</a> |
+	        	<a href="helpCenter.jsp">고객센터</a> |
+		        <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
 	        </c:if>
+	        
+<!-- 	        로그인 했을 때 -->
 	         <c:if test="${sessionScope.uID ne null}"> 
 		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-	        <a href="OrderList.mo">마이페이지</a> |
-	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a>
-		    <c:if test="${sessionScope.uID eq null}">
-		       <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
+		        <a href="OrderList.mo">마이페이지</a> |
+		        <a href="helpCenter.jsp">고객센터</a> |
+		        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i>장바구니 </span> </a>
 		    </c:if>
 		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
 		  <div class="modal-header">
