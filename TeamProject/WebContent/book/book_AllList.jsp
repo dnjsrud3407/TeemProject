@@ -95,7 +95,7 @@
 			</label><br/>
 			
 			  <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
+			  <a href="Book.book?bookID=${book.bookID }" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 			
 				</form>
 			</div>
