@@ -18,13 +18,18 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class NoticeModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// MultipartRequest 객체생성
 		String saveFolder ="/boardFile";
 		
@@ -91,7 +96,6 @@ public class NoticeModifyProAction implements Action {
 		//2. 기존 파일 변동여부 와는 상관없이 새 파일 추가되었을 경우 새 파일을 추가
 		//
 		//3. 기존 파일 삭제 시 삭제된 파일이름 hidden으로 넘겨서 File.delete() 실행
-		HttpSession session = request.getSession();
 		forward = new ActionForward();
 		if(updateCount != 0) {
 			// 수정 성공시 삭제요청받은 기존 파일을 삭제해야함

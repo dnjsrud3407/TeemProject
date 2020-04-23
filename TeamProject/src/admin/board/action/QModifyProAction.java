@@ -18,13 +18,18 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class QModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// MultipartRequest 객체생성
 		String saveFolder ="/boardFile";
 		
@@ -79,7 +84,6 @@ public class QModifyProAction implements Action {
 		
 		// BoardBean 객체를 전달하여 서비스의 modifyArticle() 메서드를 실행하여  DB에 글을 수정하고, 성공 시 1을 반환받는다, 실패시 0을 반환
 		int updateCount = boardService.modifyArticle(bb, deleteFileName);
-		HttpSession session = request.getSession();
 		/////////////////////////////////////////////////////////////////////////////////////////////////////
 		//1. 파일 변동이 없을 경우 파일관련 작업 없음
 		//

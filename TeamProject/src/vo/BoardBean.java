@@ -26,9 +26,32 @@ public class BoardBean {
 	private int bookID;
 	private String bookTitle;
 	private String score; // 상품후기 평점
+	private int cID; // 쿠폰 아이디를 View 와 연결시킬 때 주로 사용할 변수 / 액션 - 서비스 - dao 간의 관계에서는 제목 + @_c-I-D_@ + cID 의 형식으로 boardTitle에 담겨서 전송 
 	
 	
 	
+	
+	public int getcID() {
+		return cID;
+	}
+
+
+
+
+	public void setcID(int cID) {
+		this.cID = cID;
+	}
+
+
+
+
+	public void setQResult(boolean isQResult) {
+		this.isQResult = isQResult;
+	}
+
+
+
+
 	public BoardBean(int boardNum, String k1, String k2, String boardWriter, String boardTitle, String boardContent,
 			Timestamp boardRegTime, int boardReRef, int boardReLev, int boardReSeq, int boardReadcount,
 			List<FileBean> fileList) {

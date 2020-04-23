@@ -111,6 +111,7 @@
                       <h6 class="collapse-header">공지사항/이벤트</h6>
             <a class="collapse-item" href='<c:url value="/Notice.adb"/>'>공지사항</a>
             <a class="collapse-item" href='<c:url value="/Event.adb"/>'>이벤트</a>
+            <a class="collapse-item" href='<c:url value="/Coupon.adb"/>'>쿠폰관리</a>
             <a class="collapse-item" href="">배너관리(미구현)</a>
           
             <h6 class="collapse-header">FAQ/1:1문의 관리</h6>

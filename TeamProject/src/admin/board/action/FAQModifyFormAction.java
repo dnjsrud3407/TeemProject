@@ -11,7 +11,7 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
-
+import static access.Access.*;
 public class FAQModifyFormAction implements Action {
 
 	@Override
@@ -21,7 +21,11 @@ public class FAQModifyFormAction implements Action {
 		
 		// 세션 챙기기 + 액션에서 세션값을 활용하여 관리자인지를 체크한 후 관리자가 아니면 메인 홈페이지로 보냄
 		HttpSession session = request.getSession();
-		
+		// 관리자 체크
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정

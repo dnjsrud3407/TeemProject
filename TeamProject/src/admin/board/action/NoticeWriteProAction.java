@@ -20,7 +20,7 @@ import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class NoticeWriteProAction implements Action {
 
 	@Override
@@ -29,7 +29,11 @@ public class NoticeWriteProAction implements Action {
 		// 리퀘스트 한글처리
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
+		// 관리자 체크
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// MultipartRequest 객체생성
 		String saveFolder ="/boardFile";
 //		File isDir = new File(saveFolder); // 파일 디렉토리가 없다면 만들어주기 위함

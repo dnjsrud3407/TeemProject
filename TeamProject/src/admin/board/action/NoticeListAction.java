@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import admin.board.svc.BoardService;
@@ -11,7 +12,7 @@ import board.svc.NoticeListService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.PageInfo;
-
+import static access.Access.*;
 public class NoticeListAction implements Action {
 
 	@Override
@@ -19,7 +20,12 @@ public class NoticeListAction implements Action {
 		ActionForward forward = null;
 		System.out.println("공지사항 보기");
 		request.setCharacterEncoding("UTF-8");
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// PageInfo 객체 선언
 		PageInfo pageInfo = new PageInfo();
 		int page = 1;  // 현 페이지 정보

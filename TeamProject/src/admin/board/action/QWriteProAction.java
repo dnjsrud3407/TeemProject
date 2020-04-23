@@ -19,13 +19,18 @@ import board.svc.QWriteProService;
 import vo.ActionForward;
 import vo.BoardBean;
 import vo.FileBean;
-
+import static access.Access.*;
 public class QWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		// 리퀘스트 한글처리
 		request.setCharacterEncoding("UTF-8");
 		
@@ -89,7 +94,6 @@ public class QWriteProAction implements Action {
 		
 		
 		forward = new ActionForward();
-		HttpSession session = request.getSession();
 		if(insertCount != 0) {
 			// 답변 작성 성공 시 본 글의 lev 을 1로 올림
 			forward.setPath("./QDetail.adb?boardNum=" + boardReRef);

@@ -81,6 +81,14 @@
 							
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                    <tr>
+		                      <th>쿠폰</th>
+		                      <td><select name=cID>
+		                      <c:forEach var="coupon" items="${couponList }" varStatus="varStatus">
+		                      <option value="${coupon.cID }">쿠폰명 : ${coupon.coupon_name } / 적용일 : ${coupon.couponReg_date } 만료일 : ${coupon.couponEnd_date } / 할인액 : ${coupon.volume } 원</option>
+		                      </c:forEach>
+		                      </select></td>
+		                    </tr>
+		                    <tr>
 		                      <th>제목</th>
 		                      <td colspan="3"><input type="text" name="boardTitle" size="70"></td>
 		                    </tr>

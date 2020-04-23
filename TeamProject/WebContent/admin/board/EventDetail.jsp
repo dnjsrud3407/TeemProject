@@ -74,22 +74,31 @@
         <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
-                <div class="container-fluid">
+            <div class="container-fluid">
+                <div class="card shadow mb-4">
+		            <div class="card-header py-3">
+		              <h5 class="m-0 font-weight-bold text-primary"><a href='<c:url value="/Event.adb"/>'>&lt; 이벤트 목록</a></h5>
+		            </div>
+        		</div>
 			<div class="row">
 
-           <!-- FAQ 작성 -->
+           <!-- 이벤트 보기 -->
 
-			<div style="margin-left: auto; margin-right: auto;">
+			<div style="margin-left: auto; margin-right: auto; width: 60%;">
               <div class="card position-relative">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">이벤트 작성</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">이벤트 보기</h6>
                 </div>
                 <div class="card-body">
-	              <div class="table-responsive" width="100%">
+	              <div class="table-responsive">
 		                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                    <tr>
 		                      <th>제목</th>
 		                      <td colspan="3">${article.boardTitle }</td>
+		                    </tr>
+		                    <tr>
+		                    	<th>쿠폰</th>
+		                    	<td>쿠폰 ID : ${coupon.cID } / 쿠폰명 : ${coupon.coupon_name } / 적용일 : ${coupon.couponReg_date } / 만료일 : ${coupon.couponEnd_date } / 할인액 : ${coupon.volume }</td>
 		                    </tr>
 		                    <tr>
 		                      <th style="width:15%">내용</th>
@@ -97,7 +106,7 @@
 		                      
 		                      <c:if test="${article.fileList.size() > 0 }">
 		                      	<c:forEach var="image" items="${article.fileList}" varStatus="index">
-		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/>
+		                      		<img src='<c:url value="/boardFile/${image.storedFileName }"/>' width="300px" height="300px"/><br>
 		                      	</c:forEach>
 		                      </c:if>
 		                      ${article.boardContent }

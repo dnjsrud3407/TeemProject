@@ -10,13 +10,18 @@ import action.Action;
 import admin.board.svc.BoardService;
 import vo.ActionForward;
 import vo.BoardBean;
-
+import static access.Access.*;
 public class QDetailAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		
+		// 관리자 체크
+		HttpSession session = request.getSession();
+		if(!isAdmin(session)) {
+			forward = deniedAccess(session);
+			return forward;
+		}
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		// 서블릿에 리퀘스트 객체로 카테고리 정보를 포함되어있다고 가정
 		String k1 = "1:1문의";
@@ -40,7 +45,6 @@ public class QDetailAction implements Action {
 		request.setAttribute("k2List", k2List);
 		
 		forward = new ActionForward();
-		HttpSession session = request.getSession();
 		if(QDeatails.size() > 0) {
 			// 받아온 글 정보가 있다면 해당 글 정보를 표시할 jsp 파일로 이동
 			//

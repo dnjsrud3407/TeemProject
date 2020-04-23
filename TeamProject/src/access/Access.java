@@ -27,7 +27,7 @@ public class Access {
 	public static ActionForward deniedAccess(HttpSession session) {
 		ActionForward forward = new ActionForward();
 		session.setAttribute("errMsg", "경고 : 해당 페이지 접근권한 없음!");
-		forward.setPath("./errMsg.jsp");
+		forward.setPath("/errMsg.jsp");
 
 		return forward;
 	}

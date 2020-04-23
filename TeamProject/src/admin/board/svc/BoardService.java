@@ -13,6 +13,7 @@ import java.util.List;
 
 import dao.AdminBoardDAO;
 import vo.BoardBean;
+import vo.CouponBean;
 import vo.PageInfo;
 
 public class BoardService {
@@ -281,20 +282,146 @@ public class BoardService {
 		return insertCount; // 가져온 최신글의 글 번호 반환
 	}
 
-//	public void updateLev(String k1, String k2, int boardReRef) {
-//		Connection con = null;
-//		// BoardDAO 객체 생성(싱글톤 패턴)
-//		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
-//		// DB 연결
-//		con = getConnection();
-//		boardDAO.setConnection(con);
-//		int updateCount = 0;
-//		
-//		updateCount = boardDAO.updateLev(k1,k2,boardReRef);
-//		
-//		// DB 연결 종료
-//		close(con);
-//	}
+	public int getCouponCount() {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		
+		int couponCount = boardDAO.getCouponCount();
+		
+		// DB 연결 종료
+		close(con);
+		
+		return couponCount;
+	}
+
+	public ArrayList<CouponBean> getCouponList(int startRow, int limit) {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		
+		ArrayList<CouponBean> couponList = boardDAO.getCouponList(startRow,limit);
+		
+		// DB 연결 종료
+		close(con);
+		
+		return couponList;
+	}
+
+	public List<CouponBean> getCouponList() {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		
+		ArrayList<CouponBean> couponList = boardDAO.getCouponList();
+		
+		// DB 연결 종료
+		close(con);
+		
+		return couponList;
+	}
+
+	public CouponBean getCouponInfo(int cID) {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		
+		CouponBean coupon = boardDAO.getCouponInfo(cID);
+		
+		// DB 연결 종료
+		close(con);
+		
+		return coupon;
+	}
+
+	public int insertCoupon(CouponBean coupon) {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		int insertCount= 0;
+		
+		insertCount = boardDAO.insertCoupon(coupon);
+		
+		if(insertCount != 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		// DB 연결 종료
+		close(con);
+		
+		return insertCount;
+	}
+
+	public int updateCoupon(CouponBean coupon) {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		int updateCount= 0;
+		
+		updateCount = boardDAO.updateCoupon(coupon);
+		
+		if(updateCount != 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		// DB 연결 종료
+		close(con);
+		
+		return updateCount;
+	}
+
+	public int deleteCoupon(int cID) {
+		Connection con = null;
+		// BoardDAO 객체 생성(싱글톤 패턴)
+		AdminBoardDAO boardDAO = AdminBoardDAO.getInstance();
+		// DB 연결
+		con = getConnection();
+		boardDAO.setConnection(con);
+		// DB 작업
+		int deleteCount= 0;
+		
+		deleteCount = boardDAO.deleteCoupon(cID);
+		
+		if(deleteCount != 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		// DB 연결 종료
+		close(con);
+		
+		return deleteCount;
+	}
+
 	
 	
 }
