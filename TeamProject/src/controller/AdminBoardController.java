@@ -221,8 +221,6 @@ public class AdminBoardController extends HttpServlet {
             //
             // 공지사항
             
-            
-            
         } else if(command.equals("/Event.adb")) {
             // --- Notice 삭제 작업 
             action = new EventListAction();

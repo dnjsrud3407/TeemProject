@@ -33,74 +33,78 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
   </head>
-<body>
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
-	<div class="span6">Welcome!<strong> User</strong></div>
-	<div class="span6">
-	<div class="pull-right">
-		<a href="product_summary.html"><span class="">Fr</span></a>
-		<a href="product_summary.html"><span class="">Es</span></a>
-		<span class="btn btn-mini">En</span>
-		<a href="product_summary.html"><span>&pound;</span></a>
-		<span class="btn btn-mini">$155.00</span>
-		<a href="product_summary.html"><span class="">$</span></a>
-		<a href="product_summary.html"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your cart </span> </a> 
-	</div>
-	</div>
-</div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-	<span class="icon-bar"></span>
-	<span class="icon-bar"></span>
-	<span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="index.html"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
-		<form class="form-inline navbar-search" method="post" action="products.html" >
-		<input id="srchFld" class="srchTxt" type="text" />
-		  <select class="srchTxt">
-			<option>All</option>
-			<option>CLOTHES </option>
-			<option>FOOD AND BEVERAGES </option>
-			<option>HEALTH & BEAUTY </option>
-			<option>SPORTS & LEISURE </option>
-			<option>BOOKS & ENTERTAINMENTS </option>
-		</select> 
-		  <button type="submit" id="submitButton" class="btn btn-primary">Go</button>
-    </form>
-    <ul id="topMenu" class="nav pull-right">
-	 <li class=""><a href="special_offer.html">Specials Offer</a></li>
-	 <li class=""><a href="normal.html">Delivery</a></li>
-	 <li class=""><a href="contact.html">Contact</a></li>
-	 <li class="">
-	 <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-large btn-success">Login</span></a>
-	<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+    <!-- <div class="span6"></div> -->
+    <div class="">
+	    <span style="padding-left: 30px;font-size: 15px;">
+	    	<c:if test="${sessionScope.uID ne null}"> 
+		        welcome ${sessionScope.uID}님
+		    </c:if></span>
+	    <div class="pull-right">
+	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
+	    	<c:forEach var = "i" items="${strAdmin }">
+	    		<c:if test="${sessionScope.uID.equals(i)}">
+	    		 	<a href="AdminMain.adm">관리자</a> |
+	    		</c:if>
+	    	</c:forEach>
+	    	<c:if test="${sessionScope.uID.equals('admin')}">
+<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
+		    </c:if>
+		    
+		    <c:if test="${sessionScope.uID ne null}">
+	        </c:if>
+	        <c:if test="${sessionScope.uID eq null}">
+	        <a href="JoinForm.me">회원가입</a> |
+	        </c:if>
+	         <c:if test="${sessionScope.uID ne null}"> 
+		        <a href="LogoutPro.me">로그아웃</a> |
+		    </c:if>
+	        <a href="OrderList.mo">마이페이지</a> |
+	        <a href="helpCenter.jsp">고객센터</a>
+	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a>
+		    <c:if test="${sessionScope.uID eq null}">
+		       <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
+		    </c:if>
+		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
 		  <div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">?/button>
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 			<h3>Login Block</h3>
 		  </div>
 		  <div class="modal-body">
-			<form class="form-horizontal loginFrm">
+			<form action="./LoginPro.me" class="form-horizontal loginFrm" method="post">
 			  <div class="control-group">								
-				<input type="text" id="inputEmail" placeholder="ID">
+				<input type="text" id="inputId" name="uID" placeholder="Id">
 			  </div>
-			  <div class="control-group">
-				<input type="password" id="inputPassword" placeholder="Password">
+			  <div class="control-group" style="margin-bottom: 20px;">
+				<input type="password" id="inputPassword" name="pw" placeholder="Password">
 			  </div>
-			  <div class="control-group">
-				<label class="checkbox">
-				<input type="checkbox"> Remember me
-				</label>
-			  </div>
+			 
+			<button type="submit" class="btn btn-success">로그인</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">로그인 취소</button>
+			<a href="FindId.me" class="btn">아이디 찾기</a>
+			<a href="FindPass.me" class="btn">비밀번호 찾기</a>
 			</form>		
-			<button type="submit" class="btn btn-success">Sign in</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 		  </div>
-	</div>
-	</li>
+	</div> 
+	    </div>
+    </div>
+</div>
+<!-- Navbar ================================================== -->
+<div id="logoArea" class="navbar">
+  <div class="navbar-inner">
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+	<!--    검색하는 창 -->
+    <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
+        <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
+        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
+    </form>
+    <ul id="topMenu" class="nav">
+     <li><a href="">로드맵</a></li>
+     <li><a href="BookList.book">교재구매</a></li>
+     <li><a href="Event.adb">이벤트</a></li>
+     <li><a href="FAQList.bo">FAQ</a></li>
     </ul>
   </div>
 </div>
@@ -111,70 +115,11 @@
 	<div class="container">
 	<div class="row">
 <!-- Sidebar ================================================== -->
-	<div id="sidebar" class="span3">
-		<div class="well well-small"><a id="myCart" href="product_summary.html"><img src="themes/images/ico-cart.png" alt="cart">3 Items in your cart  <span class="badge badge-warning pull-right">$155.00</span></a></div>
-		<ul id="sideManu" class="nav nav-tabs nav-stacked">
-			<li class="subMenu open"><a> ELECTRONICS [230]</a>
-				<ul>
-				<li><a class="active" href="products.html"><i class="icon-chevron-right"></i>Cameras (100) </a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Computers, Tablets & laptop (30)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Mobile Phone (80)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Sound & Vision (15)</a></li>
-				</ul>
-			</li>
-			<li class="subMenu"><a> CLOTHES [840] </a>
-			<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Clothing (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Shoes (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Women's Hand Bags (5)</a></li>	
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Clothings  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Men's Shoes (6)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Clothing (5)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Kids Shoes (3)</a></li>												
-			</ul>
-			</li>
-			<li class="subMenu"><a>FOOD AND BEVERAGES [1000]</a>
-				<ul style="display:none">
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Angoves  (35)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Bouchard Aine & Fils (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>French Rabbit (5)</a></li>	
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Louis Bernard  (45)</a></li>
-				<li><a href="products.html"><i class="icon-chevron-right"></i>BIB Wine (Bag in Box) (8)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Other Liquors & Wine (5)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Garden (3)</a></li>												
-				<li><a href="products.html"><i class="icon-chevron-right"></i>Khao Shong (11)</a></li>												
-			</ul>
-			</li>
-			<li><a href="products.html">HEALTH & BEAUTY [18]</a></li>
-			<li><a href="products.html">SPORTS & LEISURE [58]</a></li>
-			<li><a href="products.html">BOOKS & ENTERTAINMENTS [14]</a></li>
-		</ul>
-		<br/>
-		  <div class="thumbnail">
-			<img src="themes/images/products/panasonic.jpg" alt="Bootshop panasonoc New camera"/>
-			<div class="caption">
-			  <h5>Panasonic</h5>
-				<h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-			</div>
-		  </div><br/>
-			<div class="thumbnail">
-				<img src="themes/images/products/kindle.png" title="Bootshop New Kindel" alt="Bootshop Kindel">
-				<div class="caption">
-				  <h5>Kindle</h5>
-				    <h4 style="text-align:center"><a class="btn" href="product_details.html"> <i class="icon-zoom-in"></i></a> <a class="btn" href="#">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">$222.00</a></h4>
-				</div>
-			  </div><br/>
-			<div class="thumbnail">
-				<img src="themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
-				<div class="caption">
-				  <h5>Payment Methods</h5>
-				</div>
-			  </div>
-	</div>
+<jsp:include page="../inc/menu.jsp"></jsp:include>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="index.html">Home</a> <span class="divider">/</span></li>
+		<li><a href="Main.me">Home</a> <span class="divider">/</span></li>
 		<li class="active">Login</li>
     </ul>
 	<h3> Find Id</h3>	

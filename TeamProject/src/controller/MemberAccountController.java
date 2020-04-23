@@ -60,9 +60,6 @@ public class MemberAccountController extends HttpServlet {
 	}else if (command.equals("/Login.me")) {//
 		forward = new ActionForward();
 		forward.setPath("/member/login.jsp");
-	}else if (command.equals("/Login2.me")) {//
-		forward = new ActionForward();
-		forward.setPath("/member/login2.jsp");
 		
 	}else if(command.equals("/LoginPro.me")) {//
 		
@@ -217,12 +214,6 @@ public class MemberAccountController extends HttpServlet {
 	}
 		
 		 
-		
-		
-		
-		
-		
-		
 		if (forward!=null) {
 			if (forward.isRedirect()) {
 				response.sendRedirect(forward.getPath());

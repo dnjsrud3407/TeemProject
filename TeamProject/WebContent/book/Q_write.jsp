@@ -57,6 +57,7 @@ $(document).ready(function(){
 			success: function(data)
 			{	alert("등록 완료");
 				opener.location.reload();
+				window.close();
 				
 			},
 			error: function(xhr, ajaxSettings, thrownError)

@@ -58,37 +58,86 @@ boolean isLogin = false;
   	<link rel="css/bookqna.css" rel="stylesheet">
   	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
     <script type="text/javascript">
-  	
     $(document).ready(function(){
-    	
     	$(".qna_tr_s").hide();
-    	
-    	$('.qna_tr_p').click(function(){
-    		
-    	$(this).next().slideToggle();	
-    	});
-    })
+    });
     
+    function hideAnswer(n, b) {
+		var boardNum = n;
+	    var bookID = b;
+    	alert('호출');
+	      
+    	
+    $(document).ready(function(){
+//     	$(".qna_tr_s").hide();
+
+// 	    			
+	    		
+// 	    		$('.qna_tr_s').click(function () {
+// 					$(this).hide();
+// 				});
+    		$('.qna_tr_p').click(function(){
+    			$(this).next().slideToggle();	
+//     			$.ajax({
+// 					type:"POST",https://www.w3schools.com/jquery/eff_slidetoggle.asp
+// 					url: './QList.book',
+// 					data:{"boardNum":boardNum,
+// 					"bookID":bookID},
+// 					success:function(data){
+// // 						alert(data);
+// 						$('.qna_tr_s').append(data);
+						
+// 					}
+//     			});
+
+    		});
+    });
+  }
+    
+//     function successNext(data) {
+// 		alert(data);
+		
+// 			qnaIndex = loop;
+			
+// 			alert("qna"+qnaIndex);
+			
+		
+		$(document).ready(function(){
+    		
+    			
+//     		$('.qna_tr_p').click(function(){
+//     		 			 alert('안되네여');
+// 	    		
+//     		});
+    	});
+// 	  }	
+
+  
+    	
+    	
+
     $(document).on("click",".open-AddReview", function (){
     	var Title = $(".rv_img").data('id');
     	$(".rv_main ")
-    	var reviewImg = $(".rv_img").attr("src");
+    	var reviewImg = $(".rv_img").src("src");
+    	
+    	reviewImg.attr("src");
     	console.log(reviewImg);
-//     	var review_t = $('#rv_title').text();
-//     	var review_c = $('#rv_content').text();
-//     	var review_time = $('#rv_regtime').text();
-//     	var readcount = $('#rv_count').text();
+    	var review_t = $('#rv_title').text();
+    	var review_c = $('#rv_content').text();
+    	var review_time = $('#rv_regtime').text();
+    	var readcount = $('#rv_count').text();
    
     	
-//     	$('#rv_readcount').html(readcount + '<br>');
-//     	$('#review_regtime').html(review_time+'<br>');
-//     	$('#detail_title').html(review_t);
-//     	$('#detail_content').html(review_c);
+    	$('#rv_readcount').html(readcount + '<br>');
+    	$('#review_regtime').html(review_time+'<br>');
+    	$('#detail_title').html(review_t);
+    	$('#detail_content').html(review_c);
     	
-    })
+    });
    
    
-	var isLogin = <%=isLogin%>;
+    var isLogin = <%=isLogin %>; 	
 	var pop_title = document.bookQnaForm;
 	
 	function loginChk() {
@@ -349,7 +398,7 @@ overflow-x: hidden;
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-    <li><a href="Main.me">Home</a> <span class="divider">/</span></li>
+    <li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
     <li><a href="products.jsp">Products</a> <span class="divider">/</span></li>
     <li class="active">product Details</li>
     </ul>
@@ -424,7 +473,10 @@ overflow-x: hidden;
 				</form>
 				<hr class="soft clr"/>
 				<p>
-					${book.bookIntroduce }
+				14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. 
+				Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. 
+				Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
+				
 				</p>
 				<a class="btn btn-small pull-right" href="#detail">More Details</a>
 				<br class="clr"/>
@@ -778,7 +830,7 @@ overflow-x: hidden;
 					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
 						<div class="row">	  
 							<div class="span2">
-								<img id="rv_img${status.index }" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
+								<img id="rv_img" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
 							</div>
 							<div class="span4">
 								
@@ -880,50 +932,23 @@ overflow-x: hidden;
 					       </thead>
 					       <tbody>
 							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
-					       		<tr class="qna_tr_p">
+					       		<tr class="qna_tr_p" onclick="hideAnswer('${qna.boardNum}','${qna.bookID}')">
 									<!-- 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 ) -->
 									<td>${pageInfoQna.listCount -((pageInfoQna.page-1)* pageInfoQna.pageBlock + status.index)}</td>
-									<td><c:if test="${0 < qna.boardReSeq}"> 
-	           		 					답변완료 </c:if> 답변전</td>
+	           		 					<td><c:if test="${0 == qna.boardReSeq}"> 
+	           		 					답변전
+	           		 					</c:if>
+	           		 					<c:if test="${0 < qna.boardReSeq}"> 
+	           		 					답변완료 
+	           		 					</c:if>  
 					           		<td>${qna.boardTitle }</td>
 									<td>${qna.boardWriter }</td>
 									<td>${qna.boardRegTime }</td>
 								</tr>
 								<tr class="qna_tr_s" style="display: table-row;">
-								   <td></td>
-								   <td></td>
-									<td><!--  class="td_rgt" -->
-	<%-- 								<div style="text-align:center;">
-									<div class="qna_qt" style="text-align: center; ">
-										<span class="icon_qt">Q</span>
-										${qna.boardContent}
-									</div>
-									<div class="qna_as" style="text-align: center;">
-										<span class="icon_as">A</span>
-										판매자의 답변
-									</div>
-							
-									<p class="info" style="border: 1px solid pink;display: inline-block;">
-									  <span class="">판매자의 답변</span>
-									  <span class="date">
-									  	등록일 :
-									  	<em>2020-04-09</em>
-									  </span>
-									</p> 
-									</div>
-								 <div class="btn-group btn_rgt" style="border: 1px solid red; float:right ; ">
 								 
-									
-							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 <span class=""></span></button>
-							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 <span class="caret"></span></button>
-<!-- 							         <ul class="dropdown-menu"> -->
-<!-- 							           <li><a href="#">Action</a></li> -->
-<!-- 							           <li><a href="#">Another action</a></li> -->
-<!-- 							           <li><a href="#">Something else here</a></li> -->
-<!-- 							           <li class="divider"></li> -->
-<!-- 							           <li><a href="#">Separated link</a></li> -->
-<!-- 							         </ul> -->
-							       </div> --%>
+									<td><!--  class="td_rgt" -->
+	
 							       
 							         
 							           Q ${qna.boardContent}<br>
@@ -934,8 +959,8 @@ overflow-x: hidden;
 									</td>
 									<td colspan="2" style="vertical-align: bottom;">
 									 
-							    	 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 <span class=""></span></button>
-							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 <span class=""></span></button>
+							    	 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 </button>
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 </button>
 							    	
 									</td>
 								</tr>				
@@ -963,24 +988,7 @@ overflow-x: hidden;
 							<br class="clr"/>
 						</c:if>	
 					 </div>
-<!-- 					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a> -->
-<!-- 						<div class="pagination"> -->
-<!-- 							<ul> -->
-<%-- 							<li><c:if test="${pageInfo.startPage > pageBlock }"> --%>
-<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage-pageInfo.pageBlock }"/>'>&lsaquo;</a></c:if></li> --%>
-<!-- 							<li> -->
-<%-- 							<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"> --%>
-<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a> --%>
-<%-- 							</c:forEach></li> --%>
-<!-- <!-- 							<li><a href="#bookqna&page=2">2</a></li> --> 
-<!-- <!-- 							<li><a href="#bookqna#&page=3">3</a></li> --> 
-<!-- <!-- 							<li><a href="#bookqna#&page=4">4</a></li> --> 
-<!-- 							<li><a href="#">...</a></li> -->
-<%-- 							<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }"> --%>
-<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li> --%>
-<!-- 							</ul> -->
-<!-- 							</div> -->
-<!-- 							<br class="clr"/> -->
+
 						</div>
           			</div>
 
@@ -1042,7 +1050,7 @@ overflow-x: hidden;
 				</div>
 				<div class="scroll_area" style="max-height: 415px;">
 					<div class="cont_box">
-					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img" class="modal_img"></p>
+					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img"></p>
 					<p class="cont_text" style="margin: 10px;" id="detail_content"></p>
 					<hr>
 					</div>

@@ -38,9 +38,6 @@ public class QWriteProAcion implements Action {
 		bb.setK1(k1);
 //		bb.setK2(k2);
 		bb.setBoardRegTime(new Timestamp(System.currentTimeMillis()));
-
-		System.out.println(bookID + "," + boardWriter + "," + boardTitle + "," + boardContent + "," + k1);
-
 		
 		QWriteProService qWriteProService = new QWriteProService();
 		boolean isWriteSuccess = qWriteProService.registQuestions(bb);

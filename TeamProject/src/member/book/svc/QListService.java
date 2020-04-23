@@ -66,6 +66,23 @@ public class QListService {
 		return articleQnaList;
 	}
 
+	public BoardBean qnaAnswerBoard(int boardNum, int kID, int bookID) {
+		BoardBean answerBoard = null;
+		
+		Connection con = getConnection();
+		
+		BoardDAO boardDAO = BoardDAO.getInstance();
+		
+		boardDAO.setConnection(con);
+		
+		answerBoard = boardDAO.qnaAnswerBoard(boardNum, kID, bookID);
+		
+		close(con);
+		
+		return answerBoard;
+		
+	}
+
 	
 
 }

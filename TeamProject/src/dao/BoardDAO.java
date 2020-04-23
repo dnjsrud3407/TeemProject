@@ -536,12 +536,13 @@ public class BoardDAO {
 //			 반복문을 사용하여 1개 게시물 정보(패스워드 제외한 나머지)를 BoardBean 객체에 저장하고
 //			 BoardBean 객체를 ArrayList<BoardBean> 객체에 저장 반복
 			if(k2 != null) {
-				sql = "SELECT * FROM board WHERE k1=? AND k2=? ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT ?,?";
+				sql = "SELECT * FROM board WHERE k1=? AND k2=? and NOT boardWriter In ('admin','admin1','admin2','admin3','admin4') ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT ?,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, k1); pstmt.setString(2, k2);
 				pstmt.setInt(3, startRow); pstmt.setInt(4, limit);
 			} else {
 				sql = "SELECT * FROM board WHERE bookID=? and kID= (select kID from kategorie where kID=102)"
+						+ "and NOT boardWriter In ('admin','admin1','admin2','admin3','admin4')"
 						+ "order by boardReRef DESC, boardReSeq ASC limit ?,?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, bookID);
@@ -563,7 +564,7 @@ public class BoardDAO {
                 boardBean.setBoardReLev(rs.getInt("boardReLev"));
                 boardBean.setBoardReSeq(rs.getInt("boardReSeq"));
                 boardBean.setBoardReadcount(rs.getInt("boardReadcount"));
-                
+                boardBean.setBookID(bookID);
                 articleQnaList.add(boardBean);
             }
 			
@@ -657,7 +658,7 @@ public class BoardDAO {
 		int listCount = 0;
 		String sql = "";
 
-		sql = "SELECT count(*) FROM board WHERE bookID=? and kID=?";
+		sql = "SELECT count(*) FROM board WHERE bookID=? and kID=? and NOT boardWriter In ('admin','admin1','admin2','admin3','admin4')";
 
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -711,7 +712,7 @@ public class BoardDAO {
 		// TODO Auto-generated method stub
 		BoardBean boardBean = new BoardBean();
 			
-		String sql = "select * from board where boardNum =? ";
+		String sql = "select * from board where boardNum =? and kID=102";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -1759,6 +1760,37 @@ public class BoardDAO {
 		
 		return boardList;
 
+	}
+
+	// 상품문의 관리자 책 답변 가져오기
+	public BoardBean qnaAnswerBoard(int boardNum, int kID, int bookID) {
+		BoardBean answerBoard = null;
+		String sql = "";
+		ResultSet rs2 = null;
+		System.out.println(boardNum + ", " + kID + ", " + bookID);
+		sql =" select b2.* from board b1 join board b2 on b1.boardReref =b2.boardReref where b2.kID=? "
+				+ "and b1.boardReSeq=1 and b1.boardNum=? and b1.bookID=? and b2.boardNum <> b2.boardreref";
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, kID);
+			pstmt.setInt(2, boardNum);
+			pstmt.setInt(3, bookID);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				answerBoard = new BoardBean();
+				answerBoard.setBoardContent(rs.getString("b2.boardContent"));
+				answerBoard.setBoardRegTime(rs.getTimestamp("b2.boardRegTime"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+			
+		return answerBoard;
 	}
 
 }

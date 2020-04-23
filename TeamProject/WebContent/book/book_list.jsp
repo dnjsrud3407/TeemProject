@@ -80,7 +80,7 @@
     <span class="icon-bar"></span>
 </a>
   <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+    <a class="brand" href="Main.jsp"><img src="themes/images/logo.png?ver=1" alt="Bookshop"/></a>
 <!--    검색하는 창 -->
     <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
         <input id="srchFld" class="srchTxt" type="text" />
@@ -103,7 +103,7 @@
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-		<li><a href="./index.jsp">Home</a> <span class="divider">/</span></li>
+		<li><a href="./Main.me">Home</a> <span class="divider">/</span></li>
 		<li class="active">Products Name</li>
     </ul>
 	<h3> Products Name <small class="pull-right"> 40 products are available </small></h3>	
@@ -132,7 +132,7 @@
 <div class="tab-content">
 	<div class="tab-pane" id="listView">
 	  <c:forEach var="book" items="${bookList }" varStatus="status">
-		<div class="row">	  
+		<div class="row"> 
 			<div class="span2">
 				<img src="upload/${book.bookImage }" alt="책이미지"/>
 			</div>
@@ -143,22 +143,24 @@
 				<p>
 				${book.bookIntroduce }
 				</p>
-				<a class="btn btn-small pull-right" href="product_details.html">View Details</a>
-				<br class="clr"/>
+				<a class="btn btn-small pull-right" href="Book.book?bookID=${book.bookID }">View Details</a>
+				<br class="clr"/>	
 			</div>
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
 			<h3> ${book.bookPrice }</h3>
+			
 			<label class="checkbox">
 				<input type="checkbox">  Adds product to compair
 			</label><br/>
-			
+		
 			  <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
 			  <a href="product_details.html" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 			
 				</form>
 			</div>
 		</div>
+		
 	</c:forEach>
 		<hr class="soft"/>
 	</div>

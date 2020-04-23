@@ -83,20 +83,42 @@
 	    	<c:if test="${sessionScope.uID.equals('admin')}">
 <!-- 		    <a href="AdminMain.adm">관리자</a> | -->
 		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
+		    
 		    <c:if test="${sessionScope.uID ne null}">
 	        </c:if>
 	        <c:if test="${sessionScope.uID eq null}">
 	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
+	         <c:if test="${sessionScope.uID ne null}"> 
+		        <a href="LogoutPro.me">로그아웃</a> |
+		    </c:if>
 	        <a href="OrderList.mo">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a>
+		    <c:if test="${sessionScope.uID eq null}">
+		       <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
+		    </c:if>
+		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3>Login Block</h3>
+		  </div>
+		  <div class="modal-body">
+			<form action="./LoginPro.me" class="form-horizontal loginFrm" method="post">
+			  <div class="control-group">								
+				<input type="text" id="inputId" name="uID" placeholder="Id">
+			  </div>
+			  <div class="control-group" style="margin-bottom: 20px;">
+				<input type="password" id="inputPassword" name="pw" placeholder="Password">
+			  </div>
+			 
+			<button type="submit" class="btn btn-success">로그인</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">로그인 취소</button>
+			<a href="FindId.me" class="btn">아이디 찾기</a>
+			<a href="FindPass.me" class="btn">비밀번호 찾기</a>
+			</form>		
+		  </div>
+	</div> 
 	    </div>
     </div>
 </div>
@@ -113,6 +135,7 @@
      <li><a href="">로드맵</a></li>
      <li><a href="BookList.book">교재구매</a></li>
      <li><a href="Event.adb">이벤트</a></li>
+     <li><a href="FAQList.bo">FAQ</a></li>
     </ul>
   </div>
 </div>
