@@ -36,90 +36,8 @@
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
     <!--Constom styles -->
     <link href="css/main.css?ver=1" rel="stylesheet" type="text/css">
+    <link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
     <style type="text/css" id="enject"></style>
-  
-  <style type="text/css">
-  
-  #menu {
-	color: #4D84AB;
-    height: 50px;
-	font-size: 1.1em;
-    background: #4D84AB;
-    border: 1px solid #4D84AB;
-    box-sizing: content-box;
-	}
-.main1 {
-    width: 600px;
-    height: 100%;
-    margin: 0 auto;
-}
-ul.main3 {
-    position: absolute;
-    margin-bottom: -20px;
-    margin-left: -2px;
-}
-.main1>li {
-    float: left;
-    width: 20%;
-    line-height: 50px;
-    text-align: center;
-    position: relative;
-}
-.main1>li:hover .main2 {
-    left: 0;
-}
-.main1>li a {
-    display: block;
-}
-.main1>li a:hover {
-    background: #ffffff;
-    text-decoration: none;
-    color: #4D84AB;
-    font-weight: bold;
-}
-li>a{ color: #fff; }
-.main2 {
-    position: absolute;
-    top: 50px;
-    left: -9999px;
-	color: #4D84AB;
-    background: #ffffff;
-    border: 1px solid #4D84AB;
-    width: 130%;
-}
-.main2>li {
-    position: relative;
-}
-.main2>li:hover .main3 {
-    left: 100%;
-}
-.main2>li a, .main3>li a {
-	color: #4D84AB;
-    margin: 10px;
-}
-.main2>li a:hover {
-	color: #4D84AB;
-	text-decoration: underline;
-}
-.main3 {
-    position: absolute;
-    top: 0;
-	border: 1px solid #4D84AB;
-    background: #ffffff;
-    color: #4D84AB;
-    left: -9999px;
-    width: 130%;
-    margin-right: 5px;
-}
-.main3>li a:hover {
-    background: #ffffff;
-    color: #4D84AB;
-}
-ul{
-    list-style:none;
-    list-style-type:none;
-}
-  </style>
   
   
   </head>
@@ -172,9 +90,10 @@ ul{
 
 			<c:if test="${sessionScope.isAdmin eq true }">
 				<a href="AdminMain.adm">관리자</a> |
-			</c:if>		    
-		    <c:if test="${sessionScope.uID ne null}">
+			</c:if>	
+			<c:if test="${sessionScope.uID ne null}">
 	        </c:if>
+
 	        <c:if test="${sessionScope.uID eq null}">
 	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
@@ -216,9 +135,14 @@ ul{
     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
+
     </form>
 
 	</div>
+
+    </form>
+</div>
+
     <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
 
     

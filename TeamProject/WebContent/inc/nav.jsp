@@ -50,7 +50,10 @@
 
                         <li><a href="BookList.book?bk2=1">HTML5/CSS3</a></li>
 
-<!--                         <li><a href="#">JavaScript</a></li> -->
+                        <li><a href="#">JAVA</a></li>
+                        
+                        <li><a href="#">MySQL</a></li>
+						<li><a href="#">Oracle</a></li> 
 
 <!--                         <li><a href="#">2단소메뉴9</a></li> -->
 
@@ -64,9 +67,9 @@
 
                         <li><a href="BookList.book?bk2=2">JavaScript</a></li>
 
-<!--                         <li><a href="#">jsp</a></li> -->
-<!--                         <li><a href="#">MySQL</a></li> -->
-<!-- 						 <li><a href="#">Oracle</a></li>  -->
+                        <li><a href="#">JSP</a></li>
+                        <li><a href="#">MySQL</a></li>
+						<li><a href="#">Oracle</a></li>
 
                     </ul>
 
@@ -80,7 +83,8 @@
 
                         <li><a href="BookList.book?bk2=3">Spring</a></li>
 
-<!--                         <li><a href="#">2단소메뉴15</a></li> -->
+                        <li><a href="#">MySQL</a></li>
+						<li><a href="#">Oracle</a></li> 
 
                     </ul>
 

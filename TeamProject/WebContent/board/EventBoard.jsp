@@ -33,13 +33,26 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
 	<style type="text/css" id="enject"></style>
+	<link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
 </head>
+<script src="./js/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+  // 책 검색하는 작업
+  function checkSearch() {
+	if($("#srchFld").val() == "") {
+		alert('검색어를 입력하세요');
+		return false;
+	} else {
+		return true;
+	}
+  }
+</script>
 <body>
 <div id="header">
 <div class="container">
 <div id="welcomeLine" class="row">
-  <!-- <div class="span6"></div> -->
- <div class="">
+    <!-- <div class="span6"></div> -->
+    <div class="">
 	    <span style="padding-left: 30px;font-size: 15px;">
 	    	<c:if test="${sessionScope.uID ne null}"> 
 		        welcome ${sessionScope.uID}님
@@ -54,47 +67,62 @@
 	    	<c:if test="${sessionScope.uID.equals('admin')}">
 <!-- 		    <a href="AdminMain.adm">관리자</a> | -->
 		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
+		    
 		    <c:if test="${sessionScope.uID ne null}">
 	        </c:if>
 	        <c:if test="${sessionScope.uID eq null}">
 	        <a href="JoinForm.me">회원가입</a> |
 	        </c:if>
+	         <c:if test="${sessionScope.uID ne null}"> 
+		        <a href="LogoutPro.me">로그아웃</a> |
+		    </c:if>
 	        <a href="OrderList.mo">마이페이지</a> |
 	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="BookCartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
+	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i>장바구니 </span> </a>
+		    <c:if test="${sessionScope.uID eq null}">
+		       <a href="#login" role="button" data-toggle="modal" style="padding-right:0"><span class="btn btn-mini btn-success" style="font-size: 14px;">Login</span></a>
+		    </c:if>
+		<div id="login" class="modal hide fade in" tabindex="-1" role="dialog" aria-labelledby="login" aria-hidden="false" >
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+			<h3>Login Block</h3>
+		  </div>
+		  <div class="modal-body">
+			<form action="./LoginPro.me" class="form-horizontal loginFrm" method="post">
+			  <div class="control-group">								
+				<input type="text" id="inputId" name="uID" placeholder="Id">
+			  </div>
+			  <div class="control-group" style="margin-bottom: 20px;">
+				<input type="password" id="inputPassword" name="pw" placeholder="Password">
+			  </div>
+			 
+			<button type="submit" class="btn btn-success">로그인</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">로그인 취소</button>
+			<a href="FindId.me" class="btn">아이디 찾기</a>
+			<a href="FindPass.me" class="btn">비밀번호 찾기</a>
+			</form>		
+		  </div>
+		</div> 
 	    </div>
     </div>
 </div>
 <!-- Navbar ================================================== -->
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="index.jsp"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-<!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
+<div>
+    <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
+        <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
     </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="Event.adb">이벤트</a></li>
-    </ul>
-  </div>
+    </div>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+
+    
+<div id="menu" style="position: relative; left:10px; z-index: 1;">
+    <jsp:include page="../inc/nav.jsp"></jsp:include>
+</div>
+
 </div>
 </div>
-</div><!-- Header End====================================================================== -->
+<!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
 	<div class="row">
@@ -287,6 +315,7 @@
 <br class="clr"/>
 </div>
 </div></div>
+</div>
 </div>
 <!-- MainBody End ============================= -->
 <!-- Footer ================================================================== -->
