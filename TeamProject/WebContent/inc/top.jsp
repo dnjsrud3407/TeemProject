@@ -56,7 +56,7 @@
 </div>
 <!-- Navbar =================================================== -->
 <div>
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
+    <a class="brand" href="Main.me"><img src="themes/images/logo.png" alt="Bootsshop"/></a>
     <form class="form-inline navbar-search pull-right" method="get" action="BookSearchList.book?page=1" onsubmit="return checkSearch()">
         <input id="srchFld" name="bookTitle" class="srchTxt" type="text" placeholder="책 검색"/>
         <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
