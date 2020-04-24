@@ -184,7 +184,9 @@
 		             	  <td>
 		             	  	<a href="Book.book?bookID=${book.bookID }"><img src="upload/${book.bookImage }" alt="${book.bookTitle }" class="best_img"/></a>
 		             	  </td>
-		             	  <td class="best_booktitle"><a href="Book.book?bookID=${book.bookID }">${book.bookTitle }</a></td>
+		             	  <td class="best_booktitle">
+		             	  	<a href="Book.book?bookID=${book.bookID }">${book.bookTitle }</a>
+		             	  </td>
 		             	</tr>             		
              		</c:when>	
              		<c:otherwise>

@@ -12,14 +12,14 @@ import vo.BoardBean;
 public class QDetailService {
 
 
-	public BoardBean getOneonOnegetArticle(int boardNum) {
+	public BoardBean getOneonOnegetArticle(int boardNum, int kID) {
 		//1:1문의 상세내용
 		System.out.println("QDetailService getOneonOnegetArticle(int boardNum)");
 		Connection con = getConnection();
 		BoardDAO dao = BoardDAO.getInstance();
 		dao.setConnection(con);
 		
-		BoardBean boardBean = dao.getOneonOnegetArticle(boardNum);
+		BoardBean boardBean = dao.getOneonOnegetArticle(boardNum,kID);
 		 
 		
 		close(con);
@@ -28,13 +28,13 @@ public class QDetailService {
 	}
 
 
-	public BoardBean getOneonOnegetAnswer(int boardNum) {
+	public BoardBean getOneonOnegetAnswer(int boardNum, int kID) {
 		//1:1문의 상세내용 답변
 		System.out.println("QDetailService getOneonOnegetAnswer(int boardNum)");
 		Connection con = getConnection();
 		BoardDAO dao = BoardDAO.getInstance();
 		dao.setConnection(con);
-		BoardBean boardBean2 = dao.getOneonOnegetAnswer(boardNum);
+		BoardBean boardBean2 = dao.getOneonOnegetAnswer(boardNum,kID);
 		
 		close(con);
 		return boardBean2;

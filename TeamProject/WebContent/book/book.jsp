@@ -56,18 +56,28 @@ boolean isLogin = false;
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="themes/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="themes/images/ico/apple-touch-icon-57-precomposed.png">
   	<link rel="css/bookqna.css" rel="stylesheet">
+  	<link href="css/nav.css?ver=1" rel="stylesheet" type="text/css">
   	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
     <script type="text/javascript">
   	
     $(document).ready(function(){
     	
     	$(".qna_tr_s").hide();
+
+    });
+    
+    function hideAnswer(n, b) {
+		var boardNum = n;
+	    var bookID = b;
+//     	alert('호출');
+	      
+
     	
     	$('.qna_tr_p').click(function(){
     		
     	$(this).next().slideToggle();	
     	});
-    })
+    }
     
     $(document).on("click",".open-AddReview", function (){
     	var Title = $(".rv_img").data('id');
@@ -179,9 +189,15 @@ boolean isLogin = false;
 	function kindSubmit(index, qty){
 		if(loginChk()){
 			if(index == 1) {
+
 				document.kindFrm.action='BookBuy.book';
 			} else if(index == 2) {
 				alert(qty);
+
+				document.kindFrm.action='CartAdd2.book';
+			} else if(index == 2) { 
+// 				alert(qty);
+
 				document.kindFrm.action='CartAdd.book';
 			} else if (index == 3) {
 				document.kindFrm.action='BookLike.book';
@@ -281,76 +297,22 @@ overflow-x: hidden;
 	</style>
   </head>
 <body>
-<div id="header">
-<div class="container">
-<div id="welcomeLine" class="row">
-    <!-- <div class="span6"></div> -->
-    <div class="">
-	    <span style="padding-left: 30px;font-size: 15px;">
-	    	<c:if test="${sessionScope.uID ne null}"> 
-		        welcome ${sessionScope.uID}님
-		    </c:if></span>
-	    <div class="pull-right">
-	    	<c:set var="strAdmin" value="<%= new String[]{\"admin\",\"admin1\",\"admin2\",\"admin3\",\"admin4\"} %>"/>
-	    	<c:forEach var = "i" items="${strAdmin }">
-	    		<c:if test="${sessionScope.uID.equals(i)}">
-	    		 	<a href="AdminMain.adm">관리자</a> |
-	    		</c:if>
-	    	</c:forEach>
-	    	<c:if test="${sessionScope.uID.equals('admin')}">
-<!-- 		    <a href="AdminMain.adm">관리자</a> | -->
-		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}"> 
-		        <a href="LogoutPro.me">로그아웃</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID eq null}">
-		        <a href="Login.me">로그인</a> |
-		    </c:if>
-		    <c:if test="${sessionScope.uID ne null}">
-	        </c:if>
-	        <c:if test="${sessionScope.uID eq null}">
-	        <a href="JoinForm.me">회원가입</a> |
-	        </c:if>
-	        <a href="member.jsp">마이페이지</a> |
-	        <a href="helpCenter.jsp">고객센터</a>
-	        <a href="CartList.book"><span class="btn btn-mini btn-primary"><i class="icon-shopping-cart icon-white"></i> [ num ] 장바구니 </span> </a> 
-	    </div>
-    </div>
-</div>
-<!-- Navbar ================================================== -->
-<div id="logoArea" class="navbar">
-<a id="smallScreen" data-target="#topMenu" data-toggle="collapse" class="btn btn-navbar">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-</a>
-  <div class="navbar-inner">
-    <a class="brand" href="Main.me"><img src="themes/images/logo.png?ver=1" alt="Bootsshop"/></a>
-<!--    검색하는 창 -->
-    <form class="form-inline navbar-search pull-right" method="post" action="products.html" >
-        <input id="srchFld" class="srchTxt" type="text" />
-        <button type="submit" id="submitButton" class="btn btn-primary">검색</button>
-    </form>
-    <ul id="topMenu" class="nav">
-     <li><a href="">로드맵</a></li>
-     <li><a href="BookList.book">교재구매</a></li>
-     <li><a href="NoticeList.bo">이벤트</a></li>
-    </ul>
-  </div>
-</div>
-</div>
-</div>
+<jsp:include page="../inc/top.jsp"></jsp:include>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
-	<div class="row">
+	<div class="row" style="margin-left: 10%;">
 <!-- Sidebar ================================================== -->
-    <jsp:include page="../inc/menu.jsp"></jsp:include>
+<%--     <jsp:include page="../inc/menu.jsp"></jsp:include> --%>
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
     <li><a href="Main.me">Home</a> <span class="divider">/</span></li>
+
     <li><a href="BookListALL.book">Products</a> <span class="divider">/</span></li>
+
+    <li><a href="products.jsp">Products</a> <span class="divider">/</span></li>
+
     <li class="active">product Details</li>
     </ul>
     <c:set var="book" value="${requestScope.book}"/>
@@ -359,24 +321,24 @@ overflow-x: hidden;
             <a href="upload/${book.bookImage }" title="${book.bookTitle }">
 				<img src="upload/${book.bookImage }" style="width:100%" alt="상품 이미지"/>
             </a>
-			<div id="differentview" class="moreOptopm carousel slide">
-                <div class="carousel-inner">
-                  <div class="item active">
-                   <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a>
-                   <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a>
-                   <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpg" alt=""/></a>
-                  </div>
-                  <div class="item">
-                   <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpgg" alt=""/></a>
-                   <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a>
-                   <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a>
-                  </div>
-                </div>
-              <!--  
-			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
-              <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a> 
-			  -->
-              </div>
+<!-- 			<div id="differentview" class="moreOptopm carousel slide"> -->
+<!--                 <div class="carousel-inner"> -->
+<!--                   <div class="item active"> -->
+<!--                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpg" alt=""/></a> -->
+<!--                   </div> -->
+<!--                   <div class="item"> -->
+<!--                    <a href="themes/images/products/large/f3.jpg" > <img style="width:29%" src="themes/images/products/large/f3.jpgg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f1.jpg"> <img style="width:29%" src="themes/images/products/large/f1.jpg" alt=""/></a> -->
+<!--                    <a href="themes/images/products/large/f2.jpg"> <img style="width:29%" src="themes/images/products/large/f2.jpg" alt=""/></a> -->
+<!--                   </div> -->
+<!--                 </div> -->
+<!--                
+<!-- 			  <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a> -->
+<!--               <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>  -->
+<!-- 			  -->
+<!--               </div> -->
 			  
 <!-- 			 <div class="btn-toolbar"> -->
 <!-- 			  <div class="btn-group"> -->
@@ -392,11 +354,10 @@ overflow-x: hidden;
 			</div>
 			<div class="span6">
 				<h3>${book.bookTitle } </h3>
-				<small>- (14MP, 18x Optical Zoom) 3-inch LCD</small>
 				<hr class="soft"/>
 				<form class="form-horizontal qtyFrm" method="post" name="kindFrm">
 				  <div class="control-group">
-					<label class="control-label"><span>${book.bookPrice }</span></label>
+					<label class="control-label"><span>${book.bookPrice }원</span></label>
 					<div class="controls">
 					<input type="number" class="span1" placeholder="Qty." name="qty" value="1"/>
 					<input type="hidden" name="bookID" value="${book.bookID }"/>
@@ -406,7 +367,7 @@ overflow-x: hidden;
 					</div>
 				  </div>
 				</form>
-				
+
 				<hr class="soft"/>
 				<h4>100 items in stock - </h4>
 				<form class="form-horizontal qtyFrm pull-right">
@@ -427,9 +388,8 @@ overflow-x: hidden;
 					${book.bookIntroduce }
 				</p>
 				<a class="btn btn-small pull-right" href="#detail">More Details</a>
+
 				<br class="clr"/>
-			<a href="#" name="detail"></a>
-			<hr class="soft"/>
 			</div>
 			
 			<div class="span9">
@@ -441,6 +401,7 @@ overflow-x: hidden;
             </ul>
             <div id="myTabContent" class="tab-content">
               <div class="tab-pane active" id="home">
+
 			  <h4>Product Information</h4>
                 <table class="table table-bordered">
 				<tbody>
@@ -478,9 +439,17 @@ overflow-x: hidden;
 				<p>
 				Even at the longest zoom settings or in the most challenging of lighting conditions, the S2950 is able to produce crisp, clean results. With its mechanically stabilised 1/2 3", 14 megapixel CCD sensor, and high ISO sensitivity settings, Fujifilm's Dual Image Stabilisation technology combines to reduce the blurring effects of both hand-shake and subject movement to provide superb pictures.
 				</p>
-				
-				
+
+				${book.bookIntroduce }
+				<br>
+
+				<br>
+
 				 <a href="BookListALL.book" class="btn btn-large pull-right">Compair Product</a>
+
+				<c:set var="bk2" value="${book.BK2 }"/>
+				 <a href="BookList.book?bk2=${fn:substring(bk2,0,1)}" class="btn btn-large pull-right">다른 상품 보기.</a>
+
 				 
 				
               </div>

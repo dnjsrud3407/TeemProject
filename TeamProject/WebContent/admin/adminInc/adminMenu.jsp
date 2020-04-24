@@ -84,8 +84,6 @@
             <a class="collapse-item" href="WriteForm.abook">상품등록</a>
             <a class="collapse-item" href="ReviewList.abook">상품후기</a>
             <a class="collapse-item" href="QList.abook">상품문의</a>
-            <a class="collapse-item" href="RefundList.abook">상품반품(엑셀)</a>
-            <a class="collapse-item" href="BuyList.abook">물량추가(엑셀)</a>
           </div>
         </div>
       </li>
@@ -112,7 +110,6 @@
             <a class="collapse-item" href='<c:url value="/Notice.adb"/>'>공지사항</a>
             <a class="collapse-item" href='<c:url value="/Event.adb"/>'>이벤트</a>
             <a class="collapse-item" href='<c:url value="/Coupon.adb"/>'>쿠폰관리</a>
-            <a class="collapse-item" href="">배너관리(미구현)</a>
           
             <h6 class="collapse-header">FAQ/1:1문의 관리</h6>
             <a class="collapse-item" href='<c:url value="/FAQ.adb"/>'>FAQ 목록</a>

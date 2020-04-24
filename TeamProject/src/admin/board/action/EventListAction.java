@@ -83,7 +83,7 @@ public class EventListAction implements Action {
 		
 		forward = new ActionForward();
 		// 이벤트로 고칠것
-		forward.setPath("/admin/board/EventList.jsp");
+		forward.setPath("board/EventBoard.jsp");
 		
 		return forward;
 	}

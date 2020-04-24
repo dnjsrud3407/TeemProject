@@ -1293,12 +1293,13 @@ public class BoardDAO {
 			int num=0;
 			
 			System.out.println("BoardDAO.insertOneOnOne(String kakegoire, BoardBean boardBean)");
-			
+			int KID=boardBean.getkID();
 			
 			try {
 				
-				String sql = "select max(boardNum) from board";
+				String sql = "select max(boardNum) from board where kID=? ";
 				pstmt=con.prepareStatement(sql);
+				pstmt.setInt(1, KID);
 				rs=pstmt.executeQuery();
 				
 				if(rs.next()){
@@ -1360,10 +1361,14 @@ public class BoardDAO {
 			boolean isresult=false;
 			
 			try {
-				String sql="select *\r\n" + 
-						"from board b left outer join boardfile f\r\n" + 
-						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
-						"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardNum desc limit ?,?";
+//				String sql="select *\r\n" + 
+//						"from board b left outer join boardfile f\r\n" + 
+//						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
+//						"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardNum desc limit ?,?";
+String sql="select *\r\n" + 
+		"from board b join\r\n" + 
+		" kategorie k \r\n" + 
+		"on b.kID = k.kID where boardWriter=? and k.kID>=109 order by boardRegTime desc limit ?,?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, uID);
@@ -1390,11 +1395,8 @@ public class BoardDAO {
 							rs.getInt("boardReadcount"),
 							rs.getTimestamp("boardRegTime"),
 							rs.getInt("bookID"),
-							rs.getString("storedFileName"),
-							rs.getString("originFileName"),
 							rs.getString("k1"),
-							rs.getString("k2"),
-							isresult
+							rs.getString("k2")
 							);
 					System.out.println("스텝2 빈에저장");
 					QList.add(boardBean);
@@ -1475,7 +1477,7 @@ public class BoardDAO {
 		}
 
 		//1:1문의  상세내용보기
-		public BoardBean getOneonOnegetArticle(int boardNum) {
+		public BoardBean getOneonOnegetArticle(int boardNum, int kID) {
 			System.out.println("BoardDAO.getOneonOnegetArticle(int boardNum)");
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -1484,12 +1486,12 @@ public class BoardDAO {
 			try {
 				
 				String sql="select *\r\n" + 
-						"from board b left outer join boardfile f\r\n" + 
-						"on b.boardNum = f.board_boardNum join kategorie k\r\n" + 
-						"on b.kID = k.kID where b.boardNum=?";
+						"from board b join kategorie k on b.kID=k.kID\r\n" + 
+						"where b.boardNum=? and b.kID=?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, boardNum);
+				pstmt.setInt(2, kID);
 				rs = pstmt.executeQuery();
 				
 				
@@ -1507,8 +1509,6 @@ public class BoardDAO {
 							rs.getInt("boardReadcount"),
 							rs.getTimestamp("boardRegTime"),
 							rs.getInt("bookID"),
-							rs.getString("storedFileName"),
-							rs.getString("originFileName"),
 							rs.getString("k1"),
 							rs.getString("k2"));
 				}//if
@@ -1523,7 +1523,7 @@ public class BoardDAO {
 		}
 
 		//1:1문의  답변
-		public BoardBean getOneonOnegetAnswer(int boardNum) {
+		public BoardBean getOneonOnegetAnswer(int boardNum, int kID) {
 			System.out.println("BoardDAO.getOneonOnegetAnswer(int boardNum)");
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
@@ -1531,10 +1531,11 @@ public class BoardDAO {
 
 			try {
 				
-				String sql="select * from board where boardReRef=? and boardWriter='admin'";
+				String sql="select * from board where boardReRef=? and boardWriter='admin' and kID=?";
 				
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, boardNum);
+				pstmt.setInt(2, kID);
 				rs = pstmt.executeQuery();
 				
 				
@@ -1578,20 +1579,26 @@ public class BoardDAO {
 
 
 			try {
-				String sql = "update board set boardTitle=?,boardContent=? where boardNum=?";
+				String sql = "update board set boardTitle=?,boardContent=? where boardNum=? and kID=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1,boardBean.getBoardTitle());
 				pstmt.setString(2,boardBean.getBoardContent());
 				pstmt.setInt(3,boardBean.getBoardNum());
+				pstmt.setInt(4,boardBean.getkID());
 				result=pstmt.executeUpdate();
 				
 				
-				sql="update boardfile set originFileName=?,storedFileName=? where board_boardNum=?";
-				pstmt=con.prepareStatement(sql);
-				pstmt.setString(1,boardBean.getOriginFileName());
-				pstmt.setString(2, boardBean.getStoredFileName());
-				pstmt.setInt(3,boardBean.getBoardNum());
-				result=pstmt.executeUpdate();
+				if (boardBean.getOriginFileName()!=null) {
+					
+					sql="update boardfile set originFileName=?,storedFileName=? where board_boardNum=?";
+					pstmt=con.prepareStatement(sql);
+					pstmt.setString(1,boardBean.getOriginFileName());
+					pstmt.setString(2, boardBean.getStoredFileName());
+					pstmt.setInt(3,boardBean.getBoardNum());
+					result=pstmt.executeUpdate();
+				}else {
+					System.out.println("파일없어");
+				}
 				
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -1603,7 +1610,7 @@ public class BoardDAO {
 
 		
 		//사용자 1:1문의 삭제하기
-		public int oneOnOneDelete(int boardNum) {
+		public int oneOnOneDelete(int boardNum, int kID) {
 			int result=0;
 			PreparedStatement pstmt = null;
 			try {
@@ -1613,9 +1620,10 @@ public class BoardDAO {
 				result=pstmt.executeUpdate();
 				
 				
-				sql = "delete from board where boardNum=?";
+				sql = "delete from board where boardNum=? and kID=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1,boardNum);
+				pstmt.setInt(2,kID);
 				result=pstmt.executeUpdate();
 				
 			} catch (Exception e) {

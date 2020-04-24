@@ -30,6 +30,7 @@ public class OrderListCanCelAction implements Action {
 		
 		
 		System.out.println("OrderListCanCelAction");
+		OrderBean orderBean = new OrderBean();
 		MemberBean memberinfo = new MemberBean();
 		
 		HttpSession session=request.getSession();
@@ -42,10 +43,13 @@ public class OrderListCanCelAction implements Action {
 		List<MemberBean> couponList = new ArrayList<MemberBean>();
 		List<OrderBean> orderList = new ArrayList<OrderBean>();
 		List<OrderBean> orderList2 = new ArrayList<OrderBean>();
+		List<OrderBean> deliveryList = new ArrayList<OrderBean>();
+		List<OrderBean> orderCanCelReFundExCange = new ArrayList<OrderBean>();
 		orderList=orderListService.getOrderCanCelList(uId);//주문목록
 		orderList2=orderListService.getMypagePointInfo(uId);//포인트
 		couponList=orderListService.getCouponList(uId);//쿠폰
-		
+		deliveryList=orderListService.getDeliveryList(uId);
+		orderCanCelReFundExCange=orderListService.getorderCanCelReFundExCangeList(uId);
 		for (OrderBean orderBean2 : orderList2) {
 //			System.out.println("포인트 액수"+orderBean2.getPointValue());
 		}
@@ -125,9 +129,20 @@ public class OrderListCanCelAction implements Action {
 //	System.out.println("쓸 수 있는 쿠폰 수"+couponCount);
 	request.setAttribute("couponInfo",couponInfo); //상단에 표시되는 개수 
 	request.setAttribute("couponRealCount",couponCount); //상단에 표시되는 개수 
+	//---------------------------------------배송중 -------------------------------------------		
 	
-	
-	
+		int delivertcount=0;
+		for (OrderBean deliveryList2 : deliveryList) {
+					delivertcount+=1;
+		}
+		request.setAttribute("delivertcount",delivertcount); // 배송중카운트
+		//---------------------------------------교환반품-------------------------------------------		
+		
+			int orderReFundExCangecount=0;
+			for (OrderBean orderCanCelReFundExCange2 : orderCanCelReFundExCange) {
+				orderReFundExCangecount+=1;
+			}
+			request.setAttribute("orderReFundExCangecount",orderReFundExCangecount); // 배송중카운트	
 	
 	
 //---------------------------------------주문 관련-------------------------------------------	
@@ -155,6 +170,8 @@ public class OrderListCanCelAction implements Action {
 			request.setAttribute("couponList",couponList); //쿠폰
 			request.setAttribute("orderList2",orderList2); // 포인트s
 			request.setAttribute("memberinfo",memberinfo); //멤버정보
+			request.setAttribute("deliveryList",deliveryList); //배송중
+			request.setAttribute("orderCanCelReFundExCange",orderCanCelReFundExCange);
 //			System.out.println("멤버등급찍기"+memberinfo.getGrade());
 			
 		

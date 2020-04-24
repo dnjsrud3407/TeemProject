@@ -121,7 +121,7 @@
                   
                 </tr>
 				<tr>
-				 <td colspan="3" style="text-align: right;"> <a class=btn2 href="QModifyForm.bo?boardNum=${boardBean.boardNum}">수정</a><a class=btn2 onclick="javascript:deleteConFirm()" href="QDeletePro.bo?boardNum=${boardBean.boardNum}">삭제</a></td>
+				 <td colspan="3" style="text-align: right;"> <a class=btn2 href="QModifyForm.bo?boardNum=${boardBean.boardNum}&kID=${boardBean.kID}">수정</a><a class=btn2 onclick="javascript:deleteConFirm()" href="QDeletePro.bo?boardNum=${boardBean.boardNum}&kID=${boardBean.kID}">삭제</a></td>
 				</tr>                
                 
                  <tr id="qaback">

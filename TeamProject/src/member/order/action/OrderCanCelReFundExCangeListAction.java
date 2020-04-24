@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.mysql.fabric.xmlrpc.base.Member;
 
 import action.Action;
 import member.account.svc.CouponInfoService;

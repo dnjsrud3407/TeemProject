@@ -137,8 +137,6 @@ ja(document).ready(function () {
 <!-- header -->
 <jsp:include page="/member/top.jsp"></jsp:include>
 <!-- header -->
-<div id="carouselBlk">
-</div>
 <!-- Header End====================================================================== -->
 <div id="mainBody">
 	<div class="container">
@@ -268,7 +266,7 @@ ja(document).ready(function () {
 						<br>
 						 <c:forEach var="couponList" items="${couponList}" varStatus="status">
                     		 <c:if test="${couponList.orderNum eq list.orderNum}">
-                    		  <c:if test="${couponList.couponAction==0}">
+                    		  <c:if test="${couponList.couponAction==1}">
                     	   			<span class="label label-success">사용쿠폰</span>  ${couponList.volume}
                     	    </c:if>
                     	 	</c:if>

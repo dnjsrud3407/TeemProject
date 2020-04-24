@@ -19,6 +19,9 @@ public class QModifyProAction implements Action {
 		System.out.println("QModifyProAction 수정하러가기");
 		ActionForward forward = null;
 		BoardBean boardBean = new BoardBean();
+		
+		int kID=Integer.parseInt(request.getParameter("kID"));
+		System.out.println(kID);
 		int result=0;
 				QModifyProService q_ModifyProService = new QModifyProService();
 		
