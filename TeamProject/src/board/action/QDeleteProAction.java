@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import board.svc.QDeleteProService;
-import oracle.net.aso.k;
 import vo.ActionForward;
 
 public class QDeleteProAction implements Action {
