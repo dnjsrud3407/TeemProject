@@ -3,6 +3,7 @@ package vo;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BoardBean {
@@ -27,13 +28,65 @@ public class BoardBean {
 	private String bookTitle;
 	private String score; // 상품후기 평점
 	private int cID; // 쿠폰 아이디를 View 와 연결시킬 때 주로 사용할 변수 / 액션 - 서비스 - dao 간의 관계에서는 제목 + @_c-I-D_@ + cID 의 형식으로 boardTitle에 담겨서 전송 
+	private List<FileBean> fileList;
+	private List<BoardBean> AnswserList; // 상품문의 관리자 답변 글 들고옴
 	
 	
 	
+
+
+
+
 	
+
+
+
+
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+	public List<BoardBean> getAnswserList() {
+		return AnswserList;
+	}
+
+
+
+
+
+
+
+
+
+	public void setAnswserList(List<BoardBean> answserList) {
+		AnswserList = answserList;
+	}
+
+
+
+
+
+
+
+
+
 	public int getcID() {
 		return cID;
 	}
+
+
+
+
+
 
 
 
@@ -140,7 +193,7 @@ public class BoardBean {
 
 
 
-	private List<FileBean> fileList;
+	
 	
 	public BoardBean() {}
 	

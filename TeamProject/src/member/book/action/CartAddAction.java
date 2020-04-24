@@ -34,7 +34,8 @@ public class CartAddAction implements Action {
 			out.println("<script>"); // 자바스크립트 실행을 위한 <script> 시작 태그
 			out.println("alert('로그인이 필요한 서비스입니다')"); // alert dialog 출력
 			out.println("history.go(-1)"); // 또는 out.println("history.go(-1)");  // 이전 페이지로 돌아가기
-			out.println("</script>"); // 자바스크립트 종료 위한 <script> 끝 태그
+			out.println("</script>");
+			return forward;// 자바스크립트 종료 위한 <script> 끝 태그
 		}
 		int bookID =Integer.parseInt(request.getParameter("bookID"));
 		int qty = 1;

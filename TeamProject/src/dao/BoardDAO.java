@@ -510,6 +510,76 @@ public class BoardDAO {
 
 	
 	// 사용자 상품문의  게시판 불러 올 때 사용
+//	public ArrayList<BoardBean> selectUserQnaList(PageInfo pageInfoQna, int bookID) {
+//		// 게시물 목록 조회 후 리턴
+//		ArrayList<BoardBean> articleQnaList = new ArrayList<BoardBean>();
+//		
+//		int page = pageInfoQna.getPage();
+//		int limit = pageInfoQna.getLimit();
+//		String k1 = pageInfoQna.getK1();
+//		String k2 = pageInfoQna.getK2();
+//		int kID = get_kID(k1);
+//		/* 
+//		 * 전체 게시물 중 원하는 페이지의 게시물 첫번째 row 번호 설정
+//		 * - 원본 글 번호(board_re_ref) 기준으로 내림차순 정렬
+//		 * - 글 순서번호(board_re_seq) 기준으로 오름차순 정렬
+//		 * - 조회할 게시물 갯수 : 첫번째 게시물 위치 ~ limit 수 만큼
+//		 *   첫번째 게시물 위치 = (현재페이지 - 1) * 10
+//		 * 
+//		 * ex) 현재 페이지(page) 가 1 페이지 일 경우 : 게시물 조회 결과의 0번 행부터 10개 가져오기
+//		 */
+//		int startRow = (page - 1) * 10; // 첫번째 게시물 행(row) 번호 계산
+//		String sql ="";
+//		
+//		try {
+////			 조회 결과(ResultSet) 객체가 존재할 경우
+////			 반복문을 사용하여 1개 게시물 정보(패스워드 제외한 나머지)를 BoardBean 객체에 저장하고
+////			 BoardBean 객체를 ArrayList<BoardBean> 객체에 저장 반복
+//			if(k2 != null) {
+//				sql = "SELECT * FROM board WHERE k1=? AND k2=? and NOT boardWriter In ('admin','admin1','admin2','admin3','admin4') ORDER BY board_re_ref DESC, board_re_seq ASC LIMIT ?,?";
+//				pstmt = con.prepareStatement(sql);
+//				pstmt.setString(1, k1); pstmt.setString(2, k2);
+//				pstmt.setInt(3, startRow); pstmt.setInt(4, limit);
+//			} else {
+//				sql = "SELECT * FROM board WHERE bookID=? and kID= (select kID from kategorie where kID=102)"
+//						+ "and NOT boardWriter In ('admin','admin1','admin2','admin3','admin4')"
+//						+ "order by boardReRef DESC, boardReSeq ASC limit ?,?";
+//				pstmt = con.prepareStatement(sql);
+//				pstmt.setInt(1, bookID);
+//				pstmt.setInt(2, startRow); 
+//				pstmt.setInt(3, limit);
+//			}
+//            rs = pstmt.executeQuery();
+//            
+//            // ResultSet 객체 내의 모든 레코드를 각각 레코드별로 BoardBean 에 담아서 ArrayList 객체에 저장
+//            // => 패스워드 제외
+//            while(rs.next()) {
+//                BoardBean boardBean = new BoardBean();
+//                boardBean.setBoardNum(rs.getInt("boardNum"));
+//                boardBean.setBoardWriter(rs.getString("boardWriter"));
+//                boardBean.setBoardTitle(rs.getString("boardTitle"));
+//                boardBean.setBoardContent(rs.getString("boardContent"));
+//                boardBean.setBoardRegTime(rs.getTimestamp("boardRegTime"));
+//                boardBean.setBoardReRef(rs.getInt("boardReRef"));
+//                boardBean.setBoardReLev(rs.getInt("boardReLev"));
+//                boardBean.setBoardReSeq(rs.getInt("boardReSeq"));
+//                boardBean.setBoardReadcount(rs.getInt("boardReadcount"));
+//                boardBean.setBookID(bookID);
+//                articleQnaList.add(boardBean);
+//            }
+//			
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		
+//		return articleQnaList;
+//	}
+
+	
+	// 사용자 상품문의  및 관리자 답변 게시판 불러 올 때 사용
 	public ArrayList<BoardBean> selectUserQnaList(PageInfo pageInfoQna, int bookID) {
 		// 게시물 목록 조회 후 리턴
 		ArrayList<BoardBean> articleQnaList = new ArrayList<BoardBean>();
@@ -564,7 +634,8 @@ public class BoardDAO {
                 boardBean.setBoardReLev(rs.getInt("boardReLev"));
                 boardBean.setBoardReSeq(rs.getInt("boardReSeq"));
                 boardBean.setBoardReadcount(rs.getInt("boardReadcount"));
-                boardBean.setBookID(bookID);
+                boardBean.setBookID(rs.getInt("bookID"));
+                boardBean.setAnswserList(qnaAnswer(bookID,startRow,limit));
                 articleQnaList.add(boardBean);
             }
 			
@@ -577,7 +648,47 @@ public class BoardDAO {
 		
 		return articleQnaList;
 	}
-
+	
+		// 상품문의 관리자 답변 뽑아오기
+	public List<BoardBean> qnaAnswer(int bookID, int startRow , int limit ) {
+			List<BoardBean> qnaAnswerList = new ArrayList<BoardBean>();
+			String sql = "select * from board where bookID=? and kID=102 and  boardReLev=1 order by  boardReRef desc  limit ?,?";
+			
+			ResultSet rs2 = null;
+			PreparedStatement pstmt2 = null;
+			try {
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1, bookID); 
+				pstmt2.setInt(2, startRow); 
+				pstmt2.setInt(3, limit);
+				rs2 = pstmt2.executeQuery();
+				
+				while(rs2.next()) {
+					 BoardBean boardBean = new BoardBean();
+		                boardBean.setBoardNum(rs2.getInt("boardNum"));
+		                boardBean.setBoardWriter(rs2.getString("boardWriter"));
+		                boardBean.setBoardTitle(rs2.getString("boardTitle"));
+		                boardBean.setBoardContent(rs2.getString("boardContent"));
+		                boardBean.setBoardRegTime(rs2.getTimestamp("boardRegTime"));
+		                boardBean.setBoardReRef(rs2.getInt("boardReRef"));
+		                boardBean.setBoardReLev(rs2.getInt("boardReLev"));
+		                boardBean.setBoardReSeq(rs2.getInt("boardReSeq"));
+		                boardBean.setBoardReadcount(rs2.getInt("boardReadcount"));
+		                boardBean.setBookID(bookID);
+		                qnaAnswerList.add(boardBean);
+				}
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rs2);
+				close(pstmt2);
+			}
+		
+		
+		return qnaAnswerList;
+	}
 	// 사용자 상품후기  게시판 불러 올 때 사용
 	public ArrayList<BoardBean> selectUserReviewList(PageInfo pageInfoReview, int bookID) {
 		// 게시물 목록 조회 후 리턴
@@ -1820,7 +1931,7 @@ public class BoardDAO {
 	public BoardBean qnaAnswerBoard(int boardNum, int kID, int bookID) {
 		BoardBean answerBoard = null;
 		String sql = "";
-		ResultSet rs2 = null;
+		
 		System.out.println(boardNum + ", " + kID + ", " + bookID);
 		sql =" select b2.* from board b1 join board b2 on b1.boardReref =b2.boardReref where b2.kID=? "
 				+ "and b1.boardReSeq=1 and b1.boardNum=? and b1.bookID=? and b2.boardNum <> b2.boardreref";

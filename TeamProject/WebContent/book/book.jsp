@@ -58,81 +58,22 @@ boolean isLogin = false;
   	<link rel="css/bookqna.css" rel="stylesheet">
   	<script type="text/javascript" src="./js/jquery-3.4.1.js"></script>
     <script type="text/javascript">
+  	
     $(document).ready(function(){
+    	
     	$(".qna_tr_s").hide();
-    });
-    
-    function hideAnswer(n, b) {
-		var boardNum = n;
-	    var bookID = b;
-    	alert('호출');
-	      
     	
-    $(document).ready(function(){
-//     	$(".qna_tr_s").hide();
-
-// 	    			
-	    		
-// 	    		$('.qna_tr_s').click(function () {
-// 					$(this).hide();
-// 				});
-    		$('.qna_tr_p').click(function(){
-    			$(this).next().slideToggle();	
-//     			$.ajax({
-// 					type:"POST",https://www.w3schools.com/jquery/eff_slidetoggle.asp
-// 					url: './QList.book',
-// 					data:{"boardNum":boardNum,
-// 					"bookID":bookID},
-// 					success:function(data){
-// // 						alert(data);
-// 						$('.qna_tr_s').append(data);
-						
-// 					}
-//     			});
-
-    		});
-    });
-  }
-    
-//     function successNext(data) {
-// 		alert(data);
-		
-// 			qnaIndex = loop;
-			
-// 			alert("qna"+qnaIndex);
-			
-		
-		$(document).ready(function(){
+    	$('.qna_tr_p').click(function(){
     		
-    			
-//     		$('.qna_tr_p').click(function(){
-//     		 			 alert('안되네여');
-// 	    		
-//     		});
+    	$(this).next().slideToggle();	
     	});
-// 	  }	
-
-  
-    	
-    	
-
-    $(document).on("click",".open-AddReview", function (e){
-//     	alert($('#modalIndex1').val());
-	var data = $(e.relatedTarget).data('id');
-	alert(data);
-//     	var i =	$('#modalIndex').val();
-//     	alert(i);
-//     	var reviewImg= $(".rv_img").src("src");
-//     var  img =	$(".review_group").src(".rv_img");
-//     	$(".review_group").attr("src",".cont_img");
-    	
-//     	$('#').val();
-//     	var Title = $(".rv_img").data('id'
-//     	$(".rv_main ")
-//     	var reviewImg = $(".rv_img").src("src");
-    	
-//     	reviewImg.attr("src");
-//     	console.log(reviewImg);
+    })
+    
+    $(document).on("click",".open-AddReview", function (){
+    	var Title = $(".rv_img").data('id');
+    	$(".rv_main ")
+    	var reviewImg = $(".rv_img").attr("src");
+    	console.log(reviewImg);
 //     	var review_t = $('#rv_title').text();
 //     	var review_c = $('#rv_content').text();
 //     	var review_time = $('#rv_regtime').text();
@@ -144,10 +85,10 @@ boolean isLogin = false;
 //     	$('#detail_title').html(review_t);
 //     	$('#detail_content').html(review_c);
     	
-    });
+    })
    
    
-    var isLogin = <%=isLogin %>; 	
+	var isLogin = <%=isLogin%>;
 	var pop_title = document.bookQnaForm;
 	
 	function loginChk() {
@@ -238,8 +179,8 @@ boolean isLogin = false;
 	function kindSubmit(index, qty){
 		if(loginChk()){
 			if(index == 1) {
-				document.kindFrm.action='CartAdd2.book';
-			} else if(index == 2) { 
+				document.kindFrm.action='BookBuy.book';
+			} else if(index == 2) {
 				alert(qty);
 				document.kindFrm.action='CartAdd.book';
 			} else if (index == 3) {
@@ -408,8 +349,8 @@ overflow-x: hidden;
 <!-- Sidebar end=============================================== -->
 	<div class="span9">
     <ul class="breadcrumb">
-    <li><a href="index.jsp">Home</a> <span class="divider">/</span></li>
-    <li><a href="products.jsp">Products</a> <span class="divider">/</span></li>
+    <li><a href="Main.me">Home</a> <span class="divider">/</span></li>
+    <li><a href="BookListALL.book">Products</a> <span class="divider">/</span></li>
     <li class="active">product Details</li>
     </ul>
     <c:set var="book" value="${requestScope.book}"/>
@@ -483,10 +424,7 @@ overflow-x: hidden;
 				</form>
 				<hr class="soft clr"/>
 				<p>
-				14 Megapixels. 18.0 x Optical Zoom. 3.0-inch LCD Screen. Full HD photos and 1280 x 720p HD movie capture. ISO sensitivity ISO6400 at reduced resolution. 
-				Tracking Auto Focus. Motion Panorama Mode. Face Detection technology with Blink detection and Smile and shoot mode. 4 x AA batteries not included. WxDxH 110.2 ×81.4x73.4mm. 
-				Weight 0.341kg (excluding battery and memory card). Weight 0.437kg (including battery and memory card).
-				
+					${book.bookIntroduce }
 				</p>
 				<a class="btn btn-small pull-right" href="#detail">More Details</a>
 				<br class="clr"/>
@@ -541,15 +479,8 @@ overflow-x: hidden;
 				Even at the longest zoom settings or in the most challenging of lighting conditions, the S2950 is able to produce crisp, clean results. With its mechanically stabilised 1/2 3", 14 megapixel CCD sensor, and high ISO sensitivity settings, Fujifilm's Dual Image Stabilisation technology combines to reduce the blurring effects of both hand-shake and subject movement to provide superb pictures.
 				</p>
 				
-				<a href="ReviewList.book"><input type="button" value="리뷰리스트 + 작성"></a><br>
-<!-- 			<a href="ReviewWriteForm.book"><input type="button" value="리뷰작성"></a> -->
-		
-				<br>
-		
-				<a href="QList.book"><input type="button" value="문의 리스트 + 작성"></a>
 				
-				<c:set var="bk2" value="${book.BK2 }"/>
-				 <a href="BookList.book?bk2=${fn:substring(bk2,0,1)}" class="btn btn-large pull-right">Compair Product</a>
+				 <a href="BookListALL.book" class="btn btn-large pull-right">Compair Product</a>
 				 
 				
               </div>
@@ -836,18 +767,17 @@ overflow-x: hidden;
 								<hr class="soft">
 					 </c:if>
 					 
-					 <c:forEach var="review" items="${articleReviewList }" varStatus="status0">
+					 <c:forEach var="review" items="${articleReviewList }" varStatus="status">
 					 	<c:forEach var="file" items="${review.fileList }" varStatus="status"> 
-					  <div class="review_group">
 						<div class="row">	  
 							<div class="span2">
-								<img class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
+								<img id="rv_img${status.index }" class="rv_img" src="boardfile/${file.originFilename}" alt="상품후기이미지">
 							</div>
 							<div class="span4">
 								
-								<a href="#viewDetail?id=${status0.index }" id="modalDetail" role="button" data-toggle="modal"  class="open-AddReview"><h3>New | Available</h3>				
-									<input type="hidden" id="modalIndex${status0.index }" name="index" value="${status0.index }"/>
-									<h5 id="rv_title" class="rv_title">${status0.index}${review.boardTitle }</h5>
+								<a href="#viewDetail" role="button" data-toggle="modal" class="open-AddReview" onclick="readcountUp('<c:out value="${review.boardNum}"/>')"><h3>New | Available</h3>				
+									
+									<h5 id="rv_title" class="rv_title">${review.boardTitle } </h5>
 									<p id="rv_content" class="rv_content">
 										${review.boardContent }
 									</p>
@@ -882,7 +812,6 @@ overflow-x: hidden;
 							</div>
 						</div>
 								<hr class="soft">
-						</div>		
 							</c:forEach>
 						</c:forEach>
 								<div style="text-align: right;"> 상품평은 구매완료 후 <a href="OrderList.mo">수취확인</a>에서 작성하실 수 있습니다.</div>
@@ -943,14 +872,15 @@ overflow-x: hidden;
 					         </tr>
 					       </thead>
 					       <tbody>
+					       
 							<c:forEach var="qna" items="${articleQnaList}" varStatus="status">
-					       		<tr class="qna_tr_p" onclick="hideAnswer('${qna.boardNum}','${qna.bookID}')">
+					       		<tr class="qna_tr_p">
 									<!-- 전체 레코드 수 - ( (현재 페이지 번호 - 1) * 한 페이지당 보여지는 레코드 수 + 현재 게시물 출력 순서 ) -->
 									<td>${pageInfoQna.listCount -((pageInfoQna.page-1)* pageInfoQna.pageBlock + status.index)}</td>
-	           		 					<td><c:if test="${0 == qna.boardReSeq}"> 
+									<td><c:if test="${0 == qna.boardReSeq}"> 
 	           		 					답변전
 	           		 					</c:if>
-	           		 					<c:if test="${0 < qna.boardReSeq}"> 
+	           		 					<c:if test="${1 == qna.boardReSeq}"> 
 	           		 					답변완료 
 	           		 					</c:if>  
 					           		<td>${qna.boardTitle }</td>
@@ -958,24 +888,35 @@ overflow-x: hidden;
 									<td>${qna.boardRegTime }</td>
 								</tr>
 								<tr class="qna_tr_s" style="display: table-row;">
-								 
-									<td><!--  class="td_rgt" -->
-	
-							       
-							         
-							           Q ${qna.boardContent}<br>
-                                      A 판매자의 답변   jfdklgjldjgfkjglfjljgjfjgkldjkljigsourttt jfdklgjldjgfkjglfjljgjfjgkldjkljigsourttt<br>
-                                                                                         판매자의 답변 등록일 : 2020-04-09
-							       
-							    	
-									</td>
+								<td colspan="4"> 		Q ${qna.boardContent}<br>
+								 <c:if test="${qna.boardReSeq == 1}">
+							       	<c:set var="doneLoop" value="false"/>
+							         	<c:forEach  var="ans" items="${qna.AnswserList}" varStatus="status">
+							         	  <c:if test="${not doneLoop }">
+							         		A 판매자의 답변 : ${ans.boardContent}<br>
+                                      	  	판매자의 답변 등록일 : ${ans.boardRegTime}
+							         		<c:if test="${status.index+1 eq 1}">
+							         	
+							         		<c:set var="doneLoop" value="true"/>	
+							         		</c:if>
+							         	</c:if>
+							         	</c:forEach>
+							       </c:if>
+							  	</td>
+							    					    
+							        
+							          		
+                                        		
+                                          	 
+                                        
 									<td colspan="2" style="vertical-align: bottom;">
-									 
-							    	 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 </button>
-							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 </button>
-							    	
+									<c:if test="${sessionScope.uID eq qna.boardWriter}">
+							    	 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('m','<c:out value="${qna.boardNum}"/>')">글 수정하기 <span class=""></span></button>
+							         <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown" onclick="openQna('d','<c:out value="${qna.boardNum}"/>')">글 삭제하기 <span class=""></span></button>
+							    	</c:if>
 									</td>
-								</tr>				
+								</tr>
+											
   							</c:forEach>
 							</tbody>
 					    </table>
@@ -1000,7 +941,24 @@ overflow-x: hidden;
 							<br class="clr"/>
 						</c:if>	
 					 </div>
-
+<!-- 					 <a href="compair.html" class="btn btn-large pull-right">Compair Product</a> -->
+<!-- 						<div class="pagination"> -->
+<!-- 							<ul> -->
+<%-- 							<li><c:if test="${pageInfo.startPage > pageBlock }"> --%>
+<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage-pageInfo.pageBlock }"/>'>&lsaquo;</a></c:if></li> --%>
+<!-- 							<li> -->
+<%-- 							<c:forEach var="i" begin="${pageInfo.startPage }" end="${pageInfo.endPage }" step="1"> --%>
+<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID}&page=${i}"/>'>${i}</a> --%>
+<%-- 							</c:forEach></li> --%>
+<!-- <!-- 							<li><a href="#bookqna&page=2">2</a></li> --> 
+<!-- <!-- 							<li><a href="#bookqna#&page=3">3</a></li> --> 
+<!-- <!-- 							<li><a href="#bookqna#&page=4">4</a></li> --> 
+<!-- 							<li><a href="#">...</a></li> -->
+<%-- 							<li><c:if test="${pageInfo.endPage < pageInfo.maxPage }"> --%>
+<%-- 							<a href='<c:url value="/Book.book?bookID=${book.bookID }&page=${pageInfo.startPage + pageInfo.pageBlock}"/>'>&rsaquo;</a></c:if></li> --%>
+<!-- 							</ul> -->
+<!-- 							</div> -->
+<!-- 							<br class="clr"/> -->
 						</div>
           			</div>
 
@@ -1062,7 +1020,7 @@ overflow-x: hidden;
 				</div>
 				<div class="scroll_area" style="max-height: 415px;">
 					<div class="cont_box">
-					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img"></p>
+					<p class="cont_p" style="text-align: center;"><img alt="상품후기이미지" id="cont_img" class="modal_img"></p>
 					<p class="cont_text" style="margin: 10px;" id="detail_content"></p>
 					<hr>
 					</div>
