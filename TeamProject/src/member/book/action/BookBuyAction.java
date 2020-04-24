@@ -28,24 +28,24 @@ public class BookBuyAction implements Action {
 		
 		
 		// 장바구니에서 상품 1~n 개 선택한 경우
-//		if(request.getParameterValues("cartNumList") != null) {
+		if(request.getParameterValues("cartNumList") != null) {
 			
-//			String[] cartNumList = request.getParameterValues("cartNumList");
+			String[] cartNumList = request.getParameterValues("cartNumList");
 			// ==== 장바구니에서 선택한 장바구니 번호
-//			String cartNumStr = "";
-//			for(int i = 0; i < cartNumList.length; i++) {
-//				cartNumStr += cartNumList[i];
-//				if(i < cartNumList.length - 1) {
-//					cartNumStr += ",";
-//				}
-//			}
+			String cartNumStr = "";
+			for(int i = 0; i < cartNumList.length; i++) {
+				cartNumStr += cartNumList[i];
+				if(i < cartNumList.length - 1) {
+					cartNumStr += ",";
+				}
+			}
 					
 			HttpSession session = request.getSession();
 			String uID = (String)session.getAttribute("uID");
 	
 			// ==== 카트 목록 정보 가져오기
-//			CartListService bookCartListService = new CartListService();
-//			ArrayList<CartBean> cartList = bookCartListService.getCartList(uID, cartNumStr);
+			CartListService bookCartListService = new CartListService();
+			ArrayList<CartBean> cartList = bookCartListService.getCartList(uID, cartNumStr);
 			
 			
 			// ==== 유저 쿠폰 리스트  가져오기
@@ -64,12 +64,12 @@ public class BookBuyAction implements Action {
 			int bookPrice = 0;
 
 			// 장바구니 항목 각각의 금액 계산한 후 각 금액을 전체 합계 금액에 누적
-//			if (cartList != null) {
-//				for (int i = 0; i < cartList.size(); i++) {
-//					bookPrice = cartList.get(i).getBookPrice() * cartList.get(i).getBookEA(); // 상품 금액 * 수량
-//					totalPrice += bookPrice; // 전체 금액
-//				}
-//			}
+			if (cartList != null) {
+				for (int i = 0; i < cartList.size(); i++) {
+					bookPrice = cartList.get(i).getBookPrice() * cartList.get(i).getBookEA(); // 상품 금액 * 수량
+					totalPrice += bookPrice; // 전체 금액
+				}
+			}
 			
 			int shipPrice = 2500;
 			if(totalPrice >= 50000) {
@@ -86,16 +86,16 @@ public class BookBuyAction implements Action {
 			
 			forward = new ActionForward();
 			forward.setPath("./book/book_buy.jsp");
-//		} else {	// cartNumList가 null이라면
-//			response.setContentType("text/html; charset=UTF-8");
-//            PrintWriter out = response.getWriter();
-//            
-//            out.println("<script>");        
-//            out.println("alert('주문할 상품을 선택해주세요')");
-//            // 이전 페이지로 돌아가기
-//            out.println("history.back()");       
-//            out.println("</script>");
-//		}
+		} else {	// cartNumList가 null이라면
+			response.setContentType("text/html; charset=UTF-8");
+            PrintWriter out = response.getWriter();
+            
+            out.println("<script>");        
+            out.println("alert('주문할 상품을 선택해주세요')");
+            // 이전 페이지로 돌아가기
+            out.println("history.back()");       
+            out.println("</script>");
+		}
 		
 		return forward;
 	}

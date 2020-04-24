@@ -97,7 +97,7 @@
         
      
 
-        <li><a href="EventList.bo">이벤트</a>
+        <li><a href="EventUserList.bo">이벤트</a>
 
             <ul class="main2">
 

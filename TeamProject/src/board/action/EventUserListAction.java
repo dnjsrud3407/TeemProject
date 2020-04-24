@@ -1,4 +1,4 @@
-package admin.board.action;
+package board.action;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +14,21 @@ import vo.BoardBean;
 import vo.CouponBean;
 import vo.PageInfo;
 import static access.Access.*;
-public class EventListAction implements Action {
+public class EventUserListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
-		System.out.println("이벤트 보기");
+		System.out.println("유저 이벤트 보기");
 		request.setCharacterEncoding("UTF-8");
+		
+		
 		// 관리자 체크
-		HttpSession session = request.getSession();
-		if(!isAdmin(session)) {
-			forward = deniedAccess(session);
-			return forward;
-		}
+//		HttpSession session = request.getSession();
+//		if(!isAdmin(session)) {
+//			forward = deniedAccess(session);
+//			return forward;
+//		}
 		// PageInfo 객체 선언
 		PageInfo pageInfo = new PageInfo();
 		int page = 1;  // 현 페이지 정보
@@ -83,7 +85,14 @@ public class EventListAction implements Action {
 		
 		forward = new ActionForward();
 		// 이벤트로 고칠것
-		forward.setPath("admin/board/EventList.jsp");
+		forward.setPath("board/EventBoard.jsp");
+		
+//		if (!uId.equals("admin")) {
+//			forward.setPath("board/EventBoard.jsp");
+//		}else {
+//			forward.setPath("/admin/board/EventList.jsp");
+//		}
+//		
 		
 		return forward;
 	}
