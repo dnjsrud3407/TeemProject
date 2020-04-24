@@ -66,9 +66,9 @@ boolean isLogin = false;
 
     });
     
-    function hideAnswer(n, b) {
-		var boardNum = n;
-	    var bookID = b;
+//     function hideAnswer(n, b) {
+// 		var boardNum = n;
+// 	    var bookID = b;
 //     	alert('호출');
 	      
 
