@@ -63,6 +63,10 @@ boolean isLogin = false;
     $(document).ready(function(){
     	
     	$(".qna_tr_s").hide();
+    	$('.qna_tr_p').click(function(){
+    		
+        	$(this).next().slideToggle();	
+        	});
 
     });
     
@@ -73,11 +77,8 @@ boolean isLogin = false;
 	      
 
     	
-    	$('.qna_tr_p').click(function(){
-    		
-    	$(this).next().slideToggle();	
-    	});
-    }
+    
+
     
     $(document).on("click",".open-AddReview", function (){
     	var Title = $(".rv_img").data('id');
