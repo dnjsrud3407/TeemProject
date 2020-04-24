@@ -83,21 +83,10 @@
 			</div>
 			<div class="span3 alignR">
 			<form class="form-horizontal qtyFrm">
-
-			<h3> ${book.bookPrice }</h3>
-			
-			<label class="checkbox">
-				<input type="checkbox">  Adds product to compair
-			</label><br/>
-			  <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
-			  <a href="BookBuy2.book" class="btn btn-large"><i class="icon-zoom-in"></i></a>
-				</form>
-
 				<h3>${book.bookPrice }<small>원</small></h3>
 			    <a href="CartAdd.book?bookID=${book.bookID }" class="btn btn-large btn-primary"> Add to <i class=" icon-shopping-cart"></i></a>
 			    <a href="Book.book?bookID=${book.bookID }" class="btn btn-large"><i class="icon-zoom-in"></i></a>
 			</form>
-
 			</div>
 		</div>
 		
@@ -118,11 +107,7 @@
 					  <p style="height: 50px;text-overflow: ellipsis;white-space: nowrap; overflow: hidden;"> 
 						${book.bookIntroduce }
 					  </p>
-
-					    <h4 style="text-align:center"><a class="btn" href="Book.book"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="BookBuy2.book">&euro;222.00</a></h4>
-
 					    <h4 style="text-align:center"><a class="btn" href="Book.book?bookID=${book.bookID }"> <i class="icon-zoom-in"></i></a> <a class="btn" href="CartAdd.book?bookID=${book.bookID }">Add to <i class="icon-shopping-cart"></i></a> <a class="btn btn-primary" href="#">${book.bookPrice }원</a></h4>
-
 					</div>
 				  </div>
 				</li>
@@ -215,4 +200,3 @@
     
 
 </body>
-</html>
