@@ -171,11 +171,11 @@
 <c:forEach var="articleList"  items="${articleList}" varStatus="status">
 			<li class="span3">
 			  <div class="thumbnail">
-				<a href="EventDetail.adb?boardNum=${articleList.boardNum}"><img src="EventDetail.adb?boardNum=${articleList.boardNum}" alt=""/></a>
+				<a href="EventUserDetail.bo?boardNum=${articleList.boardNum}"><img src="EventUserDetail.bo?boardNum=${articleList.boardNum}" alt=""/></a>
 				<div class="caption">
-				  <h5><a href="EventDetail.adb?boardNum=${articleList.boardNum}">${articleList.boardTitle}</a></h5>
-				  <p onclick="location.href='EventDetail.adb?boardNum=${articleList.boardNum}'"> 
-						<c:forEach var="file" items="${articleList.fileList }" varStatus="varStatus"><img src="boardFile/${file.storedFileName }" onclick="location.href='EventDetail.adb?boardNum=${articleList.boardNum}'"></c:forEach>
+				  <h5><a href="EventUserDetail.bo?boardNum=${articleList.boardNum}">${articleList.boardTitle}</a></h5>
+				  <p onclick="location.href='EventUserDetail.bo?boardNum=${articleList.boardNum}'"> 
+						<c:forEach var="file" items="${articleList.fileList }" varStatus="varStatus"><img src="boardFile/${file.storedFileName }" onclick="location.href='EventUserDetail.bo?boardNum=${articleList.boardNum}'"></c:forEach>
 				  </p>
 				</div>
 			  </div>

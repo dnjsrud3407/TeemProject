@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import admin.board.action.EventDetailAction;
 import admin.board.action.EventListAction;
+import board.action.EventUserDetailAction;
 import board.action.EventUserListAction;
 import board.action.FAQDeleteProAction;
 import board.action.FAQDetailAction;
@@ -217,6 +218,13 @@ public class BoardController extends HttpServlet {
             }
         }else if(command.equals("/EventUserList.bo")) { //----------Event List
             action = new EventUserListAction();
+            try {
+                forward = action.execute(request, response);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }else if(command.equals("/EventUserDetail.bo")) { //----------Event List
+            action = new EventUserDetailAction();
             try {
                 forward = action.execute(request, response);
             } catch (Exception e) {
