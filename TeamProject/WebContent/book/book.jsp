@@ -190,15 +190,9 @@ boolean isLogin = false;
 	function kindSubmit(index, qty){
 		if(loginChk()){
 			if(index == 1) {
-
-				document.kindFrm.action='BookBuy.book';
-			} else if(index == 2) {
-				alert(qty);
-
 				document.kindFrm.action='CartAdd2.book';
 			} else if(index == 2) { 
 // 				alert(qty);
-
 				document.kindFrm.action='CartAdd.book';
 			} else if (index == 3) {
 				document.kindFrm.action='BookLike.book';
